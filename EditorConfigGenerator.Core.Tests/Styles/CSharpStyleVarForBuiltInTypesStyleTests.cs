@@ -35,9 +35,10 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var style = new CSharpStyleVarForBuiltInTypesStyle(new BooleanData(default, default, default));
 
 			var statement = SyntaxFactory.ParseStatement("var x = 0;") as LocalDeclarationStatementSyntax;
-			style = style.Update(statement);
+			var newStyle = style.Update(statement);
 
-			var data = style.Data;
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
 			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
 			Assert.That(data.TrueOccurences, Is.EqualTo(1u), nameof(data.TrueOccurences));
 			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
@@ -49,9 +50,10 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var style = new CSharpStyleVarForBuiltInTypesStyle(new BooleanData(default, default, default));
 
 			var statement = SyntaxFactory.ParseStatement("int x = 0;") as LocalDeclarationStatementSyntax;
-			style = style.Update(statement);
+			var newStyle = style.Update(statement);
 
-			var data = style.Data;
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
 			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
 			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
 			Assert.That(data.FalseOccurences, Is.EqualTo(1u), nameof(data.FalseOccurences));
@@ -63,12 +65,9 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var style = new CSharpStyleVarForBuiltInTypesStyle(new BooleanData(default, default, default));
 
 			var statement = SyntaxFactory.ParseStatement("int x = 0") as LocalDeclarationStatementSyntax;
-			style = style.Update(statement);
+			var newStyle = style.Update(statement);
 
-			var data = style.Data;
-			Assert.That(data.TotalOccurences, Is.EqualTo(default(uint)), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(default(uint)), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(default(uint)), nameof(data.FalseOccurences));
+			Assert.That(newStyle, Is.SameAs(style), nameof(newStyle));
 		}
 	}
 }
