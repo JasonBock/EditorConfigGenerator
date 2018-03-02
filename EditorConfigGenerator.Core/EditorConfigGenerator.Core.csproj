@@ -7,4 +7,8 @@
     <WarningsAsErrors />
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="2.6.1" />
+  </ItemGroup>
+
 </Project>

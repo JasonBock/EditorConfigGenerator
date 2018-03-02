@@ -1,9 +1,12 @@
-﻿namespace EditorConfigGenerator.Core
+﻿namespace EditorConfigGenerator.Core.Statistics
 {
-	public sealed class BooleanStatistics
-		: Statistics
+	public sealed class BooleanData
+		: Data
 	{
-		public BooleanStatistics(uint totalOccurences,
+		public BooleanData() 
+			: base(default) { }
+
+		public BooleanData(uint totalOccurences,
 			uint trueOccurences, uint falseOccurences)
 			: base(totalOccurences)
 		{
@@ -11,8 +14,8 @@
 			this.FalseOccurences = falseOccurences;
 		}
 
-		public BooleanStatistics Update(bool isTrue) =>
-			new BooleanStatistics(this.TotalOccurences + 1,
+		public BooleanData Update(bool isTrue) =>
+			new BooleanData(this.TotalOccurences + 1,
 				isTrue ? this.TrueOccurences + 1 : this.TrueOccurences,
 				!isTrue ? this.FalseOccurences + 1 : this.FalseOccurences);
 
