@@ -1,7 +1,9 @@
-﻿namespace EditorConfigGenerator.Core.Statistics
+﻿using System;
+
+namespace EditorConfigGenerator.Core.Statistics
 {
 	public sealed class BooleanData
-		: Data
+		: Data<BooleanData>
 	{
 		public BooleanData() 
 			: base(default) { }
@@ -18,6 +20,15 @@
 			new BooleanData(this.TotalOccurences + 1,
 				isTrue ? this.TrueOccurences + 1 : this.TrueOccurences,
 				!isTrue ? this.FalseOccurences + 1 : this.FalseOccurences);
+
+		public override BooleanData Add(BooleanData data)
+		{
+			if(data == null) { throw new ArgumentNullException(nameof(data)); }
+			return new BooleanData(
+				this.TotalOccurences + data.TotalOccurences,
+				this.TrueOccurences + data.TrueOccurences,
+				this.FalseOccurences + data.FalseOccurences);
+		}
 
 		public uint FalseOccurences { get; }
 		public uint TrueOccurences { get; }

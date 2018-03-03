@@ -19,7 +19,14 @@ namespace EditorConfigGenerator.Core
 			base.VisitLocalDeclarationStatement(node);
 		}
 
-		public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; private set; } = 
+		public StyleWalker Add(StyleWalker walker) =>
+			new StyleWalker
+			{
+				CSharpStyleVarForBuiltInTypesStyle =
+					this.CSharpStyleVarForBuiltInTypesStyle.Add(walker.CSharpStyleVarForBuiltInTypesStyle)
+			};
+
+		public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; private set; } =
 			new CSharpStyleVarForBuiltInTypesStyle(new BooleanData());
 	}
 }

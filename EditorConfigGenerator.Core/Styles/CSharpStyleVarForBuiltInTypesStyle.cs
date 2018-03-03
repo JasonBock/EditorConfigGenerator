@@ -12,6 +12,12 @@ namespace EditorConfigGenerator.Core.Styles
 		public CSharpStyleVarForBuiltInTypesStyle(BooleanData data)
 			: base(data) { }
 
+		public override CSharpStyleVarForBuiltInTypesStyle Add(CSharpStyleVarForBuiltInTypesStyle style)
+		{
+			if(style == null) { throw new ArgumentNullException(nameof(style)); }
+			return new CSharpStyleVarForBuiltInTypesStyle(this.Data.Add(style.Data));
+		}
+
 		public override CSharpStyleVarForBuiltInTypesStyle Update(
 			LocalDeclarationStatementSyntax node)
 		{

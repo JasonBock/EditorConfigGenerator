@@ -1,6 +1,7 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using NUnit.Framework;
 using Spackle;
+using System;
 
 namespace EditorConfigGenerator.Core.Tests.Statistics
 {
@@ -29,6 +30,25 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			Assert.That(data.TotalOccurences, Is.EqualTo(default(uint)), nameof(data.TotalOccurences));
 			Assert.That(data.TrueOccurences, Is.EqualTo(default(uint)), nameof(data.TrueOccurences));
 			Assert.That(data.FalseOccurences, Is.EqualTo(default(uint)), nameof(data.FalseOccurences));
+		}
+
+		[Test]
+		public static void Add()
+		{
+			var data1 = new BooleanData(3u, 1u, 2u);
+			var data2 = new BooleanData(30u, 10u, 20u);
+			var data3 = data1.Add(data2);
+
+			Assert.That(data3.TotalOccurences, Is.EqualTo(33u), nameof(data3.TotalOccurences));
+			Assert.That(data3.TrueOccurences, Is.EqualTo(11u), nameof(data3.TrueOccurences));
+			Assert.That(data3.FalseOccurences, Is.EqualTo(22u), nameof(data3.FalseOccurences));
+		}
+
+		[Test]
+		public static void AddWithNull()
+		{
+			var data = new BooleanData();
+			Assert.That(() => data.Add(null), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
