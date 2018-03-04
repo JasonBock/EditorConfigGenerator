@@ -3,14 +3,15 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Linq;
+using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStyleVarForBuiltInTypesStyle
 		: Style<BooleanData, LocalDeclarationStatementSyntax, CSharpStyleVarForBuiltInTypesStyle>
 	{
-		public CSharpStyleVarForBuiltInTypesStyle(BooleanData data)
-			: base(data) { }
+		public CSharpStyleVarForBuiltInTypesStyle(BooleanData data, Severity severity = Severity.Error)
+			: base(data, severity) { }
 
 		public override CSharpStyleVarForBuiltInTypesStyle Add(CSharpStyleVarForBuiltInTypesStyle style)
 		{
@@ -42,6 +43,17 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override string Setting => "csharp_style_var_for_built_in_types";
+		public override string GetSetting()
+		{
+			if (this.Data.TotalOccurences > 0)
+			{
+				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
+				return $"csharp_style_var_for_built_in_types = {value}:{this.Severity.GetDescription()}";
+			}
+			else
+			{
+				return string.Empty;
+			}
+		}
 	}
 }

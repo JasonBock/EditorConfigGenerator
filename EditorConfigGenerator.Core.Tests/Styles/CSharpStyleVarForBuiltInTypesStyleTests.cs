@@ -11,12 +11,39 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	public static class CSharpStyleVarForBuiltInTypesStyleTests
 	{
 		[Test]
-		public static void Create()
+		public static void CreateWithCustomSeverity()
+		{
+			const Severity suggestion = Severity.Suggestion;
+			var data = new BooleanData();
+			var style = new CSharpStyleVarForBuiltInTypesStyle(data, suggestion);
+			Assert.That(style.Severity, Is.EqualTo(suggestion), nameof(style.Data));
+		}
+
+		[Test]
+		public static void CreateWithNoData()
 		{
 			var data = new BooleanData();
 			var style = new CSharpStyleVarForBuiltInTypesStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.Setting, Is.EqualTo("csharp_style_var_for_built_in_types"), nameof(style.Setting));
+			Assert.That(style.GetSetting(), Is.EqualTo(string.Empty), nameof(style.GetSetting));
+		}
+
+		[Test]
+		public static void CreateWithMoreFalseData()
+		{
+			var data = new BooleanData(1u, 0u, 1u);
+			var style = new CSharpStyleVarForBuiltInTypesStyle(data);
+			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
+			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_var_for_built_in_types = false:error"), nameof(style.GetSetting));
+		}
+
+		[Test]
+		public static void CreateWithMoreTrueData()
+		{
+			var data = new BooleanData(1u, 1u, 0u);
+			var style = new CSharpStyleVarForBuiltInTypesStyle(data);
+			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
+			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_var_for_built_in_types = true:error"), nameof(style.GetSetting));
 		}
 
 		[Test]

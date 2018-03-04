@@ -1,8 +1,9 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
+﻿using EditorConfigGenerator.Core.Styles;
+using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using System;
 
-namespace EditorConfigGenerator.Core.Tests
+namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
 	public static class StyleWalkerTests

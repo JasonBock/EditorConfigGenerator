@@ -1,11 +1,11 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
-using EditorConfigGenerator.Core.Styles;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Text;
 
-namespace EditorConfigGenerator.Core
+namespace EditorConfigGenerator.Core.Styles
 {
 	internal sealed class StyleWalker
 		: CSharpSyntaxWalker
@@ -21,6 +21,20 @@ namespace EditorConfigGenerator.Core
 				CSharpStyleVarForBuiltInTypesStyle =
 					this.CSharpStyleVarForBuiltInTypesStyle.Add(walker.CSharpStyleVarForBuiltInTypesStyle)
 			};
+		}
+
+		public string GenerateConfiguration()
+		{
+			var builder = new StringBuilder();
+			builder.AppendLine("[*.cs]");
+			StyleWalker.AppendSetting(
+				this.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
+			return builder.ToString();
+		}
+
+		private static void AppendSetting(string setting, StringBuilder builder)
+		{
+			if (!string.IsNullOrWhiteSpace(setting)) { builder.AppendLine(setting); }
 		}
 
 		public override void VisitLocalDeclarationStatement(LocalDeclarationStatementSyntax node)
