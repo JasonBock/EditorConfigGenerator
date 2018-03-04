@@ -6,8 +6,13 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <StartupObject>EditorConfigGenerator.Program</StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="0.1.0-preview2-180304-1" />
+  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\EditorConfigGenerator.Core\EditorConfigGenerator.Core.csproj" />
   </ItemGroup>
