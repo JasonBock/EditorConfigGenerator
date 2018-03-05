@@ -8,11 +8,7 @@ namespace EditorConfigGenerator.Core.Styles
 		where TNode : SyntaxNode
 		where TStyle : Style<TData, TNode, TStyle>
 	{
-		protected Style(TData data, Severity severity = Severity.Error)
-		{
-			this.Data = data;
-			this.Severity = severity;
-		}
+		protected Style(TData data) => this.Data = data;
 
 		public abstract TStyle Add(TStyle style);
 
@@ -21,6 +17,5 @@ namespace EditorConfigGenerator.Core.Styles
 		public abstract TStyle Update(TNode node);
 
 		public TData Data { get; }
-		public Severity Severity { get; }
 	}
 }

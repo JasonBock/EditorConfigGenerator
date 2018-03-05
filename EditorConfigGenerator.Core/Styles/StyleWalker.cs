@@ -19,7 +19,9 @@ namespace EditorConfigGenerator.Core.Styles
 			return new StyleWalker
 			{
 				CSharpStyleVarForBuiltInTypesStyle =
-					this.CSharpStyleVarForBuiltInTypesStyle.Add(walker.CSharpStyleVarForBuiltInTypesStyle)
+					this.CSharpStyleVarForBuiltInTypesStyle.Add(walker.CSharpStyleVarForBuiltInTypesStyle),
+				IndentStyleStyle = 
+					this.IndentStyleStyle.Add(walker.IndentStyleStyle)
 			};
 		}
 
@@ -29,12 +31,21 @@ namespace EditorConfigGenerator.Core.Styles
 			builder.AppendLine("[*.cs]");
 			StyleWalker.AppendSetting(
 				this.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
+			StyleWalker.AppendSetting(
+				this.IndentStyleStyle.GetSetting(), builder);
 			return builder.ToString();
 		}
 
 		private static void AppendSetting(string setting, StringBuilder builder)
 		{
 			if (!string.IsNullOrWhiteSpace(setting)) { builder.AppendLine(setting); }
+		}
+
+		public override void Visit(SyntaxNode node)
+		{
+			this.IndentStyleStyle =
+				this.IndentStyleStyle.Update(node);
+			base.Visit(node);
 		}
 
 		public override void VisitLocalDeclarationStatement(LocalDeclarationStatementSyntax node)
@@ -46,5 +57,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; private set; } =
 			new CSharpStyleVarForBuiltInTypesStyle(new BooleanData());
+		public IndentStyleStyle IndentStyleStyle { get; private set; } =
+			new IndentStyleStyle(new TabSpaceData());
 	}
 }

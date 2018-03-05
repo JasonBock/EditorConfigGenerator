@@ -8,7 +8,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStyleVarForBuiltInTypesStyle
-		: Style<BooleanData, LocalDeclarationStatementSyntax, CSharpStyleVarForBuiltInTypesStyle>
+		: SeverityStyle<BooleanData, LocalDeclarationStatementSyntax, CSharpStyleVarForBuiltInTypesStyle>
 	{
 		public CSharpStyleVarForBuiltInTypesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
@@ -19,10 +19,23 @@ namespace EditorConfigGenerator.Core.Styles
 			return new CSharpStyleVarForBuiltInTypesStyle(this.Data.Add(style.Data));
 		}
 
+		public override string GetSetting()
+		{
+			if (this.Data.TotalOccurences > 0)
+			{
+				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
+				return $"csharp_style_var_for_built_in_types = {value}:{this.Severity.GetDescription()}";
+			}
+			else
+			{
+				return string.Empty;
+			}
+		}
+
 		public override CSharpStyleVarForBuiltInTypesStyle Update(
 			LocalDeclarationStatementSyntax node)
 		{
-			if(node == null) { throw new ArgumentNullException(nameof(node)); }
+			if (node == null) { throw new ArgumentNullException(nameof(node)); }
 
 			if (!node.ContainsDiagnostics)
 			{
@@ -40,19 +53,6 @@ namespace EditorConfigGenerator.Core.Styles
 			else
 			{
 				return this;
-			}
-		}
-
-		public override string GetSetting()
-		{
-			if (this.Data.TotalOccurences > 0)
-			{
-				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_style_var_for_built_in_types = {value}:{this.Severity.GetDescription()}";
-			}
-			else
-			{
-				return string.Empty;
 			}
 		}
 	}
