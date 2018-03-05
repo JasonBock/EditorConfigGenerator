@@ -9,16 +9,16 @@ namespace EditorConfigGenerator.Core.Styles
 	{
 		public static string GenerateFromSolution(string solutionFile)
 		{
-			Console.Out.WriteLine($"Analyzing {solutionFile}...");
+			Console.Out.WriteLine($"Analyzing {Path.GetFileName(solutionFile)}...");
 			var manager = new AnalyzerManager(solutionFile);
 			var walker = new StyleWalker();
 
 			foreach (var project in manager.Projects)
 			{
-				Console.Out.WriteLine($"\tAnalyzing {project.Value.ProjectFilePath}...");
+				Console.Out.WriteLine($"\tAnalyzing {Path.GetFileName(project.Value.ProjectFilePath)}...");
 				foreach (var sourceFile in project.Value.GetSourceFiles())
 				{
-					Console.Out.WriteLine($"\t\tAnalyzing {sourceFile}...");
+					Console.Out.WriteLine($"\t\tAnalyzing {Path.GetFileName(sourceFile)}...");
 					StyleGenerator.ProcessSourceFile(sourceFile, walker);
 				}
 			}
@@ -28,14 +28,14 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public static string GenerateFromProject(string projectFile)
 		{
-			Console.Out.WriteLine($"Analyzing {projectFile}...");
+			Console.Out.WriteLine($"Analyzing {Path.GetFileName(projectFile)}...");
 			var manager = new AnalyzerManager();
 			var project = manager.GetProject(projectFile);
 			var walker = new StyleWalker();
 
 			foreach (var sourceFile in project.GetSourceFiles())
 			{
-				Console.Out.WriteLine($"\tAnalyzing {sourceFile}...");
+				Console.Out.WriteLine($"\tAnalyzing {Path.GetFileName(sourceFile)}...");
 				StyleGenerator.ProcessSourceFile(sourceFile, walker);
 			}
 
@@ -44,7 +44,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public static string GenerateFromSourceFile(string sourceFile)
 		{
-			Console.Out.WriteLine($"Analyzing {sourceFile}...");
+			Console.Out.WriteLine($"Analyzing {Path.GetFileName(sourceFile)}...");
 			var walker = new StyleWalker();
 			StyleGenerator.ProcessSourceFile(sourceFile, walker);
 			return walker.GenerateConfiguration();
