@@ -18,6 +18,8 @@ namespace EditorConfigGenerator.Core.Styles
 			if (walker == null) { throw new ArgumentNullException(nameof(walker)); }
 			return new StyleWalker
 			{
+				CSharpStyleExpressionBodiedMethodsStyle =
+					this.CSharpStyleExpressionBodiedMethodsStyle.Add(walker.CSharpStyleExpressionBodiedMethodsStyle),
 				CSharpStyleVarForBuiltInTypesStyle =
 					this.CSharpStyleVarForBuiltInTypesStyle.Add(walker.CSharpStyleVarForBuiltInTypesStyle),
 				IndentStyleStyle = 
@@ -29,6 +31,8 @@ namespace EditorConfigGenerator.Core.Styles
 		{
 			var builder = new StringBuilder();
 			builder.AppendLine("[*.cs]");
+			StyleWalker.AppendSetting(
+				this.CSharpStyleExpressionBodiedMethodsStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
 				this.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
@@ -55,6 +59,15 @@ namespace EditorConfigGenerator.Core.Styles
 			base.VisitLocalDeclarationStatement(node);
 		}
 
+		public override void VisitMethodDeclaration(MethodDeclarationSyntax node)
+		{
+			this.CSharpStyleExpressionBodiedMethodsStyle =
+				this.CSharpStyleExpressionBodiedMethodsStyle.Update(node);
+			base.VisitMethodDeclaration(node);
+		}
+
+		public CSharpStyleExpressionBodiedMethodsStyle CSharpStyleExpressionBodiedMethodsStyle { get; private set; } =
+			new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData());
 		public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; private set; } =
 			new CSharpStyleVarForBuiltInTypesStyle(new BooleanData());
 		public IndentStyleStyle IndentStyleStyle { get; private set; } =

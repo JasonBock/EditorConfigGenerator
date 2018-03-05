@@ -1,5 +1,4 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
-using System;
+﻿using System;
 
 namespace EditorConfigGenerator.Core.Statistics
 {
