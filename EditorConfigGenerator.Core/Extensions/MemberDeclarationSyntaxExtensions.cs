@@ -11,6 +11,7 @@ namespace EditorConfigGenerator.Core.Extensions
 		internal static BooleanData Examine(this MemberDeclarationSyntax @this, BooleanData current)
 		{
 			if (@this == null) { throw new ArgumentNullException(nameof(@this)); }
+			if (current == null) { throw new ArgumentNullException(nameof(current)); }
 
 			if (!@this.ContainsDiagnostics)
 			{

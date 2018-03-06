@@ -23,8 +23,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var a = 1;
 	}
 }");
-				Assert.That(StyleGenerator.GenerateFromSourceFile(sourceFile), 
-					Is.EqualTo("[*.cs]\r\ncsharp_style_var_for_built_in_types = true:error\r\n"));
+				Assert.That(string.IsNullOrWhiteSpace(StyleGenerator.GenerateFromSourceFile(sourceFile)), Is.False);
 			}
 			finally
 			{
