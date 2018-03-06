@@ -1,8 +1,7 @@
-﻿using EditorConfigGenerator.Core.Statistics;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using EditorConfigGenerator.Core.Extensions;
+using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Styles
@@ -32,34 +31,7 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override CSharpStyleExpressionBodiedConstructorsStyle Update(
-			ConstructorDeclarationSyntax node)
-		{
-			if (node == null) { throw new ArgumentNullException(nameof(node)); }
-
-			if (!node.ContainsDiagnostics)
-			{
-				var arrowExpressionExists = node.DescendantNodes()
-					.Any(_ => _.Kind() == SyntaxKind.ArrowExpressionClause);
-
-				if(arrowExpressionExists)
-				{
-					return new CSharpStyleExpressionBodiedConstructorsStyle(this.Data.Update(true));
-				}
-				else
-				{
-					var statementSyntaxCount = node.DescendantNodes().FirstOrDefault(_ => _.Kind() == SyntaxKind.Block)
-						?.DescendantNodes().Count(_ => typeof(StatementSyntax).IsAssignableFrom(_.GetType()));
-
-					return statementSyntaxCount == 1 ?
-						new CSharpStyleExpressionBodiedConstructorsStyle(this.Data.Update(false)) :
-						this;
-				}
-			}
-			else
-			{
-				return this;
-			}
-		}
+		public override CSharpStyleExpressionBodiedConstructorsStyle Update(ConstructorDeclarationSyntax node) => 
+			new CSharpStyleExpressionBodiedConstructorsStyle(node.Examine(this.Data));
 	}
 }

@@ -1,8 +1,7 @@
-﻿using EditorConfigGenerator.Core.Statistics;
-using Microsoft.CodeAnalysis.CSharp;
+﻿using EditorConfigGenerator.Core.Extensions;
+using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Styles
@@ -32,35 +31,7 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override CSharpStyleExpressionBodiedMethodsStyle Update(
-			MethodDeclarationSyntax node)
-		{
-			if (node == null) { throw new ArgumentNullException(nameof(node)); }
-
-			if (!node.ContainsDiagnostics)
-			{
-				var arrowExpressionExists = node.DescendantNodes()
-					.Any(_ => _.Kind() == SyntaxKind.ArrowExpressionClause);
-
-				if(arrowExpressionExists)
-				{
-					return new CSharpStyleExpressionBodiedMethodsStyle(this.Data.Update(true));
-				}
-				else
-				{
-					// An abstract method will have no body :)
-					var statementSyntaxCount = node.DescendantNodes().FirstOrDefault(_ => _.Kind() == SyntaxKind.Block)
-						?.DescendantNodes().Count(_ => typeof(StatementSyntax).IsAssignableFrom(_.GetType()));
-
-					return statementSyntaxCount == 1 ?
-						new CSharpStyleExpressionBodiedMethodsStyle(this.Data.Update(false)) :
-						this;
-				}
-			}
-			else
-			{
-				return this;
-			}
-		}
+		public override CSharpStyleExpressionBodiedMethodsStyle Update(MethodDeclarationSyntax node) => 
+			new CSharpStyleExpressionBodiedMethodsStyle(node.Examine(this.Data));
 	}
 }
