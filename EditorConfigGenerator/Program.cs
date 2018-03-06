@@ -1,55 +1,37 @@
 ﻿using EditorConfigGenerator.Core.Styles;
 using System;
-using System.CommandLine;
-using System.Linq;
+using System.IO;
 
 namespace EditorConfigGenerator
 {
 	class Program
 	{
-		private const string SolutionName = "s";
-		private const string ProjectName = "p";
-		private const string SourceFileName = "f";
-
 		static void Main(string[] args)
 		{
-			var value = string.Empty;
-
-			var result = ArgumentSyntax.Parse(args, syntax =>
+			if(args?.Length != 1)
 			{
-				syntax.DefineOption(Program.SolutionName, ref value, false, "A .sln file");
-				syntax.DefineOption(Program.ProjectName, ref value, false, "A .csproj file");
-				syntax.DefineOption(Program.SourceFileName, ref value, false, "A .cs file");
-			});
-
-			var options = result.GetActiveArguments().Where(_ => _.IsSpecified).ToArray();
-
-			if (options.Length != 1)
-			{
-				Console.Out.WriteLine(result.GetHelpText());
+				Console.Out.WriteLine("Usage: {fileName}, where the extension is .sln, .csproj, or .cs");
 			}
 			else
 			{
-				var option = options[0];
-				var optionValue = (string)option.Value;
+				var file = args[0];
+				var extension = Path.GetExtension(file);
 
-				switch (option.Name)
+				if (extension == ".sln")
 				{
-					case Program.SolutionName:
-					{
-						Console.Out.WriteLine(StyleGenerator.GenerateFromSolution(optionValue));
-						break;
-					}
-					case Program.ProjectName:
-					{
-						Console.Out.WriteLine(StyleGenerator.GenerateFromProject(optionValue));
-						break;
-					}
-					case Program.SourceFileName:
-					{
-						Console.Out.WriteLine(StyleGenerator.GenerateFromSourceFile(optionValue));
-						break;
-					}
+					Console.Out.WriteLine(StyleGenerator.GenerateFromSolution(file));
+				}
+				else if (extension == ".csproj")
+				{
+					Console.Out.WriteLine(StyleGenerator.GenerateFromProject(file));
+				}
+				else if (extension == ".cs")
+				{
+					Console.Out.WriteLine(StyleGenerator.GenerateFromSourceFile(file));
+				}
+				else
+				{
+					Console.Out.WriteLine("Usage: {fileName}, where the extension is .sln, .csproj, or .cs");
 				}
 			}
 		}
