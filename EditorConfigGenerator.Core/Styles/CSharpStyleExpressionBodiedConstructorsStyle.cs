@@ -7,16 +7,16 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Styles
 {
-	public sealed class CSharpStyleExpressionBodiedMethodsStyle
-		: SeverityStyle<BooleanData, MethodDeclarationSyntax, CSharpStyleExpressionBodiedMethodsStyle>
+	public sealed class CSharpStyleExpressionBodiedConstructorsStyle
+		: SeverityStyle<BooleanData, ConstructorDeclarationSyntax, CSharpStyleExpressionBodiedConstructorsStyle>
 	{
-		public CSharpStyleExpressionBodiedMethodsStyle(BooleanData data, Severity severity = Severity.Error)
+		public CSharpStyleExpressionBodiedConstructorsStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
-		public override CSharpStyleExpressionBodiedMethodsStyle Add(CSharpStyleExpressionBodiedMethodsStyle style)
+		public override CSharpStyleExpressionBodiedConstructorsStyle Add(CSharpStyleExpressionBodiedConstructorsStyle style)
 		{
 			if(style == null) { throw new ArgumentNullException(nameof(style)); }
-			return new CSharpStyleExpressionBodiedMethodsStyle(this.Data.Add(style.Data));
+			return new CSharpStyleExpressionBodiedConstructorsStyle(this.Data.Add(style.Data));
 		}
 
 		public override string GetSetting()
@@ -24,7 +24,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_style_expression_bodied_methods = {value}:{this.Severity.GetDescription()}";
+				return $"csharp_style_expression_bodied_constructors = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
@@ -32,8 +32,8 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override CSharpStyleExpressionBodiedMethodsStyle Update(
-			MethodDeclarationSyntax node)
+		public override CSharpStyleExpressionBodiedConstructorsStyle Update(
+			ConstructorDeclarationSyntax node)
 		{
 			if (node == null) { throw new ArgumentNullException(nameof(node)); }
 
@@ -44,16 +44,15 @@ namespace EditorConfigGenerator.Core.Styles
 
 				if(arrowExpressionExists)
 				{
-					return new CSharpStyleExpressionBodiedMethodsStyle(this.Data.Update(true));
+					return new CSharpStyleExpressionBodiedConstructorsStyle(this.Data.Update(true));
 				}
 				else
 				{
-					// An abstract method will have no body :)
 					var statementSyntaxCount = node.DescendantNodes().FirstOrDefault(_ => _.Kind() == SyntaxKind.Block)
 						?.DescendantNodes().Count(_ => typeof(StatementSyntax).IsAssignableFrom(_.GetType()));
 
 					return statementSyntaxCount == 1 ?
-						new CSharpStyleExpressionBodiedMethodsStyle(this.Data.Update(false)) :
+						new CSharpStyleExpressionBodiedConstructorsStyle(this.Data.Update(false)) :
 						this;
 				}
 			}

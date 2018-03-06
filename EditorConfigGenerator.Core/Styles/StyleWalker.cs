@@ -18,6 +18,8 @@ namespace EditorConfigGenerator.Core.Styles
 			if (walker == null) { throw new ArgumentNullException(nameof(walker)); }
 			return new StyleWalker
 			{
+				CSharpStyleExpressionBodiedConstructorsStyle =
+					this.CSharpStyleExpressionBodiedConstructorsStyle.Add(walker.CSharpStyleExpressionBodiedConstructorsStyle),
 				CSharpStyleExpressionBodiedMethodsStyle =
 					this.CSharpStyleExpressionBodiedMethodsStyle.Add(walker.CSharpStyleExpressionBodiedMethodsStyle),
 				CSharpStyleVarForBuiltInTypesStyle =
@@ -31,6 +33,8 @@ namespace EditorConfigGenerator.Core.Styles
 		{
 			var builder = new StringBuilder();
 			builder.AppendLine("[*.cs]");
+			StyleWalker.AppendSetting(
+				this.CSharpStyleExpressionBodiedConstructorsStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
 				this.CSharpStyleExpressionBodiedMethodsStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
@@ -52,6 +56,13 @@ namespace EditorConfigGenerator.Core.Styles
 			base.Visit(node);
 		}
 
+		public override void VisitConstructorDeclaration(ConstructorDeclarationSyntax node)
+		{
+			this.CSharpStyleExpressionBodiedConstructorsStyle =
+				this.CSharpStyleExpressionBodiedConstructorsStyle.Update(node);
+			base.VisitConstructorDeclaration(node);
+		}
+
 		public override void VisitLocalDeclarationStatement(LocalDeclarationStatementSyntax node)
 		{
 			this.CSharpStyleVarForBuiltInTypesStyle =
@@ -66,6 +77,8 @@ namespace EditorConfigGenerator.Core.Styles
 			base.VisitMethodDeclaration(node);
 		}
 
+		public CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; private set; } =
+			new CSharpStyleExpressionBodiedConstructorsStyle(new BooleanData());
 		public CSharpStyleExpressionBodiedMethodsStyle CSharpStyleExpressionBodiedMethodsStyle { get; private set; } =
 			new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData());
 		public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; private set; } =
