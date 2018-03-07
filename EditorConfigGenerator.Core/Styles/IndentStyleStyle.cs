@@ -45,7 +45,7 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 			else
 			{
-				return this;
+				return new IndentStyleStyle(this.Data);
 			}
 		}
 	}

@@ -39,20 +39,29 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				var variableDeclaration = node.ChildNodes()
-					.Single(_ => _.Kind() == SyntaxKind.VariableDeclaration);
-				var identifierName = variableDeclaration.ChildNodes()
-					.SingleOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName);
+				if(node.DescendantNodes()
+					.Any(_ => _.Kind() == SyntaxKind.StringLiteralExpression || 
+						_.Kind() == SyntaxKind.NumericLiteralExpression))
+				{
+					var variableDeclaration = node.ChildNodes()
+						.Single(_ => _.Kind() == SyntaxKind.VariableDeclaration);
+					var identifierName = variableDeclaration.ChildNodes()
+						.SingleOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName);
 
-				return identifierName != null ?
-					new CSharpStyleVarForBuiltInTypesStyle(
-						this.Data.Update((identifierName as IdentifierNameSyntax).IsVar)) :
-					new CSharpStyleVarForBuiltInTypesStyle(
-						this.Data.Update(false));
+					return identifierName != null ?
+						new CSharpStyleVarForBuiltInTypesStyle(
+							this.Data.Update((identifierName as IdentifierNameSyntax).IsVar)) :
+						new CSharpStyleVarForBuiltInTypesStyle(
+							this.Data.Update(false));
+				}
+				else
+				{
+					return new CSharpStyleVarForBuiltInTypesStyle(this.Data, this.Severity);
+				}
 			}
 			else
 			{
-				return this;
+				return new CSharpStyleVarForBuiltInTypesStyle(this.Data, this.Severity);
 			}
 		}
 	}

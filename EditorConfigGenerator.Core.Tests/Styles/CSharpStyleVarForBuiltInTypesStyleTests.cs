@@ -113,7 +113,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var statement = SyntaxFactory.ParseStatement("int x = 0") as LocalDeclarationStatementSyntax;
 			var newStyle = style.Update(statement);
 
-			Assert.That(newStyle, Is.SameAs(style), nameof(newStyle));
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
+			Assert.That(data.TotalOccurences, Is.EqualTo(0u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
 		}
 	}
 }
