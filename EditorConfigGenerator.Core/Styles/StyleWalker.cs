@@ -24,6 +24,8 @@ namespace EditorConfigGenerator.Core.Styles
 					this.CSharpStyleExpressionBodiedMethodsStyle.Add(walker.CSharpStyleExpressionBodiedMethodsStyle),
 				CSharpStyleVarForBuiltInTypesStyle =
 					this.CSharpStyleVarForBuiltInTypesStyle.Add(walker.CSharpStyleVarForBuiltInTypesStyle),
+				CSharpStyleVarWhenTypeIsApparentStyle =
+					this.CSharpStyleVarWhenTypeIsApparentStyle.Add(walker.CSharpStyleVarWhenTypeIsApparentStyle),
 				IndentStyleStyle = 
 					this.IndentStyleStyle.Add(walker.IndentStyleStyle)
 			};
@@ -39,6 +41,8 @@ namespace EditorConfigGenerator.Core.Styles
 				this.CSharpStyleExpressionBodiedMethodsStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
 				this.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
+			StyleWalker.AppendSetting(
+				this.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
 				this.IndentStyleStyle.GetSetting(), builder);
 			return builder.ToString();
@@ -67,6 +71,8 @@ namespace EditorConfigGenerator.Core.Styles
 		{
 			this.CSharpStyleVarForBuiltInTypesStyle =
 				this.CSharpStyleVarForBuiltInTypesStyle.Update(node);
+			this.CSharpStyleVarWhenTypeIsApparentStyle =
+				this.CSharpStyleVarWhenTypeIsApparentStyle.Update(node);
 			base.VisitLocalDeclarationStatement(node);
 		}
 
@@ -83,6 +89,8 @@ namespace EditorConfigGenerator.Core.Styles
 			new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData());
 		public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; private set; } =
 			new CSharpStyleVarForBuiltInTypesStyle(new BooleanData());
+		public CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; private set; } =
+			new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData());
 		public IndentStyleStyle IndentStyleStyle { get; private set; } =
 			new IndentStyleStyle(new TabSpaceData());
 	}

@@ -7,18 +7,18 @@ namespace EditorConfigGenerator.Core.Styles
 {
 	public static class StyleGenerator
 	{
-		public static string GenerateFromSolution(string solutionFile)
+		public static string GenerateFromSolution(string solutionFile, TextWriter writer)
 		{
-			Console.Out.WriteLine($"Analyzing {Path.GetFileName(solutionFile)}...");
+			writer.WriteLine($"Analyzing {Path.GetFileName(solutionFile)}...");
 			var manager = new AnalyzerManager(solutionFile);
 			var walker = new StyleWalker();
 
 			foreach (var project in manager.Projects)
 			{
-				Console.Out.WriteLine($"\tAnalyzing {Path.GetFileName(project.Value.ProjectFilePath)}...");
+				writer.WriteLine($"\tAnalyzing {Path.GetFileName(project.Value.ProjectFilePath)}...");
 				foreach (var sourceFile in project.Value.GetSourceFiles())
 				{
-					Console.Out.WriteLine($"\t\tAnalyzing {Path.GetFileName(sourceFile)}...");
+					writer.WriteLine($"\t\tAnalyzing {Path.GetFileName(sourceFile)}...");
 					StyleGenerator.ProcessSourceFile(sourceFile, walker);
 				}
 			}
@@ -26,25 +26,25 @@ namespace EditorConfigGenerator.Core.Styles
 			return walker.GenerateConfiguration();
 		}
 
-		public static string GenerateFromProject(string projectFile)
+		public static string GenerateFromProject(string projectFile, TextWriter writer)
 		{
-			Console.Out.WriteLine($"Analyzing {Path.GetFileName(projectFile)}...");
+			writer.WriteLine($"Analyzing {Path.GetFileName(projectFile)}...");
 			var manager = new AnalyzerManager();
 			var project = manager.GetProject(projectFile);
 			var walker = new StyleWalker();
 
 			foreach (var sourceFile in project.GetSourceFiles())
 			{
-				Console.Out.WriteLine($"\tAnalyzing {Path.GetFileName(sourceFile)}...");
+				writer.WriteLine($"\tAnalyzing {Path.GetFileName(sourceFile)}...");
 				StyleGenerator.ProcessSourceFile(sourceFile, walker);
 			}
 
 			return walker.GenerateConfiguration();
 		}
 
-		public static string GenerateFromSourceFile(string sourceFile)
+		public static string GenerateFromSourceFile(string sourceFile, TextWriter writer)
 		{
-			Console.Out.WriteLine($"Analyzing {Path.GetFileName(sourceFile)}...");
+			writer.WriteLine($"Analyzing {Path.GetFileName(sourceFile)}...");
 			var walker = new StyleWalker();
 			StyleGenerator.ProcessSourceFile(sourceFile, walker);
 			return walker.GenerateConfiguration();

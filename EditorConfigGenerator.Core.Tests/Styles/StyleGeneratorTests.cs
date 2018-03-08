@@ -23,7 +23,10 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var a = 1;
 	}
 }");
-				Assert.That(string.IsNullOrWhiteSpace(StyleGenerator.GenerateFromSourceFile(sourceFile)), Is.False);
+				using (var writer = new StringWriter())
+				{
+					Assert.That(string.IsNullOrWhiteSpace(StyleGenerator.GenerateFromSourceFile(sourceFile, writer)), Is.False);
+				}
 			}
 			finally
 			{

@@ -19,15 +19,15 @@ namespace EditorConfigGenerator
 
 				if (extension == ".sln")
 				{
-					Console.Out.WriteLine(StyleGenerator.GenerateFromSolution(file));
+					Console.Out.WriteLine(StyleGenerator.GenerateFromSolution(file, Console.Out));
 				}
 				else if (extension == ".csproj")
 				{
-					Console.Out.WriteLine(StyleGenerator.GenerateFromProject(file));
+					Console.Out.WriteLine(StyleGenerator.GenerateFromProject(file, Console.Out));
 				}
 				else if (extension == ".cs")
 				{
-					Console.Out.WriteLine(StyleGenerator.GenerateFromSourceFile(file));
+					Console.Out.WriteLine(StyleGenerator.GenerateFromSourceFile(file, Console.Out));
 				}
 				else
 				{
