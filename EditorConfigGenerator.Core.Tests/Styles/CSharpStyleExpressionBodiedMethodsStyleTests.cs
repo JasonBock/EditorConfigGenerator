@@ -15,7 +15,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void CreateWithCustomSeverity()
 		{
 			const Severity suggestion = Severity.Suggestion;
-			var data = new BooleanData();
+			var data = new ExpressionBodiedData();
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(data, suggestion);
 			Assert.That(style.Severity, Is.EqualTo(suggestion), nameof(style.Data));
 		}
@@ -23,25 +23,16 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void CreateWithNoData()
 		{
-			var data = new BooleanData();
+			var data = new ExpressionBodiedData();
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
 			Assert.That(style.GetSetting(), Is.EqualTo(string.Empty), nameof(style.GetSetting));
 		}
 
 		[Test]
-		public static void CreateWithMoreFalseData()
+		public static void GetSetting()
 		{
-			var data = new BooleanData(1u, 0u, 1u);
-			var style = new CSharpStyleExpressionBodiedMethodsStyle(data);
-			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_expression_bodied_methods = false:error"), nameof(style.GetSetting));
-		}
-
-		[Test]
-		public static void CreateWithMoreTrueData()
-		{
-			var data = new BooleanData(1u, 1u, 0u);
+			var data = new ExpressionBodiedData(2u, 1u, 1u, 0u, 0u);
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
 			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_expression_bodied_methods = true:error"), nameof(style.GetSetting));
@@ -50,45 +41,32 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void Add()
 		{
-			var style1 = new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData(1u, 2u, 3u));
-			var style2 = new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData(10u, 20u, 30u));
+			var style1 = new CSharpStyleExpressionBodiedMethodsStyle(new ExpressionBodiedData(1u, 2u, 3u, 4u, 5u));
+			var style2 = new CSharpStyleExpressionBodiedMethodsStyle(new ExpressionBodiedData(10u, 20u, 30u, 40u, 50u));
 			var style3 = style1.Add(style2);
 
 			var data = style3.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(11u), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(22u), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(33u), nameof(data.FalseOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(22u), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(33u), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(44u), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(55u), nameof(data.BlockMultiLineOccurences));
 		}
 
 		[Test]
 		public static void AddWithNull()
 		{
-			var style = new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData());
+			var style = new CSharpStyleExpressionBodiedMethodsStyle(new ExpressionBodiedData());
 			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
 		public static void UpdateWithNull()
 		{
-			var data = new BooleanData(default, default, default);
+			var data = new ExpressionBodiedData(default, default, default, default, default);
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(data);
 
 			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
-		}
-
-		[Test]
-		public static void UpdateWithExpressionBody()
-		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10; }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-
-			var style = new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData(default, default, default));
-			var newStyle = style.Update(method);
-
-			var data = newStyle.Data;
-			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(1u), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
 		}
 
 		[Test]
@@ -97,28 +75,88 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { var x = 2; return x + 2; }")
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData(default, default, default));
+			var style = new CSharpStyleExpressionBodiedMethodsStyle(
+				new ExpressionBodiedData(default, default, default, default, default));
 			var newStyle = style.Update(method);
 
 			var data = newStyle.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(0u), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
 		}
 
 		[Test]
-		public static void UpdateWithOneStatement()
+		public static void UpdateWithArrowSingleLine()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { return 10; } }")
+			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10; }")
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData(default, default, default));
+			var style = new CSharpStyleExpressionBodiedMethodsStyle(
+				new ExpressionBodiedData(default, default, default, default, default));
 			var newStyle = style.Update(method);
 
 			var data = newStyle.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(1u), nameof(data.FalseOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(1u), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
+		}
+
+		[Test]
+		public static void UpdateWithArrowMultiLine()
+		{
+			var method = SyntaxFactory.ParseCompilationUnit($"public class Foo {{ public int Foo() => 10 + {Environment.NewLine} 20; }}")
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
+
+			var style = new CSharpStyleExpressionBodiedMethodsStyle(
+				new ExpressionBodiedData(default, default, default, default, default));
+			var newStyle = style.Update(method);
+
+			var data = newStyle.Data;
+			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(1u), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
+		}
+
+		[Test]
+		public static void UpdateWithBlockSingleLine()
+		{
+			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { return 10; } }")
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
+
+			var style = new CSharpStyleExpressionBodiedMethodsStyle(
+				new ExpressionBodiedData(default, default, default, default, default));
+			var newStyle = style.Update(method);
+
+			var data = newStyle.Data;
+			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(1u), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
+		}
+
+		[Test]
+		public static void UpdateWithBlockMultiLine()
+		{
+			var method = SyntaxFactory.ParseCompilationUnit($"public class Foo {{ public int Foo() {{ return 10 + {Environment.NewLine} 20 ; }} }}")
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
+
+			var style = new CSharpStyleExpressionBodiedMethodsStyle(
+				new ExpressionBodiedData(default, default, default, default, default));
+			var newStyle = style.Update(method);
+
+			var data = newStyle.Data;
+			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(1u), nameof(data.BlockMultiLineOccurences));
 		}
 
 		[Test]
@@ -127,13 +165,16 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10 }")
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData(default, default, default));
+			var style = new CSharpStyleExpressionBodiedMethodsStyle(
+				new ExpressionBodiedData(default, default, default, default, default));
 			var newStyle = style.Update(method);
 
 			var data = newStyle.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(0u), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
 		}
 	}
 }

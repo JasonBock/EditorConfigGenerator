@@ -8,27 +8,45 @@ namespace EditorConfigGenerator.Core.Extensions
 {
 	internal static class MemberDeclarationSyntaxExtensions
 	{
-		internal static BooleanData Examine(this MemberDeclarationSyntax @this, BooleanData current)
+		internal static ExpressionBodiedData Examine(this MemberDeclarationSyntax @this, ExpressionBodiedData current)
 		{
 			if (@this == null) { throw new ArgumentNullException(nameof(@this)); }
 			if (current == null) { throw new ArgumentNullException(nameof(current)); }
 
 			if (!@this.ContainsDiagnostics)
 			{
-				var arrowExpressionExists = @this.DescendantNodes().Any(
+				var arrowExpression = @this.DescendantNodes().SingleOrDefault(
 					_ => _.Kind() == SyntaxKind.ArrowExpressionClause);
 
-				if (arrowExpressionExists)
+				if (arrowExpression != null)
 				{
-					return current.Update(true);
+					var lines = arrowExpression.DescendantTrivia().Count(
+						_ => _.Kind() == SyntaxKind.EndOfLineTrivia);
+					var occurence = lines >= 1 ? ExpressionBodiedDataOccurence.ArrowMultiLine : 
+						ExpressionBodiedDataOccurence.ArrowSingleLine;
+					return current.Update(occurence);
 				}
 				else
 				{
 					var statementSyntaxCount = @this.DescendantNodes().FirstOrDefault(_ => _.Kind() == SyntaxKind.Block)
 						?.DescendantNodes().Count(_ => typeof(StatementSyntax).IsAssignableFrom(_.GetType()));
 
-					return statementSyntaxCount == 1 ?
-						current.Update(false) : current;
+					if (statementSyntaxCount > 1)
+					{
+						return current;
+					}
+					else if (statementSyntaxCount == 1)
+					{
+						var lines = @this.DescendantTrivia().Count(
+							_ => _.Kind() == SyntaxKind.EndOfLineTrivia);
+						var occurence = lines >= 1 ? ExpressionBodiedDataOccurence.BlockMultiLine :
+							ExpressionBodiedDataOccurence.BlockSingleLine;
+						return current.Update(occurence);
+					}
+					else
+					{
+						return current;
+					}
 				}
 			}
 			else

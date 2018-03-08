@@ -84,9 +84,9 @@ namespace EditorConfigGenerator.Core.Styles
 		}
 
 		public CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; private set; } =
-			new CSharpStyleExpressionBodiedConstructorsStyle(new BooleanData());
+			new CSharpStyleExpressionBodiedConstructorsStyle(new ExpressionBodiedData());
 		public CSharpStyleExpressionBodiedMethodsStyle CSharpStyleExpressionBodiedMethodsStyle { get; private set; } =
-			new CSharpStyleExpressionBodiedMethodsStyle(new BooleanData());
+			new CSharpStyleExpressionBodiedMethodsStyle(new ExpressionBodiedData());
 		public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; private set; } =
 			new CSharpStyleVarForBuiltInTypesStyle(new BooleanData());
 		public CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; private set; } =

@@ -13,7 +13,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 	{
 		[Test]
 		public static void ExamineWithNullThis() =>
-			Assert.That(() => (null as MemberDeclarationSyntax).Examine(new BooleanData()),
+			Assert.That(() => (null as MemberDeclarationSyntax).Examine(new ExpressionBodiedData()),
 				Throws.TypeOf<ArgumentNullException>());
 
 		[Test]
@@ -26,50 +26,87 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		}
 
 		[Test]
-		public static void ExamineWithExpressionBodiedMemberUsingArrow()
-		{
-			var syntax = SyntaxFactory.ParseCompilationUnit("public static class Foo { public static int Bar() => 1; }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-			var data = syntax.Examine(new BooleanData());
-
-			Assert.That(data.TotalOccurences, Is.EqualTo(1), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(1), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(0), nameof(data.FalseOccurences));
-		}
-
-		[Test]
 		public static void ExamineWithExpressionBodiedMemberUsingAbstractMember()
 		{
 			var syntax = SyntaxFactory.ParseCompilationUnit("public abstract class Foo { public abstract int Bar(int x); }")
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-			var data = syntax.Examine(new BooleanData());
+			var data = syntax.Examine(new ExpressionBodiedData());
 
 			Assert.That(data.TotalOccurences, Is.EqualTo(0), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(0), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(0), nameof(data.FalseOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0), nameof(data.BlockMultiLineOccurences));
 		}
 
 		[Test]
-		public static void ExamineWithExpressionBodiedMemberUsingBodyWithMultipleStatements()
+		public static void ExamineWithExpressionBodiedMemberUsingArrowSingleLine()
+		{
+			var syntax = SyntaxFactory.ParseCompilationUnit("public static class Foo { public static int Bar() => 1; }")
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
+			var data = syntax.Examine(new ExpressionBodiedData());
+
+			Assert.That(data.TotalOccurences, Is.EqualTo(1), nameof(data.TotalOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(1), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0), nameof(data.BlockMultiLineOccurences));
+		}
+
+		[Test]
+		public static void ExamineWithExpressionBodiedMemberUsingArrowMultiLine()
+		{
+			var syntax = SyntaxFactory.ParseCompilationUnit($"public static class Foo {{ public static int Bar() => 1 + {Environment.NewLine} 2; }}")
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
+			var data = syntax.Examine(new ExpressionBodiedData());
+
+			Assert.That(data.TotalOccurences, Is.EqualTo(1), nameof(data.TotalOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(1), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0), nameof(data.BlockMultiLineOccurences));
+		}
+
+		[Test]
+		public static void ExamineWithExpressionBodiedMemberUsingBlockWithMultipleStatements()
 		{
 			var syntax = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Bar(int x) { x = x + 2; return x * 3; } }")
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-			var current = new BooleanData();
-			var data = syntax.Examine(current);
+			var data = syntax.Examine(new ExpressionBodiedData());
 
-			Assert.That(data, Is.SameAs(current));
+			Assert.That(data.TotalOccurences, Is.EqualTo(0), nameof(data.TotalOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0), nameof(data.BlockMultiLineOccurences));
 		}
 
 		[Test]
-		public static void ExamineWithExpressionBodiedMemberUsingBodyWithOneStatement()
+		public static void ExamineWithExpressionBodiedMemberUsingBlockSingleLine()
 		{
 			var syntax = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Bar(int x) { return x * 3; } }")
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-			var data = syntax.Examine(new BooleanData());
+			var data = syntax.Examine(new ExpressionBodiedData());
 
 			Assert.That(data.TotalOccurences, Is.EqualTo(1), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(0), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(1), nameof(data.FalseOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(1), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0), nameof(data.BlockMultiLineOccurences));
+		}
+
+		[Test]
+		public static void ExamineWithExpressionBodiedMemberUsingBlockMultiLine()
+		{
+			var syntax = SyntaxFactory.ParseCompilationUnit($"public class Foo {{ public int Bar(int x) {{ return x * {Environment.NewLine} 3; }} }}")
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
+			var data = syntax.Examine(new ExpressionBodiedData());
+
+			Assert.That(data.TotalOccurences, Is.EqualTo(1), nameof(data.TotalOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(1), nameof(data.BlockMultiLineOccurences));
 		}
 
 		[Test]
@@ -77,10 +114,13 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		{
 			var syntax = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Bar() => 1 }")
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-			var current = new BooleanData();
-			var data = syntax.Examine(current);
+			var data = syntax.Examine(new ExpressionBodiedData());
 
-			Assert.That(data, Is.SameAs(current));
+			Assert.That(data.TotalOccurences, Is.EqualTo(0), nameof(data.TotalOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0), nameof(data.BlockSingleLineOccurences));
+			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0), nameof(data.BlockMultiLineOccurences));
 		}
 	}
 }
