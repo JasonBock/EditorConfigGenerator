@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Extensions\MemberDeclarationSyntaxExtensions.cs~RF1c5f6ec8.TMP" />
     <None Remove="Statistics\ExpressionBodiedData.cs~RF19e69aa1.TMP" />
   </ItemGroup>
 
