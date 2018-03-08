@@ -41,21 +41,19 @@ namespace EditorConfigGenerator.Core.Styles
 			if(!node.ContainsDiagnostics)
 			{
 				var usingNodes = node.DescendantNodes().Where(_ => _.IsKind(SyntaxKind.UsingDirective))
-					.Select(_ => _ as UsingDirectiveSyntax).ToImmutableList();
+					.Select(_ => _ as UsingDirectiveSyntax).ToImmutableArray();
 
-				if(usingNodes.Count > 1)
+				if(usingNodes.Length > 1)
 				{
-					var systemSortBreakIndex = 0;
 					var foundBreakIndex = false;
 
-					for (var i = 0; i < usingNodes.Count; i++)
+					for (var i = 0; i < usingNodes.Length; i++)
 					{
 						var usingNode = usingNodes[i];
 
 						if (!usingNode.Name.ToString().StartsWith("System"))
 						{
 							foundBreakIndex = true;
-							systemSortBreakIndex = i;
 						}
 						else if(foundBreakIndex)
 						{
@@ -63,15 +61,14 @@ namespace EditorConfigGenerator.Core.Styles
 						}
 					}
 
-					var systemUsingNodes = usingNodes.GetRange(
-						0, foundBreakIndex ? systemSortBreakIndex : usingNodes.Count);
+					var systemUsingNodes = usingNodes.Where(_ => _.Name.ToString().StartsWith("System")).ToImmutableArray();
 
-					if(systemUsingNodes.Count > 1)
+					if (systemUsingNodes.Length > 1)
 					{
-						for(var i = 1; i < systemUsingNodes.Count; i++)
+						for(var i = 1; i < systemUsingNodes.Length; i++)
 						{
 							if(systemUsingNodes[i - 1].Name.ToString().CompareTo(
-								systemUsingNodes[i - 1].Name.ToString()) > 0)
+								systemUsingNodes[i].Name.ToString()) > 0)
 							{
 								return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(false));
 							}
@@ -79,7 +76,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 						return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(true));
 					}
-					else if(systemUsingNodes.Count == 1)
+					else if(systemUsingNodes.Length == 1)
 					{
 						return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(true));
 					}
