@@ -44,8 +44,12 @@ namespace EditorConfigGenerator.Core.Statistics
 					}
 					else
 					{
-						value = "false";
+						value = "true";
 					}
+				}
+				else
+				{
+					value = "false";
 				}
 
 				return $"{name} = {value}:{severity.GetDescription()}";
