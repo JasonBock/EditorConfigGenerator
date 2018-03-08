@@ -26,6 +26,8 @@ namespace EditorConfigGenerator.Core.Styles
 					this.CSharpStyleVarForBuiltInTypesStyle.Add(walker.CSharpStyleVarForBuiltInTypesStyle),
 				CSharpStyleVarWhenTypeIsApparentStyle =
 					this.CSharpStyleVarWhenTypeIsApparentStyle.Add(walker.CSharpStyleVarWhenTypeIsApparentStyle),
+				DotnetSortSystemDirectivesFirstStyle =
+					this.DotnetSortSystemDirectivesFirstStyle.Add(walker.DotnetSortSystemDirectivesFirstStyle),
 				IndentStyleStyle = 
 					this.IndentStyleStyle.Add(walker.IndentStyleStyle)
 			};
@@ -44,6 +46,8 @@ namespace EditorConfigGenerator.Core.Styles
 			StyleWalker.AppendSetting(
 				this.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
+				this.DotnetSortSystemDirectivesFirstStyle.GetSetting(), builder);
+			StyleWalker.AppendSetting(
 				this.IndentStyleStyle.GetSetting(), builder);
 			return builder.ToString();
 		}
@@ -58,6 +62,13 @@ namespace EditorConfigGenerator.Core.Styles
 			this.IndentStyleStyle =
 				this.IndentStyleStyle.Update(node);
 			base.Visit(node);
+		}
+
+		public override void VisitCompilationUnit(CompilationUnitSyntax node)
+		{
+			this.DotnetSortSystemDirectivesFirstStyle =
+				this.DotnetSortSystemDirectivesFirstStyle.Update(node);
+			base.VisitCompilationUnit(node);
 		}
 
 		public override void VisitConstructorDeclaration(ConstructorDeclarationSyntax node)
@@ -91,6 +102,8 @@ namespace EditorConfigGenerator.Core.Styles
 			new CSharpStyleVarForBuiltInTypesStyle(new BooleanData());
 		public CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; private set; } =
 			new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData());
+		public DotnetSortSystemDirectivesFirstStyle DotnetSortSystemDirectivesFirstStyle { get; private set; } =
+			new DotnetSortSystemDirectivesFirstStyle(new BooleanData());
 		public IndentStyleStyle IndentStyleStyle { get; private set; } =
 			new IndentStyleStyle(new TabSpaceData());
 	}
