@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace EditorConfigGenerator.Core.Extensions
@@ -37,8 +38,16 @@ namespace EditorConfigGenerator.Core.Extensions
 					}
 					else if (statementSyntaxCount == 1)
 					{
-						var lines = @this.DescendantTrivia().Count(
-							_ => _.Kind() == SyntaxKind.EndOfLineTrivia);
+						var nodes = @this.DescendantTokens().ToImmutableArray();
+
+						var lines = 0;
+
+						for(var i = 0; i < nodes.Length - 1; i++)
+						{
+							lines += nodes[i].GetAllTrivia().Count(
+								_ => _.Kind() == SyntaxKind.EndOfLineTrivia);
+						}
+
 						var occurence = lines >= 1 ? ExpressionBodiedDataOccurence.BlockMultiLine :
 							ExpressionBodiedDataOccurence.BlockSingleLine;
 						return current.Update(occurence);

@@ -10,7 +10,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class DotnetSortSystemDirectivesFirstStyle
-		: SeverityStyle<BooleanData, SyntaxNode, DotnetSortSystemDirectivesFirstStyle>
+		: SeverityStyle<BooleanData, CompilationUnitSyntax, DotnetSortSystemDirectivesFirstStyle>
 	{
 		public DotnetSortSystemDirectivesFirstStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
@@ -34,7 +34,7 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override DotnetSortSystemDirectivesFirstStyle Update(SyntaxNode node)
+		public override DotnetSortSystemDirectivesFirstStyle Update(CompilationUnitSyntax node)
 		{
 			if (node == null) { throw new ArgumentNullException(nameof(node)); }
 

@@ -22,6 +22,10 @@ namespace EditorConfigGenerator.Core.Styles
 					this.CSharpStyleExpressionBodiedConstructorsStyle.Add(walker.CSharpStyleExpressionBodiedConstructorsStyle),
 				CSharpStyleExpressionBodiedMethodsStyle =
 					this.CSharpStyleExpressionBodiedMethodsStyle.Add(walker.CSharpStyleExpressionBodiedMethodsStyle),
+				CSharpStyleExpressionBodiedOperatorsStyle =
+					this.CSharpStyleExpressionBodiedOperatorsStyle.Add(walker.CSharpStyleExpressionBodiedOperatorsStyle),
+				CSharpStyleInlinedVariableDeclarationStyle =
+					this.CSharpStyleInlinedVariableDeclarationStyle.Add(walker.CSharpStyleInlinedVariableDeclarationStyle),
 				CSharpStyleVarForBuiltInTypesStyle =
 					this.CSharpStyleVarForBuiltInTypesStyle.Add(walker.CSharpStyleVarForBuiltInTypesStyle),
 				CSharpStyleVarWhenTypeIsApparentStyle =
@@ -41,6 +45,10 @@ namespace EditorConfigGenerator.Core.Styles
 				this.CSharpStyleExpressionBodiedConstructorsStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
 				this.CSharpStyleExpressionBodiedMethodsStyle.GetSetting(), builder);
+			StyleWalker.AppendSetting(
+				this.CSharpStyleExpressionBodiedOperatorsStyle.GetSetting(), builder);
+			StyleWalker.AppendSetting(
+				this.CSharpStyleInlinedVariableDeclarationStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
 				this.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
 			StyleWalker.AppendSetting(
@@ -62,6 +70,13 @@ namespace EditorConfigGenerator.Core.Styles
 			this.IndentStyleStyle =
 				this.IndentStyleStyle.Update(node);
 			base.Visit(node);
+		}
+
+		public override void VisitArgument(ArgumentSyntax node)
+		{
+			this.CSharpStyleInlinedVariableDeclarationStyle =
+				this.CSharpStyleInlinedVariableDeclarationStyle.Update(node);
+			base.VisitArgument(node);
 		}
 
 		public override void VisitCompilationUnit(CompilationUnitSyntax node)
@@ -94,10 +109,21 @@ namespace EditorConfigGenerator.Core.Styles
 			base.VisitMethodDeclaration(node);
 		}
 
+		public override void VisitOperatorDeclaration(OperatorDeclarationSyntax node)
+		{
+			this.CSharpStyleExpressionBodiedOperatorsStyle =
+				this.CSharpStyleExpressionBodiedOperatorsStyle.Update(node);
+			base.VisitOperatorDeclaration(node);
+		}
+
 		public CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; private set; } =
 			new CSharpStyleExpressionBodiedConstructorsStyle(new ExpressionBodiedData());
 		public CSharpStyleExpressionBodiedMethodsStyle CSharpStyleExpressionBodiedMethodsStyle { get; private set; } =
 			new CSharpStyleExpressionBodiedMethodsStyle(new ExpressionBodiedData());
+		public CSharpStyleExpressionBodiedOperatorsStyle CSharpStyleExpressionBodiedOperatorsStyle { get; private set; } =
+			new CSharpStyleExpressionBodiedOperatorsStyle(new ExpressionBodiedData());
+		public CSharpStyleInlinedVariableDeclarationStyle CSharpStyleInlinedVariableDeclarationStyle { get; private set; } =
+			new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData());
 		public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; private set; } =
 			new CSharpStyleVarForBuiltInTypesStyle(new BooleanData());
 		public CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; private set; } =
