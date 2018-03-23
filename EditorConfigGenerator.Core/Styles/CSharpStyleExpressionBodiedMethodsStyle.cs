@@ -14,13 +14,13 @@ namespace EditorConfigGenerator.Core.Styles
 		public override CSharpStyleExpressionBodiedMethodsStyle Add(CSharpStyleExpressionBodiedMethodsStyle style)
 		{
 			if(style == null) { throw new ArgumentNullException(nameof(style)); }
-			return new CSharpStyleExpressionBodiedMethodsStyle(this.Data.Add(style.Data));
+			return new CSharpStyleExpressionBodiedMethodsStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
 		public override string GetSetting() => 
 			this.Data.GetSetting("csharp_style_expression_bodied_methods", this.Severity);
 
 		public override CSharpStyleExpressionBodiedMethodsStyle Update(MethodDeclarationSyntax node) => 
-			new CSharpStyleExpressionBodiedMethodsStyle(node.Examine(this.Data));
+			new CSharpStyleExpressionBodiedMethodsStyle(node.Examine(this.Data), this.Severity);
 	}
 }

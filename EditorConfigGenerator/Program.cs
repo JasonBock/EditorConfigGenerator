@@ -1,14 +1,15 @@
 ﻿using EditorConfigGenerator.Core.Styles;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace EditorConfigGenerator
 {
 	class Program
 	{
-		static void Main(string[] args)
+		static async Task Main(string[] args)
 		{
-			if(args?.Length != 1)
+			if (args?.Length != 1)
 			{
 				Console.Out.WriteLine("Usage: {fileName}, where the extension is .sln, .csproj, or .cs");
 			}
@@ -19,15 +20,15 @@ namespace EditorConfigGenerator
 
 				if (extension == ".sln")
 				{
-					Console.Out.WriteLine(StyleGenerator.GenerateFromSolution(file, Console.Out));
+					Console.Out.WriteLine(await StyleGenerator.GenerateFromSolutionAsync(file, Console.Out));
 				}
 				else if (extension == ".csproj")
 				{
-					Console.Out.WriteLine(StyleGenerator.GenerateFromProject(file, Console.Out));
+					Console.Out.WriteLine(await StyleGenerator.GenerateFromProjectAsync(file, Console.Out));
 				}
 				else if (extension == ".cs")
 				{
-					Console.Out.WriteLine(StyleGenerator.GenerateFromSourceFile(file, Console.Out));
+					Console.Out.WriteLine(StyleGenerator.GenerateFromDocument(file, Console.Out));
 				}
 				else
 				{

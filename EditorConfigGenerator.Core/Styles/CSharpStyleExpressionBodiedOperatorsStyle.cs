@@ -14,13 +14,13 @@ namespace EditorConfigGenerator.Core.Styles
 		public override CSharpStyleExpressionBodiedOperatorsStyle Add(CSharpStyleExpressionBodiedOperatorsStyle style)
 		{
 			if(style == null) { throw new ArgumentNullException(nameof(style)); }
-			return new CSharpStyleExpressionBodiedOperatorsStyle(this.Data.Add(style.Data));
+			return new CSharpStyleExpressionBodiedOperatorsStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
 		public override string GetSetting() => 
 			this.Data.GetSetting("csharp_style_expression_bodied_operators", this.Severity);
 
 		public override CSharpStyleExpressionBodiedOperatorsStyle Update(OperatorDeclarationSyntax node) => 
-			new CSharpStyleExpressionBodiedOperatorsStyle(node.Examine(this.Data));
+			new CSharpStyleExpressionBodiedOperatorsStyle(node.Examine(this.Data), this.Severity);
 	}
 }

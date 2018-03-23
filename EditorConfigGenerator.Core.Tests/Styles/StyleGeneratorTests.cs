@@ -25,7 +25,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 }");
 				using (var writer = new StringWriter())
 				{
-					Assert.That(string.IsNullOrWhiteSpace(StyleGenerator.GenerateFromSourceFile(sourceFile, writer)), Is.False);
+					Assert.That(string.IsNullOrWhiteSpace(StyleGenerator.GenerateFromDocument(sourceFile, writer)), Is.False);
 				}
 			}
 			finally

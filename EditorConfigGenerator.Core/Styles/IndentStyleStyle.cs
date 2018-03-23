@@ -40,8 +40,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if(leadingTrivia.Length == 1)
 			{
 				var content = leadingTrivia[0].ToFullString();
-				return new IndentStyleStyle(
-					this.Data.Update(content.Contains("\t")));
+				return new IndentStyleStyle(this.Data.Update(content.Contains("\t")));
 			}
 			else
 			{

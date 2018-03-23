@@ -1,5 +1,6 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis;
+using System;
 
 namespace EditorConfigGenerator.Core.Styles
 {
@@ -8,7 +9,8 @@ namespace EditorConfigGenerator.Core.Styles
 		where TNode : SyntaxNode
 		where TStyle : Style<TData, TNode, TStyle>
 	{
-		protected Style(TData data) => this.Data = data;
+		protected Style(TData data) => 
+			this.Data = data ?? throw new ArgumentNullException(nameof(data));
 
 		public abstract TStyle Add(TStyle style);
 

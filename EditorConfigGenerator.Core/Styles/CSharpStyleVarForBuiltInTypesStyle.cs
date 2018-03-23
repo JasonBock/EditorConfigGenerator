@@ -1,4 +1,5 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
@@ -16,7 +17,7 @@ namespace EditorConfigGenerator.Core.Styles
 		public override CSharpStyleVarForBuiltInTypesStyle Add(CSharpStyleVarForBuiltInTypesStyle style)
 		{
 			if(style == null) { throw new ArgumentNullException(nameof(style)); }
-			return new CSharpStyleVarForBuiltInTypesStyle(this.Data.Add(style.Data));
+			return new CSharpStyleVarForBuiltInTypesStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
 		public override string GetSetting()
@@ -32,8 +33,7 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override CSharpStyleVarForBuiltInTypesStyle Update(
-			LocalDeclarationStatementSyntax node)
+		public override CSharpStyleVarForBuiltInTypesStyle Update(LocalDeclarationStatementSyntax node)
 		{
 			if (node == null) { throw new ArgumentNullException(nameof(node)); }
 
@@ -49,10 +49,8 @@ namespace EditorConfigGenerator.Core.Styles
 						.SingleOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName);
 
 					return identifierName != null ?
-						new CSharpStyleVarForBuiltInTypesStyle(
-							this.Data.Update((identifierName as IdentifierNameSyntax).IsVar)) :
-						new CSharpStyleVarForBuiltInTypesStyle(
-							this.Data.Update(false));
+						new CSharpStyleVarForBuiltInTypesStyle(this.Data.Update((identifierName as IdentifierNameSyntax).IsVar), this.Severity) :
+						new CSharpStyleVarForBuiltInTypesStyle(this.Data.Update(false), this.Severity);
 				}
 				else
 				{

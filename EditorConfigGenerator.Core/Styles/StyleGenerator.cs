@@ -1,62 +1,85 @@
 ﻿using Buildalyzer;
+using Buildalyzer.Workspaces;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EditorConfigGenerator.Core.Styles
 {
 	public static class StyleGenerator
 	{
-		public static string GenerateFromSolution(string solutionFile, TextWriter writer)
+		public static async Task<string> GenerateFromSolutionAsync(string solutionFile, TextWriter writer)
 		{
 			writer.WriteLine($"Analyzing {Path.GetFileName(solutionFile)}...");
 			var manager = new AnalyzerManager(solutionFile);
-			var walker = new StyleWalker();
+			var solution = manager.GetWorkspace().CurrentSolution;
+			var aggregator = new StyleAggregator();
 
-			foreach (var project in manager.Projects)
+			foreach (var project in solution.Projects)
 			{
-				writer.WriteLine($"\tAnalyzing {Path.GetFileName(project.Value.ProjectFilePath)}...");
-				foreach (var sourceFile in project.Value.GetSourceFiles())
+				var compilation = await project.GetCompilationAsync();
+
+				writer.WriteLine($"\tAnalyzing {Path.GetFileName(project.FilePath)}...");
+				foreach (var document in project.Documents)
 				{
-					writer.WriteLine($"\t\tAnalyzing {Path.GetFileName(sourceFile)}...");
-					StyleGenerator.ProcessSourceFile(sourceFile, walker);
+					writer.WriteLine($"\t\tAnalyzing {Path.GetFileName(document.FilePath)}...");
+
+					if (Path.GetExtension(document.FilePath).ToLower() == ".cs")
+					{
+						var root = await document.GetSyntaxRootAsync();
+						var model = compilation.GetSemanticModel(root.SyntaxTree);
+						aggregator = aggregator.Update(new StyleAggregator().Add(root as CompilationUnitSyntax, model));
+					}
 				}
 			}
 
-			return walker.GenerateConfiguration();
+			return aggregator.GenerateConfiguration();
 		}
 
-		public static string GenerateFromProject(string projectFile, TextWriter writer)
+		public static async Task<string> GenerateFromProjectAsync(string projectFile, TextWriter writer)
 		{
 			writer.WriteLine($"Analyzing {Path.GetFileName(projectFile)}...");
 			var manager = new AnalyzerManager();
-			var project = manager.GetProject(projectFile);
-			var walker = new StyleWalker();
+			var project = manager.GetProject(projectFile).GetWorkspace().CurrentSolution.Projects.ToArray()[0];
+			var compilation = await project.GetCompilationAsync();
+			var aggregator = new StyleAggregator();
 
-			foreach (var sourceFile in project.GetSourceFiles())
+			foreach (var document in project.Documents)
 			{
-				writer.WriteLine($"\tAnalyzing {Path.GetFileName(sourceFile)}...");
-				StyleGenerator.ProcessSourceFile(sourceFile, walker);
+				writer.WriteLine($"\tAnalyzing {Path.GetFileName(document.FilePath)}...");
+
+				if (Path.GetExtension(document.FilePath).ToLower() == ".cs")
+				{
+					var root = await document.GetSyntaxRootAsync();
+					var model = compilation.GetSemanticModel(root.SyntaxTree);
+					aggregator = aggregator.Update(new StyleAggregator().Add(root as CompilationUnitSyntax, model));
+				}
 			}
 
-			return walker.GenerateConfiguration();
+			return aggregator.GenerateConfiguration();
 		}
 
-		public static string GenerateFromSourceFile(string sourceFile, TextWriter writer)
+		public static string GenerateFromDocument(string document, TextWriter writer)
 		{
-			writer.WriteLine($"Analyzing {Path.GetFileName(sourceFile)}...");
-			var walker = new StyleWalker();
-			StyleGenerator.ProcessSourceFile(sourceFile, walker);
-			return walker.GenerateConfiguration();
-		}
+			writer.WriteLine($"Analyzing {Path.GetFileName(document)}...");
 
-		private static void ProcessSourceFile(string sourceFile, StyleWalker walker)
-		{
-			if (Path.GetExtension(sourceFile).ToLower() == ".cs")
+			if (Path.GetExtension(document).ToLower() == ".cs")
 			{
-				walker.Visit(SyntaxFactory.ParseCompilationUnit(
-					File.ReadAllText(sourceFile)));
+				var unit = SyntaxFactory.ParseCompilationUnit(File.ReadAllText(document));
+				var tree = unit.SyntaxTree;
+				var compilation = CSharpCompilation.Create(Guid.NewGuid().ToString("N"),
+					new[] { tree },
+					new[] { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) });
+				var model = compilation.GetSemanticModel(tree);
+
+				return new StyleAggregator().Add(unit, model).GenerateConfiguration();
 			}
+
+			return string.Empty;
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace EditorConfigGenerator.Core.Styles
 		public override DotnetSortSystemDirectivesFirstStyle Add(DotnetSortSystemDirectivesFirstStyle style)
 		{
 			if (style == null) { throw new ArgumentNullException(nameof(style)); }
-			return new DotnetSortSystemDirectivesFirstStyle(this.Data.Add(style.Data));
+			return new DotnetSortSystemDirectivesFirstStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
 		public override string GetSetting()
@@ -57,7 +57,7 @@ namespace EditorConfigGenerator.Core.Styles
 						}
 						else if(foundBreakIndex)
 						{
-							return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(false));
+							return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(false), this.Severity);
 						}
 					}
 
@@ -70,26 +70,26 @@ namespace EditorConfigGenerator.Core.Styles
 							if(systemUsingNodes[i - 1].Name.ToString().CompareTo(
 								systemUsingNodes[i].Name.ToString()) > 0)
 							{
-								return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(false));
+								return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(false), this.Severity);
 							}
 						}
 
-						return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(true));
+						return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(true), this.Severity);
 					}
 					else if(systemUsingNodes.Length == 1)
 					{
-						return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(true));
+						return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(true), this.Severity);
 					}
 					else
 					{
-						return new DotnetSortSystemDirectivesFirstStyle(this.Data);
+						return new DotnetSortSystemDirectivesFirstStyle(this.Data, this.Severity);
 					}
 				}
 
-				return new DotnetSortSystemDirectivesFirstStyle(this.Data);
+				return new DotnetSortSystemDirectivesFirstStyle(this.Data, this.Severity);
 			}
 
-			return new DotnetSortSystemDirectivesFirstStyle(this.Data);
+			return new DotnetSortSystemDirectivesFirstStyle(this.Data, this.Severity);
 		}
 	}
 }

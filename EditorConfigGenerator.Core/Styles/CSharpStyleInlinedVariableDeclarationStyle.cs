@@ -1,4 +1,5 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
@@ -16,7 +17,7 @@ namespace EditorConfigGenerator.Core.Styles
 		public override CSharpStyleInlinedVariableDeclarationStyle Add(CSharpStyleInlinedVariableDeclarationStyle style)
 		{
 			if (style == null) { throw new ArgumentNullException(nameof(style)); }
-			return new CSharpStyleInlinedVariableDeclarationStyle(this.Data.Add(style.Data));
+			return new CSharpStyleInlinedVariableDeclarationStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
 		public override string GetSetting()
@@ -43,16 +44,16 @@ namespace EditorConfigGenerator.Core.Styles
 				if (isOut)
 				{
 					return new CSharpStyleInlinedVariableDeclarationStyle(this.Data.Update(
-						node.DescendantNodes().Any(_ => _.Kind() == SyntaxKind.DeclarationExpression)));
+						node.DescendantNodes().Any(_ => _.Kind() == SyntaxKind.DeclarationExpression)), this.Severity);
 				}
 				else
 				{
-					return new CSharpStyleInlinedVariableDeclarationStyle(this.Data);
+					return new CSharpStyleInlinedVariableDeclarationStyle(this.Data, this.Severity);
 				}
 			}
 			else
 			{
-				return new CSharpStyleInlinedVariableDeclarationStyle(this.Data);
+				return new CSharpStyleInlinedVariableDeclarationStyle(this.Data, this.Severity);
 			}
 		}
 	}
