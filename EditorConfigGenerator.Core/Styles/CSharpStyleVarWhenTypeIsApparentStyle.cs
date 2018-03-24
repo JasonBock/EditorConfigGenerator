@@ -9,14 +9,14 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStyleVarWhenTypeIsApparentStyle
-		: SeverityStyle<BooleanData, LocalDeclarationStatementSyntax, CSharpStyleVarWhenTypeIsApparentStyle>
+		: SeverityStyle<BooleanData, LocalDeclarationStatementSyntax, NodeInformation<LocalDeclarationStatementSyntax>, CSharpStyleVarWhenTypeIsApparentStyle>
 	{
 		public CSharpStyleVarWhenTypeIsApparentStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
 		public override CSharpStyleVarWhenTypeIsApparentStyle Add(CSharpStyleVarWhenTypeIsApparentStyle style)
 		{
-			if(style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style == null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpStyleVarWhenTypeIsApparentStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
@@ -33,13 +33,15 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override CSharpStyleVarWhenTypeIsApparentStyle Update(LocalDeclarationStatementSyntax node)
+		public override CSharpStyleVarWhenTypeIsApparentStyle Update(NodeInformation<LocalDeclarationStatementSyntax> information)
 		{
-			if (node == null) { throw new ArgumentNullException(nameof(node)); }
+			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+
+			var node = information.Node;
 
 			if (!node.ContainsDiagnostics)
 			{
-				if(node.DescendantNodes()
+				if (node.DescendantNodes()
 					.Any(_ => _.Kind() == SyntaxKind.ObjectCreationExpression))
 				{
 					var variableDeclaration = node.ChildNodes()
@@ -51,15 +53,9 @@ namespace EditorConfigGenerator.Core.Styles
 						new CSharpStyleVarWhenTypeIsApparentStyle(this.Data.Update((identifierName as IdentifierNameSyntax).IsVar), this.Severity) :
 						new CSharpStyleVarWhenTypeIsApparentStyle(this.Data.Update(false), this.Severity);
 				}
-				else
-				{
-					return new CSharpStyleVarWhenTypeIsApparentStyle(this.Data, this.Severity);
-				}
 			}
-			else
-			{
-				return new CSharpStyleVarWhenTypeIsApparentStyle(this.Data, this.Severity);
-			}
+
+			return new CSharpStyleVarWhenTypeIsApparentStyle(this.Data, this.Severity);
 		}
 	}
 }

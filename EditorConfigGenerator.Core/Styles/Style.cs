@@ -4,10 +4,11 @@ using System;
 
 namespace EditorConfigGenerator.Core.Styles
 {
-	public abstract class Style<TData, TNode, TStyle>
+	public abstract class Style<TData, TNode, TNodeInfo, TStyle>
 		where TData : Data<TData>
 		where TNode : SyntaxNode
-		where TStyle : Style<TData, TNode, TStyle>
+		where TNodeInfo : NodeInformation<TNode>
+		where TStyle : Style<TData, TNode, TNodeInfo, TStyle>
 	{
 		protected Style(TData data) => 
 			this.Data = data ?? throw new ArgumentNullException(nameof(data));
@@ -16,7 +17,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public abstract string GetSetting();
 
-		public abstract TStyle Update(TNode node);
+		public abstract TStyle Update(TNodeInfo information);
 
 		public TData Data { get; }
 	}

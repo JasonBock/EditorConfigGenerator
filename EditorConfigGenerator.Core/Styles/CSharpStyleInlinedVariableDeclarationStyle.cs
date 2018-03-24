@@ -9,7 +9,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStyleInlinedVariableDeclarationStyle
-		: SeverityStyle<BooleanData, ArgumentSyntax, CSharpStyleInlinedVariableDeclarationStyle>
+		: SeverityStyle<BooleanData, ArgumentSyntax, NodeInformation<ArgumentSyntax>, CSharpStyleInlinedVariableDeclarationStyle>
 	{
 		public CSharpStyleInlinedVariableDeclarationStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
@@ -33,9 +33,11 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override CSharpStyleInlinedVariableDeclarationStyle Update(ArgumentSyntax node)
+		public override CSharpStyleInlinedVariableDeclarationStyle Update(NodeInformation<ArgumentSyntax> information)
 		{
-			if(node == null) { throw new ArgumentNullException(nameof(node)); }
+			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+
+			var node = information.Node;
 
 			if (!node.ContainsDiagnostics)
 			{
@@ -46,15 +48,9 @@ namespace EditorConfigGenerator.Core.Styles
 					return new CSharpStyleInlinedVariableDeclarationStyle(this.Data.Update(
 						node.DescendantNodes().Any(_ => _.Kind() == SyntaxKind.DeclarationExpression)), this.Severity);
 				}
-				else
-				{
-					return new CSharpStyleInlinedVariableDeclarationStyle(this.Data, this.Severity);
-				}
 			}
-			else
-			{
-				return new CSharpStyleInlinedVariableDeclarationStyle(this.Data, this.Severity);
-			}
+
+			return new CSharpStyleInlinedVariableDeclarationStyle(this.Data, this.Severity);
 		}
 	}
 }

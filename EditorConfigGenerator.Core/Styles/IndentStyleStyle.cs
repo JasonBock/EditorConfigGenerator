@@ -7,7 +7,7 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class IndentStyleStyle
-		: Style<TabSpaceData, SyntaxNode, IndentStyleStyle>
+		: Style<TabSpaceData, SyntaxNode, NodeInformation<SyntaxNode>, IndentStyleStyle>
 	{
 		public IndentStyleStyle(TabSpaceData data)
 			: base(data) { }
@@ -31,21 +31,21 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override IndentStyleStyle Update(SyntaxNode node)
+		public override IndentStyleStyle Update(NodeInformation<SyntaxNode> information)
 		{
-			if (node == null) { throw new ArgumentNullException(nameof(node)); }
+			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+
+			var node = information.Node;
 
 			var leadingTrivia = node.GetLeadingTrivia().Where(_ => _.IsKind(SyntaxKind.WhitespaceTrivia)).ToArray();
 
-			if(leadingTrivia.Length == 1)
+			if (leadingTrivia.Length == 1)
 			{
 				var content = leadingTrivia[0].ToFullString();
 				return new IndentStyleStyle(this.Data.Update(content.Contains("\t")));
 			}
-			else
-			{
-				return new IndentStyleStyle(this.Data);
-			}
+
+			return new IndentStyleStyle(this.Data);
 		}
 	}
 }

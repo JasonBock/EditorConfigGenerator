@@ -10,7 +10,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class DotnetSortSystemDirectivesFirstStyle
-		: SeverityStyle<BooleanData, CompilationUnitSyntax, DotnetSortSystemDirectivesFirstStyle>
+		: SeverityStyle<BooleanData, CompilationUnitSyntax, NodeInformation<CompilationUnitSyntax>, DotnetSortSystemDirectivesFirstStyle>
 	{
 		public DotnetSortSystemDirectivesFirstStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
@@ -34,11 +34,13 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override DotnetSortSystemDirectivesFirstStyle Update(CompilationUnitSyntax node)
+		public override DotnetSortSystemDirectivesFirstStyle Update(NodeInformation<CompilationUnitSyntax> information)
 		{
-			if (node == null) { throw new ArgumentNullException(nameof(node)); }
+			if (information == null) { throw new ArgumentNullException(nameof(information)); }
 
-			if(!node.ContainsDiagnostics)
+			var node = information.Node;
+
+			if (!node.ContainsDiagnostics)
 			{
 				var usingNodes = node.DescendantNodes().Where(_ => _.IsKind(SyntaxKind.UsingDirective))
 					.Select(_ => _ as UsingDirectiveSyntax).ToImmutableArray();
@@ -80,13 +82,7 @@ namespace EditorConfigGenerator.Core.Styles
 					{
 						return new DotnetSortSystemDirectivesFirstStyle(this.Data.Update(true), this.Severity);
 					}
-					else
-					{
-						return new DotnetSortSystemDirectivesFirstStyle(this.Data, this.Severity);
-					}
 				}
-
-				return new DotnetSortSystemDirectivesFirstStyle(this.Data, this.Severity);
 			}
 
 			return new DotnetSortSystemDirectivesFirstStyle(this.Data, this.Severity);

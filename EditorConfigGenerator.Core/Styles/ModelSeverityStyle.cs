@@ -3,14 +3,15 @@ using Microsoft.CodeAnalysis;
 
 namespace EditorConfigGenerator.Core.Styles
 {
-	public abstract class ModelSeverityStyle<TData, TNode, TStyle>
-		: ModelStyle<TData, TNode, TStyle>
+	public abstract class ModelSeverityStyle<TData, TNode, TNodeInfo, TStyle>
+		: ModelStyle<TData, TNode, TNodeInfo, TStyle>
 		where TData : Data<TData>
 		where TNode : SyntaxNode
-		where TStyle : ModelSeverityStyle<TData, TNode, TStyle>
+		where TNodeInfo : ModelNodeInformation<TNode>
+		where TStyle : ModelSeverityStyle<TData, TNode, TNodeInfo, TStyle>
 	{
-		protected ModelSeverityStyle(TData data, SemanticModel model, Severity severity = Severity.Error)
-			: base(data, model) => this.Severity = severity;
+		protected ModelSeverityStyle(TData data, Severity severity = Severity.Error)
+			: base(data) => this.Severity = severity;
 
 		public Severity Severity { get; }
 	}

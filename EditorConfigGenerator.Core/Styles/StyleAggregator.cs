@@ -35,6 +35,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetSortSystemDirectivesFirstStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStyleQualificationForMethodStyle.GetSetting(), builder);
 			AppendSetting(this.Set.IndentStyleStyle.GetSetting(), builder);
 			return builder.ToString();
 		}
@@ -75,6 +76,14 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.CSharpStyleExpressionBodiedConstructorsStyle =
 					this.Set.CSharpStyleExpressionBodiedConstructorsStyle.Update(node);
 				base.VisitConstructorDeclaration(node);
+			}
+
+			public override void VisitInvocationExpression(InvocationExpressionSyntax node)
+			{
+				this.Set.DotnetStyleQualificationForMethodStyle =
+					this.Set.DotnetStyleQualificationForMethodStyle.Update(
+						new ModelNodeInformation<InvocationExpressionSyntax>(node, this.model));
+				base.VisitInvocationExpression(node);
 			}
 
 			public override void VisitLocalDeclarationStatement(LocalDeclarationStatementSyntax node)
@@ -123,6 +132,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpStyleVarWhenTypeIsApparentStyle.Add(set.CSharpStyleVarWhenTypeIsApparentStyle),
 					DotnetSortSystemDirectivesFirstStyle =
 						this.DotnetSortSystemDirectivesFirstStyle.Add(set.DotnetSortSystemDirectivesFirstStyle),
+					DotnetStyleQualificationForMethodStyle =
+						this.DotnetStyleQualificationForMethodStyle.Add(set.DotnetStyleQualificationForMethodStyle),
 					IndentStyleStyle =
 						this.IndentStyleStyle.Add(set.IndentStyleStyle)
 				};
@@ -141,6 +152,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData());
 			public DotnetSortSystemDirectivesFirstStyle DotnetSortSystemDirectivesFirstStyle { get; set; } =
 				new DotnetSortSystemDirectivesFirstStyle(new BooleanData());
+			public DotnetStyleQualificationForMethodStyle DotnetStyleQualificationForMethodStyle { get; set; } =
+				new DotnetStyleQualificationForMethodStyle(new BooleanData());
 			public IndentStyleStyle IndentStyleStyle { get; set; } =
 				new IndentStyleStyle(new TabSpaceData());
 		}

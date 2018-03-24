@@ -3,11 +3,12 @@ using Microsoft.CodeAnalysis;
 
 namespace EditorConfigGenerator.Core.Styles
 {
-	public abstract class SeverityStyle<TData, TNode, TStyle>
-		: Style<TData, TNode, TStyle>
+	public abstract class SeverityStyle<TData, TNode, TNodeInfo, TStyle>
+		: Style<TData, TNode, TNodeInfo, TStyle>
 		where TData : Data<TData>
 		where TNode : SyntaxNode
-		where TStyle : SeverityStyle<TData, TNode, TStyle>
+		where TNodeInfo : NodeInformation<TNode>
+		where TStyle : SeverityStyle<TData, TNode, TNodeInfo, TStyle>
 	{
 		protected SeverityStyle(TData data, Severity severity = Severity.Error)
 			: base(data) => this.Severity = severity;

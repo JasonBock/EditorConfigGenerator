@@ -9,14 +9,14 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStyleVarElsewhereStyle
-		: SeverityStyle<BooleanData, LocalDeclarationStatementSyntax, CSharpStyleVarElsewhereStyle>
+		: SeverityStyle<BooleanData, LocalDeclarationStatementSyntax, NodeInformation<LocalDeclarationStatementSyntax>, CSharpStyleVarElsewhereStyle>
 	{
 		public CSharpStyleVarElsewhereStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
 		public override CSharpStyleVarElsewhereStyle Add(CSharpStyleVarElsewhereStyle style)
 		{
-			if(style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style == null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpStyleVarElsewhereStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
@@ -33,13 +33,15 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override CSharpStyleVarElsewhereStyle Update(LocalDeclarationStatementSyntax node)
+		public override CSharpStyleVarElsewhereStyle Update(NodeInformation<LocalDeclarationStatementSyntax> information)
 		{
-			if (node == null) { throw new ArgumentNullException(nameof(node)); }
+			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+
+			var node = information.Node;
 
 			if (!node.ContainsDiagnostics)
 			{
-				if(node.DescendantNodes()
+				if (node.DescendantNodes()
 					.Any(_ => _.Kind() != SyntaxKind.StringLiteralExpression &&
 						_.Kind() != SyntaxKind.NumericLiteralExpression &&
 						_.Kind() != SyntaxKind.ObjectCreationExpression))
@@ -53,15 +55,9 @@ namespace EditorConfigGenerator.Core.Styles
 						new CSharpStyleVarElsewhereStyle(this.Data.Update((identifierName as IdentifierNameSyntax).IsVar), this.Severity) :
 						new CSharpStyleVarElsewhereStyle(this.Data.Update(false), this.Severity);
 				}
-				else
-				{
-					return new CSharpStyleVarElsewhereStyle(this.Data, this.Severity);
-				}
 			}
-			else
-			{
-				return new CSharpStyleVarElsewhereStyle(this.Data, this.Severity);
-			}
+
+			return new CSharpStyleVarElsewhereStyle(this.Data, this.Severity);
 		}
 	}
 }

@@ -9,14 +9,14 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStyleVarForBuiltInTypesStyle
-		: SeverityStyle<BooleanData, LocalDeclarationStatementSyntax, CSharpStyleVarForBuiltInTypesStyle>
+		: SeverityStyle<BooleanData, LocalDeclarationStatementSyntax, NodeInformation<LocalDeclarationStatementSyntax>, CSharpStyleVarForBuiltInTypesStyle>
 	{
 		public CSharpStyleVarForBuiltInTypesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
 		public override CSharpStyleVarForBuiltInTypesStyle Add(CSharpStyleVarForBuiltInTypesStyle style)
 		{
-			if(style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style == null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpStyleVarForBuiltInTypesStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
@@ -33,14 +33,16 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 		}
 
-		public override CSharpStyleVarForBuiltInTypesStyle Update(LocalDeclarationStatementSyntax node)
+		public override CSharpStyleVarForBuiltInTypesStyle Update(NodeInformation<LocalDeclarationStatementSyntax> information)
 		{
-			if (node == null) { throw new ArgumentNullException(nameof(node)); }
+			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+
+			var node = information.Node;
 
 			if (!node.ContainsDiagnostics)
 			{
-				if(node.DescendantNodes()
-					.Any(_ => _.Kind() == SyntaxKind.StringLiteralExpression || 
+				if (node.DescendantNodes()
+					.Any(_ => _.Kind() == SyntaxKind.StringLiteralExpression ||
 						_.Kind() == SyntaxKind.NumericLiteralExpression))
 				{
 					var variableDeclaration = node.ChildNodes()
@@ -52,15 +54,9 @@ namespace EditorConfigGenerator.Core.Styles
 						new CSharpStyleVarForBuiltInTypesStyle(this.Data.Update((identifierName as IdentifierNameSyntax).IsVar), this.Severity) :
 						new CSharpStyleVarForBuiltInTypesStyle(this.Data.Update(false), this.Severity);
 				}
-				else
-				{
-					return new CSharpStyleVarForBuiltInTypesStyle(this.Data, this.Severity);
-				}
 			}
-			else
-			{
-				return new CSharpStyleVarForBuiltInTypesStyle(this.Data, this.Severity);
-			}
+
+			return new CSharpStyleVarForBuiltInTypesStyle(this.Data, this.Severity);
 		}
 	}
 }

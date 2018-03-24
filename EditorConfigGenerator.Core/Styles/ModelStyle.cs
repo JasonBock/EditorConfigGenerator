@@ -1,18 +1,16 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis;
-using System;
 
 namespace EditorConfigGenerator.Core.Styles
 {
-	public abstract class ModelStyle<TData, TNode, TStyle>
-		: Style<TData, TNode, TStyle>
+	public abstract class ModelStyle<TData, TNode, TNodeInfo, TStyle>
+		: Style<TData, TNode, TNodeInfo, TStyle>
 		where TData : Data<TData>
 		where TNode : SyntaxNode
-		where TStyle : Style<TData, TNode, TStyle>
+		where TNodeInfo : ModelNodeInformation<TNode>
+		where TStyle : Style<TData, TNode, TNodeInfo, TStyle>
 	{
-		protected ModelStyle(TData data, SemanticModel model)
-			: base(data) => this.Model = model ?? throw new ArgumentNullException(nameof(model));
-
-		public SemanticModel Model { get; }
+		protected ModelStyle(TData data)
+			: base(data) { }
 	}
 }
