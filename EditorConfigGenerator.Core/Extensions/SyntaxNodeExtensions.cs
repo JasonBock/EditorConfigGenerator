@@ -9,7 +9,7 @@ namespace EditorConfigGenerator.Core.Extensions
 		{
 			var parent = @this.Parent;
 
-			while (!(parent is T))
+			while (!(parent is T) && parent != null)
 			{
 				parent = parent.Parent;
 			}
