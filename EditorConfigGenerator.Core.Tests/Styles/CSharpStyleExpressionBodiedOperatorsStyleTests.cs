@@ -32,7 +32,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void GetSetting()
 		{
-			var data = new ExpressionBodiedData(2u, 1u, 1u, 0u, 0u);
+			var data = new ExpressionBodiedData(2u, 1u, 1u, 0u);
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
 			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_expression_bodied_operators = true:error"), nameof(style.GetSetting));
@@ -41,16 +41,15 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void Add()
 		{
-			var style1 = new CSharpStyleExpressionBodiedOperatorsStyle(new ExpressionBodiedData(1u, 2u, 3u, 4u, 5u));
-			var style2 = new CSharpStyleExpressionBodiedOperatorsStyle(new ExpressionBodiedData(10u, 20u, 30u, 40u, 50u));
+			var style1 = new CSharpStyleExpressionBodiedOperatorsStyle(new ExpressionBodiedData(1u, 2u, 3u, 4u));
+			var style2 = new CSharpStyleExpressionBodiedOperatorsStyle(new ExpressionBodiedData(10u, 20u, 30u, 40u));
 			var style3 = style1.Add(style2);
 
 			var data = style3.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(11u), nameof(data.TotalOccurences));
 			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(22u), nameof(data.ArrowSingleLineOccurences));
 			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(33u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(44u), nameof(data.BlockSingleLineOccurences));
-			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(55u), nameof(data.BlockMultiLineOccurences));
+			Assert.That(data.BlockOccurences, Is.EqualTo(44u), nameof(data.BlockOccurences));
 		}
 
 		[Test]
@@ -63,7 +62,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithNull()
 		{
-			var data = new ExpressionBodiedData(default, default, default, default, default);
+			var data = new ExpressionBodiedData(default, default, default, default);
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(data);
 
 			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
@@ -87,15 +86,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
-				new ExpressionBodiedData(default, default, default, default, default));
+				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);
 
 			var data = newStyle.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(0u), nameof(data.TotalOccurences));
 			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
 			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
-			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
+			Assert.That(data.BlockOccurences, Is.EqualTo(0u), nameof(data.BlockOccurences));
 		}
 
 		[Test]
@@ -111,15 +109,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
-				new ExpressionBodiedData(default, default, default, default, default));
+				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);
 
 			var data = newStyle.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
 			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(1u), nameof(data.ArrowSingleLineOccurences));
 			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
-			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
+			Assert.That(data.BlockOccurences, Is.EqualTo(0u), nameof(data.BlockOccurences));
 		}
 
 		[Test]
@@ -136,19 +133,18 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
-				new ExpressionBodiedData(default, default, default, default, default));
+				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);
 
 			var data = newStyle.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
 			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
 			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(1u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
-			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
+			Assert.That(data.BlockOccurences, Is.EqualTo(0u), nameof(data.BlockOccurences));
 		}
 
 		[Test]
-		public static void UpdateWithBlockSingleLine()
+		public static void UpdateWithBlock()
 		{
 			var @operator = SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
@@ -160,40 +156,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
-				new ExpressionBodiedData(default, default, default, default, default));
+				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);
 
 			var data = newStyle.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
 			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
 			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(1u), nameof(data.BlockSingleLineOccurences));
-			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
-		}
-
-		[Test]
-		public static void UpdateWithBlockMultiLine()
-		{
-			var @operator = SyntaxFactory.ParseCompilationUnit(
-@"public class Foo 
-{ 
-	public static Foo operator +(Foo f1, Foo f2) { return f1.Data + 
-		f2.Data; }
-
-	public int Data { get; } 
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
-
-			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
-				new ExpressionBodiedData(default, default, default, default, default));
-			var newStyle = style.Update(@operator);
-
-			var data = newStyle.Data;
-			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
-			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
-			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
-			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(1u), nameof(data.BlockMultiLineOccurences));
+			Assert.That(data.BlockOccurences, Is.EqualTo(1u), nameof(data.BlockOccurences));
 		}
 
 		[Test]
@@ -209,15 +179,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
-				new ExpressionBodiedData(default, default, default, default, default));
+				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);
 
 			var data = newStyle.Data;
 			Assert.That(data.TotalOccurences, Is.EqualTo(0u), nameof(data.TotalOccurences));
 			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
 			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockSingleLineOccurences, Is.EqualTo(0u), nameof(data.BlockSingleLineOccurences));
-			Assert.That(data.BlockMultiLineOccurences, Is.EqualTo(0u), nameof(data.BlockMultiLineOccurences));
+			Assert.That(data.BlockOccurences, Is.EqualTo(0u), nameof(data.BlockOccurences));
 		}
 	}
 }

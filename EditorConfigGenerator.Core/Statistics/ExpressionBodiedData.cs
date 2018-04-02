@@ -11,13 +11,12 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public ExpressionBodiedData(uint totalOccurences,
 			uint arrowSingleLineOccurences, uint arrowMultiLineOccurences,
-			uint blockSingleLineOccurences, uint blockMultiLineOccurences)
+			uint blockOccurences)
 			: base(totalOccurences)
 		{
 			this.ArrowSingleLineOccurences = arrowSingleLineOccurences;
 			this.ArrowMultiLineOccurences = arrowMultiLineOccurences;
-			this.BlockSingleLineOccurences = blockSingleLineOccurences;
-			this.BlockMultiLineOccurences = blockMultiLineOccurences;
+			this.BlockOccurences = blockOccurences;
 		}
 
 		public string GetSetting(string name, Severity severity)
@@ -26,9 +25,9 @@ namespace EditorConfigGenerator.Core.Statistics
 			{
 				var value = string.Empty;
 				var arrowCount = this.ArrowSingleLineOccurences + this.ArrowMultiLineOccurences;
-				var blockCount = this.BlockSingleLineOccurences + this.BlockMultiLineOccurences;
+				var blockCount = this.BlockOccurences;
 
-				if(blockCount == 0)
+				if (blockCount == 0)
 				{
 					value = "true";
 				}
@@ -36,20 +35,17 @@ namespace EditorConfigGenerator.Core.Statistics
 				{
 					value = "false";
 				}
-				else if (arrowCount > blockCount)
+				else
 				{
-					if(this.BlockMultiLineOccurences > this.ArrowMultiLineOccurences)
+					if (arrowCount > blockCount)
 					{
-						value = "when_on_single_line";
+						value = this.ArrowMultiLineOccurences > this.ArrowSingleLineOccurences ?
+							"when_on_single_line" : "true";
 					}
 					else
 					{
-						value = "true";
+						value = "false";
 					}
-				}
-				else
-				{
-					value = "false";
 				}
 
 				return $"{name} = {value}:{severity.GetDescription()}";
@@ -64,8 +60,7 @@ namespace EditorConfigGenerator.Core.Statistics
 			new ExpressionBodiedData(this.TotalOccurences + 1,
 				occurence == ExpressionBodiedDataOccurence.ArrowSingleLine ? this.ArrowSingleLineOccurences + 1 : this.ArrowSingleLineOccurences,
 				occurence == ExpressionBodiedDataOccurence.ArrowMultiLine ? this.ArrowMultiLineOccurences + 1 : this.ArrowMultiLineOccurences,
-				occurence == ExpressionBodiedDataOccurence.BlockSingleLine ? this.BlockSingleLineOccurences + 1 : this.BlockSingleLineOccurences,
-				occurence == ExpressionBodiedDataOccurence.BlockMultiLine ? this.BlockMultiLineOccurences + 1 : this.BlockMultiLineOccurences);
+				occurence == ExpressionBodiedDataOccurence.Block ? this.BlockOccurences + 1 : this.BlockOccurences);
 
 		public override ExpressionBodiedData Add(ExpressionBodiedData data)
 		{
@@ -74,13 +69,11 @@ namespace EditorConfigGenerator.Core.Statistics
 				this.TotalOccurences + data.TotalOccurences,
 				this.ArrowSingleLineOccurences + data.ArrowSingleLineOccurences,
 				this.ArrowMultiLineOccurences + data.ArrowMultiLineOccurences,
-				this.BlockSingleLineOccurences + data.BlockSingleLineOccurences,
-				this.BlockMultiLineOccurences + data.BlockMultiLineOccurences);
+				this.BlockOccurences + data.BlockOccurences);
 		}
 
 		public uint ArrowSingleLineOccurences { get; }
 		public uint ArrowMultiLineOccurences { get; }
-		public uint BlockSingleLineOccurences { get; }
-		public uint BlockMultiLineOccurences { get; }
+		public uint BlockOccurences { get; }
 	}
 }

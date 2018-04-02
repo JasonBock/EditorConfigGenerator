@@ -1,9 +1,52 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using EditorConfigGenerator.Core.Statistics;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System;
+using System.Collections.Immutable;
+using System.Linq;
 
 namespace EditorConfigGenerator.Core.Extensions
 {
 	internal static class SyntaxNodeExtensions
 	{
+		internal static ExpressionBodiedData Examine(this SyntaxNode @this, ExpressionBodiedData current)
+		{
+			if (@this == null) { throw new ArgumentNullException(nameof(@this)); }
+			if (current == null) { throw new ArgumentNullException(nameof(current)); }
+
+			if (!@this.ContainsDiagnostics)
+			{
+				var data = current;
+				var arrows = @this.ChildNodes().Where(_ => _.Kind() == SyntaxKind.ArrowExpressionClause)
+					.Cast<ArrowExpressionClauseSyntax>().ToImmutableArray();
+
+				foreach (var arrow in arrows)
+				{
+					var lines = arrow.DescendantTrivia().Count(
+						_ => _.Kind() == SyntaxKind.EndOfLineTrivia);
+					var occurence = lines >= 1 ? ExpressionBodiedDataOccurence.ArrowMultiLine :
+						ExpressionBodiedDataOccurence.ArrowSingleLine;
+					data = data.Update(occurence);
+				}
+
+				var singleLineBlockCount = (uint)@this.ChildNodes().Where(_ => _.Kind() == SyntaxKind.Block)
+					.Cast<BlockSyntax>().Count(
+						bs => bs.DescendantNodes().Count(_ => typeof(StatementSyntax).IsAssignableFrom(_.GetType())) == 1);
+
+				for (var i = 0; i < singleLineBlockCount; i++)
+				{
+					data = data.Update(ExpressionBodiedDataOccurence.Block);
+				}
+
+				return data;
+			}
+			else
+			{
+				return current;
+			}
+		}
+
 		internal static T FindParent<T>(this SyntaxNode @this)
 			where T : SyntaxNode
 		{

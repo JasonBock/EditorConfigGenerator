@@ -28,6 +28,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 			var builder = new StringBuilder();
 			builder.AppendLine("[*.cs]");
+			AppendSetting(this.Set.CSharpStyleExpressionBodiedAccessorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedConstructorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedMethodsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedOperatorsStyle.GetSetting(), builder);
@@ -109,6 +110,13 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitOperatorDeclaration(node);
 			}
 
+			public override void VisitAccessorDeclaration(AccessorDeclarationSyntax node)
+			{
+				this.Set.CSharpStyleExpressionBodiedAccessorsStyle =
+					this.Set.CSharpStyleExpressionBodiedAccessorsStyle.Update(node);
+				base.VisitAccessorDeclaration(node);
+			}
+
 			public StyleSet Set { get; } = new StyleSet();
 		}
 
@@ -118,6 +126,8 @@ namespace EditorConfigGenerator.Core.Styles
 			public IStyleSet Update(IStyleSet set) =>
 				new StyleSet()
 				{
+					CSharpStyleExpressionBodiedAccessorsStyle =
+						this.CSharpStyleExpressionBodiedAccessorsStyle.Add(set.CSharpStyleExpressionBodiedAccessorsStyle),
 					CSharpStyleExpressionBodiedConstructorsStyle =
 						this.CSharpStyleExpressionBodiedConstructorsStyle.Add(set.CSharpStyleExpressionBodiedConstructorsStyle),
 					CSharpStyleExpressionBodiedMethodsStyle =
@@ -138,6 +148,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.IndentStyleStyle.Add(set.IndentStyleStyle)
 				};
 
+			public CSharpStyleExpressionBodiedAccessorsStyle CSharpStyleExpressionBodiedAccessorsStyle { get; set; } =
+				new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData());
 			public CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; set; } =
 				new CSharpStyleExpressionBodiedConstructorsStyle(new ExpressionBodiedData());
 			public CSharpStyleExpressionBodiedMethodsStyle CSharpStyleExpressionBodiedMethodsStyle { get; set; } =

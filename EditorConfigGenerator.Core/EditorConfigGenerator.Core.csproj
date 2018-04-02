@@ -9,12 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Styles\CSharpStyleExpressionBodiedConstructorsStyle.cs~RF1045564b.TMP" />
-    <None Remove="Styles\CSharpStyleVarElsewhereStyle.cs~RF1048cf06.TMP" />
-    <None Remove="Styles\DotnetStyleQualificationForMethodStyle.cs~RF162a62a3.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Buildalyzer" Version="0.3.0" />
     <PackageReference Include="Buildalyzer.Workspaces" Version="0.3.0" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="2.7.0" />

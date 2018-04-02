@@ -4,7 +4,6 @@
 	{
 		ArrowSingleLine,
 		ArrowMultiLine,
-		BlockSingleLine,
-		BlockMultiLine
+		Block
 	}
 }
