@@ -9,14 +9,14 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	public static class CSharpStyleExpressionBodiedAccessorsStyleTests
+	public static class CSharpStyleExpressionBodiedPropertiesStyleTests
 	{
 		[Test]
 		public static void CreateWithCustomSeverity()
 		{
 			const Severity suggestion = Severity.Suggestion;
 			var data = new ExpressionBodiedData();
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(data, suggestion);
+			var style = new CSharpStyleExpressionBodiedPropertiesStyle(data, suggestion);
 			Assert.That(style.Severity, Is.EqualTo(suggestion), nameof(style.Data));
 		}
 
@@ -24,7 +24,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void CreateWithNoData()
 		{
 			var data = new ExpressionBodiedData();
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(data);
+			var style = new CSharpStyleExpressionBodiedPropertiesStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
 			Assert.That(style.GetSetting(), Is.EqualTo(string.Empty), nameof(style.GetSetting));
 		}
@@ -33,16 +33,16 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void GetSetting()
 		{
 			var data = new ExpressionBodiedData(2u, 1u, 1u, 0u);
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(data);
+			var style = new CSharpStyleExpressionBodiedPropertiesStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_expression_bodied_accessors = true:error"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_expression_bodied_properties = true:error"), nameof(style.GetSetting));
 		}
 
 		[Test]
 		public static void Add()
 		{
-			var style1 = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData(1u, 2u, 3u, 4u));
-			var style2 = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData(10u, 20u, 30u, 40u));
+			var style1 = new CSharpStyleExpressionBodiedPropertiesStyle(new ExpressionBodiedData(1u, 2u, 3u, 4u));
+			var style2 = new CSharpStyleExpressionBodiedPropertiesStyle(new ExpressionBodiedData(10u, 20u, 30u, 40u));
 			var style3 = style1.Add(style2);
 
 			var data = style3.Data;
@@ -55,7 +55,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void AddWithNull()
 		{
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData());
+			var style = new CSharpStyleExpressionBodiedPropertiesStyle(new ExpressionBodiedData());
 			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
 		}
 
@@ -63,7 +63,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void UpdateWithNull()
 		{
 			var data = new ExpressionBodiedData(default, default, default, default);
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(data);
+			var style = new CSharpStyleExpressionBodiedPropertiesStyle(data);
 
 			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
@@ -76,14 +76,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 { 
 	private int age; 
 
-	public int Age 
-	{
-		get => age; 
-	} 
+	public int Age => age;
 }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
+			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
 
@@ -102,15 +99,12 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 { 
 	private int age; 
 
-	public int Age 
-	{
-		get => 42 + 
-			age; 
-	} 
+	public int Age => 42 + 
+		age;
 }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
+			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
 
@@ -129,14 +123,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 { 
 	private int age; 
 
-	public int Age 
-	{
-		get { return this.age; } 
-	} 
+	public int Age { get { return age; }}
 }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
+			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
 
@@ -155,14 +146,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 { 
 	private int age; 
 
-	public int Age 
-	{
-		get => age
-	} 
+	public int Age => age
 }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
+			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
 

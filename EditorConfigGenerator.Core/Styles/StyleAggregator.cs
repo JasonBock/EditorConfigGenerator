@@ -30,8 +30,10 @@ namespace EditorConfigGenerator.Core.Styles
 			builder.AppendLine("[*.cs]");
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedAccessorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedConstructorsStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpStyleExpressionBodiedIndexersStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedMethodsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedOperatorsStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpStyleExpressionBodiedPropertiesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleInlinedVariableDeclarationStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
@@ -58,6 +60,13 @@ namespace EditorConfigGenerator.Core.Styles
 				base.Visit(node);
 			}
 
+			public override void VisitAccessorDeclaration(AccessorDeclarationSyntax node)
+			{
+				this.Set.CSharpStyleExpressionBodiedAccessorsStyle =
+					this.Set.CSharpStyleExpressionBodiedAccessorsStyle.Update(node);
+				base.VisitAccessorDeclaration(node);
+			}
+
 			public override void VisitArgument(ArgumentSyntax node)
 			{
 				this.Set.CSharpStyleInlinedVariableDeclarationStyle =
@@ -77,6 +86,13 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.CSharpStyleExpressionBodiedConstructorsStyle =
 					this.Set.CSharpStyleExpressionBodiedConstructorsStyle.Update(node);
 				base.VisitConstructorDeclaration(node);
+			}
+
+			public override void VisitIndexerDeclaration(IndexerDeclarationSyntax node)
+			{
+				this.Set.CSharpStyleExpressionBodiedIndexersStyle =
+					this.Set.CSharpStyleExpressionBodiedIndexersStyle.Update(node);
+				base.VisitIndexerDeclaration(node);
 			}
 
 			public override void VisitInvocationExpression(InvocationExpressionSyntax node)
@@ -110,17 +126,17 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitOperatorDeclaration(node);
 			}
 
-			public override void VisitAccessorDeclaration(AccessorDeclarationSyntax node)
+			public override void VisitPropertyDeclaration(PropertyDeclarationSyntax node)
 			{
-				this.Set.CSharpStyleExpressionBodiedAccessorsStyle =
-					this.Set.CSharpStyleExpressionBodiedAccessorsStyle.Update(node);
-				base.VisitAccessorDeclaration(node);
+				this.Set.CSharpStyleExpressionBodiedPropertiesStyle =
+					this.Set.CSharpStyleExpressionBodiedPropertiesStyle.Update(node);
+				base.VisitPropertyDeclaration(node);
 			}
 
 			public StyleSet Set { get; } = new StyleSet();
 		}
 
-		private sealed class StyleSet 
+		private sealed class StyleSet
 			: IStyleSet
 		{
 			public IStyleSet Update(IStyleSet set) =>
@@ -130,10 +146,14 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpStyleExpressionBodiedAccessorsStyle.Add(set.CSharpStyleExpressionBodiedAccessorsStyle),
 					CSharpStyleExpressionBodiedConstructorsStyle =
 						this.CSharpStyleExpressionBodiedConstructorsStyle.Add(set.CSharpStyleExpressionBodiedConstructorsStyle),
+					CSharpStyleExpressionBodiedIndexersStyle =
+						this.CSharpStyleExpressionBodiedIndexersStyle.Add(set.CSharpStyleExpressionBodiedIndexersStyle),
 					CSharpStyleExpressionBodiedMethodsStyle =
 						this.CSharpStyleExpressionBodiedMethodsStyle.Add(set.CSharpStyleExpressionBodiedMethodsStyle),
 					CSharpStyleExpressionBodiedOperatorsStyle =
 						this.CSharpStyleExpressionBodiedOperatorsStyle.Add(set.CSharpStyleExpressionBodiedOperatorsStyle),
+					CSharpStyleExpressionBodiedPropertiesStyle =
+						this.CSharpStyleExpressionBodiedPropertiesStyle.Add(set.CSharpStyleExpressionBodiedPropertiesStyle),
 					CSharpStyleInlinedVariableDeclarationStyle =
 						this.CSharpStyleInlinedVariableDeclarationStyle.Add(set.CSharpStyleInlinedVariableDeclarationStyle),
 					CSharpStyleVarForBuiltInTypesStyle =
@@ -152,10 +172,14 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData());
 			public CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; set; } =
 				new CSharpStyleExpressionBodiedConstructorsStyle(new ExpressionBodiedData());
+			public CSharpStyleExpressionBodiedIndexersStyle CSharpStyleExpressionBodiedIndexersStyle { get; set; } =
+				new CSharpStyleExpressionBodiedIndexersStyle(new ExpressionBodiedData());
 			public CSharpStyleExpressionBodiedMethodsStyle CSharpStyleExpressionBodiedMethodsStyle { get; set; } =
 				new CSharpStyleExpressionBodiedMethodsStyle(new ExpressionBodiedData());
 			public CSharpStyleExpressionBodiedOperatorsStyle CSharpStyleExpressionBodiedOperatorsStyle { get; set; } =
 				new CSharpStyleExpressionBodiedOperatorsStyle(new ExpressionBodiedData());
+			public CSharpStyleExpressionBodiedPropertiesStyle CSharpStyleExpressionBodiedPropertiesStyle { get; set; } =
+				new CSharpStyleExpressionBodiedPropertiesStyle(new ExpressionBodiedData());
 			public CSharpStyleInlinedVariableDeclarationStyle CSharpStyleInlinedVariableDeclarationStyle { get; set; } =
 				new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData());
 			public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; set; } =

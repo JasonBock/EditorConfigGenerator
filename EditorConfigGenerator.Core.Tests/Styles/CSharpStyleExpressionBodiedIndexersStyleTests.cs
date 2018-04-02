@@ -9,14 +9,14 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	public static class CSharpStyleExpressionBodiedAccessorsStyleTests
+	public static class CSharpStyleExpressionBodiedIndexersStyleTests
 	{
 		[Test]
 		public static void CreateWithCustomSeverity()
 		{
 			const Severity suggestion = Severity.Suggestion;
 			var data = new ExpressionBodiedData();
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(data, suggestion);
+			var style = new CSharpStyleExpressionBodiedIndexersStyle(data, suggestion);
 			Assert.That(style.Severity, Is.EqualTo(suggestion), nameof(style.Data));
 		}
 
@@ -24,7 +24,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void CreateWithNoData()
 		{
 			var data = new ExpressionBodiedData();
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(data);
+			var style = new CSharpStyleExpressionBodiedIndexersStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
 			Assert.That(style.GetSetting(), Is.EqualTo(string.Empty), nameof(style.GetSetting));
 		}
@@ -33,16 +33,16 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void GetSetting()
 		{
 			var data = new ExpressionBodiedData(2u, 1u, 1u, 0u);
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(data);
+			var style = new CSharpStyleExpressionBodiedIndexersStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_expression_bodied_accessors = true:error"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_expression_bodied_indexers = true:error"), nameof(style.GetSetting));
 		}
 
 		[Test]
 		public static void Add()
 		{
-			var style1 = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData(1u, 2u, 3u, 4u));
-			var style2 = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData(10u, 20u, 30u, 40u));
+			var style1 = new CSharpStyleExpressionBodiedIndexersStyle(new ExpressionBodiedData(1u, 2u, 3u, 4u));
+			var style2 = new CSharpStyleExpressionBodiedIndexersStyle(new ExpressionBodiedData(10u, 20u, 30u, 40u));
 			var style3 = style1.Add(style2);
 
 			var data = style3.Data;
@@ -55,7 +55,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void AddWithNull()
 		{
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData());
+			var style = new CSharpStyleExpressionBodiedIndexersStyle(new ExpressionBodiedData());
 			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
 		}
 
@@ -63,7 +63,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void UpdateWithNull()
 		{
 			var data = new ExpressionBodiedData(default, default, default, default);
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(data);
+			var style = new CSharpStyleExpressionBodiedIndexersStyle(data);
 
 			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
@@ -74,16 +74,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var ctor = SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
-	private int age; 
+	private int[] ages; 
 
-	public int Age 
-	{
-		get => age; 
-	} 
+	public int this[int i] => this.ages[i];
 }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
+			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
 
@@ -100,17 +97,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var ctor = SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
-	private int age; 
+	private int[] ages; 
 
-	public int Age 
-	{
-		get => 42 + 
-			age; 
-	} 
+	public int this[int i] => 42 + 
+		this.ages[i];
 }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
+			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
 
@@ -127,16 +121,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var ctor = SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
-	private int age; 
+	private int[] ages; 
 
-	public int Age 
-	{
-		get { return this.age; } 
-	} 
+	public int this[int i] { get { return this.ages[i]; } }
 }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
+			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
 
@@ -153,16 +144,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var ctor = SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
-	private int age; 
+	private int[] ages; 
 
-	public int Age 
-	{
-		get => age
-	} 
+	public int this[int i] => this.ages[i]
 }")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
 
-			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
+			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
 
