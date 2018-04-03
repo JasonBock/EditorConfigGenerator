@@ -12,6 +12,7 @@
 		CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; }
 		CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; }
 		DotnetSortSystemDirectivesFirstStyle DotnetSortSystemDirectivesFirstStyle { get; }
+		DotnetStyleExplicitTupleNamesStyle DotnetStyleExplicitTupleNamesStyle { get; }
 		DotnetStyleQualificationForMethodStyle DotnetStyleQualificationForMethodStyle { get; }
 		IndentStyleStyle IndentStyleStyle { get; }
 

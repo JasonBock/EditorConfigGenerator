@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Styles\StyleAggregator.cs~RF188f91eb.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Buildalyzer" Version="0.3.0" />
     <PackageReference Include="Buildalyzer.Workspaces" Version="0.3.0" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="2.7.0" />

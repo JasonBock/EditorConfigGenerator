@@ -38,6 +38,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetSortSystemDirectivesFirstStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStyleExplicitTupleNamesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForMethodStyle.GetSetting(), builder);
 			AppendSetting(this.Set.IndentStyleStyle.GetSetting(), builder);
 			return builder.ToString();
@@ -112,6 +113,14 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitLocalDeclarationStatement(node);
 			}
 
+			public override void VisitMemberAccessExpression(MemberAccessExpressionSyntax node)
+			{
+				this.Set.DotnetStyleExplicitTupleNamesStyle =
+					this.Set.DotnetStyleExplicitTupleNamesStyle.Update(
+						new ModelNodeInformation<MemberAccessExpressionSyntax>(node, this.model));
+				base.VisitMemberAccessExpression(node);
+			}
+
 			public override void VisitMethodDeclaration(MethodDeclarationSyntax node)
 			{
 				this.Set.CSharpStyleExpressionBodiedMethodsStyle =
@@ -162,6 +171,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpStyleVarWhenTypeIsApparentStyle.Add(set.CSharpStyleVarWhenTypeIsApparentStyle),
 					DotnetSortSystemDirectivesFirstStyle =
 						this.DotnetSortSystemDirectivesFirstStyle.Add(set.DotnetSortSystemDirectivesFirstStyle),
+					DotnetStyleExplicitTupleNamesStyle =
+						this.DotnetStyleExplicitTupleNamesStyle.Add(set.DotnetStyleExplicitTupleNamesStyle),
 					DotnetStyleQualificationForMethodStyle =
 						this.DotnetStyleQualificationForMethodStyle.Add(set.DotnetStyleQualificationForMethodStyle),
 					IndentStyleStyle =
@@ -188,6 +199,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData());
 			public DotnetSortSystemDirectivesFirstStyle DotnetSortSystemDirectivesFirstStyle { get; set; } =
 				new DotnetSortSystemDirectivesFirstStyle(new BooleanData());
+			public DotnetStyleExplicitTupleNamesStyle DotnetStyleExplicitTupleNamesStyle { get; set; } =
+				new DotnetStyleExplicitTupleNamesStyle(new BooleanData());
 			public DotnetStyleQualificationForMethodStyle DotnetStyleQualificationForMethodStyle { get; set; } =
 				new DotnetStyleQualificationForMethodStyle(new BooleanData());
 			public IndentStyleStyle IndentStyleStyle { get; set; } =
