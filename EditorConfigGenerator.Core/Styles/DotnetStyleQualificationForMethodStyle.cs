@@ -1,4 +1,5 @@
-﻿using EditorConfigGenerator.Core.Statistics;
+﻿using EditorConfigGenerator.Core.Extensions;
+using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -39,20 +40,25 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				var method = model.GetSymbolInfo(node).Symbol as IMethodSymbol;
-				var simpleMember = node.DescendantNodes().FirstOrDefault(_ => _.Kind() == SyntaxKind.SimpleMemberAccessExpression);
-
-				if (simpleMember != null)
+				if (model.GetSymbolInfo(node).Symbol is IMethodSymbol methodSymbol)
 				{
-					if (simpleMember.DescendantNodes().Any(_ => _.Kind() == SyntaxKind.ThisExpression) && 
-						(!method?.IsExtensionMethod ?? false))
+					if (node.DescendantNodes().Any(_ => _.Kind() == SyntaxKind.ThisExpression))
 					{
 						return new DotnetStyleQualificationForMethodStyle(this.Data.Update(true), this.Severity);
 					}
-				}
-				else if (!method?.IsStatic ?? false)
-				{
-					return new DotnetStyleQualificationForMethodStyle(this.Data.Update(false), this.Severity);
+					else
+					{
+						var classNode = node.FindParent<ClassDeclarationSyntax>();
+
+						if (!methodSymbol.IsStatic && classNode != null &&
+							model.GetDeclaredSymbol(classNode) == methodSymbol.ContainingType &&
+							!methodSymbol.IsExtensionMethod)
+						{
+							return new DotnetStyleQualificationForMethodStyle(this.Data.Update(false), this.Severity);
+						}
+
+						return new DotnetStyleQualificationForMethodStyle(this.Data, this.Severity);
+					}
 				}
 			}
 

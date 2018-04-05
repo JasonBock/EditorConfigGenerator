@@ -9,11 +9,12 @@
 
   <ItemGroup>
     <None Remove="Styles\CSharpStyleExpressionBodiedConstructorsStyleTests.cs~RF4ee7024.TMP" />
+    <None Remove="Styles\DotnetStyleQualificationForEventStyleTests.cs~RF12d4d4d.TMP" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
-    <PackageReference Include="NUnit" Version="3.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="Spackle" Version="8.2.1" />
   </ItemGroup>

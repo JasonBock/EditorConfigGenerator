@@ -13,7 +13,10 @@
 		CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; }
 		DotnetSortSystemDirectivesFirstStyle DotnetSortSystemDirectivesFirstStyle { get; }
 		DotnetStyleExplicitTupleNamesStyle DotnetStyleExplicitTupleNamesStyle { get; }
+		DotnetStyleQualificationForEventStyle DotnetStyleQualificationForEventStyle { get; }
+		DotnetStyleQualificationForFieldStyle DotnetStyleQualificationForFieldStyle { get; }
 		DotnetStyleQualificationForMethodStyle DotnetStyleQualificationForMethodStyle { get; }
+		DotnetStyleQualificationForPropertyStyle DotnetStyleQualificationForPropertyStyle { get; }
 		IndentStyleStyle IndentStyleStyle { get; }
 
 		IStyleSet Update(IStyleSet set);

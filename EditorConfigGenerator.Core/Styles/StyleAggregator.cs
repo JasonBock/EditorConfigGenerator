@@ -39,7 +39,10 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetSortSystemDirectivesFirstStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleExplicitTupleNamesStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStyleQualificationForEventStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStyleQualificationForFieldStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForMethodStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStyleQualificationForPropertyStyle.GetSetting(), builder);
 			AppendSetting(this.Set.IndentStyleStyle.GetSetting(), builder);
 			return builder.ToString();
 		}
@@ -58,6 +61,15 @@ namespace EditorConfigGenerator.Core.Styles
 			{
 				this.Set.IndentStyleStyle = 
 					this.Set.IndentStyleStyle.Update(node);
+				this.Set.DotnetStyleQualificationForEventStyle =
+					this.Set.DotnetStyleQualificationForEventStyle.Update(
+						new ModelNodeInformation<SyntaxNode>(node, this.model));
+				this.Set.DotnetStyleQualificationForFieldStyle =
+					this.Set.DotnetStyleQualificationForFieldStyle.Update(
+						new ModelNodeInformation<SyntaxNode>(node, this.model));
+				this.Set.DotnetStyleQualificationForPropertyStyle =
+					this.Set.DotnetStyleQualificationForPropertyStyle.Update(
+						new ModelNodeInformation<SyntaxNode>(node, this.model));
 				base.Visit(node);
 			}
 
@@ -173,8 +185,14 @@ namespace EditorConfigGenerator.Core.Styles
 						this.DotnetSortSystemDirectivesFirstStyle.Add(set.DotnetSortSystemDirectivesFirstStyle),
 					DotnetStyleExplicitTupleNamesStyle =
 						this.DotnetStyleExplicitTupleNamesStyle.Add(set.DotnetStyleExplicitTupleNamesStyle),
+					DotnetStyleQualificationForEventStyle =
+						this.DotnetStyleQualificationForEventStyle.Add(set.DotnetStyleQualificationForEventStyle),
+					DotnetStyleQualificationForFieldStyle =
+						this.DotnetStyleQualificationForFieldStyle.Add(set.DotnetStyleQualificationForFieldStyle),
 					DotnetStyleQualificationForMethodStyle =
 						this.DotnetStyleQualificationForMethodStyle.Add(set.DotnetStyleQualificationForMethodStyle),
+					DotnetStyleQualificationForPropertyStyle =
+						this.DotnetStyleQualificationForPropertyStyle.Add(set.DotnetStyleQualificationForPropertyStyle),
 					IndentStyleStyle =
 						this.IndentStyleStyle.Add(set.IndentStyleStyle)
 				};
@@ -201,8 +219,14 @@ namespace EditorConfigGenerator.Core.Styles
 				new DotnetSortSystemDirectivesFirstStyle(new BooleanData());
 			public DotnetStyleExplicitTupleNamesStyle DotnetStyleExplicitTupleNamesStyle { get; set; } =
 				new DotnetStyleExplicitTupleNamesStyle(new BooleanData());
+			public DotnetStyleQualificationForEventStyle DotnetStyleQualificationForEventStyle { get; set; } =
+				new DotnetStyleQualificationForEventStyle(new BooleanData());
+			public DotnetStyleQualificationForFieldStyle DotnetStyleQualificationForFieldStyle { get; set; } =
+				new DotnetStyleQualificationForFieldStyle(new BooleanData());
 			public DotnetStyleQualificationForMethodStyle DotnetStyleQualificationForMethodStyle { get; set; } =
 				new DotnetStyleQualificationForMethodStyle(new BooleanData());
+			public DotnetStyleQualificationForPropertyStyle DotnetStyleQualificationForPropertyStyle { get; set; } =
+				new DotnetStyleQualificationForPropertyStyle(new BooleanData());
 			public IndentStyleStyle IndentStyleStyle { get; set; } =
 				new IndentStyleStyle(new TabSpaceData());
 		}
