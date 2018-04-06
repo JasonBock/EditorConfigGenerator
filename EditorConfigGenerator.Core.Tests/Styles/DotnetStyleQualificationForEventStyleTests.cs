@@ -217,6 +217,28 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		}
 
 		[Test]
+		public static void UpdateWithUnexpectedNodeType()
+		{
+			var style = new DotnetStyleQualificationForEventStyle(new BooleanData(default, default, default));
+
+			var unit = SyntaxFactory.ParseCompilationUnit(
+@"public class Foo
+{
+	private int x;
+
+	public int Bar() => this.x;
+}");
+			var (node, model) = DotnetStyleQualificationForEventStyleTests.GetInformation<IdentifierNameSyntax>(unit);
+			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
+
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
+			Assert.That(data.TotalOccurences, Is.EqualTo(0u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
+		}
+
+		[Test]
 		public static void UpdateWithDiagnostics()
 		{
 			var style = new DotnetStyleQualificationForEventStyle(new BooleanData(default, default, default));

@@ -209,6 +209,28 @@ public class Foo
 		}
 
 		[Test]
+		public static void UpdateWithUnexpectedNodeType()
+		{
+			var style = new DotnetStyleQualificationForFieldStyle(new BooleanData(default, default, default));
+
+			var unit = SyntaxFactory.ParseCompilationUnit(
+@"public class Foo
+{
+	public int X { get; set; }
+
+	public int Bar() => this.X;
+}");
+			var (node, model) = DotnetStyleQualificationForFieldStyleTests.GetInformation<IdentifierNameSyntax>(unit);
+			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
+
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
+			Assert.That(data.TotalOccurences, Is.EqualTo(0u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
+		}
+
+		[Test]
 		public static void UpdateWithDiagnostics()
 		{
 			var style = new DotnetStyleQualificationForFieldStyle(new BooleanData(default, default, default));

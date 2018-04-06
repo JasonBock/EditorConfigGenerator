@@ -13,6 +13,8 @@
 		CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; }
 		DotnetSortSystemDirectivesFirstStyle DotnetSortSystemDirectivesFirstStyle { get; }
 		DotnetStyleExplicitTupleNamesStyle DotnetStyleExplicitTupleNamesStyle { get; }
+		DotnetStylePredefinedTypeForLocalsParametersMembersStyle DotnetStylePredefinedTypeForLocalsParametersMembersStyle { get; }
+		DotnetStylePredefinedTypeForMemberAccessStyle DotnetStylePredefinedTypeForMemberAccessStyle { get; }
 		DotnetStyleQualificationForEventStyle DotnetStyleQualificationForEventStyle { get; }
 		DotnetStyleQualificationForFieldStyle DotnetStyleQualificationForFieldStyle { get; }
 		DotnetStyleQualificationForMethodStyle DotnetStyleQualificationForMethodStyle { get; }

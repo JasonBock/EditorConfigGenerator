@@ -209,6 +209,31 @@ public class Foo
 		}
 
 		[Test]
+		public static void UpdateWithUnexpectedNodeType()
+		{
+			var style = new DotnetStyleQualificationForPropertyStyle(new BooleanData(default, default, default));
+
+			var unit = SyntaxFactory.ParseCompilationUnit(
+@"public class Foo
+{
+	public event EventHandler DoIt;
+
+	public void Bar()
+	{
+		this.DoIt += (a, b) => { };
+	}
+}");
+			var (node, model) = DotnetStyleQualificationForPropertyStyleTests.GetInformation<IdentifierNameSyntax>(unit);
+			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
+
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
+			Assert.That(data.TotalOccurences, Is.EqualTo(0u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
+		}
+
+		[Test]
 		public static void UpdateWithDiagnostics()
 		{
 			var style = new DotnetStyleQualificationForPropertyStyle(new BooleanData(default, default, default));

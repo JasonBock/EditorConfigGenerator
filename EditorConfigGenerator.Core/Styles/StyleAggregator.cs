@@ -39,6 +39,8 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetSortSystemDirectivesFirstStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleExplicitTupleNamesStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStylePredefinedTypeForMemberAccessStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForEventStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForFieldStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForMethodStyle.GetSetting(), builder);
@@ -69,6 +71,9 @@ namespace EditorConfigGenerator.Core.Styles
 						new ModelNodeInformation<SyntaxNode>(node, this.model));
 				this.Set.DotnetStyleQualificationForPropertyStyle =
 					this.Set.DotnetStyleQualificationForPropertyStyle.Update(
+						new ModelNodeInformation<SyntaxNode>(node, this.model));
+				this.Set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle =
+					this.Set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle.Update(
 						new ModelNodeInformation<SyntaxNode>(node, this.model));
 				base.Visit(node);
 			}
@@ -130,6 +135,9 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.DotnetStyleExplicitTupleNamesStyle =
 					this.Set.DotnetStyleExplicitTupleNamesStyle.Update(
 						new ModelNodeInformation<MemberAccessExpressionSyntax>(node, this.model));
+				this.Set.DotnetStylePredefinedTypeForMemberAccessStyle =
+					this.Set.DotnetStylePredefinedTypeForMemberAccessStyle.Update(
+						new ModelNodeInformation<MemberAccessExpressionSyntax>(node, this.model));
 				base.VisitMemberAccessExpression(node);
 			}
 
@@ -185,6 +193,10 @@ namespace EditorConfigGenerator.Core.Styles
 						this.DotnetSortSystemDirectivesFirstStyle.Add(set.DotnetSortSystemDirectivesFirstStyle),
 					DotnetStyleExplicitTupleNamesStyle =
 						this.DotnetStyleExplicitTupleNamesStyle.Add(set.DotnetStyleExplicitTupleNamesStyle),
+					DotnetStylePredefinedTypeForLocalsParametersMembersStyle =
+						this.DotnetStylePredefinedTypeForLocalsParametersMembersStyle.Add(set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle),
+					DotnetStylePredefinedTypeForMemberAccessStyle =
+						this.DotnetStylePredefinedTypeForMemberAccessStyle.Add(set.DotnetStylePredefinedTypeForMemberAccessStyle),
 					DotnetStyleQualificationForEventStyle =
 						this.DotnetStyleQualificationForEventStyle.Add(set.DotnetStyleQualificationForEventStyle),
 					DotnetStyleQualificationForFieldStyle =
@@ -219,6 +231,10 @@ namespace EditorConfigGenerator.Core.Styles
 				new DotnetSortSystemDirectivesFirstStyle(new BooleanData());
 			public DotnetStyleExplicitTupleNamesStyle DotnetStyleExplicitTupleNamesStyle { get; set; } =
 				new DotnetStyleExplicitTupleNamesStyle(new BooleanData());
+			public DotnetStylePredefinedTypeForLocalsParametersMembersStyle DotnetStylePredefinedTypeForLocalsParametersMembersStyle { get; set; } =
+				new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(new BooleanData());
+			public DotnetStylePredefinedTypeForMemberAccessStyle DotnetStylePredefinedTypeForMemberAccessStyle { get; set; } =
+				new DotnetStylePredefinedTypeForMemberAccessStyle(new BooleanData());
 			public DotnetStyleQualificationForEventStyle DotnetStyleQualificationForEventStyle { get; set; } =
 				new DotnetStyleQualificationForEventStyle(new BooleanData());
 			public DotnetStyleQualificationForFieldStyle DotnetStyleQualificationForFieldStyle { get; set; } =
