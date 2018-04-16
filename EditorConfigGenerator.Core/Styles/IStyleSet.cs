@@ -19,6 +19,7 @@
 		DotnetStyleQualificationForFieldStyle DotnetStyleQualificationForFieldStyle { get; }
 		DotnetStyleQualificationForMethodStyle DotnetStyleQualificationForMethodStyle { get; }
 		DotnetStyleQualificationForPropertyStyle DotnetStyleQualificationForPropertyStyle { get; }
+		DotnetStyleRequireAccessibilityModifiersStyle DotnetStyleRequireAccessibilityModifiersStyle { get; }
 		IndentStyleStyle IndentStyleStyle { get; }
 
 		IStyleSet Update(IStyleSet set);

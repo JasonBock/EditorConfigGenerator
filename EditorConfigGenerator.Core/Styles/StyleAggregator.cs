@@ -45,6 +45,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.DotnetStyleQualificationForFieldStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForMethodStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForPropertyStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStyleRequireAccessibilityModifiersStyle.GetSetting(), builder);
 			AppendSetting(this.Set.IndentStyleStyle.GetSetting(), builder);
 			return builder.ToString();
 		}
@@ -92,6 +93,14 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitArgument(node);
 			}
 
+			public override void VisitClassDeclaration(ClassDeclarationSyntax node)
+			{
+				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
+					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
+						new NodeInformation<MemberDeclarationSyntax>(node));
+				base.VisitClassDeclaration(node);
+			}
+
 			public override void VisitCompilationUnit(CompilationUnitSyntax node)
 			{
 				this.Set.DotnetSortSystemDirectivesFirstStyle =
@@ -103,7 +112,26 @@ namespace EditorConfigGenerator.Core.Styles
 			{
 				this.Set.CSharpStyleExpressionBodiedConstructorsStyle =
 					this.Set.CSharpStyleExpressionBodiedConstructorsStyle.Update(node);
+				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
+					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
+						new NodeInformation<MemberDeclarationSyntax>(node));
 				base.VisitConstructorDeclaration(node);
+			}
+
+			public override void VisitEventDeclaration(EventDeclarationSyntax node)
+			{
+				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
+					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
+						new NodeInformation<MemberDeclarationSyntax>(node));
+				base.VisitEventDeclaration(node);
+			}
+
+			public override void VisitFieldDeclaration(FieldDeclarationSyntax node)
+			{
+				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
+					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
+						new NodeInformation<MemberDeclarationSyntax>(node));
+				base.VisitFieldDeclaration(node);
 			}
 
 			public override void VisitIndexerDeclaration(IndexerDeclarationSyntax node)
@@ -145,6 +173,9 @@ namespace EditorConfigGenerator.Core.Styles
 			{
 				this.Set.CSharpStyleExpressionBodiedMethodsStyle =
 					this.Set.CSharpStyleExpressionBodiedMethodsStyle.Update(node);
+				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
+					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
+						new NodeInformation<MemberDeclarationSyntax>(node));
 				base.VisitMethodDeclaration(node);
 			}
 
@@ -152,6 +183,9 @@ namespace EditorConfigGenerator.Core.Styles
 			{
 				this.Set.CSharpStyleExpressionBodiedOperatorsStyle =
 					this.Set.CSharpStyleExpressionBodiedOperatorsStyle.Update(node);
+				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
+					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
+						new NodeInformation<MemberDeclarationSyntax>(node));
 				base.VisitOperatorDeclaration(node);
 			}
 
@@ -159,7 +193,18 @@ namespace EditorConfigGenerator.Core.Styles
 			{
 				this.Set.CSharpStyleExpressionBodiedPropertiesStyle =
 					this.Set.CSharpStyleExpressionBodiedPropertiesStyle.Update(node);
+				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
+					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
+						new NodeInformation<MemberDeclarationSyntax>(node));
 				base.VisitPropertyDeclaration(node);
+			}
+
+			public override void VisitStructDeclaration(StructDeclarationSyntax node)
+			{
+				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
+					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
+						new NodeInformation<MemberDeclarationSyntax>(node));
+				base.VisitStructDeclaration(node);
 			}
 
 			public StyleSet Set { get; } = new StyleSet();
@@ -205,6 +250,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.DotnetStyleQualificationForMethodStyle.Add(set.DotnetStyleQualificationForMethodStyle),
 					DotnetStyleQualificationForPropertyStyle =
 						this.DotnetStyleQualificationForPropertyStyle.Add(set.DotnetStyleQualificationForPropertyStyle),
+					DotnetStyleRequireAccessibilityModifiersStyle = 
+						this.DotnetStyleRequireAccessibilityModifiersStyle.Add(set.DotnetStyleRequireAccessibilityModifiersStyle),
 					IndentStyleStyle =
 						this.IndentStyleStyle.Add(set.IndentStyleStyle)
 				};
@@ -243,6 +290,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new DotnetStyleQualificationForMethodStyle(new BooleanData());
 			public DotnetStyleQualificationForPropertyStyle DotnetStyleQualificationForPropertyStyle { get; set; } =
 				new DotnetStyleQualificationForPropertyStyle(new BooleanData());
+			public DotnetStyleRequireAccessibilityModifiersStyle DotnetStyleRequireAccessibilityModifiersStyle { get; set; } =
+				new DotnetStyleRequireAccessibilityModifiersStyle(new BooleanData());
 			public IndentStyleStyle IndentStyleStyle { get; set; } =
 				new IndentStyleStyle(new TabSpaceData());
 		}
