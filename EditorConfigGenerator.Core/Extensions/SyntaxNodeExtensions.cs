@@ -10,6 +10,24 @@ namespace EditorConfigGenerator.Core.Extensions
 {
 	internal static class SyntaxNodeExtensions
 	{
+		internal static BlockSyntax GetPreviousBlock<T>(this SyntaxNode @this)
+			where T : SyntaxNode
+		{
+			var tryStatement = @this.FindParent<T>();
+			var tryChildren = tryStatement.ChildNodes().ToArray();
+			var nodeIndex = Array.IndexOf(tryChildren, @this);
+			var previousNode = tryChildren[nodeIndex - 1];
+
+			if (previousNode is BlockSyntax block)
+			{
+				return block;
+			}
+			else
+			{
+				return previousNode.ChildNodes().Single(_ => _.Kind() == SyntaxKind.Block) as BlockSyntax;
+			}
+		}
+
 		internal static ExpressionBodiedData Examine(this SyntaxNode @this, ExpressionBodiedData current)
 		{
 			if (@this == null) { throw new ArgumentNullException(nameof(@this)); }

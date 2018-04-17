@@ -34,7 +34,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(1u, 0u, 1u);
 			var style = new DotnetStyleRequireAccessibilityModifiersStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("dotnet_style_require_accessibility_modifiers = false:error"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo("dotnet_style_require_accessibility_modifiers = never:error"), nameof(style.GetSetting));
 		}
 
 		[Test]
@@ -43,7 +43,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(1u, 1u, 0u);
 			var style = new DotnetStyleRequireAccessibilityModifiersStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("dotnet_style_require_accessibility_modifiers = true:error"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo("dotnet_style_require_accessibility_modifiers = always:error"), nameof(style.GetSetting));
 		}
 
 		[Test]

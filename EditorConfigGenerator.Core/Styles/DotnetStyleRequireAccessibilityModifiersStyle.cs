@@ -24,7 +24,7 @@ namespace EditorConfigGenerator.Core.Styles
 		{
 			if (this.Data.TotalOccurences > 0)
 			{
-				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
+				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "always" : "never";
 				return $"dotnet_style_require_accessibility_modifiers = { value}:{this.Severity.GetDescription()}";
 			}
 			else

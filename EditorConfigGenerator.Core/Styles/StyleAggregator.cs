@@ -28,6 +28,9 @@ namespace EditorConfigGenerator.Core.Styles
 
 			var builder = new StringBuilder();
 			builder.AppendLine("[*.cs]");
+			AppendSetting(this.Set.CSharpNewLineBeforeCatchStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpNewLineBeforeElseStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedAccessorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedConstructorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedIndexersStyle.GetSetting(), builder);
@@ -93,6 +96,14 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitArgument(node);
 			}
 
+			public override void VisitCatchClause(CatchClauseSyntax node)
+			{
+				this.Set.CSharpNewLineBeforeCatchStyle =
+					this.Set.CSharpNewLineBeforeCatchStyle.Update(
+						new NodeInformation<CatchClauseSyntax>(node));
+				base.VisitCatchClause(node);
+			}
+
 			public override void VisitClassDeclaration(ClassDeclarationSyntax node)
 			{
 				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
@@ -118,6 +129,13 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitConstructorDeclaration(node);
 			}
 
+			public override void VisitElseClause(ElseClauseSyntax node)
+			{
+				this.Set.CSharpNewLineBeforeElseStyle =
+					this.Set.CSharpNewLineBeforeElseStyle.Update(node);
+				base.VisitElseClause(node);
+			}
+
 			public override void VisitEventDeclaration(EventDeclarationSyntax node)
 			{
 				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
@@ -132,6 +150,14 @@ namespace EditorConfigGenerator.Core.Styles
 					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
 						new NodeInformation<MemberDeclarationSyntax>(node));
 				base.VisitFieldDeclaration(node);
+			}
+
+			public override void VisitFinallyClause(FinallyClauseSyntax node)
+			{
+				this.Set.CSharpNewLineBeforeFinallyStyle =
+					this.Set.CSharpNewLineBeforeFinallyStyle.Update(
+						new NodeInformation<FinallyClauseSyntax>(node));
+				base.VisitFinallyClause(node);
 			}
 
 			public override void VisitIndexerDeclaration(IndexerDeclarationSyntax node)
@@ -216,6 +242,12 @@ namespace EditorConfigGenerator.Core.Styles
 			public IStyleSet Update(IStyleSet set) =>
 				new StyleSet()
 				{
+					CSharpNewLineBeforeCatchStyle = 
+						this.CSharpNewLineBeforeCatchStyle.Add(set.CSharpNewLineBeforeCatchStyle),
+					CSharpNewLineBeforeElseStyle = 
+						this.CSharpNewLineBeforeElseStyle.Add(set.CSharpNewLineBeforeElseStyle),
+					CSharpNewLineBeforeFinallyStyle =
+						this.CSharpNewLineBeforeFinallyStyle.Add(set.CSharpNewLineBeforeFinallyStyle),
 					CSharpStyleExpressionBodiedAccessorsStyle =
 						this.CSharpStyleExpressionBodiedAccessorsStyle.Add(set.CSharpStyleExpressionBodiedAccessorsStyle),
 					CSharpStyleExpressionBodiedConstructorsStyle =
@@ -256,6 +288,12 @@ namespace EditorConfigGenerator.Core.Styles
 						this.IndentStyleStyle.Add(set.IndentStyleStyle)
 				};
 
+			public CSharpNewLineBeforeCatchStyle CSharpNewLineBeforeCatchStyle { get; set; } =
+				new CSharpNewLineBeforeCatchStyle(new BooleanData());
+			public CSharpNewLineBeforeElseStyle CSharpNewLineBeforeElseStyle { get; set; } =
+				new CSharpNewLineBeforeElseStyle(new BooleanData());
+			public CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; set; } =
+				new CSharpNewLineBeforeFinallyStyle(new BooleanData());
 			public CSharpStyleExpressionBodiedAccessorsStyle CSharpStyleExpressionBodiedAccessorsStyle { get; set; } =
 				new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData());
 			public CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; set; } =

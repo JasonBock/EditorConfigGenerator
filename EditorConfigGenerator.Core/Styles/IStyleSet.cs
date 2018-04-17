@@ -2,6 +2,9 @@
 {
 	public interface IStyleSet
 	{
+		CSharpNewLineBeforeCatchStyle CSharpNewLineBeforeCatchStyle { get; }
+		CSharpNewLineBeforeElseStyle CSharpNewLineBeforeElseStyle { get; }
+		CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; }
 		CSharpStyleExpressionBodiedAccessorsStyle CSharpStyleExpressionBodiedAccessorsStyle { get; }
 		CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; }
 		CSharpStyleExpressionBodiedIndexersStyle CSharpStyleExpressionBodiedIndexersStyle { get; }

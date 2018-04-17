@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Extensions\SyntaxNodeExtensions.cs~RF4bc1054.TMP" />
     <None Remove="Styles\StyleAggregator.cs~RF188f91eb.TMP" />
   </ItemGroup>
 
