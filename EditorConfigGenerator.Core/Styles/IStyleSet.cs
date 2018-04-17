@@ -5,6 +5,7 @@
 		CSharpNewLineBeforeCatchStyle CSharpNewLineBeforeCatchStyle { get; }
 		CSharpNewLineBeforeElseStyle CSharpNewLineBeforeElseStyle { get; }
 		CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; }
+		CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; }
 		CSharpStyleExpressionBodiedAccessorsStyle CSharpStyleExpressionBodiedAccessorsStyle { get; }
 		CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; }
 		CSharpStyleExpressionBodiedIndexersStyle CSharpStyleExpressionBodiedIndexersStyle { get; }

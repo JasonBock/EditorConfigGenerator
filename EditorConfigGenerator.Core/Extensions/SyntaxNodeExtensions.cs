@@ -13,10 +13,10 @@ namespace EditorConfigGenerator.Core.Extensions
 		internal static BlockSyntax GetPreviousBlock<T>(this SyntaxNode @this)
 			where T : SyntaxNode
 		{
-			var tryStatement = @this.FindParent<T>();
-			var tryChildren = tryStatement.ChildNodes().ToArray();
-			var nodeIndex = Array.IndexOf(tryChildren, @this);
-			var previousNode = tryChildren[nodeIndex - 1];
+			var parentStatement = @this.FindParent<T>();
+			var parentChildren = parentStatement.ChildNodes().ToArray();
+			var nodeIndex = Array.IndexOf(parentChildren, @this);
+			var previousNode = parentChildren[nodeIndex - 1];
 
 			if (previousNode is BlockSyntax block)
 			{

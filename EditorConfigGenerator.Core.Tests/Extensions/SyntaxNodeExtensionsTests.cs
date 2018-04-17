@@ -12,6 +12,28 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 	public static class SyntaxNodeExtensionsTests
 	{
 		[Test]
+		public static void GetPreviousBlock()
+		{
+			var statement = SyntaxFactory.ParseCompilationUnit(
+@"public class Foo
+{
+	public void Bar()
+	{
+		if(true)
+		{
+			var x = 22;
+		}
+		else
+		{
+		}
+	}
+}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ElseClause) as ElseClauseSyntax;
+
+			var block = statement.GetPreviousBlock<IfStatementSyntax>();
+			Assert.That(block.GetText().ToString(), Is.EqualTo("\t\t{\r\n\t\t\tvar x = 22;\r\n\t\t}\r\n"));
+		}
+
+		[Test]
 		public static void ExamineWithNullThis() =>
 			Assert.That(() => (null as MemberDeclarationSyntax).Examine(new ExpressionBodiedData()),
 				Throws.TypeOf<ArgumentNullException>());

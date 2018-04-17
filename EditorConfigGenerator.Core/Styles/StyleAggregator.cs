@@ -31,6 +31,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeCatchStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeElseStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpSpaceAfterCastStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedAccessorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedConstructorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedIndexersStyle.GetSetting(), builder);
@@ -94,6 +95,13 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.CSharpStyleInlinedVariableDeclarationStyle =
 					this.Set.CSharpStyleInlinedVariableDeclarationStyle.Update(node);
 				base.VisitArgument(node);
+			}
+
+			public override void VisitCastExpression(CastExpressionSyntax node)
+			{
+				this.Set.CSharpSpaceAfterCastStyle =
+					this.Set.CSharpSpaceAfterCastStyle.Update(node);
+				base.VisitCastExpression(node);
 			}
 
 			public override void VisitCatchClause(CatchClauseSyntax node)
@@ -248,6 +256,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpNewLineBeforeElseStyle.Add(set.CSharpNewLineBeforeElseStyle),
 					CSharpNewLineBeforeFinallyStyle =
 						this.CSharpNewLineBeforeFinallyStyle.Add(set.CSharpNewLineBeforeFinallyStyle),
+					CSharpSpaceAfterCastStyle =
+						this.CSharpSpaceAfterCastStyle.Add(set.CSharpSpaceAfterCastStyle),
 					CSharpStyleExpressionBodiedAccessorsStyle =
 						this.CSharpStyleExpressionBodiedAccessorsStyle.Add(set.CSharpStyleExpressionBodiedAccessorsStyle),
 					CSharpStyleExpressionBodiedConstructorsStyle =
@@ -294,6 +304,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpNewLineBeforeElseStyle(new BooleanData());
 			public CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; set; } =
 				new CSharpNewLineBeforeFinallyStyle(new BooleanData());
+			public CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; set; } =
+				new CSharpSpaceAfterCastStyle(new BooleanData());
 			public CSharpStyleExpressionBodiedAccessorsStyle CSharpStyleExpressionBodiedAccessorsStyle { get; set; } =
 				new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData());
 			public CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; set; } =
