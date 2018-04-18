@@ -93,7 +93,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -119,7 +119,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -145,7 +145,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		catch
 		}
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

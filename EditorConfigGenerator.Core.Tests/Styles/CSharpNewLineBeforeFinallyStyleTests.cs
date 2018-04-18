@@ -93,7 +93,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -119,7 +119,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -145,7 +145,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		finally
 		}
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

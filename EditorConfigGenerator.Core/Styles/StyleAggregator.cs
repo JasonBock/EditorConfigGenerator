@@ -31,6 +31,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeCatchStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeElseStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceAfterCastStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedAccessorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedConstructorsStyle.GetSetting(), builder);
@@ -137,6 +138,14 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitConstructorDeclaration(node);
 			}
 
+			public override void VisitDefaultExpression(DefaultExpressionSyntax node)
+			{
+				this.Set.CSharpPreferSimpleDefaultExpressionStyle =
+					this.Set.CSharpPreferSimpleDefaultExpressionStyle.Update(
+						new NodeInformation<ExpressionSyntax>(node));
+				base.VisitDefaultExpression(node);
+			}
+
 			public override void VisitElseClause(ElseClauseSyntax node)
 			{
 				this.Set.CSharpNewLineBeforeElseStyle =
@@ -181,6 +190,14 @@ namespace EditorConfigGenerator.Core.Styles
 					this.Set.DotnetStyleQualificationForMethodStyle.Update(
 						new ModelNodeInformation<InvocationExpressionSyntax>(node, this.model));
 				base.VisitInvocationExpression(node);
+			}
+
+			public override void VisitLiteralExpression(LiteralExpressionSyntax node)
+			{
+				this.Set.CSharpPreferSimpleDefaultExpressionStyle =
+					this.Set.CSharpPreferSimpleDefaultExpressionStyle.Update(
+						new NodeInformation<ExpressionSyntax>(node));
+				base.VisitLiteralExpression(node);
 			}
 
 			public override void VisitLocalDeclarationStatement(LocalDeclarationStatementSyntax node)
@@ -256,6 +273,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpNewLineBeforeElseStyle.Add(set.CSharpNewLineBeforeElseStyle),
 					CSharpNewLineBeforeFinallyStyle =
 						this.CSharpNewLineBeforeFinallyStyle.Add(set.CSharpNewLineBeforeFinallyStyle),
+					CSharpPreferSimpleDefaultExpressionStyle =
+						this.CSharpPreferSimpleDefaultExpressionStyle.Add(set.CSharpPreferSimpleDefaultExpressionStyle),
 					CSharpSpaceAfterCastStyle =
 						this.CSharpSpaceAfterCastStyle.Add(set.CSharpSpaceAfterCastStyle),
 					CSharpStyleExpressionBodiedAccessorsStyle =
@@ -304,6 +323,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpNewLineBeforeElseStyle(new BooleanData());
 			public CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; set; } =
 				new CSharpNewLineBeforeFinallyStyle(new BooleanData());
+			public CSharpPreferSimpleDefaultExpressionStyle CSharpPreferSimpleDefaultExpressionStyle { get; set; } =
+				new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData());
 			public CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; set; } =
 				new CSharpSpaceAfterCastStyle(new BooleanData());
 			public CSharpStyleExpressionBodiedAccessorsStyle CSharpStyleExpressionBodiedAccessorsStyle { get; set; } =

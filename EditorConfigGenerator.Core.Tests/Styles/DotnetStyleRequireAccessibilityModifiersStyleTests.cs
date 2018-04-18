@@ -84,7 +84,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	private void Bar() { }
-}").DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -103,7 +103,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	protected void Bar() { }
-}").DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -122,7 +122,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	internal void Bar() { }
-}").DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -141,7 +141,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	public void Bar() { }
-}").DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -160,7 +160,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	void Bar() { }
-}").DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -179,7 +179,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	void Bar( { }
-}").DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

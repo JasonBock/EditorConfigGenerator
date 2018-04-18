@@ -79,7 +79,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new DotnetSortSystemDirectivesFirstStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit("public class Foo { }");
+			var statement = SyntaxFactory.ParseCompilationUnit("public class Foo { }", options: Constants.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -96,7 +96,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 
 			var statement = SyntaxFactory.ParseCompilationUnit(
 @"using Bar;
-public class Foo { }");
+public class Foo { }", options: Constants.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -114,7 +114,7 @@ public class Foo { }");
 			var statement = SyntaxFactory.ParseCompilationUnit(
 @"using Bar;
 using Bar.Quux;
-public class Foo { }");
+public class Foo { }", options: Constants.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -131,7 +131,7 @@ public class Foo { }");
 
 			var statement = SyntaxFactory.ParseCompilationUnit(
 @"using System;
-public class Foo { }");
+public class Foo { }", options: Constants.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -149,7 +149,7 @@ public class Foo { }");
 			var statement = SyntaxFactory.ParseCompilationUnit(
 @"using System;
 using System.String;
-public class Foo { }");
+public class Foo { }", options: Constants.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -167,7 +167,7 @@ public class Foo { }");
 			var statement = SyntaxFactory.ParseCompilationUnit(
 @"using System.String;
 using System;
-public class Foo { }");
+public class Foo { }", options: Constants.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -185,7 +185,7 @@ public class Foo { }");
 			var statement = SyntaxFactory.ParseCompilationUnit(
 @"using Bar;
 using System;
-public class Foo { }");
+public class Foo { }", options: Constants.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -203,7 +203,7 @@ public class Foo { }");
 			var statement = SyntaxFactory.ParseCompilationUnit(
 @"using System;
 using Bar;
-public class Foo { }");
+public class Foo { }", options: Constants.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -218,7 +218,7 @@ public class Foo { }");
 		{
 			var style = new DotnetSortSystemDirectivesFirstStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit("public class Foo { ");
+			var statement = SyntaxFactory.ParseCompilationUnit("public class Foo { ", options: Constants.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

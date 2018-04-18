@@ -88,7 +88,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var y = (int) x;
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -110,7 +110,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var y = (int)x;
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -132,7 +132,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var y = (int)=>x;
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

@@ -80,7 +80,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("var customer = new Customer();") as LocalDeclarationStatementSyntax;
+			var statement = SyntaxFactory.ParseStatement("var customer = new Customer();", options: Constants.ParseOptions) as LocalDeclarationStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -95,7 +95,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Customer customer = new Customer();") as LocalDeclarationStatementSyntax;
+			var statement = SyntaxFactory.ParseStatement("Customer customer = new Customer();", options: Constants.ParseOptions) as LocalDeclarationStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -110,7 +110,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("var customer = new Customer()") as LocalDeclarationStatementSyntax;
+			var statement = SyntaxFactory.ParseStatement("var customer = new Customer()", options: Constants.ParseOptions) as LocalDeclarationStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

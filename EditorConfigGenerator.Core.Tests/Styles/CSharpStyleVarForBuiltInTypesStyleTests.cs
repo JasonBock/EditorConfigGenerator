@@ -80,7 +80,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarForBuiltInTypesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("var x = 0;") as LocalDeclarationStatementSyntax;
+			var statement = SyntaxFactory.ParseStatement("var x = 0;", options: Constants.ParseOptions) as LocalDeclarationStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -95,7 +95,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarForBuiltInTypesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("int x = 0;") as LocalDeclarationStatementSyntax;
+			var statement = SyntaxFactory.ParseStatement("int x = 0;", options: Constants.ParseOptions) as LocalDeclarationStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -110,7 +110,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarForBuiltInTypesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("int x = 0") as LocalDeclarationStatementSyntax;
+			var statement = SyntaxFactory.ParseStatement("int x = 0", options: Constants.ParseOptions) as LocalDeclarationStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

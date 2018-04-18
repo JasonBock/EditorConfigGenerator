@@ -24,7 +24,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_space_after_cast = { value}:{this.Severity.GetDescription()}";
+				return $"csharp_space_after_cast = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{

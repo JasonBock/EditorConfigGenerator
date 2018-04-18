@@ -80,8 +80,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		get => age; 
 	} 
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -107,8 +106,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		get => 42 + 
 			age; 
 	} 
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -133,8 +131,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		get { return this.age; } 
 	} 
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -159,8 +156,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		get => age
 	} 
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));

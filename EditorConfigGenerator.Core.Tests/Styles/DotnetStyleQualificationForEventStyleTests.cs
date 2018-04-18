@@ -104,7 +104,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		this.DoIt += (a, b) => { };
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForEventStyleTests.GetInformation<MemberAccessExpressionSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -129,7 +129,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		DoIt += (a, b) => { };
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForEventStyleTests.GetInformation<IdentifierNameSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -155,7 +155,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var x = this.DoIt;
 		x.DoIt += (a, b) => { };
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForEventStyleTests.GetInformation<MemberAccessExpressionSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -180,7 +180,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		Foo.DoIt += (a, b) => { };
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForEventStyleTests.GetInformation<MemberAccessExpressionSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -205,7 +205,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		DoIt += (a, b) => { };
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForEventStyleTests.GetInformation<IdentifierNameSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -227,7 +227,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int x;
 
 	public int Bar() => this.x;
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForEventStyleTests.GetInformation<IdentifierNameSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -252,7 +252,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var x = this.DoIt =>;
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForEventStyleTests.GetInformation<MemberAccessExpressionSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 

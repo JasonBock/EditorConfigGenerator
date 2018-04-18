@@ -71,7 +71,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithMultipleStatements()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { var x = 2; return x + 2; }")
+			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { var x = 2; return x + 2; }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(
@@ -88,7 +88,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowSingleLine()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10; }")
+			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10; }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(
@@ -105,7 +105,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowMultiLine()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit($"public class Foo {{ public int Foo() => 10 + {Environment.NewLine} 20; }}")
+			var method = SyntaxFactory.ParseCompilationUnit($"public class Foo {{ public int Foo() => 10 + {Environment.NewLine} 20; }}", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(
@@ -122,7 +122,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithBlock()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { return 10; } }")
+			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { return 10; } }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(
@@ -139,7 +139,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithDiagonstics()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10 }")
+			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10 }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(

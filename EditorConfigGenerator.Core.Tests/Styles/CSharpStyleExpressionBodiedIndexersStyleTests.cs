@@ -77,8 +77,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int[] ages; 
 
 	public int this[int i] => this.ages[i];
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -101,8 +100,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 
 	public int this[int i] => 42 + 
 		this.ages[i];
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -124,8 +122,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int[] ages; 
 
 	public int this[int i] { get { return this.ages[i]; } }
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -147,8 +144,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int[] ages; 
 
 	public int this[int i] => this.ages[i]
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));

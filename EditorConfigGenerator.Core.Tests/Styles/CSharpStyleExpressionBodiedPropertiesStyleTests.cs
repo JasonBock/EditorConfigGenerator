@@ -77,8 +77,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int age; 
 
 	public int Age => age;
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -101,8 +100,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 
 	public int Age => 42 + 
 		age;
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -124,8 +122,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int age; 
 
 	public int Age { get { return age; }}
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -147,8 +144,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int age; 
 
 	public int Age => age
-}")
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));

@@ -27,7 +27,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		{
 		}
 	}
-}").DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ElseClause) as ElseClauseSyntax;
+}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ElseClause) as ElseClauseSyntax;
 
 			var block = statement.GetPreviousBlock<IfStatementSyntax>();
 			Assert.That(block.GetText().ToString(), Is.EqualTo("\t\t{\r\n\t\t\tvar x = 22;\r\n\t\t}\r\n"));
@@ -41,7 +41,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		[Test]
 		public static void ExamineWithNullData()
 		{
-			var syntax = SyntaxFactory.ParseCompilationUnit("public static class Foo { public static void Bar() { } }")
+			var syntax = SyntaxFactory.ParseCompilationUnit("public static class Foo { public static void Bar() { } }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 			Assert.That(() => syntax.Examine(null), Throws.TypeOf<ArgumentNullException>());
 		}
@@ -49,7 +49,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		[Test]
 		public static void ExamineWithExpressionBodiedMemberUsingAbstractMember()
 		{
-			var syntax = SyntaxFactory.ParseCompilationUnit("public abstract class Foo { public abstract int Bar(int x); }")
+			var syntax = SyntaxFactory.ParseCompilationUnit("public abstract class Foo { public abstract int Bar(int x); }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 			var data = syntax.Examine(new ExpressionBodiedData());
 
@@ -62,7 +62,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		[Test]
 		public static void ExamineWithExpressionBodiedMemberUsingArrowSingleLine()
 		{
-			var syntax = SyntaxFactory.ParseCompilationUnit("public static class Foo { public static int Bar() => 1; }")
+			var syntax = SyntaxFactory.ParseCompilationUnit("public static class Foo { public static int Bar() => 1; }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 			var data = syntax.Examine(new ExpressionBodiedData());
 
@@ -75,7 +75,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		[Test]
 		public static void ExamineWithExpressionBodiedMemberUsingArrowMultiLine()
 		{
-			var syntax = SyntaxFactory.ParseCompilationUnit($"public static class Foo {{ public static int Bar() => 1 + {Environment.NewLine} 2; }}")
+			var syntax = SyntaxFactory.ParseCompilationUnit($"public static class Foo {{ public static int Bar() => 1 + {Environment.NewLine} 2; }}", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 			var data = syntax.Examine(new ExpressionBodiedData());
 
@@ -88,7 +88,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		[Test]
 		public static void ExamineWithExpressionBodiedMemberUsingBlockWithMultipleStatements()
 		{
-			var syntax = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Bar(int x) { x = x + 2; return x * 3; } }")
+			var syntax = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Bar(int x) { x = x + 2; return x * 3; } }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 			var data = syntax.Examine(new ExpressionBodiedData());
 
@@ -101,7 +101,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		[Test]
 		public static void ExamineWithExpressionBodiedMemberUsingBlock()
 		{
-			var syntax = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Bar(int x) { return x * 3; } }")
+			var syntax = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Bar(int x) { return x * 3; } }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 			var data = syntax.Examine(new ExpressionBodiedData());
 
@@ -114,7 +114,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		[Test]
 		public static void ExamineWithExpressionBodiedMemberWithDiagnostics()
 		{
-			var syntax = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Bar() => 1 }")
+			var syntax = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Bar() => 1 }", options: Constants.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
 			var data = syntax.Examine(new ExpressionBodiedData());
 
@@ -127,7 +127,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		[Test]
 		public static void FindParent()
 		{
-			var unit = SyntaxFactory.ParseCompilationUnit("public class F { public void Foo() { } }");
+			var unit = SyntaxFactory.ParseCompilationUnit("public class F { public void Foo() { } }", options: Constants.ParseOptions);
 			var invocation = unit.DescendantNodes().OfType<MethodDeclarationSyntax>().Single();
 			var parent = invocation.FindParent<ClassDeclarationSyntax>();
 
@@ -137,7 +137,7 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 		[Test]
 		public static void FindParentWhenParentDoesNotExist()
 		{
-			var unit = SyntaxFactory.ParseCompilationUnit("public class F { public void Foo() { } }");
+			var unit = SyntaxFactory.ParseCompilationUnit("public class F { public void Foo() { } }", options: Constants.ParseOptions);
 			var invocation = unit.DescendantNodes().OfType<ClassDeclarationSyntax>().Single();
 			var parent = invocation.FindParent<MethodDeclarationSyntax>();
 

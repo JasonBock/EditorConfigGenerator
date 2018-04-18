@@ -98,7 +98,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"public class Foo 
 { 
 	public void Bar(int x) { }
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<ParameterSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -119,7 +119,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 public class Foo 
 { 
 	public void Bar(Int32 x) { }
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<ParameterSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -138,7 +138,7 @@ public class Foo
 @"public class Foo 
 { 
 	public void Bar(Foo x) { }
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<ParameterSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -160,7 +160,7 @@ public class Foo
 	{ 
 		int x = 10;
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<LocalDeclarationStatementSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -184,7 +184,7 @@ public class Foo
 	{ 
 		Int32 x = 10;
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<LocalDeclarationStatementSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -206,7 +206,7 @@ public class Foo
 	{ 
 		Foo x = default;
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<LocalDeclarationStatementSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -225,7 +225,7 @@ public class Foo
 @"public class Foo 
 { 
 	private int x;
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<FieldDeclarationSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -246,7 +246,7 @@ public class Foo
 public class Foo 
 { 
 	private Int32 x;
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<FieldDeclarationSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -265,7 +265,7 @@ public class Foo
 @"public class Foo 
 { 
 	private Foo x;
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<FieldDeclarationSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -284,7 +284,7 @@ public class Foo
 @"public class Foo 
 { 
 	public int X { get; }
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<PropertyDeclarationSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -305,7 +305,7 @@ public class Foo
 public class Foo 
 { 
 	public Int32 X { get; }
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<PropertyDeclarationSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -324,7 +324,7 @@ public class Foo
 @"public class Foo 
 { 
 	public Foo X { get; }
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<PropertyDeclarationSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -343,7 +343,7 @@ public class Foo
 @"public class Foo 
 { 
 	public Foo X { get; }
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<ClassDeclarationSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -366,7 +366,7 @@ public class Foo
 	{
 		int x =>;
 	}
-}");
+}", options: Constants.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests.GetInformation<LocalDeclarationStatementSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
