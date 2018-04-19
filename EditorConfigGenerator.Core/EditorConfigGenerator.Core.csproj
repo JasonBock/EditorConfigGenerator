@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Styles\CSharpSpaceAfterCastStyle.cs~RFa1aef30.TMP" />
+    <None Remove="Styles\IStyleSet.cs~RFb82ead3.TMP" />
   </ItemGroup>
 
   <ItemGroup>

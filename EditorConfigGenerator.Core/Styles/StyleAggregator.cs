@@ -46,6 +46,8 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.DotnetStyleExplicitTupleNamesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStylePredefinedTypeForMemberAccessStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStylePreferInferredAnonymousTypeMemberNamesStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStylePreferInferredTupleNamesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForEventStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForFieldStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleQualificationForMethodStyle.GetSetting(), builder);
@@ -89,6 +91,13 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.CSharpStyleExpressionBodiedAccessorsStyle =
 					this.Set.CSharpStyleExpressionBodiedAccessorsStyle.Update(node);
 				base.VisitAccessorDeclaration(node);
+			}
+
+			public override void VisitAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax node)
+			{
+				this.Set.DotnetStylePreferInferredAnonymousTypeMemberNamesStyle =
+					this.Set.DotnetStylePreferInferredAnonymousTypeMemberNamesStyle.Update(node);
+				base.VisitAnonymousObjectMemberDeclarator(node);
 			}
 
 			public override void VisitArgument(ArgumentSyntax node)
@@ -258,6 +267,14 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitStructDeclaration(node);
 			}
 
+			public override void VisitTupleExpression(TupleExpressionSyntax node)
+			{
+				this.Set.DotnetStylePreferInferredTupleNamesStyle =
+					this.Set.DotnetStylePreferInferredTupleNamesStyle.Update(
+						new NodeInformation<TupleExpressionSyntax>(node));
+				base.VisitTupleExpression(node);
+			}
+
 			public StyleSet Set { get; } = new StyleSet();
 		}
 
@@ -303,6 +320,10 @@ namespace EditorConfigGenerator.Core.Styles
 						this.DotnetStylePredefinedTypeForLocalsParametersMembersStyle.Add(set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle),
 					DotnetStylePredefinedTypeForMemberAccessStyle =
 						this.DotnetStylePredefinedTypeForMemberAccessStyle.Add(set.DotnetStylePredefinedTypeForMemberAccessStyle),
+					DotnetStylePreferInferredAnonymousTypeMemberNamesStyle =
+						this.DotnetStylePreferInferredAnonymousTypeMemberNamesStyle.Add(set.DotnetStylePreferInferredAnonymousTypeMemberNamesStyle),
+					DotnetStylePreferInferredTupleNamesStyle = 
+						this.DotnetStylePreferInferredTupleNamesStyle.Add(set.DotnetStylePreferInferredTupleNamesStyle),
 					DotnetStyleQualificationForEventStyle =
 						this.DotnetStyleQualificationForEventStyle.Add(set.DotnetStyleQualificationForEventStyle),
 					DotnetStyleQualificationForFieldStyle =
@@ -353,6 +374,10 @@ namespace EditorConfigGenerator.Core.Styles
 				new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(new BooleanData());
 			public DotnetStylePredefinedTypeForMemberAccessStyle DotnetStylePredefinedTypeForMemberAccessStyle { get; set; } =
 				new DotnetStylePredefinedTypeForMemberAccessStyle(new BooleanData());
+			public DotnetStylePreferInferredAnonymousTypeMemberNamesStyle DotnetStylePreferInferredAnonymousTypeMemberNamesStyle { get; set; } =
+				new DotnetStylePreferInferredAnonymousTypeMemberNamesStyle(new BooleanData());
+			public DotnetStylePreferInferredTupleNamesStyle DotnetStylePreferInferredTupleNamesStyle { get; set; } =
+				new DotnetStylePreferInferredTupleNamesStyle(new BooleanData());
 			public DotnetStyleQualificationForEventStyle DotnetStyleQualificationForEventStyle { get; set; } =
 				new DotnetStyleQualificationForEventStyle(new BooleanData());
 			public DotnetStyleQualificationForFieldStyle DotnetStyleQualificationForFieldStyle { get; set; } =

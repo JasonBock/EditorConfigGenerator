@@ -20,6 +20,8 @@
 		DotnetStyleExplicitTupleNamesStyle DotnetStyleExplicitTupleNamesStyle { get; }
 		DotnetStylePredefinedTypeForLocalsParametersMembersStyle DotnetStylePredefinedTypeForLocalsParametersMembersStyle { get; }
 		DotnetStylePredefinedTypeForMemberAccessStyle DotnetStylePredefinedTypeForMemberAccessStyle { get; }
+		DotnetStylePreferInferredAnonymousTypeMemberNamesStyle DotnetStylePreferInferredAnonymousTypeMemberNamesStyle { get; }
+		DotnetStylePreferInferredTupleNamesStyle DotnetStylePreferInferredTupleNamesStyle { get; }
 		DotnetStyleQualificationForEventStyle DotnetStyleQualificationForEventStyle { get; }
 		DotnetStyleQualificationForFieldStyle DotnetStyleQualificationForFieldStyle { get; }
 		DotnetStyleQualificationForMethodStyle DotnetStyleQualificationForMethodStyle { get; }
