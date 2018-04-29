@@ -41,10 +41,14 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				var block = node.GetPreviousBlock<IfStatementSyntax>();
-				var closeToken = block.ChildTokens().Single(_ => _.RawKind == (int)SyntaxKind.CloseBraceToken);
-				var containsEol = closeToken.HasTrailingTrivia && 
-					closeToken.TrailingTrivia.Any(_ => _.Kind() == SyntaxKind.EndOfLineTrivia);
+				var parentStatement = node.FindParent<IfStatementSyntax>();
+				var parentChildren = parentStatement.ChildNodes().ToArray();
+				var nodeIndex = Array.IndexOf(parentChildren, node);
+				var previousNode = parentChildren[nodeIndex - 1];
+
+				var lastToken = previousNode.ChildTokens().Last();
+				var containsEol = lastToken.HasTrailingTrivia && 
+					lastToken.TrailingTrivia.Any(_ => _.Kind() == SyntaxKind.EndOfLineTrivia);
 				return new CSharpNewLineBeforeElseStyle(this.Data.Update(containsEol), this.Severity);
 			}
 

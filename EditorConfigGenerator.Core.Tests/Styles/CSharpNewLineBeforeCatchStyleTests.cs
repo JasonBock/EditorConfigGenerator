@@ -130,6 +130,65 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		}
 
 		[Test]
+		public static void UpdateWithLineBeforeCatchAsCatchBlock()
+		{
+			var style = new CSharpNewLineBeforeCatchStyle(new BooleanData(default, default, default));
+
+			var statement = SyntaxFactory.ParseCompilationUnit(
+@"public class Foo
+{
+	public void Bar()
+	{
+		try
+		{
+		}
+		catch(System.ArgumentException ae)
+		{
+		}
+		catch
+		{
+		}
+	}
+}", options: Constants.ParseOptions).DescendantNodes().Last(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+			var newStyle = style.Update(statement);
+
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
+			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(1u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
+		}
+
+		[Test]
+		public static void UpdateWithNoLineBeforeCatchAsCatchBlock()
+		{
+			var style = new CSharpNewLineBeforeCatchStyle(new BooleanData(default, default, default));
+
+			var statement = SyntaxFactory.ParseCompilationUnit(
+@"public class Foo
+{
+	public void Bar()
+	{
+		try
+		{
+		} 
+		catch(System.ArgumentException ae)
+		{
+		} catch
+		{
+		}
+	}
+}", options: Constants.ParseOptions).DescendantNodes().Last(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+			var newStyle = style.Update(statement);
+
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
+			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(1u), nameof(data.FalseOccurences));
+		}
+
+		[Test]
 		public static void UpdateWithDiagnostics()
 		{
 			var style = new CSharpNewLineBeforeCatchStyle(new BooleanData(default, default, default));

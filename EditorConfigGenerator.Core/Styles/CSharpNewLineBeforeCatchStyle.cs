@@ -41,7 +41,17 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				var block = node.GetPreviousBlock<TryStatementSyntax>();
+				var parentStatement = node.FindParent<TryStatementSyntax>();
+				var parentChildren = parentStatement.ChildNodes().ToArray();
+				var nodeIndex = Array.IndexOf(parentChildren, node);
+				var previousNode = parentChildren[nodeIndex - 1];
+				var block = previousNode as BlockSyntax;
+
+				if (block == null)
+				{
+					block = (previousNode as CatchClauseSyntax).ChildNodes().Last() as BlockSyntax;
+				}
+
 				var closeToken = block.ChildTokens().Single(_ => _.RawKind == (int)SyntaxKind.CloseBraceToken);
 				var containsEol = closeToken.HasTrailingTrivia && 
 					closeToken.TrailingTrivia.Any(_ => _.Kind() == SyntaxKind.EndOfLineTrivia);
