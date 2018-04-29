@@ -32,7 +32,7 @@ namespace EditorConfigGenerator.IntegrationTests
 			{
 				var projectDirectory = Path.Combine(codeDirectory, project.Name);
 
-				if(!Directory.Exists(projectDirectory))
+				if (!Directory.Exists(projectDirectory))
 				{
 					Console.Out.WriteLine($"Cloning {project.Name} from {project.Repo} into {projectDirectory}...");
 					Directory.CreateDirectory(projectDirectory);
@@ -91,14 +91,14 @@ namespace EditorConfigGenerator.IntegrationTests
 		// TODO, make this a set and do equality pattern to ProjectInformation
 		private static ImmutableList<ProjectInformation> GetProjects() =>
 			ImmutableList.Create<ProjectInformation>(
-					//new ProjectInformation("AngleSharp", new Uri("https://github.com/AngleSharp/AngleSharp.git")),
-					new ProjectInformation("Autofac", new Uri("https://github.com/autofac/Autofac.git")));
-					//new ProjectInformation("AutoMapper", new Uri("https://github.com/AutoMapper/AutoMapper.git")),
-					//new ProjectInformation("CSLA", new Uri("https://github.com/MarimerLLC/csla.git")),
-					//new ProjectInformation("Moq", new Uri("https://github.com/moq/moq.git")),
-					//new ProjectInformation("Newtonsoft.Json", new Uri("https://github.com/JamesNK/Newtonsoft.Json.git")),
-					//new ProjectInformation("NodaTime", new Uri("https://github.com/nodatime/nodatime.git")),
-					//new ProjectInformation("Rocks", new Uri("https://github.com/JasonBock/Rocks.git")),
-					//new ProjectInformation("Serilog", new Uri("https://github.com/serilog/serilog.git")));
+					new ProjectInformation("AngleSharp", new Uri("https://github.com/AngleSharp/AngleSharp.git")),
+					new ProjectInformation("Autofac", new Uri("https://github.com/autofac/Autofac.git")),
+					new ProjectInformation("AutoMapper", new Uri("https://github.com/AutoMapper/AutoMapper.git")),
+					new ProjectInformation("CSLA", new Uri("https://github.com/MarimerLLC/csla.git")),
+					new ProjectInformation("Moq", new Uri("https://github.com/moq/moq.git")),
+					new ProjectInformation("Newtonsoft.Json", new Uri("https://github.com/JamesNK/Newtonsoft.Json.git")),
+					new ProjectInformation("NodaTime", new Uri("https://github.com/nodatime/nodatime.git")),
+					new ProjectInformation("Rocks", new Uri("https://github.com/JasonBock/Rocks.git")),
+					new ProjectInformation("Serilog", new Uri("https://github.com/serilog/serilog.git")));
 	}
 }

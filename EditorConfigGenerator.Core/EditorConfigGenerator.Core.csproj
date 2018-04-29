@@ -9,11 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Styles\CSharpSpaceAfterCastStyle.cs~RFa1aef30.TMP" />
-    <None Remove="Styles\IStyleSet.cs~RFb82ead3.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Buildalyzer" Version="0.4.0" />
     <PackageReference Include="Buildalyzer.Workspaces" Version="0.4.0" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="2.7.0" />
