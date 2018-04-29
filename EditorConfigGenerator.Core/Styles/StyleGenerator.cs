@@ -24,7 +24,7 @@ namespace EditorConfigGenerator.Core.Styles
 					{
 						if (Path.GetExtension(file).ToLower() == ".cs")
 						{
-							Console.Out.WriteLine($"Analyzing {file}...");
+							Console.Out.WriteLine($"\tAnalyzing {file}...");
 							var unit = SyntaxFactory.ParseCompilationUnit(File.ReadAllText(file));
 							var tree = unit.SyntaxTree;
 							var compilation = CSharpCompilation.Create(Guid.NewGuid().ToString("N"),
@@ -32,8 +32,6 @@ namespace EditorConfigGenerator.Core.Styles
 								new[] { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) });
 							var model = compilation.GetSemanticModel(tree);
 							aggregator = aggregator.Update(new StyleAggregator().Add(unit, model));
-							Console.Out.WriteLine($"Analyzing {file} complete.");
-							Console.Out.WriteLine();
 						}
 					}
 
