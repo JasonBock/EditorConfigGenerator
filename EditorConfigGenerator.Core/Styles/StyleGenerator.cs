@@ -19,23 +19,23 @@ namespace EditorConfigGenerator.Core.Styles
 
 			async Task AnalyzeFilesAsync(string rootDirectory)
 			{
+				foreach (var file in Directory.GetFiles(rootDirectory))
+				{
+					if (Path.GetExtension(file).ToLower() == ".cs")
+					{
+						Console.Out.WriteLine($"\tAnalyzing {file}...");
+						var unit = SyntaxFactory.ParseCompilationUnit(File.ReadAllText(file));
+						var tree = unit.SyntaxTree;
+						var compilation = CSharpCompilation.Create(Guid.NewGuid().ToString("N"),
+							new[] { tree },
+							new[] { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) });
+						var model = compilation.GetSemanticModel(tree);
+						aggregator = aggregator.Update(new StyleAggregator().Add(unit, model));
+					}
+				}
+
 				foreach (var subDirectory in Directory.GetDirectories(rootDirectory))
 				{
-					foreach (var file in Directory.GetFiles(subDirectory))
-					{
-						if (Path.GetExtension(file).ToLower() == ".cs")
-						{
-							Console.Out.WriteLine($"\tAnalyzing {file}...");
-							var unit = SyntaxFactory.ParseCompilationUnit(File.ReadAllText(file));
-							var tree = unit.SyntaxTree;
-							var compilation = CSharpCompilation.Create(Guid.NewGuid().ToString("N"),
-								new[] { tree },
-								new[] { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) });
-							var model = compilation.GetSemanticModel(tree);
-							aggregator = aggregator.Update(new StyleAggregator().Add(unit, model));
-						}
-					}
-
 					await AnalyzeFilesAsync(subDirectory);
 				}
 			}
