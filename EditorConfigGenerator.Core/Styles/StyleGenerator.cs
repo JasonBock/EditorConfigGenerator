@@ -12,6 +12,40 @@ namespace EditorConfigGenerator.Core.Styles
 {
 	public static class StyleGenerator
 	{
+		public static async Task<string> GenerateFromDirectoryAsync(string directory, TextWriter writer)
+		{
+			writer.WriteLine($"Analyzing {directory}...");
+
+			async Task AnalyzeFilesAsync(string rootDirectory, StyleAggregator aggregator)
+			{
+				foreach (var subDirectory in Directory.GetDirectories(rootDirectory))
+				{
+					foreach (var file in Directory.GetFiles(subDirectory))
+					{
+						if (Path.GetExtension(file).ToLower() == ".cs")
+						{
+							Console.Out.WriteLine($"Analyzing {file}...");
+							var unit = SyntaxFactory.ParseCompilationUnit(File.ReadAllText(file));
+							var tree = unit.SyntaxTree;
+							var compilation = CSharpCompilation.Create(Guid.NewGuid().ToString("N"),
+								new[] { tree },
+								new[] { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) });
+							var model = compilation.GetSemanticModel(tree);
+							aggregator = aggregator.Update(new StyleAggregator().Add(unit, model));
+							Console.Out.WriteLine($"Analyzing {file} complete.");
+							Console.Out.WriteLine();
+						}
+					}
+
+					await AnalyzeFilesAsync(subDirectory, aggregator);
+				}
+			}
+
+			var agg = new StyleAggregator();
+			await AnalyzeFilesAsync(directory, agg);
+			return agg.GenerateConfiguration();
+		}
+
 		public static async Task<string> GenerateFromSolutionAsync(string solutionFile, TextWriter writer)
 		{
 			writer.WriteLine($"Analyzing {Path.GetFileName(solutionFile)}...");
