@@ -1,6 +1,7 @@
 ﻿using EditorConfigGenerator.Core.Styles;
 using LibGit2Sharp;
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
@@ -90,15 +91,19 @@ namespace EditorConfigGenerator.IntegrationTests
 
 		// TODO, make this a set and do equality pattern to ProjectInformation
 		private static ImmutableList<ProjectInformation> GetProjects() =>
-			ImmutableList.Create<ProjectInformation>(
-					new ProjectInformation("AngleSharp", new Uri("https://github.com/AngleSharp/AngleSharp.git")),
-					new ProjectInformation("Autofac", new Uri("https://github.com/autofac/Autofac.git")),
-					new ProjectInformation("AutoMapper", new Uri("https://github.com/AutoMapper/AutoMapper.git")),
-					new ProjectInformation("CSLA", new Uri("https://github.com/MarimerLLC/csla.git")),
-					new ProjectInformation("Moq", new Uri("https://github.com/moq/moq.git")),
-					new ProjectInformation("Newtonsoft.Json", new Uri("https://github.com/JamesNK/Newtonsoft.Json.git")),
-					new ProjectInformation("NodaTime", new Uri("https://github.com/nodatime/nodatime.git")),
-					new ProjectInformation("Rocks", new Uri("https://github.com/JasonBock/Rocks.git")),
-					new ProjectInformation("Serilog", new Uri("https://github.com/serilog/serilog.git")));
+			new List<ProjectInformation>
+			{
+				new ProjectInformation("AngleSharp", new Uri("https://github.com/AngleSharp/AngleSharp.git")),
+				new ProjectInformation("Autofac", new Uri("https://github.com/autofac/Autofac.git")),
+				new ProjectInformation("AutoMapper", new Uri("https://github.com/AutoMapper/AutoMapper.git")),
+				new ProjectInformation("CSLA", new Uri("https://github.com/MarimerLLC/csla.git")),
+				new ProjectInformation("ImageSharp", new Uri("https://github.com/SixLabors/ImageSharp.git")),
+				new ProjectInformation("Moq", new Uri("https://github.com/moq/moq.git")),
+				new ProjectInformation("Newtonsoft.Json", new Uri("https://github.com/JamesNK/Newtonsoft.Json.git")),
+				new ProjectInformation("NodaTime", new Uri("https://github.com/nodatime/nodatime.git")),
+				new ProjectInformation("Rocks", new Uri("https://github.com/JasonBock/Rocks.git")),
+				new ProjectInformation("Rx", new Uri("https://github.com/Reactive-Extensions/Rx.NET.git")),
+				new ProjectInformation("Serilog", new Uri("https://github.com/serilog/serilog.git")),
+			}.ToImmutableList();
 	}
 }

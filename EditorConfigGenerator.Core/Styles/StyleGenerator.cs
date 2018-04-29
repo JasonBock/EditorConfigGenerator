@@ -15,8 +15,9 @@ namespace EditorConfigGenerator.Core.Styles
 		public static async Task<string> GenerateFromDirectoryAsync(string directory, TextWriter writer)
 		{
 			writer.WriteLine($"Analyzing {directory}...");
+			var aggregator = new StyleAggregator();
 
-			async Task AnalyzeFilesAsync(string rootDirectory, StyleAggregator aggregator)
+			async Task AnalyzeFilesAsync(string rootDirectory)
 			{
 				foreach (var subDirectory in Directory.GetDirectories(rootDirectory))
 				{
@@ -35,13 +36,12 @@ namespace EditorConfigGenerator.Core.Styles
 						}
 					}
 
-					await AnalyzeFilesAsync(subDirectory, aggregator);
+					await AnalyzeFilesAsync(subDirectory);
 				}
 			}
 
-			var agg = new StyleAggregator();
-			await AnalyzeFilesAsync(directory, agg);
-			return agg.GenerateConfiguration();
+			await AnalyzeFilesAsync(directory);
+			return aggregator.GenerateConfiguration();
 		}
 
 		public static async Task<string> GenerateFromSolutionAsync(string solutionFile, TextWriter writer)
