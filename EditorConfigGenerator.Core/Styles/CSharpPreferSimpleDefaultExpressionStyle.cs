@@ -1,7 +1,6 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Styles

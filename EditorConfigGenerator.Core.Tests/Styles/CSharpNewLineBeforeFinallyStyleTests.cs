@@ -17,7 +17,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			const Severity suggestion = Severity.Suggestion;
 			var data = new BooleanData();
 			var style = new CSharpNewLineBeforeFinallyStyle(data, suggestion);
-			Assert.That(style.Severity, Is.EqualTo(suggestion), nameof(style.Data));
+			Assert.That(style.Severity, Is.EqualTo(suggestion), nameof(style.Severity));
 		}
 
 		[Test]

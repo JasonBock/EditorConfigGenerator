@@ -415,36 +415,40 @@
   "M:\\JasonBock\\Personal\\Code Projects\\EditorConfigGenerator\\EditorConfigGenerator.Core\\Styles\\CSharpPreferSimpleDefaultExpressionStyle.cs": {
    "EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle": {
     "System.Void EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle::.ctor(EditorConfigGenerator.Core.Statistics.BooleanData,EditorConfigGenerator.Core.Severity)": {
-     "13": {
+     "12": {
       "Hits": 141,
       "IsBranchPoint": false
      }
     },
     "EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle::Add(EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle)": {
-     "16": {
+     "15": {
       "Hits": 7,
       "IsBranchPoint": false
      },
-     "17": {
+     "16": {
       "Hits": 9,
       "IsBranchPoint": false
      },
-     "18": {
+     "17": {
       "Hits": 6,
       "IsBranchPoint": true
      },
-     "19": {
+     "18": {
       "Hits": 6,
       "IsBranchPoint": true
      }
     },
     "System.String EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle::GetSetting()": {
+     "21": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
      "22": {
       "Hits": 4,
       "IsBranchPoint": false
      },
      "23": {
-      "Hits": 4,
+      "Hits": 3,
       "IsBranchPoint": false
      },
      "24": {
@@ -455,77 +459,73 @@
       "Hits": 3,
       "IsBranchPoint": false
      },
-     "26": {
-      "Hits": 3,
-      "IsBranchPoint": false
-     },
-     "29": {
+     "28": {
       "Hits": 1,
       "IsBranchPoint": true
      },
-     "30": {
+     "29": {
       "Hits": 1,
       "IsBranchPoint": false
      },
-     "32": {
+     "31": {
       "Hits": 4,
       "IsBranchPoint": true
      }
     },
     "EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle::Update(EditorConfigGenerator.Core.Styles.NodeInformation`1<Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax>)": {
-     "35": {
+     "34": {
       "Hits": 9,
       "IsBranchPoint": false
      },
-     "36": {
+     "35": {
       "Hits": 11,
       "IsBranchPoint": false
      },
-     "38": {
+     "37": {
       "Hits": 8,
       "IsBranchPoint": true
      },
-     "40": {
+     "39": {
       "Hits": 8,
       "IsBranchPoint": false
      },
-     "41": {
+     "40": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "43": {
       "Hits": 7,
       "IsBranchPoint": false
      },
      "44": {
-      "Hits": 7,
+      "Hits": 6,
       "IsBranchPoint": false
      },
      "45": {
       "Hits": 6,
       "IsBranchPoint": false
      },
-     "46": {
-      "Hits": 6,
-      "IsBranchPoint": false
+     "47": {
+      "Hits": 1,
+      "IsBranchPoint": true
      },
      "48": {
       "Hits": 1,
-      "IsBranchPoint": true
+      "IsBranchPoint": false
      },
      "49": {
       "Hits": 1,
       "IsBranchPoint": false
      },
-     "50": {
-      "Hits": 1,
-      "IsBranchPoint": false
-     },
-     "52": {
+     "51": {
       "Hits": 0,
       "IsBranchPoint": false
      },
-     "54": {
+     "53": {
       "Hits": 1,
       "IsBranchPoint": true
      },
-     "55": {
+     "54": {
       "Hits": 8,
       "IsBranchPoint": true
      }
@@ -634,14 +634,304 @@
   },
   "M:\\JasonBock\\Personal\\Code Projects\\EditorConfigGenerator\\EditorConfigGenerator.Core\\Styles\\CSharpSpaceBetweenParenthesesStyle.cs": {
    "EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle": {
-    "System.Void EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle::Foo()": {
-     "6": {
-      "Hits": 0,
+    "System.Void EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle::.ctor(EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData)": {
+     "15": {
+      "Hits": 375,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle::Add(EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle)": {
+     "18": {
+      "Hits": 7,
       "IsBranchPoint": false
      },
-     "23": {
-      "Hits": 0,
+     "19": {
+      "Hits": 9,
       "IsBranchPoint": false
+     },
+     "20": {
+      "Hits": 6,
+      "IsBranchPoint": true
+     },
+     "21": {
+      "Hits": 6,
+      "IsBranchPoint": true
+     }
+    },
+    "System.String EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle::GetSetting()": {
+     "24": {
+      "Hits": 8,
+      "IsBranchPoint": false
+     },
+     "25": {
+      "Hits": 8,
+      "IsBranchPoint": false
+     },
+     "26": {
+      "Hits": 6,
+      "IsBranchPoint": false
+     },
+     "27": {
+      "Hits": 6,
+      "IsBranchPoint": false
+     },
+     "29": {
+      "Hits": 6,
+      "IsBranchPoint": false
+     },
+     "30": {
+      "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "31": {
+      "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "32": {
+      "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "34": {
+      "Hits": 6,
+      "IsBranchPoint": true
+     },
+     "35": {
+      "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "36": {
+      "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "37": {
+      "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "39": {
+      "Hits": 6,
+      "IsBranchPoint": true
+     },
+     "40": {
+      "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "41": {
+      "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "42": {
+      "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "44": {
+      "Hits": 6,
+      "IsBranchPoint": true
+     },
+     "45": {
+      "Hits": 6,
+      "IsBranchPoint": false
+     },
+     "48": {
+      "Hits": 2,
+      "IsBranchPoint": true
+     },
+     "49": {
+      "Hits": 2,
+      "IsBranchPoint": false
+     },
+     "51": {
+      "Hits": 8,
+      "IsBranchPoint": true
+     }
+    },
+    "EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle::Update(EditorConfigGenerator.Core.Styles.NodeInformation`1<Microsoft.CodeAnalysis.SyntaxNode>)": {
+     "54": {
+      "Hits": 71,
+      "IsBranchPoint": false
+     },
+     "55": {
+      "Hits": 73,
+      "IsBranchPoint": false
+     },
+     "57": {
+      "Hits": 70,
+      "IsBranchPoint": true
+     },
+     "59": {
+      "Hits": 70,
+      "IsBranchPoint": false
+     },
+     "60": {
+      "Hits": 69,
+      "IsBranchPoint": false
+     },
+     "61": {
+      "Hits": 69,
+      "IsBranchPoint": false
+     },
+     "62": {
+      "Hits": 69,
+      "IsBranchPoint": false
+     },
+     "63": {
+      "Hits": 10,
+      "IsBranchPoint": false
+     },
+     "64": {
+      "Hits": 10,
+      "IsBranchPoint": false
+     },
+     "65": {
+      "Hits": 10,
+      "IsBranchPoint": false
+     },
+     "67": {
+      "Hits": 59,
+      "IsBranchPoint": true
+     },
+     "68": {
+      "Hits": 2,
+      "IsBranchPoint": false
+     },
+     "69": {
+      "Hits": 2,
+      "IsBranchPoint": false
+     },
+     "70": {
+      "Hits": 2,
+      "IsBranchPoint": false
+     },
+     "72": {
+      "Hits": 57,
+      "IsBranchPoint": true
+     },
+     "73": {
+      "Hits": 2,
+      "IsBranchPoint": false
+     },
+     "74": {
+      "Hits": 2,
+      "IsBranchPoint": false
+     },
+     "75": {
+      "Hits": 2,
+      "IsBranchPoint": false
+     },
+     "77": {
+      "Hits": 55,
+      "IsBranchPoint": true
+     },
+     "79": {
+      "Hits": 56,
+      "IsBranchPoint": true
+     },
+     "80": {
+      "Hits": 70,
+      "IsBranchPoint": true
+     }
+    },
+    "System.Boolean EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle::HasParenthesisSpacing(Microsoft.CodeAnalysis.SyntaxNode)": {
+     "83": {
+      "Hits": 14,
+      "IsBranchPoint": false
+     },
+     "84": {
+      "Hits": 14,
+      "IsBranchPoint": false
+     },
+     "85": {
+      "Hits": 38,
+      "IsBranchPoint": false
+     },
+     "86": {
+      "Hits": 46,
+      "IsBranchPoint": false
+     },
+     "88": {
+      "Hits": 14,
+      "IsBranchPoint": false
+     },
+     "89": {
+      "Hits": 21,
+      "IsBranchPoint": false
+     },
+     "91": {
+      "Hits": 14,
+      "IsBranchPoint": false
+     },
+     "92": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "93": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "94": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "96": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "97": {
+      "Hits": 14,
+      "IsBranchPoint": false
+     },
+     "99": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "102": {
+      "Hits": 7,
+      "IsBranchPoint": true
+     },
+     "103": {
+      "Hits": 14,
+      "IsBranchPoint": true
+     }
+    },
+    "Microsoft.CodeAnalysis.SyntaxNodeOrToken EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle::GetLastNodeOrToken(Microsoft.CodeAnalysis.SyntaxNodeOrToken)": {
+     "106": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "107": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "108": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "110": {
+      "Hits": 15,
+      "IsBranchPoint": true
+     },
+     "111": {
+      "Hits": 8,
+      "IsBranchPoint": true
+     },
+     "112": {
+      "Hits": 8,
+      "IsBranchPoint": false
+     },
+     "113": {
+      "Hits": 8,
+      "IsBranchPoint": false
+     },
+     "114": {
+      "Hits": 8,
+      "IsBranchPoint": false
+     },
+     "116": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "117": {
+      "Hits": 7,
+      "IsBranchPoint": true
      }
     }
    }
@@ -3304,17 +3594,17 @@
    "EditorConfigGenerator.Core.Styles.NodeInformation`1": {
     "System.Void EditorConfigGenerator.Core.Styles.NodeInformation`1::.ctor(TNode)": {
      "9": {
-      "Hits": 449,
+      "Hits": 519,
       "IsBranchPoint": false
      },
      "10": {
-      "Hits": 449,
+      "Hits": 519,
       "IsBranchPoint": false
      }
     },
     "EditorConfigGenerator.Core.Styles.NodeInformation`1<TNode> EditorConfigGenerator.Core.Styles.NodeInformation`1::op_Implicit(TNode)": {
      "12": {
-      "Hits": 160,
+      "Hits": 176,
       "IsBranchPoint": false
      }
     },
@@ -3326,7 +3616,7 @@
     },
     "TNode EditorConfigGenerator.Core.Styles.NodeInformation`1::get_Node()": {
      "16": {
-      "Hits": 452,
+      "Hits": 522,
       "IsBranchPoint": false
      }
     }
@@ -3352,17 +3642,17 @@
    "EditorConfigGenerator.Core.Styles.Style`4": {
     "System.Void EditorConfigGenerator.Core.Styles.Style`4::.ctor(TData)": {
      "13": {
-      "Hits": 1515,
+      "Hits": 1640,
       "IsBranchPoint": false
      },
      "14": {
-      "Hits": 1515,
+      "Hits": 1640,
       "IsBranchPoint": false
      }
     },
     "TData EditorConfigGenerator.Core.Styles.Style`4::get_Data()": {
      "22": {
-      "Hits": 1190,
+      "Hits": 1340,
       "IsBranchPoint": false
      }
     }
@@ -3521,46 +3811,46 @@
      },
      "58": {
       "Hits": 1,
+      "IsBranchPoint": false
+     },
+     "59": {
+      "Hits": 1,
       "IsBranchPoint": true
      }
     },
     "EditorConfigGenerator.Core.Styles.IStyleSet EditorConfigGenerator.Core.Styles.StyleAggregator::get_Set()": {
-     "60": {
-      "Hits": 50,
+     "61": {
+      "Hits": 51,
       "IsBranchPoint": false
      }
     },
     "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator::<GenerateConfiguration>g__AppendSetting|2_0(System.String,System.Text.StringBuilder)": {
      "25": {
-      "Hits": 26,
+      "Hits": 27,
       "IsBranchPoint": false
      },
      "26": {
-      "Hits": 44,
+      "Hits": 45,
       "IsBranchPoint": false
      },
      "27": {
-      "Hits": 26,
+      "Hits": 27,
       "IsBranchPoint": true
      }
     }
    },
    "EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker": {
     "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::.ctor(Microsoft.CodeAnalysis.SemanticModel)": {
-     "68": {
+     "69": {
       "Hits": 12,
       "IsBranchPoint": false
      },
-     "278": {
-      "Hits": 618,
+     "282": {
+      "Hits": 726,
       "IsBranchPoint": false
      }
     },
     "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::Visit(Microsoft.CodeAnalysis.SyntaxNode)": {
-     "71": {
-      "Hits": 54,
-      "IsBranchPoint": false
-     },
      "72": {
       "Hits": 54,
       "IsBranchPoint": false
@@ -3624,31 +3914,37 @@
      "87": {
       "Hits": 54,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitAccessorDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.AccessorDeclarationSyntax)": {
+     },
+     "88": {
+      "Hits": 54,
+      "IsBranchPoint": false
+     },
+     "89": {
+      "Hits": 54,
+      "IsBranchPoint": false
+     },
      "90": {
-      "Hits": 0,
+      "Hits": 54,
       "IsBranchPoint": false
      },
      "91": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "92": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "93": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "94": {
-      "Hits": 0,
+      "Hits": 54,
       "IsBranchPoint": false
      }
     },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitAnonymousObjectMemberDeclarator(Microsoft.CodeAnalysis.CSharp.Syntax.AnonymousObjectMemberDeclaratorSyntax)": {
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitAccessorDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.AccessorDeclarationSyntax)": {
+     "94": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "95": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "96": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "97": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3656,21 +3952,21 @@
      "98": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "99": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "100": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitAnonymousObjectMemberDeclarator(Microsoft.CodeAnalysis.CSharp.Syntax.AnonymousObjectMemberDeclaratorSyntax)": {
      "101": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitArgument(Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax)": {
+     },
+     "102": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "103": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "104": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3678,21 +3974,21 @@
      "105": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "106": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "107": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitArgument(Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax)": {
      "108": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitCastExpression(Microsoft.CodeAnalysis.CSharp.Syntax.CastExpressionSyntax)": {
+     },
+     "109": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "110": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "111": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3700,21 +3996,21 @@
      "112": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "113": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "114": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitCastExpression(Microsoft.CodeAnalysis.CSharp.Syntax.CastExpressionSyntax)": {
      "115": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitCatchClause(Microsoft.CodeAnalysis.CSharp.Syntax.CatchClauseSyntax)": {
+     },
+     "116": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "117": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "118": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3722,15 +4018,9 @@
      "119": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "120": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "121": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitCatchClause(Microsoft.CodeAnalysis.CSharp.Syntax.CatchClauseSyntax)": {
      "122": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3738,25 +4028,25 @@
      "123": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitClassDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax)": {
+     },
+     "124": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "125": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "126": {
-      "Hits": 4,
+      "Hits": 0,
       "IsBranchPoint": false
      },
      "127": {
-      "Hits": 4,
+      "Hits": 0,
       "IsBranchPoint": false
-     },
-     "128": {
-      "Hits": 4,
-      "IsBranchPoint": false
-     },
-     "129": {
-      "Hits": 4,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitClassDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax)": {
      "130": {
       "Hits": 4,
       "IsBranchPoint": false
@@ -3764,47 +4054,47 @@
      "131": {
       "Hits": 4,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitCompilationUnit(Microsoft.CodeAnalysis.CSharp.Syntax.CompilationUnitSyntax)": {
-     "134": {
-      "Hits": 5,
-      "IsBranchPoint": false
      },
-     "135": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
-     "136": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
-     "137": {
+     "132": {
       "Hits": 4,
       "IsBranchPoint": false
      },
+     "133": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "134": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "135": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitCompilationUnit(Microsoft.CodeAnalysis.CSharp.Syntax.CompilationUnitSyntax)": {
      "138": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "139": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "140": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "141": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "142": {
       "Hits": 4,
       "IsBranchPoint": false
      }
     },
     "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitConstructorDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax)": {
-     "141": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "142": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "143": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "144": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
      "145": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3820,9 +4110,15 @@
      "148": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitDefaultExpression(Microsoft.CodeAnalysis.CSharp.Syntax.DefaultExpressionSyntax)": {
+     },
+     "149": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "150": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "151": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3830,15 +4126,9 @@
      "152": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "153": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "154": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitDefaultExpression(Microsoft.CodeAnalysis.CSharp.Syntax.DefaultExpressionSyntax)": {
      "155": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3846,9 +4136,15 @@
      "156": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitElseClause(Microsoft.CodeAnalysis.CSharp.Syntax.ElseClauseSyntax)": {
+     },
+     "157": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "158": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "159": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3856,21 +4152,21 @@
      "160": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "161": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "162": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitElseClause(Microsoft.CodeAnalysis.CSharp.Syntax.ElseClauseSyntax)": {
      "163": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitEventDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax)": {
+     },
+     "164": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "165": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "166": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3878,15 +4174,9 @@
      "167": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "168": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "169": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitEventDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax)": {
      "170": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3894,9 +4184,15 @@
      "171": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitFieldDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.FieldDeclarationSyntax)": {
+     },
+     "172": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "173": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "174": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3904,15 +4200,9 @@
      "175": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "176": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "177": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitFieldDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.FieldDeclarationSyntax)": {
      "178": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3920,9 +4210,15 @@
      "179": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitFinallyClause(Microsoft.CodeAnalysis.CSharp.Syntax.FinallyClauseSyntax)": {
+     },
+     "180": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "181": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "182": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3930,15 +4226,9 @@
      "183": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "184": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "185": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitFinallyClause(Microsoft.CodeAnalysis.CSharp.Syntax.FinallyClauseSyntax)": {
      "186": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3946,9 +4236,15 @@
      "187": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitIndexerDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.IndexerDeclarationSyntax)": {
+     },
+     "188": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "189": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "190": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3956,21 +4252,21 @@
      "191": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "192": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "193": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitIndexerDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.IndexerDeclarationSyntax)": {
      "194": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitInvocationExpression(Microsoft.CodeAnalysis.CSharp.Syntax.InvocationExpressionSyntax)": {
+     },
+     "195": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "196": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "197": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3978,15 +4274,9 @@
      "198": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "199": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "200": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitInvocationExpression(Microsoft.CodeAnalysis.CSharp.Syntax.InvocationExpressionSyntax)": {
      "201": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -3994,25 +4284,25 @@
      "202": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitLiteralExpression(Microsoft.CodeAnalysis.CSharp.Syntax.LiteralExpressionSyntax)": {
+     },
+     "203": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "204": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "205": {
-      "Hits": 5,
+      "Hits": 0,
       "IsBranchPoint": false
      },
      "206": {
-      "Hits": 5,
+      "Hits": 0,
       "IsBranchPoint": false
-     },
-     "207": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
-     "208": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitLiteralExpression(Microsoft.CodeAnalysis.CSharp.Syntax.LiteralExpressionSyntax)": {
      "209": {
       "Hits": 5,
       "IsBranchPoint": false
@@ -4020,9 +4310,15 @@
      "210": {
       "Hits": 5,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitLocalDeclarationStatement(Microsoft.CodeAnalysis.CSharp.Syntax.LocalDeclarationStatementSyntax)": {
+     },
+     "211": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "212": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
      "213": {
       "Hits": 5,
       "IsBranchPoint": false
@@ -4030,15 +4326,9 @@
      "214": {
       "Hits": 5,
       "IsBranchPoint": false
-     },
-     "215": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
-     "216": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitLocalDeclarationStatement(Microsoft.CodeAnalysis.CSharp.Syntax.LocalDeclarationStatementSyntax)": {
      "217": {
       "Hits": 5,
       "IsBranchPoint": false
@@ -4050,25 +4340,25 @@
      "219": {
       "Hits": 5,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitMemberAccessExpression(Microsoft.CodeAnalysis.CSharp.Syntax.MemberAccessExpressionSyntax)": {
+     },
+     "220": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "221": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
      "222": {
-      "Hits": 0,
+      "Hits": 5,
       "IsBranchPoint": false
      },
      "223": {
-      "Hits": 0,
+      "Hits": 5,
       "IsBranchPoint": false
-     },
-     "224": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "225": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitMemberAccessExpression(Microsoft.CodeAnalysis.CSharp.Syntax.MemberAccessExpressionSyntax)": {
      "226": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -4088,25 +4378,25 @@
      "230": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitMethodDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.MethodDeclarationSyntax)": {
+     },
+     "231": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "232": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "233": {
-      "Hits": 5,
+      "Hits": 0,
       "IsBranchPoint": false
      },
      "234": {
-      "Hits": 5,
+      "Hits": 0,
       "IsBranchPoint": false
-     },
-     "235": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
-     "236": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitMethodDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.MethodDeclarationSyntax)": {
      "237": {
       "Hits": 5,
       "IsBranchPoint": false
@@ -4122,25 +4412,25 @@
      "240": {
       "Hits": 5,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitOperatorDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.OperatorDeclarationSyntax)": {
+     },
+     "241": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "242": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
      "243": {
-      "Hits": 0,
+      "Hits": 5,
       "IsBranchPoint": false
      },
      "244": {
-      "Hits": 0,
+      "Hits": 5,
       "IsBranchPoint": false
-     },
-     "245": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "246": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitOperatorDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.OperatorDeclarationSyntax)": {
      "247": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -4156,9 +4446,15 @@
      "250": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitPropertyDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.PropertyDeclarationSyntax)": {
+     },
+     "251": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "252": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "253": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -4166,15 +4462,9 @@
      "254": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "255": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "256": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitPropertyDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.PropertyDeclarationSyntax)": {
      "257": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -4190,9 +4480,15 @@
      "260": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitStructDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.StructDeclarationSyntax)": {
+     },
+     "261": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "262": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "263": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -4200,15 +4496,9 @@
      "264": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "265": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "266": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitStructDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.StructDeclarationSyntax)": {
      "267": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -4216,9 +4506,15 @@
      "268": {
       "Hits": 0,
       "IsBranchPoint": false
-     }
-    },
-    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitTupleExpression(Microsoft.CodeAnalysis.CSharp.Syntax.TupleExpressionSyntax)": {
+     },
+     "269": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "270": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
      "271": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -4226,15 +4522,9 @@
      "272": {
       "Hits": 0,
       "IsBranchPoint": false
-     },
-     "273": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
-     "274": {
-      "Hits": 0,
-      "IsBranchPoint": false
-     },
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleWalker::VisitTupleExpression(Microsoft.CodeAnalysis.CSharp.Syntax.TupleExpressionSyntax)": {
      "275": {
       "Hits": 0,
       "IsBranchPoint": false
@@ -4242,27 +4532,27 @@
      "276": {
       "Hits": 0,
       "IsBranchPoint": false
+     },
+     "277": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "278": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "279": {
+      "Hits": 0,
+      "IsBranchPoint": false
+     },
+     "280": {
+      "Hits": 0,
+      "IsBranchPoint": false
      }
     }
    },
    "EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet": {
     "EditorConfigGenerator.Core.Styles.IStyleSet EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::Update(EditorConfigGenerator.Core.Styles.IStyleSet)": {
-     "285": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
-     "286": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
-     "287": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
-     "288": {
-      "Hits": 5,
-      "IsBranchPoint": false
-     },
      "289": {
       "Hits": 5,
       "IsBranchPoint": false
@@ -4466,177 +4756,195 @@
      "339": {
       "Hits": 5,
       "IsBranchPoint": false
+     },
+     "340": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "341": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "342": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "343": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "344": {
+      "Hits": 5,
+      "IsBranchPoint": false
+     },
+     "345": {
+      "Hits": 5,
+      "IsBranchPoint": false
      }
     },
     "EditorConfigGenerator.Core.Styles.CSharpNewLineBeforeCatchStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpNewLineBeforeCatchStyle()": {
-     "341": {
+     "347": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
     "EditorConfigGenerator.Core.Styles.CSharpNewLineBeforeElseStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpNewLineBeforeElseStyle()": {
-     "343": {
-      "Hits": 16,
-      "IsBranchPoint": false
-     }
-    },
-    "EditorConfigGenerator.Core.Styles.CSharpNewLineBeforeFinallyStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpNewLineBeforeFinallyStyle()": {
-     "345": {
-      "Hits": 16,
-      "IsBranchPoint": false
-     }
-    },
-    "EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpPreferSimpleDefaultExpressionStyle()": {
-     "347": {
-      "Hits": 26,
-      "IsBranchPoint": false
-     }
-    },
-    "EditorConfigGenerator.Core.Styles.CSharpSpaceAfterCastStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpSpaceAfterCastStyle()": {
      "349": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedAccessorsStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedAccessorsStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpNewLineBeforeFinallyStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpNewLineBeforeFinallyStyle()": {
      "351": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedConstructorsStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedConstructorsStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpPreferSimpleDefaultExpressionStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpPreferSimpleDefaultExpressionStyle()": {
      "353": {
-      "Hits": 16,
+      "Hits": 26,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedIndexersStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedIndexersStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpSpaceAfterCastStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpSpaceAfterCastStyle()": {
      "355": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedMethodsStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedMethodsStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpSpaceBetweenParenthesesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpSpaceBetweenParenthesesStyle()": {
      "357": {
-      "Hits": 26,
+      "Hits": 124,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedOperatorsStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedOperatorsStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedAccessorsStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedAccessorsStyle()": {
      "359": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedPropertiesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedPropertiesStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedConstructorsStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedConstructorsStyle()": {
      "361": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.CSharpStyleInlinedVariableDeclarationStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleInlinedVariableDeclarationStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedIndexersStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedIndexersStyle()": {
      "363": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.CSharpStyleVarForBuiltInTypesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleVarForBuiltInTypesStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedMethodsStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedMethodsStyle()": {
      "365": {
-      "Hits": 28,
-      "IsBranchPoint": false
-     }
-    },
-    "EditorConfigGenerator.Core.Styles.CSharpStyleVarWhenTypeIsApparentStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleVarWhenTypeIsApparentStyle()": {
-     "367": {
       "Hits": 26,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetSortSystemDirectivesFirstStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetSortSystemDirectivesFirstStyle()": {
-     "369": {
-      "Hits": 25,
+    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedOperatorsStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedOperatorsStyle()": {
+     "367": {
+      "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStyleExplicitTupleNamesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleExplicitTupleNamesStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpStyleExpressionBodiedPropertiesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleExpressionBodiedPropertiesStyle()": {
+     "369": {
+      "Hits": 16,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Styles.CSharpStyleInlinedVariableDeclarationStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleInlinedVariableDeclarationStyle()": {
      "371": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStylePredefinedTypeForLocalsParametersMembersStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStylePredefinedTypeForLocalsParametersMembersStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpStyleVarForBuiltInTypesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleVarForBuiltInTypesStyle()": {
      "373": {
-      "Hits": 124,
+      "Hits": 28,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStylePredefinedTypeForMemberAccessStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStylePredefinedTypeForMemberAccessStyle()": {
+    "EditorConfigGenerator.Core.Styles.CSharpStyleVarWhenTypeIsApparentStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_CSharpStyleVarWhenTypeIsApparentStyle()": {
      "375": {
-      "Hits": 16,
+      "Hits": 26,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStylePreferInferredAnonymousTypeMemberNamesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStylePreferInferredAnonymousTypeMemberNamesStyle()": {
+    "EditorConfigGenerator.Core.Styles.DotnetSortSystemDirectivesFirstStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetSortSystemDirectivesFirstStyle()": {
      "377": {
-      "Hits": 16,
+      "Hits": 25,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStylePreferInferredTupleNamesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStylePreferInferredTupleNamesStyle()": {
+    "EditorConfigGenerator.Core.Styles.DotnetStyleExplicitTupleNamesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleExplicitTupleNamesStyle()": {
      "379": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStyleQualificationForEventStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleQualificationForEventStyle()": {
+    "EditorConfigGenerator.Core.Styles.DotnetStylePredefinedTypeForLocalsParametersMembersStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStylePredefinedTypeForLocalsParametersMembersStyle()": {
      "381": {
       "Hits": 124,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStyleQualificationForFieldStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleQualificationForFieldStyle()": {
+    "EditorConfigGenerator.Core.Styles.DotnetStylePredefinedTypeForMemberAccessStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStylePredefinedTypeForMemberAccessStyle()": {
      "383": {
-      "Hits": 124,
+      "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStyleQualificationForMethodStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleQualificationForMethodStyle()": {
+    "EditorConfigGenerator.Core.Styles.DotnetStylePreferInferredAnonymousTypeMemberNamesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStylePreferInferredAnonymousTypeMemberNamesStyle()": {
      "385": {
       "Hits": 16,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStyleQualificationForPropertyStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleQualificationForPropertyStyle()": {
+    "EditorConfigGenerator.Core.Styles.DotnetStylePreferInferredTupleNamesStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStylePreferInferredTupleNamesStyle()": {
      "387": {
+      "Hits": 16,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Styles.DotnetStyleQualificationForEventStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleQualificationForEventStyle()": {
+     "389": {
       "Hits": 124,
       "IsBranchPoint": false
      }
     },
-    "EditorConfigGenerator.Core.Styles.DotnetStyleRequireAccessibilityModifiersStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleRequireAccessibilityModifiersStyle()": {
-     "389": {
-      "Hits": 34,
-      "IsBranchPoint": false
-     }
-    },
-    "EditorConfigGenerator.Core.Styles.IndentStyleStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_IndentStyleStyle()": {
+    "EditorConfigGenerator.Core.Styles.DotnetStyleQualificationForFieldStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleQualificationForFieldStyle()": {
      "391": {
       "Hits": 124,
       "IsBranchPoint": false
      }
     },
+    "EditorConfigGenerator.Core.Styles.DotnetStyleQualificationForMethodStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleQualificationForMethodStyle()": {
+     "393": {
+      "Hits": 16,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Styles.DotnetStyleQualificationForPropertyStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleQualificationForPropertyStyle()": {
+     "395": {
+      "Hits": 124,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Styles.DotnetStyleRequireAccessibilityModifiersStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_DotnetStyleRequireAccessibilityModifiersStyle()": {
+     "397": {
+      "Hits": 34,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Styles.IndentStyleStyle EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::get_IndentStyleStyle()": {
+     "399": {
+      "Hits": 124,
+      "IsBranchPoint": false
+     }
+    },
     "System.Void EditorConfigGenerator.Core.Styles.StyleAggregator/StyleSet::.ctor()": {
-     "342": {
-      "Hits": 22,
-      "IsBranchPoint": false
-     },
-     "344": {
-      "Hits": 22,
-      "IsBranchPoint": false
-     },
-     "346": {
-      "Hits": 22,
-      "IsBranchPoint": false
-     },
      "348": {
       "Hits": 22,
       "IsBranchPoint": false
@@ -4726,6 +5034,22 @@
       "IsBranchPoint": false
      },
      "392": {
+      "Hits": 22,
+      "IsBranchPoint": false
+     },
+     "394": {
+      "Hits": 22,
+      "IsBranchPoint": false
+     },
+     "396": {
+      "Hits": 22,
+      "IsBranchPoint": false
+     },
+     "398": {
+      "Hits": 22,
+      "IsBranchPoint": false
+     },
+     "400": {
       "Hits": 22,
       "IsBranchPoint": false
      }
@@ -5162,17 +5486,17 @@
    "EditorConfigGenerator.Core.Statistics.Data`1": {
     "System.Void EditorConfigGenerator.Core.Statistics.Data`1::.ctor(System.UInt32)": {
      "6": {
-      "Hits": 1254,
+      "Hits": 1341,
       "IsBranchPoint": false
      },
      "7": {
-      "Hits": 1254,
+      "Hits": 1341,
       "IsBranchPoint": false
      }
     },
     "System.UInt32 EditorConfigGenerator.Core.Statistics.Data`1::get_TotalOccurences()": {
      "11": {
-      "Hits": 756,
+      "Hits": 824,
       "IsBranchPoint": false
      }
     }
@@ -5393,6 +5717,202 @@
     "System.UInt32 EditorConfigGenerator.Core.Statistics.ExpressionBodiedData::get_BlockOccurences()": {
      "77": {
       "Hits": 160,
+      "IsBranchPoint": false
+     }
+    }
+   }
+  },
+  "M:\\JasonBock\\Personal\\Code Projects\\EditorConfigGenerator\\EditorConfigGenerator.Core\\Statistics\\ParenthesesSpaceData.cs": {
+   "EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData": {
+    "System.Void EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::.ctor()": {
+     "11": {
+      "Hits": 78,
+      "IsBranchPoint": false
+     }
+    },
+    "System.Void EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::.ctor(System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.UInt32)": {
+     "17": {
+      "Hits": 61,
+      "IsBranchPoint": false
+     },
+     "18": {
+      "Hits": 61,
+      "IsBranchPoint": false
+     },
+     "19": {
+      "Hits": 61,
+      "IsBranchPoint": false
+     },
+     "20": {
+      "Hits": 61,
+      "IsBranchPoint": false
+     },
+     "21": {
+      "Hits": 61,
+      "IsBranchPoint": false
+     },
+     "22": {
+      "Hits": 61,
+      "IsBranchPoint": false
+     },
+     "23": {
+      "Hits": 61,
+      "IsBranchPoint": false
+     },
+     "24": {
+      "Hits": 61,
+      "IsBranchPoint": false
+     },
+     "25": {
+      "Hits": 61,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::UpdateControlFlow(System.Boolean)": {
+     "28": {
+      "Hits": 12,
+      "IsBranchPoint": false
+     },
+     "29": {
+      "Hits": 12,
+      "IsBranchPoint": false
+     },
+     "30": {
+      "Hits": 12,
+      "IsBranchPoint": false
+     },
+     "31": {
+      "Hits": 12,
+      "IsBranchPoint": false
+     },
+     "32": {
+      "Hits": 12,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::UpdateExpression(System.Boolean)": {
+     "35": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "36": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "37": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "38": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "39": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::UpdateTypeCast(System.Boolean)": {
+     "42": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "43": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "44": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "45": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     },
+     "46": {
+      "Hits": 4,
+      "IsBranchPoint": false
+     }
+    },
+    "EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::Add(EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData)": {
+     "49": {
+      "Hits": 8,
+      "IsBranchPoint": false
+     },
+     "50": {
+      "Hits": 10,
+      "IsBranchPoint": false
+     },
+     "51": {
+      "Hits": 7,
+      "IsBranchPoint": true
+     },
+     "52": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "53": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "54": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "55": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "56": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "57": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "58": {
+      "Hits": 7,
+      "IsBranchPoint": false
+     },
+     "59": {
+      "Hits": 7,
+      "IsBranchPoint": true
+     }
+    },
+    "System.UInt32 EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::get_ControlFlowNoSpaceOccurences()": {
+     "61": {
+      "Hits": 66,
+      "IsBranchPoint": false
+     }
+    },
+    "System.UInt32 EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::get_ControlFlowSpaceOccurences()": {
+     "62": {
+      "Hits": 66,
+      "IsBranchPoint": false
+     }
+    },
+    "System.UInt32 EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::get_ExpressionsNoSpaceOccurences()": {
+     "63": {
+      "Hits": 66,
+      "IsBranchPoint": false
+     }
+    },
+    "System.UInt32 EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::get_ExpressionsSpaceOccurences()": {
+     "64": {
+      "Hits": 66,
+      "IsBranchPoint": false
+     }
+    },
+    "System.UInt32 EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::get_TypeCastsNoSpaceOccurences()": {
+     "65": {
+      "Hits": 66,
+      "IsBranchPoint": false
+     }
+    },
+    "System.UInt32 EditorConfigGenerator.Core.Statistics.ParenthesesSpaceData::get_TypeCastsSpaceOccurences()": {
+     "66": {
+      "Hits": 66,
       "IsBranchPoint": false
      }
     }
@@ -6358,69 +6878,69 @@
    "NUnit.VisualStudio.TestAdapter.CategoryList": {
     "System.Void NUnit.VisualStudio.TestAdapter.CategoryList::.ctor(Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase)": {
      "24": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "27": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "29": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "30": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      }
     },
     "System.Void NUnit.VisualStudio.TestAdapter.CategoryList::AddRange(System.Collections.Generic.IEnumerable`1<System.String>)": {
      "34": {
-      "Hits": 2248,
+      "Hits": 2462,
       "IsBranchPoint": false
      },
      "35": {
-      "Hits": 2248,
+      "Hits": 2462,
       "IsBranchPoint": false
      }
     },
     "System.Int32 NUnit.VisualStudio.TestAdapter.CategoryList::get_LastNodeListCount()": {
      "37": {
-      "Hits": 1234,
+      "Hits": 1346,
       "IsBranchPoint": false
      }
     },
     "System.Collections.Generic.IEnumerable`1<System.String> NUnit.VisualStudio.TestAdapter.CategoryList::ProcessTestCaseProperties(System.Xml.XmlNode,System.Boolean,System.String,System.Collections.Generic.IDictionary`2<System.String,NUnit.VisualStudio.TestAdapter.TraitsFeature/CachedTestCaseInfo>)": {
      "40": {
-      "Hits": 808,
+      "Hits": 882,
       "IsBranchPoint": false
      },
      "41": {
-      "Hits": 808,
+      "Hits": 882,
       "IsBranchPoint": false
      },
      "42": {
-      "Hits": 3144,
+      "Hits": 3436,
       "IsBranchPoint": true
      },
      "44": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "45": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "46": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "47": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "48": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      },
      "50": {
@@ -6436,7 +6956,7 @@
       "IsBranchPoint": false
      },
      "59": {
-      "Hits": 808,
+      "Hits": 882,
       "IsBranchPoint": true
      },
      "62": {
@@ -6464,13 +6984,13 @@
       "IsBranchPoint": false
      },
      "78": {
-      "Hits": 808,
+      "Hits": 882,
       "IsBranchPoint": true
      }
     },
     "System.Boolean NUnit.VisualStudio.TestAdapter.CategoryList::IsInternalProperty(System.String,System.String)": {
      "83": {
-      "Hits": 1528,
+      "Hits": 1672,
       "IsBranchPoint": false
      },
      "87": {
@@ -6478,13 +6998,13 @@
       "IsBranchPoint": false
      },
      "91": {
-      "Hits": 1528,
+      "Hits": 1672,
       "IsBranchPoint": true
      }
     },
     "System.Void NUnit.VisualStudio.TestAdapter.CategoryList::AddTraitsToCache(System.Collections.Generic.IDictionary`2<System.String,NUnit.VisualStudio.TestAdapter.TraitsFeature/CachedTestCaseInfo>,System.String,System.String,System.String)": {
      "96": {
-      "Hits": 1528,
+      "Hits": 1672,
       "IsBranchPoint": false
      },
      "98": {
@@ -6516,7 +7036,7 @@
     },
     "System.Void NUnit.VisualStudio.TestAdapter.CategoryList::UpdateCategoriesToVs()": {
      "111": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "113": {
@@ -6524,7 +7044,7 @@
       "IsBranchPoint": false
      },
      "115": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      }
     },
@@ -7348,11 +7868,11 @@
       "IsBranchPoint": false
      },
      "247": {
-      "Hits": 766,
+      "Hits": 838,
       "IsBranchPoint": true
      },
      "248": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "251": {
@@ -7550,35 +8070,35 @@
     },
     "System.Void NUnit.VisualStudio.TestAdapter.NUnitEventListener::OnTestEvent(System.String)": {
      "74": {
-      "Hits": 854,
+      "Hits": 930,
       "IsBranchPoint": false
      },
      "80": {
-      "Hits": 854,
+      "Hits": 930,
       "IsBranchPoint": false
      },
      "83": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      },
      "84": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "87": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      },
      "88": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "91": {
-      "Hits": 44,
+      "Hits": 46,
       "IsBranchPoint": true
      },
      "92": {
-      "Hits": 44,
+      "Hits": 46,
       "IsBranchPoint": false
      },
      "95": {
@@ -7586,7 +8106,7 @@
       "IsBranchPoint": false
      },
      "98": {
-      "Hits": 854,
+      "Hits": 930,
       "IsBranchPoint": true
      },
      "99": {
@@ -7606,7 +8126,7 @@
       "IsBranchPoint": false
      },
      "104": {
-      "Hits": 854,
+      "Hits": 930,
       "IsBranchPoint": true
      }
     },
@@ -7654,59 +8174,59 @@
     },
     "System.Void NUnit.VisualStudio.TestAdapter.NUnitEventListener::TestStarted(System.Xml.XmlNode)": {
      "139": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "142": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "143": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "144": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      }
     },
     "System.Void NUnit.VisualStudio.TestAdapter.NUnitEventListener::TestFinished(System.Xml.XmlNode)": {
      "148": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "149": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "150": {
-      "Hits": 1528,
+      "Hits": 1672,
       "IsBranchPoint": true
      },
      "152": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "154": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      }
     },
     "System.Void NUnit.VisualStudio.TestAdapter.NUnitEventListener::SuiteFinished(System.Xml.XmlNode)": {
      "158": {
-      "Hits": 44,
+      "Hits": 46,
       "IsBranchPoint": false
      },
      "159": {
-      "Hits": 44,
+      "Hits": 46,
       "IsBranchPoint": false
      },
      "160": {
-      "Hits": 44,
+      "Hits": 46,
       "IsBranchPoint": false
      },
      "162": {
-      "Hits": 44,
+      "Hits": 46,
       "IsBranchPoint": false
      },
      "164": {
@@ -7750,7 +8270,7 @@
       "IsBranchPoint": false
      },
      "179": {
-      "Hits": 44,
+      "Hits": 46,
       "IsBranchPoint": true
      }
     },
@@ -8376,13 +8896,13 @@
     },
     "System.Collections.Generic.IDictionary`2<System.String,NUnit.VisualStudio.TestAdapter.TraitsFeature/CachedTestCaseInfo> NUnit.VisualStudio.TestAdapter.TestConverter::get_TraitsCache()": {
      "62": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      }
     },
     "Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase NUnit.VisualStudio.TestAdapter.TestConverter::ConvertTestCase(System.Xml.XmlNode)": {
      "72": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "73": {
@@ -8390,11 +8910,11 @@
       "IsBranchPoint": false
      },
      "76": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      },
      "77": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "78": {
@@ -8402,25 +8922,25 @@
       "IsBranchPoint": false
      },
      "81": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      },
      "82": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "83": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      }
     },
     "Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase NUnit.VisualStudio.TestAdapter.TestConverter::GetCachedTestCase(System.String)": {
      "88": {
-      "Hits": 1146,
+      "Hits": 1254,
       "IsBranchPoint": false
      },
      "89": {
-      "Hits": 1146,
+      "Hits": 1254,
       "IsBranchPoint": false
      },
      "91": {
@@ -8434,19 +8954,19 @@
     },
     "NUnit.VisualStudio.TestAdapter.TestConverter/TestResultSet NUnit.VisualStudio.TestAdapter.TestConverter::GetVSTestResults(System.Xml.XmlNode)": {
      "99": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "100": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "101": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "102": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      },
      "104": {
@@ -8474,7 +8994,7 @@
       "IsBranchPoint": false
      },
      "114": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      },
      "115": {
@@ -8482,65 +9002,65 @@
       "IsBranchPoint": false
      },
      "117": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      },
      "119": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "120": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "121": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "124": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      }
     },
     "Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase NUnit.VisualStudio.TestAdapter.TestConverter::MakeTestCaseFromXmlNode(System.Xml.XmlNode)": {
      "142": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "143": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "144": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "145": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "146": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "147": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "148": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "149": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "150": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "152": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "154": {
@@ -8568,33 +9088,33 @@
       "IsBranchPoint": false
      },
      "164": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      },
      "166": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      }
     },
     "Microsoft.VisualStudio.TestPlatform.ObjectModel.TestResult NUnit.VisualStudio.TestAdapter.TestConverter::MakeTestResultFromLegacyXmlNode(System.Xml.XmlNode)": {
      "171": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "172": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "174": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "176": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "179": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "181": {
@@ -8606,93 +9126,93 @@
       "IsBranchPoint": false
      },
      "185": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      },
      "186": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "189": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      }
     },
     "Microsoft.VisualStudio.TestPlatform.ObjectModel.TestResult NUnit.VisualStudio.TestAdapter.TestConverter::GetBasicResult(System.Xml.XmlNode)": {
      "194": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "195": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "197": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      },
      "198": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "199": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "200": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "201": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "202": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "204": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "205": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "206": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "208": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      },
      "209": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "210": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "213": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      },
      "214": {
-      "Hits": 202,
+      "Hits": 228,
       "IsBranchPoint": true
      },
      "216": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      },
      "218": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "219": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "220": {
@@ -8700,11 +9220,11 @@
       "IsBranchPoint": false
      },
      "222": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      },
      "223": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "224": {
@@ -8712,17 +9232,17 @@
       "IsBranchPoint": false
      },
      "226": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      }
     },
     "Microsoft.VisualStudio.TestPlatform.ObjectModel.AttachmentSet NUnit.VisualStudio.TestAdapter.TestConverter::ParseAttachments(System.Xml.XmlNode)": {
      "237": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "239": {
-      "Hits": 1528,
+      "Hits": 1672,
       "IsBranchPoint": true
      },
      "241": {
@@ -8770,17 +9290,17 @@
       "IsBranchPoint": false
      },
      "261": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      }
     },
     "Microsoft.VisualStudio.TestPlatform.ObjectModel.TestOutcome NUnit.VisualStudio.TestAdapter.TestConverter::GetTestOutcome(System.Xml.XmlNode)": {
      "267": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "270": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": true
      },
      "272": {
@@ -8840,13 +9360,13 @@
    "NUnit.VisualStudio.TestAdapter.TestConverter/TestResultSet": {
     "System.Collections.Generic.IList`1<Microsoft.VisualStudio.TestPlatform.ObjectModel.TestResult> NUnit.VisualStudio.TestAdapter.TestConverter/TestResultSet::get_TestResults()": {
      "129": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      }
     },
     "Microsoft.VisualStudio.TestPlatform.ObjectModel.TestResult NUnit.VisualStudio.TestAdapter.TestConverter/TestResultSet::get_TestCaseResult()": {
      "130": {
-      "Hits": 1146,
+      "Hits": 1254,
       "IsBranchPoint": false
      }
     }
@@ -9330,31 +9850,31 @@
     },
     "System.Void NUnit.VisualStudio.TestAdapter.TraitsFeature::AddTraitsFromTestNode(Microsoft.VisualStudio.TestPlatform.ObjectModel.TestCase,System.Xml.XmlNode,System.Collections.Generic.IDictionary`2<System.String,NUnit.VisualStudio.TestAdapter.TraitsFeature/CachedTestCaseInfo>,NUnit.VisualStudio.TestAdapter.ITestLogger)": {
      "65": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "66": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "67": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "69": {
-      "Hits": 3056,
+      "Hits": 3344,
       "IsBranchPoint": true
      },
      "71": {
-      "Hits": 2674,
+      "Hits": 2926,
       "IsBranchPoint": true
      },
      "73": {
-      "Hits": 2248,
+      "Hits": 2462,
       "IsBranchPoint": false
      },
      "75": {
-      "Hits": 2248,
+      "Hits": 2462,
       "IsBranchPoint": false
      },
      "76": {
@@ -9362,11 +9882,11 @@
       "IsBranchPoint": false
      },
      "78": {
-      "Hits": 2248,
+      "Hits": 2462,
       "IsBranchPoint": true
      },
      "79": {
-      "Hits": 2248,
+      "Hits": 2462,
       "IsBranchPoint": false
      },
      "80": {
@@ -9378,35 +9898,35 @@
       "IsBranchPoint": false
      },
      "84": {
-      "Hits": 426,
+      "Hits": 464,
       "IsBranchPoint": true
      },
      "86": {
-      "Hits": 426,
+      "Hits": 464,
       "IsBranchPoint": false
      },
      "88": {
-      "Hits": 44,
+      "Hits": 46,
       "IsBranchPoint": false
      },
      "91": {
-      "Hits": 2674,
+      "Hits": 2926,
       "IsBranchPoint": true
      },
      "92": {
-      "Hits": 2674,
+      "Hits": 2926,
       "IsBranchPoint": false
      },
      "96": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": true
      },
      "97": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      },
      "98": {
-      "Hits": 382,
+      "Hits": 418,
       "IsBranchPoint": false
      }
     },
@@ -9442,13 +9962,13 @@
    "NUnit.VisualStudio.TestAdapter.TraitsFeature/CachedTestCaseInfo": {
     "System.Collections.Generic.List`1<Microsoft.VisualStudio.TestPlatform.ObjectModel.Trait> NUnit.VisualStudio.TestAdapter.TraitsFeature/CachedTestCaseInfo::get_Traits()": {
      "51": {
-      "Hits": 4540,
+      "Hits": 4970,
       "IsBranchPoint": false
      }
     },
     "System.Boolean NUnit.VisualStudio.TestAdapter.TraitsFeature/CachedTestCaseInfo::get_Explicit()": {
      "56": {
-      "Hits": 2248,
+      "Hits": 2462,
       "IsBranchPoint": false
      }
     }
@@ -9504,15 +10024,15 @@
     },
     "System.Xml.XmlNode NUnit.VisualStudio.TestAdapter.XmlHelper::CreateXmlNode(System.String)": {
      "50": {
-      "Hits": 854,
+      "Hits": 930,
       "IsBranchPoint": false
      },
      "51": {
-      "Hits": 854,
+      "Hits": 930,
       "IsBranchPoint": false
      },
      "52": {
-      "Hits": 854,
+      "Hits": 930,
       "IsBranchPoint": false
      }
     },
@@ -9586,11 +10106,11 @@
     },
     "System.String NUnit.VisualStudio.TestAdapter.XmlHelper::GetAttribute(System.Xml.XmlNode,System.String)": {
      "115": {
-      "Hits": 6245,
+      "Hits": 6827,
       "IsBranchPoint": false
      },
      "117": {
-      "Hits": 6245,
+      "Hits": 6827,
       "IsBranchPoint": false
      }
     },
@@ -9614,19 +10134,19 @@
     },
     "System.Double NUnit.VisualStudio.TestAdapter.XmlHelper::GetAttribute(System.Xml.XmlNode,System.String,System.Double)": {
      "145": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "147": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "148": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      },
      "149": {
-      "Hits": 764,
+      "Hits": 836,
       "IsBranchPoint": false
      }
     },

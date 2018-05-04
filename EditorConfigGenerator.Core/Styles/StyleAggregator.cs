@@ -33,6 +33,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceAfterCastStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpSpaceBetweenParenthesesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedAccessorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedConstructorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedIndexersStyle.GetSetting(), builder);
@@ -83,6 +84,9 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle =
 					this.Set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle.Update(
 						new ModelNodeInformation<SyntaxNode>(node, this.model));
+				this.Set.CSharpSpaceBetweenParenthesesStyle =
+					this.Set.CSharpSpaceBetweenParenthesesStyle.Update(
+						new NodeInformation<SyntaxNode>(node));
 				base.Visit(node);
 			}
 
@@ -294,6 +298,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpPreferSimpleDefaultExpressionStyle.Add(set.CSharpPreferSimpleDefaultExpressionStyle),
 					CSharpSpaceAfterCastStyle =
 						this.CSharpSpaceAfterCastStyle.Add(set.CSharpSpaceAfterCastStyle),
+					CSharpSpaceBetweenParenthesesStyle =
+						this.CSharpSpaceBetweenParenthesesStyle.Add(set.CSharpSpaceBetweenParenthesesStyle),
 					CSharpStyleExpressionBodiedAccessorsStyle =
 						this.CSharpStyleExpressionBodiedAccessorsStyle.Add(set.CSharpStyleExpressionBodiedAccessorsStyle),
 					CSharpStyleExpressionBodiedConstructorsStyle =
@@ -348,6 +354,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData());
 			public CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; set; } =
 				new CSharpSpaceAfterCastStyle(new BooleanData());
+			public CSharpSpaceBetweenParenthesesStyle CSharpSpaceBetweenParenthesesStyle { get; set; } =
+				new CSharpSpaceBetweenParenthesesStyle(new ParenthesesSpaceData());
 			public CSharpStyleExpressionBodiedAccessorsStyle CSharpStyleExpressionBodiedAccessorsStyle { get; set; } =
 				new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData());
 			public CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; set; } =

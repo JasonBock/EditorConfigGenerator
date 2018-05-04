@@ -7,6 +7,7 @@
 		CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; }
 		CSharpPreferSimpleDefaultExpressionStyle CSharpPreferSimpleDefaultExpressionStyle { get; }
 		CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; }
+		CSharpSpaceBetweenParenthesesStyle CSharpSpaceBetweenParenthesesStyle { get; }
 		CSharpStyleExpressionBodiedAccessorsStyle CSharpStyleExpressionBodiedAccessorsStyle { get; }
 		CSharpStyleExpressionBodiedConstructorsStyle CSharpStyleExpressionBodiedConstructorsStyle { get; }
 		CSharpStyleExpressionBodiedIndexersStyle CSharpStyleExpressionBodiedIndexersStyle { get; }
