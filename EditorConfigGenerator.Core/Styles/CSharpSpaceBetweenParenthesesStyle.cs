@@ -1,10 +1,9 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 
 namespace EditorConfigGenerator.Core.Styles
 {
@@ -61,59 +60,19 @@ namespace EditorConfigGenerator.Core.Styles
 				if(node is ForStatementSyntax || node is ForEachStatementSyntax || node is IfStatementSyntax || 
 					node is SwitchStatementSyntax || node is WhileStatementSyntax)
 				{
-					return new CSharpSpaceBetweenParenthesesStyle(this.Data.UpdateControlFlow(
-						CSharpSpaceBetweenParenthesesStyle.HasParenthesisSpacing(node)));
+					return new CSharpSpaceBetweenParenthesesStyle(this.Data.UpdateControlFlow(node.HasParenthesisSpacing()));
 				}
 				else if(node is ParenthesizedExpressionSyntax)
 				{
-					return new CSharpSpaceBetweenParenthesesStyle(this.Data.UpdateExpression(
-						CSharpSpaceBetweenParenthesesStyle.HasParenthesisSpacing(node)));
+					return new CSharpSpaceBetweenParenthesesStyle(this.Data.UpdateExpression(node.HasParenthesisSpacing()));
 				}
 				else if (node is CastExpressionSyntax)
 				{
-					return new CSharpSpaceBetweenParenthesesStyle(this.Data.UpdateTypeCast(
-						CSharpSpaceBetweenParenthesesStyle.HasParenthesisSpacing(node)));
+					return new CSharpSpaceBetweenParenthesesStyle(this.Data.UpdateTypeCast(node.HasParenthesisSpacing()));
 				}
 			}
 
 			return new CSharpSpaceBetweenParenthesesStyle(this.Data);
-		}
-
-		private static bool HasParenthesisSpacing(SyntaxNode node)
-		{
-			var children = node.ChildNodesAndTokens().ToArray();
-			var openParen = (SyntaxToken?)children.FirstOrDefault(_ => _.IsKind(SyntaxKind.OpenParenToken));
-			var closeParen = (SyntaxToken?)children.LastOrDefault(_ => _.IsKind(SyntaxKind.CloseParenToken));
-
-			var hasSpaceAfterOpenParen = openParen != null && openParen.Value.HasTrailingTrivia &&
-				openParen.Value.TrailingTrivia.Any(_ => _.IsKind(SyntaxKind.WhitespaceTrivia));
-
-			if(hasSpaceAfterOpenParen && closeParen != null)
-			{
-				var previousNodeIndex = Array.IndexOf(children, closeParen.Value) - 1;
-				var lastNodeOrToken = CSharpSpaceBetweenParenthesesStyle.GetLastNodeOrToken(children[previousNodeIndex]);
-
-				var hasSpaceBeforeCloseParen = lastNodeOrToken.HasTrailingTrivia &&
-					lastNodeOrToken.GetTrailingTrivia().Any(_ => _.IsKind(SyntaxKind.WhitespaceTrivia));
-
-				return hasSpaceBeforeCloseParen;
-			}
-
-			return false;
-		}
-
-		private static SyntaxNodeOrToken GetLastNodeOrToken(SyntaxNodeOrToken nodeOrToken)
-		{
-			SyntaxNodeOrToken last = default;
-			var children = nodeOrToken.ChildNodesAndTokens().ToArray();
-
-			while (children.Length > 0)
-			{
-				last = children[children.Length - 1];
-				children = last.ChildNodesAndTokens().ToArray();
-			}
-
-			return last;
 		}
 	}
 }

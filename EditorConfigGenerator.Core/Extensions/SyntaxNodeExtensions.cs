@@ -59,5 +59,42 @@ namespace EditorConfigGenerator.Core.Extensions
 
 			return parent as T;
 		}
+
+		internal static bool HasParenthesisSpacing(this SyntaxNode @this)
+		{
+			var children = @this.ChildNodesAndTokens().ToArray();
+			var openParen = (SyntaxToken?)children.FirstOrDefault(_ => _.IsKind(SyntaxKind.OpenParenToken));
+			var closeParen = (SyntaxToken?)children.LastOrDefault(_ => _.IsKind(SyntaxKind.CloseParenToken));
+
+			var hasSpaceAfterOpenParen = openParen != null && openParen.Value.HasTrailingTrivia &&
+				openParen.Value.TrailingTrivia.Any(_ => _.IsKind(SyntaxKind.WhitespaceTrivia));
+
+			if (hasSpaceAfterOpenParen && closeParen != null)
+			{
+				var previousNodeIndex = Array.IndexOf(children, closeParen.Value) - 1;
+				var lastNodeOrToken = SyntaxNodeExtensions.GetLastNodeOrToken(children[previousNodeIndex]);
+
+				var hasSpaceBeforeCloseParen = lastNodeOrToken.HasTrailingTrivia &&
+					lastNodeOrToken.GetTrailingTrivia().Any(_ => _.IsKind(SyntaxKind.WhitespaceTrivia));
+
+				return hasSpaceBeforeCloseParen;
+			}
+
+			return false;
+		}
+
+		private static SyntaxNodeOrToken GetLastNodeOrToken(SyntaxNodeOrToken nodeOrToken)
+		{
+			SyntaxNodeOrToken last = default;
+			var children = nodeOrToken.ChildNodesAndTokens().ToArray();
+
+			while (children.Length > 0)
+			{
+				last = children[children.Length - 1];
+				children = last.ChildNodesAndTokens().ToArray();
+			}
+
+			return last;
+		}
 	}
 }

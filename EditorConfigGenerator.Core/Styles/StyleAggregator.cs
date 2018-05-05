@@ -33,6 +33,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceAfterCastStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceBetweenParenthesesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedAccessorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedConstructorsStyle.GetSetting(), builder);
@@ -253,6 +254,13 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitOperatorDeclaration(node);
 			}
 
+			public override void VisitParameterList(ParameterListSyntax node)
+			{
+				this.Set.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle =
+					this.Set.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle.Update(node);
+				base.VisitParameterList(node);
+			}
+
 			public override void VisitPropertyDeclaration(PropertyDeclarationSyntax node)
 			{
 				this.Set.CSharpStyleExpressionBodiedPropertiesStyle =
@@ -298,6 +306,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpPreferSimpleDefaultExpressionStyle.Add(set.CSharpPreferSimpleDefaultExpressionStyle),
 					CSharpSpaceAfterCastStyle =
 						this.CSharpSpaceAfterCastStyle.Add(set.CSharpSpaceAfterCastStyle),
+					CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle =
+						this.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle.Add(set.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle),
 					CSharpSpaceBetweenParenthesesStyle =
 						this.CSharpSpaceBetweenParenthesesStyle.Add(set.CSharpSpaceBetweenParenthesesStyle),
 					CSharpStyleExpressionBodiedAccessorsStyle =
@@ -354,6 +364,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData());
 			public CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; set; } =
 				new CSharpSpaceAfterCastStyle(new BooleanData());
+			public CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle { get; set; } =
+				new CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle(new BooleanData());
 			public CSharpSpaceBetweenParenthesesStyle CSharpSpaceBetweenParenthesesStyle { get; set; } =
 				new CSharpSpaceBetweenParenthesesStyle(new ParenthesesSpaceData());
 			public CSharpStyleExpressionBodiedAccessorsStyle CSharpStyleExpressionBodiedAccessorsStyle { get; set; } =
