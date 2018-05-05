@@ -33,6 +33,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceAfterCastStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceBetweenParenthesesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedAccessorsStyle.GetSetting(), builder);
@@ -110,6 +111,13 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.CSharpStyleInlinedVariableDeclarationStyle =
 					this.Set.CSharpStyleInlinedVariableDeclarationStyle.Update(node);
 				base.VisitArgument(node);
+			}
+
+			public override void VisitArgumentList(ArgumentListSyntax node)
+			{
+				this.Set.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle =
+					this.Set.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle.Update(node);
+				base.VisitArgumentList(node);
 			}
 
 			public override void VisitCastExpression(CastExpressionSyntax node)
@@ -306,6 +314,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpPreferSimpleDefaultExpressionStyle.Add(set.CSharpPreferSimpleDefaultExpressionStyle),
 					CSharpSpaceAfterCastStyle =
 						this.CSharpSpaceAfterCastStyle.Add(set.CSharpSpaceAfterCastStyle),
+					CSharpSpaceBetweenMethodCallParameterListParenthesesStyle =
+						this.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle.Add(set.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle),
 					CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle =
 						this.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle.Add(set.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle),
 					CSharpSpaceBetweenParenthesesStyle =
@@ -364,6 +374,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData());
 			public CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; set; } =
 				new CSharpSpaceAfterCastStyle(new BooleanData());
+			public CSharpSpaceBetweenMethodCallParameterListParenthesesStyle CSharpSpaceBetweenMethodCallParameterListParenthesesStyle { get; set; } =
+				new CSharpSpaceBetweenMethodCallParameterListParenthesesStyle(new BooleanData());
 			public CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle { get; set; } =
 				new CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle(new BooleanData());
 			public CSharpSpaceBetweenParenthesesStyle CSharpSpaceBetweenParenthesesStyle { get; set; } =
