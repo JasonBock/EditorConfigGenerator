@@ -10,6 +10,7 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStyleExplicitTupleNamesStyleTests
 	{
 		[Test]
@@ -92,7 +93,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithAccessThatIsNotTupleField()
 		{
-			var style = new DotnetStyleExplicitTupleNamesStyle(new BooleanData(default, default, default));			
+			var style = new DotnetStyleExplicitTupleNamesStyle(new BooleanData(default, default, default));
 			var unit = SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 

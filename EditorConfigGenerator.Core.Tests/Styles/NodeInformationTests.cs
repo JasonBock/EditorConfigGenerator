@@ -7,6 +7,7 @@ using System;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class NodeInformationTests
 	{
 		[Test]
@@ -18,7 +19,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		}
 
 		[Test]
-		public static void CreateWithNull() => 
+		public static void CreateWithNull() =>
 			Assert.That(() => new NodeInformation<IdentifierNameSyntax>(null), Throws.TypeOf<ArgumentNullException>());
 
 		[Test]

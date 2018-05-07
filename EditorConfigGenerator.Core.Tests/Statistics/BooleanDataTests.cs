@@ -6,6 +6,7 @@ using System;
 namespace EditorConfigGenerator.Core.Tests.Statistics
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class BooleanDataTests
 	{
 		[Test]

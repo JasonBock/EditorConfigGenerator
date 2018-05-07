@@ -8,6 +8,7 @@ using System;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpStyleVarElsewhereStyleTests
 	{
 		[Test]

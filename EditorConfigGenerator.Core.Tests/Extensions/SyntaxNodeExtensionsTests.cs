@@ -9,6 +9,7 @@ using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 namespace EditorConfigGenerator.Core.Tests.Extensions
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class SyntaxNodeExtensionsTests
 	{
 		[Test]

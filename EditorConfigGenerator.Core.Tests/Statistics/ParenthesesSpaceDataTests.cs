@@ -6,6 +6,7 @@ using System;
 namespace EditorConfigGenerator.Core.Tests.Statistics
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class ParenthesesSpaceDataTests
 	{
 		[Test]
@@ -21,7 +22,7 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			var typeCastsSpaceOccurences = generator.Generate<uint>();
 
 			var data = new ParenthesesSpaceData(totalOccurences, controlFlowNoSpaceOccurences, controlFlowSpaceOccurences,
-				expressionsNoSpaceOccurences, expressionsSpaceOccurences, 
+				expressionsNoSpaceOccurences, expressionsSpaceOccurences,
 				typeCastsNoSpaceOccurences, typeCastsSpaceOccurences);
 
 			Assert.That(data.TotalOccurences, Is.EqualTo(totalOccurences), nameof(data.TotalOccurences));

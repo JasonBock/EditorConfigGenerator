@@ -10,6 +10,7 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStylePredefinedTypeForLocalsParametersMembersStyleTests
 	{
 		[Test]
@@ -93,7 +94,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithParameterThatIsPredefinedTypeUsingCSharpKeyword()
 		{
-			var style = new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(new BooleanData(default, default, default));			
+			var style = new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(new BooleanData(default, default, default));
 			var unit = SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 

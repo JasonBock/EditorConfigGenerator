@@ -6,6 +6,7 @@ using System.Collections.Immutable;
 namespace EditorConfigGenerator.Core.Tests.Statistics
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class ModifierDataTests
 	{
 		[Test]
@@ -57,7 +58,7 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
-		public static void UpdateWithPublic() => 
+		public static void UpdateWithPublic() =>
 			ModifierDataTests.TestUpdate(SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText);
 
 		[Test]

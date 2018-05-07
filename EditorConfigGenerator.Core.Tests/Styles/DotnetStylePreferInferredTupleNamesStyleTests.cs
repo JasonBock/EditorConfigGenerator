@@ -9,6 +9,7 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStylePreferInferredTupleNamesStyleTests
 	{
 		[Test]

@@ -8,6 +8,7 @@ using System;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class ModelNodeInformationTests
 	{
 		private static readonly CompilationUnitSyntax unit = SyntaxFactory.ParseCompilationUnit("public class F { }", options: Constants.ParseOptions);

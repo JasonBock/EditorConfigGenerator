@@ -7,6 +7,7 @@ using System;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
+	[Parallelizable(ParallelScope.Self)]
 	public static class StyleAggregatorTests
 	{
 		private static SemanticModel CreateModel(SyntaxTree tree)
