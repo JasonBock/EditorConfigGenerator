@@ -31,6 +31,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeCatchStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeElseStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpPreferredModifierOrderStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceAfterCastStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle.GetSetting(), builder);
@@ -72,6 +73,15 @@ namespace EditorConfigGenerator.Core.Styles
 
 			public override void Visit(SyntaxNode node)
 			{
+				if(node is MemberDeclarationSyntax member)
+				{
+					this.Set.CSharpPreferredModifierOrderStyle =
+						this.Set.CSharpPreferredModifierOrderStyle.Update(member);
+				}
+
+				this.Set.CSharpSpaceBetweenParenthesesStyle =
+					this.Set.CSharpSpaceBetweenParenthesesStyle.Update(
+						new NodeInformation<SyntaxNode>(node));
 				this.Set.IndentStyleStyle = 
 					this.Set.IndentStyleStyle.Update(node);
 				this.Set.DotnetStyleQualificationForEventStyle =
@@ -80,15 +90,12 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.DotnetStyleQualificationForFieldStyle =
 					this.Set.DotnetStyleQualificationForFieldStyle.Update(
 						new ModelNodeInformation<SyntaxNode>(node, this.model));
-				this.Set.DotnetStyleQualificationForPropertyStyle =
-					this.Set.DotnetStyleQualificationForPropertyStyle.Update(
-						new ModelNodeInformation<SyntaxNode>(node, this.model));
 				this.Set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle =
 					this.Set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle.Update(
 						new ModelNodeInformation<SyntaxNode>(node, this.model));
-				this.Set.CSharpSpaceBetweenParenthesesStyle =
-					this.Set.CSharpSpaceBetweenParenthesesStyle.Update(
-						new NodeInformation<SyntaxNode>(node));
+				this.Set.DotnetStyleQualificationForPropertyStyle =
+					this.Set.DotnetStyleQualificationForPropertyStyle.Update(
+						new ModelNodeInformation<SyntaxNode>(node, this.model));
 				base.Visit(node);
 			}
 
@@ -310,6 +317,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpNewLineBeforeElseStyle.Add(set.CSharpNewLineBeforeElseStyle),
 					CSharpNewLineBeforeFinallyStyle =
 						this.CSharpNewLineBeforeFinallyStyle.Add(set.CSharpNewLineBeforeFinallyStyle),
+					CSharpPreferredModifierOrderStyle =
+						this.CSharpPreferredModifierOrderStyle.Add(set.CSharpPreferredModifierOrderStyle),
 					CSharpPreferSimpleDefaultExpressionStyle =
 						this.CSharpPreferSimpleDefaultExpressionStyle.Add(set.CSharpPreferSimpleDefaultExpressionStyle),
 					CSharpSpaceAfterCastStyle =
@@ -370,6 +379,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpNewLineBeforeElseStyle(new BooleanData());
 			public CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; set; } =
 				new CSharpNewLineBeforeFinallyStyle(new BooleanData());
+			public CSharpPreferredModifierOrderStyle CSharpPreferredModifierOrderStyle { get; set; } =
+				new CSharpPreferredModifierOrderStyle(new ModifierData());
 			public CSharpPreferSimpleDefaultExpressionStyle CSharpPreferSimpleDefaultExpressionStyle { get; set; } =
 				new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData());
 			public CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; set; } =

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Statistics\ModifierData.cs~RF104ddce9.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Buildalyzer" Version="0.4.0" />
     <PackageReference Include="Buildalyzer.Workspaces" Version="0.4.0" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="2.7.0" />

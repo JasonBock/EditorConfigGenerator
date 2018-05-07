@@ -5,6 +5,7 @@
 		CSharpNewLineBeforeCatchStyle CSharpNewLineBeforeCatchStyle { get; }
 		CSharpNewLineBeforeElseStyle CSharpNewLineBeforeElseStyle { get; }
 		CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; }
+		CSharpPreferredModifierOrderStyle CSharpPreferredModifierOrderStyle { get; }
 		CSharpPreferSimpleDefaultExpressionStyle CSharpPreferSimpleDefaultExpressionStyle { get; }
 		CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; }
 		CSharpSpaceBetweenMethodCallParameterListParenthesesStyle CSharpSpaceBetweenMethodCallParameterListParenthesesStyle { get; }
