@@ -115,5 +115,31 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void UpdateWithAsync() =>
 			ModifierDataTests.TestUpdate(SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText);
+
+		[Test]
+		public static void Add()
+		{
+			var data = new ModifierData();
+			data = data.Update(new[] { SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText }.ToImmutableList());
+			data = data.Update(new[] { SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText }.ToImmutableList());
+
+			var newData = new ModifierData().Add(data);
+
+			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText], Is.EqualTo((1u, 1u)));
+			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.PrivateKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.ProtectedKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.InternalKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.StaticKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.ExternKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.NewKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.VirtualKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.AbstractKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.SealedKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.OverrideKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.ReadOnlyKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.UnsafeKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.VolatileKeyword).ValueText], Is.EqualTo((0u, 0u)));
+			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText], Is.EqualTo((1u, 1u)));
+		}
 	}
 }
