@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStylePreferInferredTupleNamesStyleTests
 	{
 		[Test]
@@ -91,7 +90,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var name = ""Jane"";
 		var tuple = (age, name);
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression) as TupleExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression) as TupleExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -115,7 +114,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var name = ""Jane"";
 		var tuple = (myAge: age, myName: name);
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression) as TupleExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression) as TupleExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -139,7 +138,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var name = ""Jane"";
 		var tuple = (age, name=>);
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression) as TupleExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression) as TupleExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

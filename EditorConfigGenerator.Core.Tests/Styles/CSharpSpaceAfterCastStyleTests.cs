@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpSpaceAfterCastStyleTests
 	{
 		[Test]
@@ -89,7 +88,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var y = (int) x;
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -111,7 +110,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var y = (int)x;
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -133,7 +132,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var y = (int)=>x;
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

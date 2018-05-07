@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpStyleExpressionBodiedPropertiesStyleTests
 	{
 		[Test]
@@ -78,7 +77,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int age; 
 
 	public int Age => age;
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -101,7 +100,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 
 	public int Age => 42 + 
 		age;
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -123,7 +122,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int age; 
 
 	public int Age { get { return age; }}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -145,7 +144,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int age; 
 
 	public int Age => age
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.PropertyDeclaration) as PropertyDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedPropertiesStyle(
 				new ExpressionBodiedData(default, default, default, default));

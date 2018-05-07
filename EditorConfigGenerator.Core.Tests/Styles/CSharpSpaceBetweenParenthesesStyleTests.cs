@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpSpaceBetweenParenthesesStyleTests
 	{
 		[Test]
@@ -114,7 +113,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var style = new CSharpSpaceBetweenParenthesesStyle(
 				new ParenthesesSpaceData(default, default, default, default, default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit("public class Foo { }", options: Constants.ParseOptions)
+			var statement = SyntaxFactory.ParseCompilationUnit("public class Foo { }", options: Shared.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ClassDeclaration) as ClassDeclarationSyntax;
 			var newStyle = style.Update(statement);
 
@@ -142,7 +141,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		for(var i = 0; i < 10; i++) { }
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement) as ForStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement) as ForStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -169,7 +168,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		for( var i = 0; i < 10; i++ ) { }
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement) as ForStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement) as ForStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -197,7 +196,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var data = new int[] { 1, 2, 3 };
 		foreach(var item in data) { }
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement) as ForEachStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement) as ForEachStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -225,7 +224,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var data = new int[] { 1, 2, 3 };
 		foreach( var item in data ) { }
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement) as ForEachStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement) as ForEachStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -252,7 +251,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		if(true) { }
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement) as IfStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement) as IfStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -279,7 +278,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		if( true ) { }
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement) as IfStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement) as IfStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -314,7 +313,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 				break;
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.SwitchStatement) as SwitchStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.SwitchStatement) as SwitchStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -349,7 +348,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 				break;
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.SwitchStatement) as SwitchStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.SwitchStatement) as SwitchStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -376,7 +375,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		while(true) { }
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement) as WhileStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement) as WhileStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -403,7 +402,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		while( true ) { }
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement) as WhileStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement) as WhileStatementSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -430,7 +429,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var x = (3 + 2);
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParenthesizedExpression) as ParenthesizedExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParenthesizedExpression) as ParenthesizedExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -457,7 +456,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var x = ( 3 + 2 );
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParenthesizedExpression) as ParenthesizedExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParenthesizedExpression) as ParenthesizedExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -484,7 +483,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var x = (uint)22;
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -511,7 +510,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var x = ( uint )22;
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -542,7 +541,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		finally
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

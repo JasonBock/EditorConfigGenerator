@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpStyleExpressionBodiedAccessorsStyleTests
 	{
 		[Test]
@@ -81,7 +80,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		get => age; 
 	} 
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -107,7 +106,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		get => 42 + 
 			age; 
 	} 
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -132,7 +131,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		get { return this.age; } 
 	} 
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -157,7 +156,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		get => age
 	} 
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));

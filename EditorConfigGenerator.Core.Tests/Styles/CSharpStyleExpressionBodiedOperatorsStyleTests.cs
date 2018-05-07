@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpStyleExpressionBodiedOperatorsStyleTests
 	{
 		[Test]
@@ -83,7 +82,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	} 
 
 	public int Data { get; } 
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -105,7 +104,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	public static Foo operator +(Foo f1, Foo f2) => f1.Data + f2.Data;
 
 	public int Data { get; } 
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -128,7 +127,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		f2.Data;
 
 	public int Data { get; } 
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -150,7 +149,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	public static Foo operator +(Foo f1, Foo f2) { return f1.Data + f2.Data; }
 
 	public int Data { get; } 
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
@@ -172,7 +171,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	public static Foo operator +(Foo f1, Foo f2) => f1.Data + f2.Data
 
 	public int Data { get; } 
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
 
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));

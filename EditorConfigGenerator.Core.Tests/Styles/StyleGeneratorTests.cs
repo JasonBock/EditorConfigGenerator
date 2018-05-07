@@ -6,7 +6,6 @@ using System.IO;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class StyleGeneratorTests
 	{
 		[Test]

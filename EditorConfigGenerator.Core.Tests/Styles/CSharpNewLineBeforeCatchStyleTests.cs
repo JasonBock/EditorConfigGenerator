@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpNewLineBeforeCatchStyleTests
 	{
 		[Test]
@@ -94,7 +93,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -120,7 +119,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -150,7 +149,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Last(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Last(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -179,7 +178,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Last(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Last(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -205,7 +204,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		catch
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CatchClause) as CatchClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

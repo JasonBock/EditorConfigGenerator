@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyleTests
 	{
 		[Test]
@@ -86,7 +85,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"public class Foo
 {
 	public void Bar( object x ) { }
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParameterList) as ParameterListSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParameterList) as ParameterListSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -105,7 +104,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"public class Foo
 {
 	public void Bar(object x) { }
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParameterList) as ParameterListSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParameterList) as ParameterListSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -124,7 +123,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"public class Foo
 {
 	public void Bar(object x=>) { }
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParameterList) as ParameterListSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ParameterList) as ParameterListSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

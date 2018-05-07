@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStylePreferInferredAnonymousTypeMemberNamesStyleTests
 	{
 		[Test]
@@ -90,7 +89,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var age = 42;
 		var anon = new { age };
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator) as AnonymousObjectMemberDeclaratorSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator) as AnonymousObjectMemberDeclaratorSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -113,7 +112,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var age = 42;
 		var anon = new { myAge = age };
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator) as AnonymousObjectMemberDeclaratorSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator) as AnonymousObjectMemberDeclaratorSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -136,7 +135,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var age = 42;
 		var anon = new { myAge = age=> };
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator) as AnonymousObjectMemberDeclaratorSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator) as AnonymousObjectMemberDeclaratorSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStyleRequireAccessibilityModifiersStyleTests
 	{
 		[Test]
@@ -86,7 +85,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	private void Bar() { }
-}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Shared.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -105,7 +104,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	protected void Bar() { }
-}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Shared.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -124,7 +123,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	internal void Bar() { }
-}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Shared.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -143,7 +142,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	public void Bar() { }
-}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Shared.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -162,7 +161,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	void Bar() { }
-}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Shared.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -181,7 +180,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"class Foo
 {
 	void Bar( { }
-}", options: Constants.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
+}", options: Shared.ParseOptions).DescendantNodes().OfType<MethodDeclarationSyntax>().First();
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

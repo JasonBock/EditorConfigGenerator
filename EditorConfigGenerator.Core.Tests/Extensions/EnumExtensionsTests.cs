@@ -4,7 +4,6 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Tests.Extensions
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class EnumExtensionsTests
 	{
 		[Test]

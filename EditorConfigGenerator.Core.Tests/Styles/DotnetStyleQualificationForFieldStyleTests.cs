@@ -10,7 +10,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStyleQualificationForFieldStyleTests
 	{
 		[Test]
@@ -102,7 +101,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int x;
 
 	public int Bar() => this.x;
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForFieldStyleTests.GetInformation<MemberAccessExpressionSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -124,7 +123,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	private int x;
 
 	public int Bar() => x;
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForFieldStyleTests.GetInformation<IdentifierNameSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -153,7 +152,7 @@ public class Foo
 		var q = new Data();
 		return q.value;
 	};
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForFieldStyleTests.GetInformation<MemberAccessExpressionSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -175,7 +174,7 @@ public class Foo
 	private static int x;
 
 	public int Bar() => Foo.x;
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForFieldStyleTests.GetInformation<MemberAccessExpressionSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -197,7 +196,7 @@ public class Foo
 	private static int x;
 
 	public int Bar() => x;
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForFieldStyleTests.GetInformation<IdentifierNameSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -219,7 +218,7 @@ public class Foo
 	public int X { get; set; }
 
 	public int Bar() => this.X;
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForFieldStyleTests.GetInformation<IdentifierNameSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 
@@ -244,7 +243,7 @@ public class Foo
 	{
 		var q = this.x =>;
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForFieldStyleTests.GetInformation<MemberAccessExpressionSyntax>(unit);
 			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
 

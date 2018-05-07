@@ -10,7 +10,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStylePredefinedTypeForMemberAccessStyleTests
 	{
 		[Test]
@@ -98,7 +97,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 @"public class Foo 
 { 
 	public int Bar() => int.MaxValue;
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForMemberAccessStyleTests.GetInformation(unit);
 			var newStyle = style.Update(new ModelNodeInformation<MemberAccessExpressionSyntax>(node, model));
 
@@ -119,7 +118,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 public class Foo 
 { 
 	public int Bar() => Int32.MaxValue;
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForMemberAccessStyleTests.GetInformation(unit);
 			var newStyle = style.Update(new ModelNodeInformation<MemberAccessExpressionSyntax>(node, model));
 
@@ -140,7 +139,7 @@ public class Foo
 	public int BigValue = 0;
 
 	public int Bar() => Foo.BigValue;
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForMemberAccessStyleTests.GetInformation(unit);
 			var newStyle = style.Update(new ModelNodeInformation<MemberAccessExpressionSyntax>(node, model));
 
@@ -163,7 +162,7 @@ public class Foo
 	{
 		var x = int.MaxValue =>;
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStylePredefinedTypeForMemberAccessStyleTests.GetInformation(unit);
 			var newStyle = style.Update(new ModelNodeInformation<MemberAccessExpressionSyntax>(node, model));
 

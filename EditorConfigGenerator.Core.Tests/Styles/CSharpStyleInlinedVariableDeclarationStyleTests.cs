@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpStyleInlinedVariableDeclarationStyleTests
 	{
 		[Test]
@@ -82,7 +81,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Foo(out int x)", options: Constants.ParseOptions)
+			var statement = SyntaxFactory.ParseStatement("Foo(out int x)", options: Shared.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument) as ArgumentSyntax;
 			var newStyle = style.Update(statement);
 
@@ -98,7 +97,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Foo(out x)", options: Constants.ParseOptions)
+			var statement = SyntaxFactory.ParseStatement("Foo(out x)", options: Shared.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument) as ArgumentSyntax;
 			var newStyle = style.Update(statement);
 
@@ -114,7 +113,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Foo(x)", options: Constants.ParseOptions)
+			var statement = SyntaxFactory.ParseStatement("Foo(x)", options: Shared.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument) as ArgumentSyntax;
 			var newStyle = style.Update(statement);
 
@@ -131,7 +130,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Foo(*)", options: Constants.ParseOptions)
+			var statement = SyntaxFactory.ParseStatement("Foo(*)", options: Shared.ParseOptions)
 				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument) as ArgumentSyntax;
 			var newStyle = style.Update(statement);
 

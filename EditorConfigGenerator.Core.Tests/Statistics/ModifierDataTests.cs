@@ -1,12 +1,12 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace EditorConfigGenerator.Core.Tests.Statistics
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class ModifierDataTests
 	{
 		[Test]
@@ -14,47 +14,20 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		{
 			var data = new ModifierData();
 			Assert.That(data.VisibilityModifiers.Count, Is.EqualTo(4));
-			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.PrivateKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.ProtectedKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.InternalKeyword).ValueText], Is.EqualTo((0u, 0u)));
-
 			Assert.That(data.OtherModifiers.Count, Is.EqualTo(11));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.StaticKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.ExternKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.NewKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.VirtualKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.AbstractKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.SealedKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.OverrideKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.ReadOnlyKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.UnsafeKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.VolatileKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText], Is.EqualTo((0u, 0u)));
+
+			Shared.VerifyModifiers(data.VisibilityModifiers);
+			Shared.VerifyModifiers(data.OtherModifiers);
 		}
 
 		private static void TestUpdate(string keyword)
 		{
-			void IterateModifiers(ImmutableDictionary<string, (uint weight, uint keyword)> modifiers)
-			{
-				foreach (var modifier in modifiers)
-				{
-					if (modifier.Key == keyword)
-					{
-						Assert.That(modifier.Value, Is.EqualTo((1u, 1u)), keyword);
-					}
-					else
-					{
-						Assert.That(modifier.Value, Is.EqualTo((0u, 0u)), modifier.Key);
-					}
-				}
-			}
-
 			var data = new ModifierData();
 			var newData = data.Update(new[] { keyword }.ToImmutableList());
 
-			IterateModifiers(newData.VisibilityModifiers);
-			IterateModifiers(newData.OtherModifiers);
+			var pair = new KeyValuePair<string, (uint weight, uint frequency)>(keyword, (1u, 1u));
+			Shared.VerifyModifiers(newData.VisibilityModifiers, pair);
+			Shared.VerifyModifiers(newData.OtherModifiers, pair);
 		}
 
 		[Test]
@@ -126,21 +99,12 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 
 			var newData = new ModifierData().Add(data);
 
-			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText], Is.EqualTo((1u, 1u)));
-			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.PrivateKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.ProtectedKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.VisibilityModifiers[SyntaxFactory.Token(SyntaxKind.InternalKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.StaticKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.ExternKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.NewKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.VirtualKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.AbstractKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.SealedKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.OverrideKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.ReadOnlyKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.UnsafeKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.VolatileKeyword).ValueText], Is.EqualTo((0u, 0u)));
-			Assert.That(data.OtherModifiers[SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText], Is.EqualTo((1u, 1u)));
+			Shared.VerifyModifiers(newData.VisibilityModifiers,
+				new KeyValuePair<string, (uint weight, uint frequency)>(
+					SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText, (1u, 1u)));
+			Shared.VerifyModifiers(newData.OtherModifiers,
+				new KeyValuePair<string, (uint weight, uint frequency)>(
+					SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText, (1u, 1u)));
 		}
 	}
 }

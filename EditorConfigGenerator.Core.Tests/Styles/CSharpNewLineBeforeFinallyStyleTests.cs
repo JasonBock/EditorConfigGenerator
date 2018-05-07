@@ -9,7 +9,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class CSharpNewLineBeforeFinallyStyleTests
 	{
 		[Test]
@@ -94,7 +93,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -120,7 +119,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -150,7 +149,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -179,7 +178,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -205,7 +204,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		finally
 		}
 	}
-}", options: Constants.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.FinallyClause) as FinallyClauseSyntax;
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

@@ -10,7 +10,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStyleExplicitTupleNamesStyleTests
 	{
 		[Test]
@@ -103,7 +102,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var x = this.id;
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleExplicitTupleNamesStyleTests.GetInformation(unit);
 			var newStyle = style.Update(new ModelNodeInformation<MemberAccessExpressionSyntax>(node, model));
 
@@ -128,7 +127,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		(string name, int id) data = (""x"", 42);
 		var x = data.name;
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleExplicitTupleNamesStyleTests.GetInformation(unit);
 			var newStyle = style.Update(new ModelNodeInformation<MemberAccessExpressionSyntax>(node, model));
 
@@ -153,7 +152,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		(string name, int id) data = (""x"", 42);
 		var x = data.Item1;
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleExplicitTupleNamesStyleTests.GetInformation(unit);
 			var newStyle = style.Update(new ModelNodeInformation<MemberAccessExpressionSyntax>(node, model));
 
@@ -179,7 +178,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		(string name, int id) data = (""x"", 42);
 		var x = data.name =>;
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleExplicitTupleNamesStyleTests.GetInformation(unit);
 			var newStyle = style.Update(new ModelNodeInformation<MemberAccessExpressionSyntax>(node, model));
 

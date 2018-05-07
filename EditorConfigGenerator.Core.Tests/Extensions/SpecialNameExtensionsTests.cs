@@ -5,7 +5,6 @@ using static EditorConfigGenerator.Core.Extensions.SpecialNameExtensions;
 namespace EditorConfigGenerator.Core.Tests.Extensions
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class SpecialNameExtensionsTests
 	{
 		[Test]

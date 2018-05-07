@@ -10,7 +10,6 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class DotnetStyleQualificationForMethodStyleTests
 	{
 		[Test]
@@ -104,7 +103,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		this.Bar();
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForMethodStyleTests.GetInformation(unit, "Bar");
 			var newStyle = style.Update(new ModelNodeInformation<InvocationExpressionSyntax>(node, model));
 
@@ -127,7 +126,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		Bar();
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForMethodStyleTests.GetInformation(unit, "Bar");
 			var newStyle = style.Update(new ModelNodeInformation<InvocationExpressionSyntax>(node, model));
 
@@ -151,7 +150,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var x = 42;
 		x.ToString();
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForMethodStyleTests.GetInformation(unit, "ToString");
 			var newStyle = style.Update(new ModelNodeInformation<InvocationExpressionSyntax>(node, model));
 
@@ -176,7 +175,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		this.CallFoo();
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForMethodStyleTests.GetInformation(unit, "CallFoo");
 			var newStyle = style.Update(new ModelNodeInformation<InvocationExpressionSyntax>(node, model));
 
@@ -201,7 +200,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		Foo.CallMe();
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForMethodStyleTests.GetInformation(unit, "CallMe");
 			var newStyle = style.Update(new ModelNodeInformation<InvocationExpressionSyntax>(node, model));
 
@@ -226,7 +225,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		CallMe();
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForMethodStyleTests.GetInformation(unit, "CallMe");
 			var newStyle = style.Update(new ModelNodeInformation<InvocationExpressionSyntax>(node, model));
 
@@ -249,7 +248,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		this.Bar(
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			var (node, model) = DotnetStyleQualificationForMethodStyleTests.GetInformation(unit, "Bar");
 			var newStyle = style.Update(new ModelNodeInformation<InvocationExpressionSyntax>(node, model));
 

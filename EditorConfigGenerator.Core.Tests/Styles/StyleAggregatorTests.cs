@@ -7,7 +7,6 @@ using System;
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
 	[TestFixture]
-	[Parallelizable(ParallelScope.Self)]
 	public static class StyleAggregatorTests
 	{
 		private static SemanticModel CreateModel(SyntaxTree tree)
@@ -29,7 +28,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var a = 1;
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			aggregator1 = aggregator1.Add(compilationUnit1, StyleAggregatorTests.CreateModel(compilationUnit1.SyntaxTree));
 
 			var aggregator2 = new StyleAggregator();
@@ -40,7 +39,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		int a = 1;
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			aggregator2 = aggregator2.Add(compilationUnit2, StyleAggregatorTests.CreateModel(compilationUnit2.SyntaxTree));
 
 			var aggregator3 = aggregator1.Update(aggregator2);
@@ -54,7 +53,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void AddWithNullSyntax()
 		{
-			var compilationUnit = SyntaxFactory.ParseCompilationUnit("public static class Test { }", options: Constants.ParseOptions);
+			var compilationUnit = SyntaxFactory.ParseCompilationUnit("public static class Test { }", options: Shared.ParseOptions);
 			var model = StyleAggregatorTests.CreateModel(compilationUnit.SyntaxTree);
 			var aggregator = new StyleAggregator();
 			Assert.That(() => aggregator.Add(null, model), Throws.TypeOf<ArgumentNullException>());
@@ -63,7 +62,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void AddWithNullModel()
 		{
-			var compilationUnit = SyntaxFactory.ParseCompilationUnit("public static class Test { }", options: Constants.ParseOptions);
+			var compilationUnit = SyntaxFactory.ParseCompilationUnit("public static class Test { }", options: Shared.ParseOptions);
 			var aggregator = new StyleAggregator();
 			Assert.That(() => aggregator.Add(compilationUnit, null), Throws.TypeOf<ArgumentNullException>());
 		}
@@ -84,7 +83,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		int a = 1;
 	}
-}", options: Constants.ParseOptions);
+}", options: Shared.ParseOptions);
 			aggregator = aggregator.Add(compilationUnit, StyleAggregatorTests.CreateModel(compilationUnit.SyntaxTree));
 
 			var data = aggregator.Set.CSharpStyleVarForBuiltInTypesStyle.Data;
