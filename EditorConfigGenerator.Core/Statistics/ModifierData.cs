@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -78,26 +79,26 @@ namespace EditorConfigGenerator.Core.Statistics
 		public ImmutableDictionary<string, (uint weight, uint frequency)> VisibilityModifiers =
 			new Dictionary<string, (uint weight, uint frequency)>
 			{
-				{ "public", (0u, 0u) },
-				{ "private", (0u, 0u) },
-				{ "protected", (0u, 0u) },
-				{ "internal", (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.PrivateKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.ProtectedKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.InternalKeyword).ValueText, (0u, 0u) },
 			}.ToImmutableDictionary();
 
 		public ImmutableDictionary<string, (uint weight, uint frequency)> OtherModifiers =
 			new Dictionary<string, (uint weight, uint frequency)>
 			{
-				{ "static", (0u, 0u) },
-				{ "extern", (0u, 0u) },
-				{ "new", (0u, 0u) },
-				{ "virtual", (0u, 0u) },
-				{ "abstract", (0u, 0u) },
-				{ "sealed", (0u, 0u) },
-				{ "override", (0u, 0u) },
-				{ "readonly", (0u, 0u) },
-				{ "unsafe", (0u, 0u) },
-				{ "volatile", (0u, 0u) },
-				{ "async", (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.StaticKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.ExternKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.NewKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.VirtualKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.AbstractKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.SealedKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.OverrideKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.ReadOnlyKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.UnsafeKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.VolatileKeyword).ValueText, (0u, 0u) },
+				{ SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText, (0u, 0u) },
 			}.ToImmutableDictionary();
 	}
 }
