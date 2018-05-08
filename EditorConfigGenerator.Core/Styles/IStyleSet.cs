@@ -8,6 +8,7 @@
 		CSharpPreferredModifierOrderStyle CSharpPreferredModifierOrderStyle { get; }
 		CSharpPreferSimpleDefaultExpressionStyle CSharpPreferSimpleDefaultExpressionStyle { get; }
 		CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; }
+		CSharpSpaceAfterKeywordsInControlFlowStatementsStyle CSharpSpaceAfterKeywordsInControlFlowStatementsStyle { get; }
 		CSharpSpaceBetweenMethodCallParameterListParenthesesStyle CSharpSpaceBetweenMethodCallParameterListParenthesesStyle { get; }
 		CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle { get; }
 		CSharpSpaceBetweenParenthesesStyle CSharpSpaceBetweenParenthesesStyle { get; }

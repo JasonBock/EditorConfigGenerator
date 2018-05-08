@@ -10,7 +10,7 @@ using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class DotnetStyleQualificationForPropertyStyle
-		: ModelSeverityStyle<BooleanData, SyntaxNode, ModelNodeInformation<SyntaxNode>, DotnetStyleQualificationForPropertyStyle>
+		: ModelSeverityNodeStyle<BooleanData, SyntaxNode, ModelNodeInformation<SyntaxNode>, DotnetStyleQualificationForPropertyStyle>
 	{
 		public DotnetStyleQualificationForPropertyStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

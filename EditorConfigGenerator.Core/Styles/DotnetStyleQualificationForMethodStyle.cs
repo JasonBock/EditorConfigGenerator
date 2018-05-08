@@ -10,7 +10,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class DotnetStyleQualificationForMethodStyle
-		: ModelSeverityStyle<BooleanData, InvocationExpressionSyntax, ModelNodeInformation<InvocationExpressionSyntax>, DotnetStyleQualificationForMethodStyle>
+		: ModelSeverityNodeStyle<BooleanData, InvocationExpressionSyntax, ModelNodeInformation<InvocationExpressionSyntax>, DotnetStyleQualificationForMethodStyle>
 	{
 		public DotnetStyleQualificationForMethodStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

@@ -7,7 +7,7 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class IndentStyleStyle
-		: Style<TabSpaceData, SyntaxNode, NodeInformation<SyntaxNode>, IndentStyleStyle>
+		: NodeStyle<TabSpaceData, SyntaxNode, NodeInformation<SyntaxNode>, IndentStyleStyle>
 	{
 		public IndentStyleStyle(TabSpaceData data)
 			: base(data) { }

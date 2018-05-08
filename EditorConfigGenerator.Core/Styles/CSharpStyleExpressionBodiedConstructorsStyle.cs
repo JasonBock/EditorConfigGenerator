@@ -6,7 +6,7 @@ using System;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStyleExpressionBodiedConstructorsStyle
-		: SeverityStyle<ExpressionBodiedData, ConstructorDeclarationSyntax, NodeInformation<ConstructorDeclarationSyntax>, CSharpStyleExpressionBodiedConstructorsStyle>
+		: SeverityNodeStyle<ExpressionBodiedData, ConstructorDeclarationSyntax, NodeInformation<ConstructorDeclarationSyntax>, CSharpStyleExpressionBodiedConstructorsStyle>
 	{
 		public CSharpStyleExpressionBodiedConstructorsStyle(ExpressionBodiedData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

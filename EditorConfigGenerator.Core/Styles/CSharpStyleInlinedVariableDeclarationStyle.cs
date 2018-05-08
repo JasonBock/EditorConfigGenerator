@@ -9,7 +9,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStyleInlinedVariableDeclarationStyle
-		: SeverityStyle<BooleanData, ArgumentSyntax, NodeInformation<ArgumentSyntax>, CSharpStyleInlinedVariableDeclarationStyle>
+		: SeverityNodeStyle<BooleanData, ArgumentSyntax, NodeInformation<ArgumentSyntax>, CSharpStyleInlinedVariableDeclarationStyle>
 	{
 		public CSharpStyleInlinedVariableDeclarationStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

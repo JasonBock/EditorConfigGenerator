@@ -10,7 +10,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class DotnetSortSystemDirectivesFirstStyle
-		: SeverityStyle<BooleanData, CompilationUnitSyntax, NodeInformation<CompilationUnitSyntax>, DotnetSortSystemDirectivesFirstStyle>
+		: SeverityNodeStyle<BooleanData, CompilationUnitSyntax, NodeInformation<CompilationUnitSyntax>, DotnetSortSystemDirectivesFirstStyle>
 	{
 		public DotnetSortSystemDirectivesFirstStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

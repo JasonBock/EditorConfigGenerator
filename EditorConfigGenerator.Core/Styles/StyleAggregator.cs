@@ -34,6 +34,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpPreferredModifierOrderStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceAfterCastStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpSpaceAfterKeywordsInControlFlowStatementsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceBetweenParenthesesStyle.GetSetting(), builder);
@@ -294,6 +295,14 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitStructDeclaration(node);
 			}
 
+			public override void VisitToken(SyntaxToken token)
+			{
+				this.Set.CSharpSpaceAfterKeywordsInControlFlowStatementsStyle =
+					this.Set.CSharpSpaceAfterKeywordsInControlFlowStatementsStyle.Update(
+						new TokenInformation(token));
+				base.VisitToken(token);
+			}
+
 			public override void VisitTupleExpression(TupleExpressionSyntax node)
 			{
 				this.Set.DotnetStylePreferInferredTupleNamesStyle =
@@ -323,6 +332,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpPreferSimpleDefaultExpressionStyle.Add(set.CSharpPreferSimpleDefaultExpressionStyle),
 					CSharpSpaceAfterCastStyle =
 						this.CSharpSpaceAfterCastStyle.Add(set.CSharpSpaceAfterCastStyle),
+					CSharpSpaceAfterKeywordsInControlFlowStatementsStyle =
+						this.CSharpSpaceAfterKeywordsInControlFlowStatementsStyle.Add(set.CSharpSpaceAfterKeywordsInControlFlowStatementsStyle),
 					CSharpSpaceBetweenMethodCallParameterListParenthesesStyle =
 						this.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle.Add(set.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle),
 					CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle =
@@ -385,6 +396,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData());
 			public CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; set; } =
 				new CSharpSpaceAfterCastStyle(new BooleanData());
+			public CSharpSpaceAfterKeywordsInControlFlowStatementsStyle CSharpSpaceAfterKeywordsInControlFlowStatementsStyle { get; set; } =
+				new CSharpSpaceAfterKeywordsInControlFlowStatementsStyle(new BooleanData());
 			public CSharpSpaceBetweenMethodCallParameterListParenthesesStyle CSharpSpaceBetweenMethodCallParameterListParenthesesStyle { get; set; } =
 				new CSharpSpaceBetweenMethodCallParameterListParenthesesStyle(new BooleanData());
 			public CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle { get; set; } =

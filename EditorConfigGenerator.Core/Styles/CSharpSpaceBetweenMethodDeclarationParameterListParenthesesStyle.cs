@@ -7,7 +7,7 @@ using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle
-		: SeverityStyle<BooleanData, ParameterListSyntax, NodeInformation<ParameterListSyntax>, CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle>
+		: SeverityNodeStyle<BooleanData, ParameterListSyntax, NodeInformation<ParameterListSyntax>, CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle>
 	{
 		public CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

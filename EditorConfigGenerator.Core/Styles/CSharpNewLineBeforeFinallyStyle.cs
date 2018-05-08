@@ -9,7 +9,7 @@ using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpNewLineBeforeFinallyStyle
-		: SeverityStyle<BooleanData, FinallyClauseSyntax, NodeInformation<FinallyClauseSyntax>, CSharpNewLineBeforeFinallyStyle>
+		: SeverityNodeStyle<BooleanData, FinallyClauseSyntax, NodeInformation<FinallyClauseSyntax>, CSharpNewLineBeforeFinallyStyle>
 	{
 		public CSharpNewLineBeforeFinallyStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

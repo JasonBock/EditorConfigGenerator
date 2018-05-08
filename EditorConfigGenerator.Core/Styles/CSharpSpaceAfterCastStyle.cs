@@ -8,7 +8,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpSpaceAfterCastStyle
-		: SeverityStyle<BooleanData, CastExpressionSyntax, NodeInformation<CastExpressionSyntax>, CSharpSpaceAfterCastStyle>
+		: SeverityNodeStyle<BooleanData, CastExpressionSyntax, NodeInformation<CastExpressionSyntax>, CSharpSpaceAfterCastStyle>
 	{
 		public CSharpSpaceAfterCastStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

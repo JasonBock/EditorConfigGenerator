@@ -8,7 +8,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class DotnetStyleExplicitTupleNamesStyle
-		: ModelSeverityStyle<BooleanData, MemberAccessExpressionSyntax, ModelNodeInformation<MemberAccessExpressionSyntax>, DotnetStyleExplicitTupleNamesStyle>
+		: ModelSeverityNodeStyle<BooleanData, MemberAccessExpressionSyntax, ModelNodeInformation<MemberAccessExpressionSyntax>, DotnetStyleExplicitTupleNamesStyle>
 	{
 		public DotnetStyleExplicitTupleNamesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

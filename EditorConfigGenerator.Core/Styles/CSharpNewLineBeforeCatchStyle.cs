@@ -9,7 +9,7 @@ using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpNewLineBeforeCatchStyle
-		: SeverityStyle<BooleanData, CatchClauseSyntax, NodeInformation<CatchClauseSyntax>, CSharpNewLineBeforeCatchStyle>
+		: SeverityNodeStyle<BooleanData, CatchClauseSyntax, NodeInformation<CatchClauseSyntax>, CSharpNewLineBeforeCatchStyle>
 	{
 		public CSharpNewLineBeforeCatchStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

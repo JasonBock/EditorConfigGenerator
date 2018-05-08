@@ -8,7 +8,7 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStyleExpressionBodiedPropertiesStyle
-		: SeverityStyle<ExpressionBodiedData, PropertyDeclarationSyntax, NodeInformation<PropertyDeclarationSyntax>, CSharpStyleExpressionBodiedPropertiesStyle>
+		: SeverityNodeStyle<ExpressionBodiedData, PropertyDeclarationSyntax, NodeInformation<PropertyDeclarationSyntax>, CSharpStyleExpressionBodiedPropertiesStyle>
 	{
 		public CSharpStyleExpressionBodiedPropertiesStyle(ExpressionBodiedData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

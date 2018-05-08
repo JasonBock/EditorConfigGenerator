@@ -8,7 +8,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class DotnetStylePreferInferredAnonymousTypeMemberNamesStyle
-		: SeverityStyle<BooleanData, AnonymousObjectMemberDeclaratorSyntax, NodeInformation<AnonymousObjectMemberDeclaratorSyntax>, DotnetStylePreferInferredAnonymousTypeMemberNamesStyle>
+		: SeverityNodeStyle<BooleanData, AnonymousObjectMemberDeclaratorSyntax, NodeInformation<AnonymousObjectMemberDeclaratorSyntax>, DotnetStylePreferInferredAnonymousTypeMemberNamesStyle>
 	{
 		public DotnetStylePreferInferredAnonymousTypeMemberNamesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

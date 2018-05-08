@@ -10,7 +10,7 @@ using static EditorConfigGenerator.Core.Extensions.SpecialNameExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class DotnetStylePredefinedTypeForMemberAccessStyle
-		: ModelSeverityStyle<BooleanData, MemberAccessExpressionSyntax, ModelNodeInformation<MemberAccessExpressionSyntax>, DotnetStylePredefinedTypeForMemberAccessStyle>
+		: ModelSeverityNodeStyle<BooleanData, MemberAccessExpressionSyntax, ModelNodeInformation<MemberAccessExpressionSyntax>, DotnetStylePredefinedTypeForMemberAccessStyle>
 	{
 		public DotnetStylePredefinedTypeForMemberAccessStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

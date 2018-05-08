@@ -3,14 +3,14 @@ using Microsoft.CodeAnalysis;
 
 namespace EditorConfigGenerator.Core.Styles
 {
-	public abstract class ModelStyle<TData, TNode, TNodeInfo, TStyle>
-		: Style<TData, TNode, TNodeInfo, TStyle>
+	public abstract class ModelNodeStyle<TData, TNode, TNodeInfo, TStyle>
+		: NodeStyle<TData, TNode, TNodeInfo, TStyle>
 		where TData : Data<TData>
 		where TNode : SyntaxNode
 		where TNodeInfo : ModelNodeInformation<TNode>
-		where TStyle : Style<TData, TNode, TNodeInfo, TStyle>
+		where TStyle : NodeStyle<TData, TNode, TNodeInfo, TStyle>
 	{
-		protected ModelStyle(TData data)
+		protected ModelNodeStyle(TData data)
 			: base(data) { }
 	}
 }

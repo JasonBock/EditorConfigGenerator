@@ -102,6 +102,7 @@ namespace EditorConfigGenerator.IntegrationTests
 				new ProjectInformation("Newtonsoft.Json", new Uri("https://github.com/JamesNK/Newtonsoft.Json.git")),
 				new ProjectInformation("NodaTime", new Uri("https://github.com/nodatime/nodatime.git")),
 				new ProjectInformation("Rocks", new Uri("https://github.com/JasonBock/Rocks.git")),
+				new ProjectInformation("Roslyn", new Uri("https://github.com/dotnet/roslyn.git")),
 				new ProjectInformation("Rx", new Uri("https://github.com/Reactive-Extensions/Rx.NET.git")),
 				new ProjectInformation("Serilog", new Uri("https://github.com/serilog/serilog.git")),
 				new ProjectInformation("ZeroLog", new Uri("https://github.com/Abc-Arbitrage/ZeroLog.git")),

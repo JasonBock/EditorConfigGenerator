@@ -8,7 +8,7 @@ using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpSpaceBetweenParenthesesStyle
-		: Style<ParenthesesSpaceData, SyntaxNode, NodeInformation<SyntaxNode>, CSharpSpaceBetweenParenthesesStyle>
+		: NodeStyle<ParenthesesSpaceData, SyntaxNode, NodeInformation<SyntaxNode>, CSharpSpaceBetweenParenthesesStyle>
 	{
 		public CSharpSpaceBetweenParenthesesStyle(ParenthesesSpaceData data)
 			: base(data) { }

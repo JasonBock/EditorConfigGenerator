@@ -8,7 +8,7 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpPreferredModifierOrderStyle
-		: Style<ModifierData, MemberDeclarationSyntax, NodeInformation<MemberDeclarationSyntax>, CSharpPreferredModifierOrderStyle>
+		: NodeStyle<ModifierData, MemberDeclarationSyntax, NodeInformation<MemberDeclarationSyntax>, CSharpPreferredModifierOrderStyle>
 	{
 		public CSharpPreferredModifierOrderStyle(ModifierData data)
 			: base(data) { }

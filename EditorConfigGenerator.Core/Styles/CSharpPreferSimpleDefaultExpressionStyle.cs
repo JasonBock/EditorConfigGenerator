@@ -6,7 +6,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpPreferSimpleDefaultExpressionStyle
-		: SeverityStyle<BooleanData, ExpressionSyntax, NodeInformation<ExpressionSyntax>, CSharpPreferSimpleDefaultExpressionStyle>
+		: SeverityNodeStyle<BooleanData, ExpressionSyntax, NodeInformation<ExpressionSyntax>, CSharpPreferSimpleDefaultExpressionStyle>
 	{
 		public CSharpPreferSimpleDefaultExpressionStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }

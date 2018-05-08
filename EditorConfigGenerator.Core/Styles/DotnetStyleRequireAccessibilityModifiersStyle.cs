@@ -7,7 +7,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class DotnetStyleRequireAccessibilityModifiersStyle
-		: SeverityStyle<BooleanData, MemberDeclarationSyntax, NodeInformation<MemberDeclarationSyntax>, DotnetStyleRequireAccessibilityModifiersStyle>
+		: SeverityNodeStyle<BooleanData, MemberDeclarationSyntax, NodeInformation<MemberDeclarationSyntax>, DotnetStyleRequireAccessibilityModifiersStyle>
 	{
 		private static readonly string[] AccessibilityModifiers = new[] { "public", "protected", "internal", "private" };
 
