@@ -31,6 +31,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeCatchStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeElseStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpPreferBracesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferredModifierOrderStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceAfterCastStyle.GetSetting(), builder);
@@ -74,7 +75,10 @@ namespace EditorConfigGenerator.Core.Styles
 
 			public override void Visit(SyntaxNode node)
 			{
-				if(node is MemberDeclarationSyntax member)
+				this.Set.CSharpPreferBracesStyle =
+					this.Set.CSharpPreferBracesStyle.Update(node);
+
+				if (node is MemberDeclarationSyntax member)
 				{
 					this.Set.CSharpPreferredModifierOrderStyle =
 						this.Set.CSharpPreferredModifierOrderStyle.Update(member);
@@ -326,6 +330,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpNewLineBeforeElseStyle.Add(set.CSharpNewLineBeforeElseStyle),
 					CSharpNewLineBeforeFinallyStyle =
 						this.CSharpNewLineBeforeFinallyStyle.Add(set.CSharpNewLineBeforeFinallyStyle),
+					CSharpPreferBracesStyle =
+						this.CSharpPreferBracesStyle.Add(set.CSharpPreferBracesStyle),
 					CSharpPreferredModifierOrderStyle =
 						this.CSharpPreferredModifierOrderStyle.Add(set.CSharpPreferredModifierOrderStyle),
 					CSharpPreferSimpleDefaultExpressionStyle =
@@ -390,6 +396,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpNewLineBeforeElseStyle(new BooleanData());
 			public CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; set; } =
 				new CSharpNewLineBeforeFinallyStyle(new BooleanData());
+			public CSharpPreferBracesStyle CSharpPreferBracesStyle { get; set; } =
+				new CSharpPreferBracesStyle(new BooleanData());
 			public CSharpPreferredModifierOrderStyle CSharpPreferredModifierOrderStyle { get; set; } =
 				new CSharpPreferredModifierOrderStyle(new ModifierData());
 			public CSharpPreferSimpleDefaultExpressionStyle CSharpPreferSimpleDefaultExpressionStyle { get; set; } =
