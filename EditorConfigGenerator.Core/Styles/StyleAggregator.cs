@@ -50,6 +50,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetSortSystemDirectivesFirstStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStyleExplicitTupleNamesStyle.GetSetting(), builder);
+			AppendSetting(this.Set.DotnetStyleObjectInitializerStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStylePredefinedTypeForMemberAccessStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetStylePreferInferredAnonymousTypeMemberNamesStyle.GetSetting(), builder);
@@ -264,6 +265,14 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitMethodDeclaration(node);
 			}
 
+			public override void VisitObjectCreationExpression(ObjectCreationExpressionSyntax node)
+			{
+				this.Set.DotnetStyleObjectInitializerStyle =
+					this.Set.DotnetStyleObjectInitializerStyle.Update(
+						new ModelNodeInformation<ObjectCreationExpressionSyntax>(node, this.model));
+				base.VisitObjectCreationExpression(node);
+			}
+
 			public override void VisitOperatorDeclaration(OperatorDeclarationSyntax node)
 			{
 				this.Set.CSharpStyleExpressionBodiedOperatorsStyle =
@@ -368,6 +377,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.DotnetSortSystemDirectivesFirstStyle.Add(set.DotnetSortSystemDirectivesFirstStyle),
 					DotnetStyleExplicitTupleNamesStyle =
 						this.DotnetStyleExplicitTupleNamesStyle.Add(set.DotnetStyleExplicitTupleNamesStyle),
+					DotnetStyleObjectInitializerStyle =
+						this.DotnetStyleObjectInitializerStyle.Add(set.DotnetStyleObjectInitializerStyle),
 					DotnetStylePredefinedTypeForLocalsParametersMembersStyle =
 						this.DotnetStylePredefinedTypeForLocalsParametersMembersStyle.Add(set.DotnetStylePredefinedTypeForLocalsParametersMembersStyle),
 					DotnetStylePredefinedTypeForMemberAccessStyle =
@@ -434,6 +445,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new DotnetSortSystemDirectivesFirstStyle(new BooleanData());
 			public DotnetStyleExplicitTupleNamesStyle DotnetStyleExplicitTupleNamesStyle { get; set; } =
 				new DotnetStyleExplicitTupleNamesStyle(new BooleanData());
+			public DotnetStyleObjectInitializerStyle DotnetStyleObjectInitializerStyle { get; set; } =
+				new DotnetStyleObjectInitializerStyle(new BooleanData());
 			public DotnetStylePredefinedTypeForLocalsParametersMembersStyle DotnetStylePredefinedTypeForLocalsParametersMembersStyle { get; set; } =
 				new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(new BooleanData());
 			public DotnetStylePredefinedTypeForMemberAccessStyle DotnetStylePredefinedTypeForMemberAccessStyle { get; set; } =

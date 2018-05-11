@@ -24,6 +24,7 @@
 		CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; }
 		DotnetSortSystemDirectivesFirstStyle DotnetSortSystemDirectivesFirstStyle { get; }
 		DotnetStyleExplicitTupleNamesStyle DotnetStyleExplicitTupleNamesStyle { get; }
+		DotnetStyleObjectInitializerStyle DotnetStyleObjectInitializerStyle { get; }
 		DotnetStylePredefinedTypeForLocalsParametersMembersStyle DotnetStylePredefinedTypeForLocalsParametersMembersStyle { get; }
 		DotnetStylePredefinedTypeForMemberAccessStyle DotnetStylePredefinedTypeForMemberAccessStyle { get; }
 		DotnetStylePreferInferredAnonymousTypeMemberNamesStyle DotnetStylePreferInferredAnonymousTypeMemberNamesStyle { get; }
