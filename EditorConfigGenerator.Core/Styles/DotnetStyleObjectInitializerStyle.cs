@@ -2,9 +2,11 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.FindSymbols;
 using System;
 using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
+using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 
 namespace EditorConfigGenerator.Core.Styles
 {
@@ -45,8 +47,49 @@ namespace EditorConfigGenerator.Core.Styles
 				}
 				else
 				{
+					// "This where the syntax visualizer mentioned by Jason Malinkwski becomes useful. Using it, 
+					// you can see that the first case is a LocalDeclarationStatement containing VariableDeclaration containing one VariableDeclarator, 
+					// while the second case is ExpressionStatement containing SimpleAssignmentExpression. – svick Mar 14 '17 at 17:59 "
 
+					// First case: is the object being assigned to a local variable (VariableDeclarator), 
+					// or a field/property (SimpleAssignmentExpression ->?
+					// Then, is the next node an ExpressionStatement that contains a SimpleAssignmentExpression
+					var assignment = node.FindParent<VariableDeclaratorSyntax>() ??
+						node.FindParent<AssignmentExpressionSyntax>()?.ChildNodes()
+							.FirstOrDefault(_ => _.IsKind(SyntaxKind.SimpleMemberAccessExpression));
+
+					if (assignment != null)
+					{
+						var assignmentSymbol = model.GetDeclaredSymbol(assignment);
+
+						if(assignmentSymbol != null)
+						{
+							var statement = assignment.FindParent<StatementSyntax>();
+
+							if (statement != null)
+							{
+								var parentStatement = statement.Parent;
+								var siblings = parentStatement.ChildNodes().ToArray();
+								var statementIndex = Array.IndexOf(siblings, node);
+								var nextNode = siblings[statementIndex + 1];
+
+								if (nextNode is ExpressionStatementSyntax &&
+									nextNode.ChildNodes().Any(_ => _.IsKind(SyntaxKind.SimpleAssignmentExpression)))
+								{
+									// Find the first IdentifierName, and get its' symbol and see if it matches.
+									var name = nextNode.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName));
+
+									if (name != null)
+									{
+										return new DotnetStyleObjectInitializerStyle(
+											this.Data.Update(model.GetSymbolInfo(name).Symbol == assignmentSymbol), this.Severity);
+									}
+								}
+							}
+						}
+					}
 				}
+
 				return new DotnetStyleObjectInitializerStyle(this.Data, this.Severity);
 			}
 
@@ -55,7 +98,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public class Customer
 		{
-			private Customer child;
+			private Customer child = new Customer();
 			public int Age { get; set; }
 
 			public void Foo()
