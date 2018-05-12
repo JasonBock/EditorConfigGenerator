@@ -46,13 +46,6 @@ namespace EditorConfigGenerator.Core.Styles
 				}
 				else
 				{
-					// "This where the syntax visualizer mentioned by Jason Malinkwski becomes useful. Using it, 
-					// you can see that the first case is a LocalDeclarationStatement containing VariableDeclaration containing one VariableDeclarator, 
-					// while the second case is ExpressionStatement containing SimpleAssignmentExpression. – svick Mar 14 '17 at 17:59 "
-
-					// First case: is the object being assigned to a local variable (VariableDeclarator), 
-					// or a field/property (SimpleAssignmentExpression ->?
-					// Then, is the next node an ExpressionStatement that contains a SimpleAssignmentExpression
 					var assignment = node.FindParent<VariableDeclaratorSyntax>() ??
 						node.FindParent<AssignmentExpressionSyntax>()?.ChildNodes()
 							.FirstOrDefault(_ => _.IsKind(SyntaxKind.SimpleMemberAccessExpression));
@@ -69,19 +62,30 @@ namespace EditorConfigGenerator.Core.Styles
 							{
 								var parentStatement = statement.Parent;
 								var siblings = parentStatement.ChildNodes().ToArray();
-								var statementIndex = Array.IndexOf(siblings, node);
-								var nextNode = siblings[statementIndex + 1];
 
-								if (nextNode is ExpressionStatementSyntax &&
-									nextNode.ChildNodes().Any(_ => _.IsKind(SyntaxKind.SimpleAssignmentExpression)))
+								if(siblings.Length > 1)
 								{
-									// Find the first IdentifierName, and get its' symbol and see if it matches.
-									var name = nextNode.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName));
+									var statementIndex = Array.IndexOf(siblings, statement);
 
-									if (name != null)
+									if(statementIndex < siblings.Length - 1)
 									{
-										return new DotnetStyleObjectInitializerStyle(
-											this.Data.Update(model.GetSymbolInfo(name).Symbol == assignmentSymbol), this.Severity);
+										var nextNode = siblings[statementIndex + 1];
+
+										if (nextNode is ExpressionStatementSyntax &&
+											nextNode.ChildNodes().Any(_ => _.IsKind(SyntaxKind.SimpleAssignmentExpression)))
+										{
+											var name = nextNode.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName));
+
+											if (name != null)
+											{
+												var isSameSymbol = model.GetSymbolInfo(name).Symbol == assignmentSymbol;
+
+												if (isSameSymbol)
+												{
+													return new DotnetStyleObjectInitializerStyle(this.Data.Update(false), this.Severity);
+												}
+											}
+										}
 									}
 								}
 							}
@@ -93,35 +97,6 @@ namespace EditorConfigGenerator.Core.Styles
 			}
 
 			return new DotnetStyleObjectInitializerStyle(this.Data, this.Severity);
-		}
-
-		public class Customer
-		{
-			private Customer child = new Customer();
-			public int Age { get; set; }
-
-			public void Foo()
-			{
-				// Note: IDE0017 is the "thing" that kicks in.
-				// https://github.com/dotnet/roslyn/blob/master/src/Features/Core/Portable/UseObjectInitializer/AbstractUseObjectInitializerDiagnosticAnalyzer.cs
-				// http://source.roslyn.io/#Microsoft.CodeAnalysis.Features/UseObjectInitializer/AbstractUseObjectInitializerDiagnosticAnalyzer.cs,b300eec6b11db5e1
-
-				// dotnet_style_object_initializer = true
-				var c = new Customer() { Age = 21 };
-
-				// dotnet_style_object_initializer = false
-				// https://stackoverflow.com/questions/42766977/why-cant-i-get-all-objectcreationexpressionsyntax-if-initialized-as-null
-				// "This where the syntax visualizer mentioned by Jason Malinkwski becomes useful. Using it, 
-				// you can see that the first case is a LocalDeclarationStatement containing VariableDeclaration containing one VariableDeclarator, 
-				// while the second case is ExpressionStatement containing SimpleAssignmentExpression. – svick Mar 14 '17 at 17:59 "
-				var c2 = new Customer();
-				c2.Age = 10;
-
-				this.child = new Customer();
-				this.child.Age = 21;
-				this.child.Foo();
-				this.Foo();
-			}
 		}
 	}
 }
