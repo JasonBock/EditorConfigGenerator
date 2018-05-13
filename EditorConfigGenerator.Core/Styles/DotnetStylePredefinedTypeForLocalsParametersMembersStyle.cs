@@ -12,6 +12,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class DotnetStylePredefinedTypeForLocalsParametersMembersStyle
 		: ModelSeverityNodeStyle<BooleanData, SyntaxNode, ModelNodeInformation<SyntaxNode>, DotnetStylePredefinedTypeForLocalsParametersMembersStyle>
 	{
+		public const string Setting = "dotnet_style_predefined_type_for_locals_parameters_members";
+
 		public DotnetStylePredefinedTypeForLocalsParametersMembersStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -26,7 +28,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"dotnet_style_predefined_type_for_locals_parameters_members = {value}:{this.Severity.GetDescription()}";
+				return $"{DotnetStylePredefinedTypeForLocalsParametersMembersStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
