@@ -35,7 +35,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ParenthesesSpaceData(1u, 0u, 1u, 0u, 0u, 0u, 0u);
 			var style = new CSharpSpaceBetweenParenthesesStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_space_between_parentheses = control_flow_statements"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{CSharpSpaceBetweenParenthesesStyle.Setting} = {CSharpSpaceBetweenParenthesesStyle.ControlFlow}"), nameof(style.GetSetting));
 		}
 
 		[Test]
@@ -53,7 +54,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ParenthesesSpaceData(1u, 0u, 0u, 0u, 1u, 0u, 0u);
 			var style = new CSharpSpaceBetweenParenthesesStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_space_between_parentheses = expressions"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{CSharpSpaceBetweenParenthesesStyle.Setting} = {CSharpSpaceBetweenParenthesesStyle.Expressions}"), nameof(style.GetSetting));
 		}
 
 		[Test]
@@ -71,7 +73,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ParenthesesSpaceData(1u, 0u, 0u, 0u, 0u, 0u, 1u);
 			var style = new CSharpSpaceBetweenParenthesesStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_space_between_parentheses = type_casts"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{CSharpSpaceBetweenParenthesesStyle.Setting} = {CSharpSpaceBetweenParenthesesStyle.TypeCasts}"), nameof(style.GetSetting));
 		}
 
 		[Test]

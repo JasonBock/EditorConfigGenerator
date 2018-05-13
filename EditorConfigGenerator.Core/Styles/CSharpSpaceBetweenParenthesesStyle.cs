@@ -10,6 +10,11 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpSpaceBetweenParenthesesStyle
 		: NodeStyle<ParenthesesSpaceData, SyntaxNode, NodeInformation<SyntaxNode>, CSharpSpaceBetweenParenthesesStyle>
 	{
+		public const string Setting = "csharp_space_between_parentheses";
+		public const string ControlFlow = "control_flow_statements";
+		public const string Expressions = "expressions";
+		public const string TypeCasts = "type_casts";
+
 		public CSharpSpaceBetweenParenthesesStyle(ParenthesesSpaceData data)
 			: base(data) { }
 
@@ -27,21 +32,21 @@ namespace EditorConfigGenerator.Core.Styles
 
 				if (this.Data.ControlFlowSpaceOccurences > this.Data.ControlFlowNoSpaceOccurences)
 				{
-					items.Add("control_flow_statements");
+					items.Add(CSharpSpaceBetweenParenthesesStyle.ControlFlow);
 				}
 
 				if (this.Data.ExpressionsSpaceOccurences > this.Data.ExpressionsNoSpaceOccurences)
 				{
-					items.Add("expressions");
+					items.Add(CSharpSpaceBetweenParenthesesStyle.Expressions);
 				}
 
 				if (this.Data.TypeCastsSpaceOccurences > this.Data.TypeCastsNoSpaceOccurences)
 				{
-					items.Add("type_casts");
+					items.Add(CSharpSpaceBetweenParenthesesStyle.TypeCasts);
 				}
 
 				return items.Count > 0 ?
-					$"csharp_space_between_parentheses = {string.Join(", ", items)}" : string.Empty;
+					$"{CSharpSpaceBetweenParenthesesStyle.Setting} = {string.Join(", ", items)}" : string.Empty;
 			}
 			else
 			{
