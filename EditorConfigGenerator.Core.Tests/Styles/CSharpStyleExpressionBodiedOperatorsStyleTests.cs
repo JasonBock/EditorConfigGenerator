@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework;
 using System;
 using System.Linq;
+using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
@@ -35,7 +36,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ExpressionBodiedData(2u, 1u, 1u, 0u);
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_expression_bodied_operators = true:error"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{CSharpStyleExpressionBodiedOperatorsStyle.Setting} = true:{style.Severity.GetDescription()}"), nameof(style.GetSetting));
 		}
 
 		[Test]
