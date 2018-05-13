@@ -8,6 +8,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpPreferSimpleDefaultExpressionStyle
 		: SeverityNodeStyle<BooleanData, ExpressionSyntax, NodeInformation<ExpressionSyntax>, CSharpPreferSimpleDefaultExpressionStyle>
 	{
+		public const string Setting = "csharp_prefer_simple_default_expression";
+
 		public CSharpPreferSimpleDefaultExpressionStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -22,7 +24,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_prefer_simple_default_expression = {value}:{this.Severity.GetDescription()}";
+				return $"{CSharpPreferSimpleDefaultExpressionStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
