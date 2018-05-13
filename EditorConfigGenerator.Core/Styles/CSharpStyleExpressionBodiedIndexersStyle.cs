@@ -10,6 +10,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpStyleExpressionBodiedIndexersStyle
 		: SeverityNodeStyle<ExpressionBodiedData, IndexerDeclarationSyntax, NodeInformation<IndexerDeclarationSyntax>, CSharpStyleExpressionBodiedIndexersStyle>
 	{
+		public const string Setting = "csharp_style_expression_bodied_indexers";
+
 		public CSharpStyleExpressionBodiedIndexersStyle(ExpressionBodiedData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -20,7 +22,7 @@ namespace EditorConfigGenerator.Core.Styles
 		}
 
 		public override string GetSetting() =>
-			this.Data.GetSetting("csharp_style_expression_bodied_indexers", this.Severity);
+			this.Data.GetSetting(CSharpStyleExpressionBodiedIndexersStyle.Setting, this.Severity);
 
 		public override CSharpStyleExpressionBodiedIndexersStyle Update(NodeInformation<IndexerDeclarationSyntax> information)
 		{
