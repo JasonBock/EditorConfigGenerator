@@ -10,6 +10,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpPreferredModifierOrderStyle
 		: NodeStyle<ModifierData, MemberDeclarationSyntax, NodeInformation<MemberDeclarationSyntax>, CSharpPreferredModifierOrderStyle>
 	{
+		public const string Setting = "csharp_preferred_modifier_order";
+
 		public CSharpPreferredModifierOrderStyle(ModifierData data)
 			: base(data) { }
 
@@ -39,7 +41,7 @@ namespace EditorConfigGenerator.Core.Styles
 						.Where(_ => _.Value.frequency > 0u)
 						.OrderByDescending(_ => _.Value.frequency)
 						.ThenByDescending(_ => _.Value.weight).Select(_ => _.Key));
-				return $"csharp_preferred_modifier_order = {string.Join(",", modifierOrder)}";
+				return $"{CSharpPreferredModifierOrderStyle.Setting} = {string.Join(",", modifierOrder)}";
 			}
 			else
 			{

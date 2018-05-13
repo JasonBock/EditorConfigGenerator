@@ -29,7 +29,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			data = data.Update(new[] { SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText }.ToImmutableList());
 			var style = new CSharpPreferredModifierOrderStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_preferred_modifier_order = public"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{CSharpPreferredModifierOrderStyle.Setting} = public"), nameof(style.GetSetting));
 		}
 
 		[Test]
