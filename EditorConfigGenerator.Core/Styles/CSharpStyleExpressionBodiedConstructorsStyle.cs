@@ -8,6 +8,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpStyleExpressionBodiedConstructorsStyle
 		: SeverityNodeStyle<ExpressionBodiedData, ConstructorDeclarationSyntax, NodeInformation<ConstructorDeclarationSyntax>, CSharpStyleExpressionBodiedConstructorsStyle>
 	{
+		public const string Setting = "csharp_style_expression_bodied_constructors";
+
 		public CSharpStyleExpressionBodiedConstructorsStyle(ExpressionBodiedData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -18,7 +20,7 @@ namespace EditorConfigGenerator.Core.Styles
 		}
 
 		public override string GetSetting() =>
-			this.Data.GetSetting("csharp_style_expression_bodied_constructors", this.Severity);
+			this.Data.GetSetting(CSharpStyleExpressionBodiedConstructorsStyle.Setting, this.Severity);
 
 		public override CSharpStyleExpressionBodiedConstructorsStyle Update(NodeInformation<ConstructorDeclarationSyntax> information)
 		{
