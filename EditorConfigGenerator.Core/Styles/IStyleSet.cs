@@ -4,6 +4,7 @@
 	{
 		CSharpNewLineBeforeCatchStyle CSharpNewLineBeforeCatchStyle { get; }
 		CSharpNewLineBeforeElseStyle CSharpNewLineBeforeElseStyle { get; }
+		CSharpNewLineBeforeMembersInObjectInitializersStyle CSharpNewLineBeforeMembersInObjectInitializersStyle { get; }
 		CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; }
 		CSharpPreferBracesStyle CSharpPreferBracesStyle { get; }
 		CSharpPreferredModifierOrderStyle CSharpPreferredModifierOrderStyle { get; }

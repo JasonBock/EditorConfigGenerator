@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Statistics\ModifierData.cs~RF104ddce9.TMP" />
+    <None Remove="Styles\IStyleSet.cs~RF12530e76.TMP" />
   </ItemGroup>
 
   <ItemGroup>

@@ -31,6 +31,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeCatchStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeElseStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpNewLineBeforeMembersInObjectInitializersStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferBracesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferredModifierOrderStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
@@ -219,6 +220,13 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitIndexerDeclaration(node);
 			}
 
+			public override void VisitInitializerExpression(InitializerExpressionSyntax node)
+			{
+				this.Set.CSharpNewLineBeforeMembersInObjectInitializersStyle =
+					this.Set.CSharpNewLineBeforeMembersInObjectInitializersStyle.Update(node);
+				base.VisitInitializerExpression(node);
+			}
+
 			public override void VisitInvocationExpression(InvocationExpressionSyntax node)
 			{
 				this.Set.DotnetStyleQualificationForMethodStyle =
@@ -339,6 +347,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpNewLineBeforeElseStyle.Add(set.CSharpNewLineBeforeElseStyle),
 					CSharpNewLineBeforeFinallyStyle =
 						this.CSharpNewLineBeforeFinallyStyle.Add(set.CSharpNewLineBeforeFinallyStyle),
+					CSharpNewLineBeforeMembersInObjectInitializersStyle =
+						this.CSharpNewLineBeforeMembersInObjectInitializersStyle.Add(set.CSharpNewLineBeforeMembersInObjectInitializersStyle),
 					CSharpPreferBracesStyle =
 						this.CSharpPreferBracesStyle.Add(set.CSharpPreferBracesStyle),
 					CSharpPreferredModifierOrderStyle =
@@ -407,6 +417,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpNewLineBeforeElseStyle(new BooleanData());
 			public CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; set; } =
 				new CSharpNewLineBeforeFinallyStyle(new BooleanData());
+			public CSharpNewLineBeforeMembersInObjectInitializersStyle CSharpNewLineBeforeMembersInObjectInitializersStyle { get; set; } =
+				new CSharpNewLineBeforeMembersInObjectInitializersStyle(new BooleanData());
 			public CSharpPreferBracesStyle CSharpPreferBracesStyle { get; set; } =
 				new CSharpPreferBracesStyle(new BooleanData());
 			public CSharpPreferredModifierOrderStyle CSharpPreferredModifierOrderStyle { get; set; } =
