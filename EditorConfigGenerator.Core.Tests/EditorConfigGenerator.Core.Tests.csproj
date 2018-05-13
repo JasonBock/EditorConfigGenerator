@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Statistics\ModifierDataTests.cs~RF143fd334.TMP" />
+    <None Remove="Styles\CSharpStyleExpressionBodiedOperatorsStyleTests.cs~RF15bb6270.TMP" />
   </ItemGroup>
 
   <ItemGroup>
