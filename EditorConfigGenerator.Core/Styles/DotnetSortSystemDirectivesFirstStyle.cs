@@ -12,6 +12,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class DotnetSortSystemDirectivesFirstStyle
 		: SeverityNodeStyle<BooleanData, CompilationUnitSyntax, NodeInformation<CompilationUnitSyntax>, DotnetSortSystemDirectivesFirstStyle>
 	{
+		public const string Setting = "dotnet_sort_system_directives_first";
+
 		public DotnetSortSystemDirectivesFirstStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -26,7 +28,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"dotnet_sort_system_directives_first = {value}:{this.Severity.GetDescription()}";
+				return $"{DotnetSortSystemDirectivesFirstStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
