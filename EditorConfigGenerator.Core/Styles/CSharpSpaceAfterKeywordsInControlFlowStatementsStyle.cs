@@ -9,6 +9,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpSpaceAfterKeywordsInControlFlowStatementsStyle
 		: SeverityTokenStyle<BooleanData, TokenInformation, CSharpSpaceAfterKeywordsInControlFlowStatementsStyle>
 	{
+		public const string Setting = "csharp_space_after_keywords_in_control_flow_statements";
+
 		public CSharpSpaceAfterKeywordsInControlFlowStatementsStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -23,7 +25,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_space_after_keywords_in_control_flow_statements = {value}:{this.Severity.GetDescription()}";
+				return $"{CSharpSpaceAfterKeywordsInControlFlowStatementsStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{

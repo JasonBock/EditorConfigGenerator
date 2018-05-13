@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
 using System;
 using System.Linq;
+using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
@@ -35,7 +36,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(1u, 0u, 1u);
 			var style = new CSharpSpaceAfterKeywordsInControlFlowStatementsStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_space_after_keywords_in_control_flow_statements = false:error"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{CSharpSpaceAfterKeywordsInControlFlowStatementsStyle.Setting} = false:{style.Severity.GetDescription()}"), nameof(style.GetSetting));
 		}
 
 		[Test]
@@ -44,7 +46,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(1u, 1u, 0u);
 			var style = new CSharpSpaceAfterKeywordsInControlFlowStatementsStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_space_after_keywords_in_control_flow_statements = true:error"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{CSharpSpaceAfterKeywordsInControlFlowStatementsStyle.Setting} = true:{style.Severity.GetDescription()}"), nameof(style.GetSetting));
 		}
 
 		[Test]
