@@ -8,6 +8,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpStyleExpressionBodiedMethodsStyle
 		: SeverityNodeStyle<ExpressionBodiedData, MethodDeclarationSyntax, NodeInformation<MethodDeclarationSyntax>, CSharpStyleExpressionBodiedMethodsStyle>
 	{
+		public const string Setting = "csharp_style_expression_bodied_methods";
+
 		public CSharpStyleExpressionBodiedMethodsStyle(ExpressionBodiedData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -18,7 +20,7 @@ namespace EditorConfigGenerator.Core.Styles
 		}
 
 		public override string GetSetting() =>
-			this.Data.GetSetting("csharp_style_expression_bodied_methods", this.Severity);
+			this.Data.GetSetting(CSharpStyleExpressionBodiedMethodsStyle.Setting, this.Severity);
 
 		public override CSharpStyleExpressionBodiedMethodsStyle Update(NodeInformation<MethodDeclarationSyntax> information)
 		{
