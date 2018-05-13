@@ -10,6 +10,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class DotnetStyleExplicitTupleNamesStyle
 		: ModelSeverityNodeStyle<BooleanData, MemberAccessExpressionSyntax, ModelNodeInformation<MemberAccessExpressionSyntax>, DotnetStyleExplicitTupleNamesStyle>
 	{
+		public const string Setting = "dotnet_style_explicit_tuple_names";
+
 		public DotnetStyleExplicitTupleNamesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -24,7 +26,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"dotnet_style_explicit_tuple_names = {value}:{this.Severity.GetDescription()}";
+				return $"{DotnetStyleExplicitTupleNamesStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
