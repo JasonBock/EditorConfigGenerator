@@ -11,6 +11,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpStyleInlinedVariableDeclarationStyle
 		: SeverityNodeStyle<BooleanData, ArgumentSyntax, NodeInformation<ArgumentSyntax>, CSharpStyleInlinedVariableDeclarationStyle>
 	{
+		public const string Setting = "csharp_style_inlined_variable_declaration";
+
 		public CSharpStyleInlinedVariableDeclarationStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -25,7 +27,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_style_inlined_variable_declaration = {value}:{this.Severity.GetDescription()}";
+				return $"{CSharpStyleInlinedVariableDeclarationStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
