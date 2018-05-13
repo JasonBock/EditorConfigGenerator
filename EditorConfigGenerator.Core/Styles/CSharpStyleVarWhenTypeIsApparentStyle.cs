@@ -11,6 +11,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpStyleVarWhenTypeIsApparentStyle
 		: SeverityNodeStyle<BooleanData, LocalDeclarationStatementSyntax, NodeInformation<LocalDeclarationStatementSyntax>, CSharpStyleVarWhenTypeIsApparentStyle>
 	{
+		public const string Setting = "csharp_style_var_when_type_is_apparent";
+
 		public CSharpStyleVarWhenTypeIsApparentStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -25,7 +27,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_style_var_when_type_is_apparent = {value}:{this.Severity.GetDescription()}";
+				return $"{CSharpStyleVarWhenTypeIsApparentStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
