@@ -31,6 +31,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeCatchStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeElseStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpNewLineBeforeMembersInAnonymousTypesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeMembersInObjectInitializersStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferBracesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferredModifierOrderStyle.GetSetting(), builder);
@@ -111,6 +112,13 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.CSharpStyleExpressionBodiedAccessorsStyle =
 					this.Set.CSharpStyleExpressionBodiedAccessorsStyle.Update(node);
 				base.VisitAccessorDeclaration(node);
+			}
+
+			public override void VisitAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax node)
+			{
+				this.Set.CSharpNewLineBeforeMembersInAnonymousTypesStyle =
+					this.Set.CSharpNewLineBeforeMembersInAnonymousTypesStyle.Update(node);
+				base.VisitAnonymousObjectCreationExpression(node);
 			}
 
 			public override void VisitAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax node)
@@ -347,6 +355,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpNewLineBeforeElseStyle.Add(set.CSharpNewLineBeforeElseStyle),
 					CSharpNewLineBeforeFinallyStyle =
 						this.CSharpNewLineBeforeFinallyStyle.Add(set.CSharpNewLineBeforeFinallyStyle),
+					CSharpNewLineBeforeMembersInAnonymousTypesStyle =
+						this.CSharpNewLineBeforeMembersInAnonymousTypesStyle.Add(set.CSharpNewLineBeforeMembersInAnonymousTypesStyle),
 					CSharpNewLineBeforeMembersInObjectInitializersStyle =
 						this.CSharpNewLineBeforeMembersInObjectInitializersStyle.Add(set.CSharpNewLineBeforeMembersInObjectInitializersStyle),
 					CSharpPreferBracesStyle =
@@ -417,6 +427,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpNewLineBeforeElseStyle(new BooleanData());
 			public CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; set; } =
 				new CSharpNewLineBeforeFinallyStyle(new BooleanData());
+			public CSharpNewLineBeforeMembersInAnonymousTypesStyle CSharpNewLineBeforeMembersInAnonymousTypesStyle { get; set; } =
+				new CSharpNewLineBeforeMembersInAnonymousTypesStyle(new BooleanData());
 			public CSharpNewLineBeforeMembersInObjectInitializersStyle CSharpNewLineBeforeMembersInObjectInitializersStyle { get; set; } =
 				new CSharpNewLineBeforeMembersInObjectInitializersStyle(new BooleanData());
 			public CSharpPreferBracesStyle CSharpPreferBracesStyle { get; set; } =
