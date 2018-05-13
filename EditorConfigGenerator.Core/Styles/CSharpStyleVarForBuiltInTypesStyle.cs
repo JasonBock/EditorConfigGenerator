@@ -11,6 +11,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpStyleVarForBuiltInTypesStyle
 		: SeverityNodeStyle<BooleanData, LocalDeclarationStatementSyntax, NodeInformation<LocalDeclarationStatementSyntax>, CSharpStyleVarForBuiltInTypesStyle>
 	{
+		public const string Setting = "csharp_style_var_for_built_in_types";
+
 		public CSharpStyleVarForBuiltInTypesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -25,7 +27,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_style_var_for_built_in_types = {value}:{this.Severity.GetDescription()}";
+				return $"{CSharpStyleVarForBuiltInTypesStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{

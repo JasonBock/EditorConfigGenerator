@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework;
 using System;
+using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
@@ -34,7 +35,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(1u, 0u, 1u);
 			var style = new CSharpStyleVarForBuiltInTypesStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_var_for_built_in_types = false:error"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{CSharpStyleVarForBuiltInTypesStyle.Setting} = false:{style.Severity.GetDescription()}"), nameof(style.GetSetting));
 		}
 
 		[Test]
@@ -43,7 +45,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(1u, 1u, 0u);
 			var style = new CSharpStyleVarForBuiltInTypesStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("csharp_style_var_for_built_in_types = true:error"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{CSharpStyleVarForBuiltInTypesStyle.Setting} = true:{style.Severity.GetDescription()}"), nameof(style.GetSetting));
 		}
 
 		[Test]
