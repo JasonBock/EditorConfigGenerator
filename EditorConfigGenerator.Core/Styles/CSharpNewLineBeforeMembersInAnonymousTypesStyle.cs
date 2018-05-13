@@ -10,6 +10,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpNewLineBeforeMembersInAnonymousTypesStyle
 		: SeverityNodeStyle<BooleanData, AnonymousObjectCreationExpressionSyntax, NodeInformation<AnonymousObjectCreationExpressionSyntax>, CSharpNewLineBeforeMembersInAnonymousTypesStyle>
 	{
+		public const string Setting = "csharp_new_line_before_members_in_anonymous_types";
+
 		public CSharpNewLineBeforeMembersInAnonymousTypesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -24,7 +26,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_new_line_before_members_in_anonymous_types = {value}:{this.Severity.GetDescription()}";
+				return $"{CSharpNewLineBeforeMembersInAnonymousTypesStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
