@@ -10,6 +10,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpNewLineBeforeMembersInObjectInitializersStyle
 		: SeverityNodeStyle<BooleanData, InitializerExpressionSyntax, NodeInformation<InitializerExpressionSyntax>, CSharpNewLineBeforeMembersInObjectInitializersStyle>
 	{
+		public const string Setting = "csharp_new_line_before_members_in_object_initializers";
+
 		public CSharpNewLineBeforeMembersInObjectInitializersStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -24,7 +26,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_new_line_before_members_in_object_initializers = {value}:{this.Severity.GetDescription()}";
+				return $"{CSharpNewLineBeforeMembersInObjectInitializersStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
