@@ -9,6 +9,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public class CSharpSpaceBetweenMethodCallParameterListParenthesesStyle
 		: SeverityNodeStyle<BooleanData, ArgumentListSyntax, NodeInformation<ArgumentListSyntax>, CSharpSpaceBetweenMethodCallParameterListParenthesesStyle>
 	{
+		public const string Setting = "csharp_space_between_method_call_parameter_list_parentheses";
+
 		public CSharpSpaceBetweenMethodCallParameterListParenthesesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -23,7 +25,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_space_between_method_call_parameter_list_parentheses = {value}:{this.Severity.GetDescription()}";
+				return $"{CSharpSpaceBetweenMethodCallParameterListParenthesesStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
