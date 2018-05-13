@@ -11,6 +11,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpNewLineBeforeFinallyStyle
 		: SeverityNodeStyle<BooleanData, FinallyClauseSyntax, NodeInformation<FinallyClauseSyntax>, CSharpNewLineBeforeFinallyStyle>
 	{
+		public const string Setting = "csharp_new_line_before_finally";
+
 		public CSharpNewLineBeforeFinallyStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -25,7 +27,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"csharp_new_line_before_finally = {value}:{this.Severity.GetDescription()}";
+				return $"{CSharpNewLineBeforeFinallyStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
