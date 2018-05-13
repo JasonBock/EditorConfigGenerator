@@ -8,6 +8,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class CSharpStyleExpressionBodiedAccessorsStyle
 		: SeverityNodeStyle<ExpressionBodiedData, AccessorDeclarationSyntax, NodeInformation<AccessorDeclarationSyntax>, CSharpStyleExpressionBodiedAccessorsStyle>
 	{
+		public const string Setting = "csharp_style_expression_bodied_accessors";
+
 		public CSharpStyleExpressionBodiedAccessorsStyle(ExpressionBodiedData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -18,7 +20,7 @@ namespace EditorConfigGenerator.Core.Styles
 		}
 
 		public override string GetSetting() =>
-			this.Data.GetSetting("csharp_style_expression_bodied_accessors", this.Severity);
+			this.Data.GetSetting(CSharpStyleExpressionBodiedAccessorsStyle.Setting, this.Severity);
 
 		public override CSharpStyleExpressionBodiedAccessorsStyle Update(NodeInformation<AccessorDeclarationSyntax> information)
 		{
