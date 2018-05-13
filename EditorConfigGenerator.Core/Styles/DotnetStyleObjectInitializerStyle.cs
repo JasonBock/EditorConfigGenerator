@@ -12,6 +12,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class DotnetStyleObjectInitializerStyle
 		: ModelSeverityNodeStyle<BooleanData, ObjectCreationExpressionSyntax, ModelNodeInformation<ObjectCreationExpressionSyntax>, DotnetStyleObjectInitializerStyle>
 	{
+		public const string Setting = "dotnet_style_object_initializer";
+
 		public DotnetStyleObjectInitializerStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -26,7 +28,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"dotnet_style_object_initializer = {value}:{this.Severity.GetDescription()}";
+				return $"{DotnetStyleObjectInitializerStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
