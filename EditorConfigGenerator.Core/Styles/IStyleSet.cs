@@ -10,6 +10,7 @@
 		CSharpPreferBracesStyle CSharpPreferBracesStyle { get; }
 		CSharpPreferredModifierOrderStyle CSharpPreferredModifierOrderStyle { get; }
 		CSharpPreferSimpleDefaultExpressionStyle CSharpPreferSimpleDefaultExpressionStyle { get; }
+		CSharpPreserveSingleLineBlocksStyle CSharpPreserveSingleLineBlocksStyle { get; }
 		CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; }
 		CSharpSpaceAfterKeywordsInControlFlowStatementsStyle CSharpSpaceAfterKeywordsInControlFlowStatementsStyle { get; }
 		CSharpSpaceBetweenMethodCallParameterListParenthesesStyle CSharpSpaceBetweenMethodCallParameterListParenthesesStyle { get; }

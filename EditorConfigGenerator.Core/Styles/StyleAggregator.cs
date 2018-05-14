@@ -36,6 +36,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpPreferBracesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferredModifierOrderStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpPreserveSingleLineBlocksStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceAfterCastStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceAfterKeywordsInControlFlowStatementsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle.GetSetting(), builder);
@@ -112,6 +113,13 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.CSharpStyleExpressionBodiedAccessorsStyle =
 					this.Set.CSharpStyleExpressionBodiedAccessorsStyle.Update(node);
 				base.VisitAccessorDeclaration(node);
+			}
+
+			public override void VisitAccessorList(AccessorListSyntax node)
+			{
+				this.Set.CSharpPreserveSingleLineBlocksStyle =
+					this.Set.CSharpPreserveSingleLineBlocksStyle.Update(node);
+				base.VisitAccessorList(node);
 			}
 
 			public override void VisitAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax node)
@@ -365,6 +373,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpPreferredModifierOrderStyle.Add(set.CSharpPreferredModifierOrderStyle),
 					CSharpPreferSimpleDefaultExpressionStyle =
 						this.CSharpPreferSimpleDefaultExpressionStyle.Add(set.CSharpPreferSimpleDefaultExpressionStyle),
+					CSharpPreserveSingleLineBlocksStyle =
+						this.CSharpPreserveSingleLineBlocksStyle.Add(set.CSharpPreserveSingleLineBlocksStyle),
 					CSharpSpaceAfterCastStyle =
 						this.CSharpSpaceAfterCastStyle.Add(set.CSharpSpaceAfterCastStyle),
 					CSharpSpaceAfterKeywordsInControlFlowStatementsStyle =
@@ -437,6 +447,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpPreferredModifierOrderStyle(new ModifierData());
 			public CSharpPreferSimpleDefaultExpressionStyle CSharpPreferSimpleDefaultExpressionStyle { get; set; } =
 				new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData());
+			public CSharpPreserveSingleLineBlocksStyle CSharpPreserveSingleLineBlocksStyle { get; set; } =
+				new CSharpPreserveSingleLineBlocksStyle(new BooleanData());
 			public CSharpSpaceAfterCastStyle CSharpSpaceAfterCastStyle { get; set; } =
 				new CSharpSpaceAfterCastStyle(new BooleanData());
 			public CSharpSpaceAfterKeywordsInControlFlowStatementsStyle CSharpSpaceAfterKeywordsInControlFlowStatementsStyle { get; set; } =
