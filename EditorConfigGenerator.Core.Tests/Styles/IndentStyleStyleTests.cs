@@ -25,7 +25,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new TabSpaceData(1u, 0u, 1u);
 			var style = new IndentStyleStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("indent_style = space"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{IndentStyleStyle.Setting} = space"), nameof(style.GetSetting));
 		}
 
 		[Test]
@@ -34,7 +35,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new TabSpaceData(1u, 1u, 0u);
 			var style = new IndentStyleStyle(data);
 			Assert.That(style.Data, Is.SameAs(data), nameof(style.Data));
-			Assert.That(style.GetSetting(), Is.EqualTo("indent_style = tab"), nameof(style.GetSetting));
+			Assert.That(style.GetSetting(), Is.EqualTo(
+				$"{IndentStyleStyle.Setting} = tab"), nameof(style.GetSetting));
 		}
 
 		[Test]

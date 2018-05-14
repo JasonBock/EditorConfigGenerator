@@ -9,6 +9,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class IndentStyleStyle
 		: NodeStyle<TabSpaceData, SyntaxNode, NodeInformation<SyntaxNode>, IndentStyleStyle>
 	{
+		public const string Setting = "indent_style";
+
 		public IndentStyleStyle(TabSpaceData data)
 			: base(data) { }
 
@@ -23,7 +25,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TabOccurences >= this.Data.SpaceOccurences ? "tab" : "space";
-				return $"indent_style = {value}";
+				return $"{IndentStyleStyle.Setting} = {value}";
 			}
 			else
 			{
