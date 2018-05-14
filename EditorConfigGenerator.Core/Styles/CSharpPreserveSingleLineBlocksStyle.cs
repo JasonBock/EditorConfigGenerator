@@ -46,8 +46,8 @@ namespace EditorConfigGenerator.Core.Styles
 				var openBrace = node.ChildTokens().First(_ => _.IsKind(SyntaxKind.OpenBraceToken));
 
 				return new CSharpPreserveSingleLineBlocksStyle(
-					this.Data.Update(openBrace.HasTrailingTrivia && 
-						openBrace.TrailingTrivia.Any(_ => _.IsKind(SyntaxKind.EndOfLineTrivia))), this.Severity);
+					this.Data.Update(!(openBrace.HasTrailingTrivia && 
+						openBrace.TrailingTrivia.Any(_ => _.IsKind(SyntaxKind.EndOfLineTrivia)))), this.Severity);
 			}
 
 			return new CSharpPreserveSingleLineBlocksStyle(this.Data, this.Severity);
