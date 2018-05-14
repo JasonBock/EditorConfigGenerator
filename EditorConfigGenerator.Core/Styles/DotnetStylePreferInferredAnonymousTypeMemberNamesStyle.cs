@@ -10,6 +10,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class DotnetStylePreferInferredAnonymousTypeMemberNamesStyle
 		: SeverityNodeStyle<BooleanData, AnonymousObjectMemberDeclaratorSyntax, NodeInformation<AnonymousObjectMemberDeclaratorSyntax>, DotnetStylePreferInferredAnonymousTypeMemberNamesStyle>
 	{
+		public const string Setting = "dotnet_style_prefer_inferred_anonymous_type_member_names";
+
 		public DotnetStylePreferInferredAnonymousTypeMemberNamesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -24,7 +26,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"dotnet_style_prefer_inferred_anonymous_type_member_names = {value}:{this.Severity.GetDescription()}";
+				return $"{DotnetStylePreferInferredAnonymousTypeMemberNamesStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{

@@ -12,6 +12,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class DotnetStylePredefinedTypeForMemberAccessStyle
 		: ModelSeverityNodeStyle<BooleanData, MemberAccessExpressionSyntax, ModelNodeInformation<MemberAccessExpressionSyntax>, DotnetStylePredefinedTypeForMemberAccessStyle>
 	{
+		public const string Setting = "dotnet_style_predefined_type_for_member_access";
+
 		public DotnetStylePredefinedTypeForMemberAccessStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -26,7 +28,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"dotnet_style_predefined_type_for_member_access = {value}:{this.Severity.GetDescription()}";
+				return $"{DotnetStylePredefinedTypeForMemberAccessStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
