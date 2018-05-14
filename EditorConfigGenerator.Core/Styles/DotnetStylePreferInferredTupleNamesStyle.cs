@@ -10,6 +10,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class DotnetStylePreferInferredTupleNamesStyle
 		: SeverityNodeStyle<BooleanData, TupleExpressionSyntax, NodeInformation<TupleExpressionSyntax>, DotnetStylePreferInferredTupleNamesStyle>
 	{
+		public const string Setting = "dotnet_style_prefer_inferred_tuple_names";
+
 		public DotnetStylePreferInferredTupleNamesStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -24,7 +26,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"dotnet_style_prefer_inferred_tuple_names = {value}:{this.Severity.GetDescription()}";
+				return $"{DotnetStylePreferInferredTupleNamesStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
