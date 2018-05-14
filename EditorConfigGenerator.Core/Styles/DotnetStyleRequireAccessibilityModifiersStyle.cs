@@ -9,6 +9,7 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class DotnetStyleRequireAccessibilityModifiersStyle
 		: SeverityNodeStyle<BooleanData, MemberDeclarationSyntax, NodeInformation<MemberDeclarationSyntax>, DotnetStyleRequireAccessibilityModifiersStyle>
 	{
+		public const string Setting = "dotnet_style_require_accessibility_modifiers";
 		private static readonly string[] AccessibilityModifiers = new[] { "public", "protected", "internal", "private" };
 
 		public DotnetStyleRequireAccessibilityModifiersStyle(BooleanData data, Severity severity = Severity.Error)
@@ -25,7 +26,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "always" : "never";
-				return $"dotnet_style_require_accessibility_modifiers = {value}:{this.Severity.GetDescription()}";
+				return $"{DotnetStyleRequireAccessibilityModifiersStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
