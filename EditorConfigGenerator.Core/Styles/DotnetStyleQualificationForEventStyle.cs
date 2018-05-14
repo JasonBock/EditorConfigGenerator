@@ -12,6 +12,8 @@ namespace EditorConfigGenerator.Core.Styles
 	public sealed class DotnetStyleQualificationForEventStyle
 		: ModelSeverityNodeStyle<BooleanData, SyntaxNode, ModelNodeInformation<SyntaxNode>, DotnetStyleQualificationForEventStyle>
 	{
+		public const string Setting = "dotnet_style_qualification_for_event";
+
 		public DotnetStyleQualificationForEventStyle(BooleanData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
@@ -26,7 +28,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (this.Data.TotalOccurences > 0)
 			{
 				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"dotnet_style_qualification_for_event = {value}:{this.Severity.GetDescription()}";
+				return $"{DotnetStyleQualificationForEventStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 			}
 			else
 			{
