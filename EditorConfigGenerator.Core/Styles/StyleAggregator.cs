@@ -33,6 +33,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpNewLineBeforeFinallyStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeMembersInAnonymousTypesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpNewLineBeforeMembersInObjectInitializersStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpNewLineBetweenQueryExpressionClausesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferBracesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferredModifierOrderStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpPreferSimpleDefaultExpressionStyle.GetSetting(), builder);
@@ -324,6 +325,13 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitPropertyDeclaration(node);
 			}
 
+			public override void VisitQueryExpression(QueryExpressionSyntax node)
+			{
+				this.Set.CSharpNewLineBetweenQueryExpressionClausesStyle =
+					this.Set.CSharpNewLineBetweenQueryExpressionClausesStyle.Update(node);
+				base.VisitQueryExpression(node);
+			}
+
 			public override void VisitStructDeclaration(StructDeclarationSyntax node)
 			{
 				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
@@ -367,6 +375,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpNewLineBeforeMembersInAnonymousTypesStyle.Add(set.CSharpNewLineBeforeMembersInAnonymousTypesStyle),
 					CSharpNewLineBeforeMembersInObjectInitializersStyle =
 						this.CSharpNewLineBeforeMembersInObjectInitializersStyle.Add(set.CSharpNewLineBeforeMembersInObjectInitializersStyle),
+					CSharpNewLineBetweenQueryExpressionClausesStyle =
+						this.CSharpNewLineBetweenQueryExpressionClausesStyle.Add(set.CSharpNewLineBetweenQueryExpressionClausesStyle),
 					CSharpPreferBracesStyle =
 						this.CSharpPreferBracesStyle.Add(set.CSharpPreferBracesStyle),
 					CSharpPreferredModifierOrderStyle =
@@ -441,6 +451,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpNewLineBeforeMembersInAnonymousTypesStyle(new BooleanData());
 			public CSharpNewLineBeforeMembersInObjectInitializersStyle CSharpNewLineBeforeMembersInObjectInitializersStyle { get; set; } =
 				new CSharpNewLineBeforeMembersInObjectInitializersStyle(new BooleanData());
+			public CSharpNewLineBetweenQueryExpressionClausesStyle CSharpNewLineBetweenQueryExpressionClausesStyle { get; set; } =
+				new CSharpNewLineBetweenQueryExpressionClausesStyle(new BooleanData());
 			public CSharpPreferBracesStyle CSharpPreferBracesStyle { get; set; } =
 				new CSharpPreferBracesStyle(new BooleanData());
 			public CSharpPreferredModifierOrderStyle CSharpPreferredModifierOrderStyle { get; set; } =

@@ -47,9 +47,8 @@ namespace EditorConfigGenerator.Core.Styles
 				var parentChildren = parentStatement.ChildNodes().ToArray();
 				var nodeIndex = Array.IndexOf(parentChildren, node);
 				var previousNode = parentChildren[nodeIndex - 1];
-				var block = previousNode as BlockSyntax;
 
-				if(block == null)
+				if (!(previousNode is BlockSyntax block))
 				{
 					block = (previousNode as CatchClauseSyntax).ChildNodes().Last() as BlockSyntax;
 				}

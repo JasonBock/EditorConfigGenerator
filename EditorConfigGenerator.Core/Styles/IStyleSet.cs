@@ -7,6 +7,7 @@
 		CSharpNewLineBeforeMembersInAnonymousTypesStyle CSharpNewLineBeforeMembersInAnonymousTypesStyle { get; }
 		CSharpNewLineBeforeMembersInObjectInitializersStyle CSharpNewLineBeforeMembersInObjectInitializersStyle { get; }
 		CSharpNewLineBeforeFinallyStyle CSharpNewLineBeforeFinallyStyle { get; }
+		CSharpNewLineBetweenQueryExpressionClausesStyle CSharpNewLineBetweenQueryExpressionClausesStyle { get; }
 		CSharpPreferBracesStyle CSharpPreferBracesStyle { get; }
 		CSharpPreferredModifierOrderStyle CSharpPreferredModifierOrderStyle { get; }
 		CSharpPreferSimpleDefaultExpressionStyle CSharpPreferSimpleDefaultExpressionStyle { get; }
