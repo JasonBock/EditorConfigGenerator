@@ -25,6 +25,7 @@
 		CSharpStyleExpressionBodiedPropertiesStyle CSharpStyleExpressionBodiedPropertiesStyle { get; }
 		CSharpStyleInlinedVariableDeclarationStyle CSharpStyleInlinedVariableDeclarationStyle { get; }
 		CSharpStylePatternLocalOverAnonymousFunctionStyle CSharpStylePatternLocalOverAnonymousFunctionStyle { get; }
+		CSharpStylePatternMatchingOverAsWithNullCheckStyle CSharpStylePatternMatchingOverAsWithNullCheckStyle { get; }
 		CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; }
 		CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; }
 		DotnetSortSystemDirectivesFirstStyle DotnetSortSystemDirectivesFirstStyle { get; }
