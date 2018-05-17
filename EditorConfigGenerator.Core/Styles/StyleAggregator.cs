@@ -50,6 +50,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedOperatorsStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleExpressionBodiedPropertiesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleInlinedVariableDeclarationStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpStylePatternLocalOverAnonymousFunctionStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetSortSystemDirectivesFirstStyle.GetSetting(), builder);
@@ -92,8 +93,9 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.CSharpSpaceBetweenParenthesesStyle =
 					this.Set.CSharpSpaceBetweenParenthesesStyle.Update(
 						new NodeInformation<SyntaxNode>(node));
-				this.Set.IndentStyleStyle = 
-					this.Set.IndentStyleStyle.Update(node);
+				this.Set.CSharpStylePatternLocalOverAnonymousFunctionStyle =
+					this.Set.CSharpStylePatternLocalOverAnonymousFunctionStyle.Update(
+						new ModelNodeInformation<SyntaxNode>(node, this.model));
 				this.Set.DotnetStyleQualificationForEventStyle =
 					this.Set.DotnetStyleQualificationForEventStyle.Update(
 						new ModelNodeInformation<SyntaxNode>(node, this.model));
@@ -106,6 +108,8 @@ namespace EditorConfigGenerator.Core.Styles
 				this.Set.DotnetStyleQualificationForPropertyStyle =
 					this.Set.DotnetStyleQualificationForPropertyStyle.Update(
 						new ModelNodeInformation<SyntaxNode>(node, this.model));
+				this.Set.IndentStyleStyle = 
+					this.Set.IndentStyleStyle.Update(node);
 				base.Visit(node);
 			}
 
@@ -409,6 +413,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpStyleExpressionBodiedPropertiesStyle.Add(set.CSharpStyleExpressionBodiedPropertiesStyle),
 					CSharpStyleInlinedVariableDeclarationStyle =
 						this.CSharpStyleInlinedVariableDeclarationStyle.Add(set.CSharpStyleInlinedVariableDeclarationStyle),
+					CSharpStylePatternLocalOverAnonymousFunctionStyle =
+						this.CSharpStylePatternLocalOverAnonymousFunctionStyle.Add(set.CSharpStylePatternLocalOverAnonymousFunctionStyle),
 					CSharpStyleVarForBuiltInTypesStyle =
 						this.CSharpStyleVarForBuiltInTypesStyle.Add(set.CSharpStyleVarForBuiltInTypesStyle),
 					CSharpStyleVarWhenTypeIsApparentStyle =
@@ -485,6 +491,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpStyleExpressionBodiedPropertiesStyle(new ExpressionBodiedData());
 			public CSharpStyleInlinedVariableDeclarationStyle CSharpStyleInlinedVariableDeclarationStyle { get; set; } =
 				new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData());
+			public CSharpStylePatternLocalOverAnonymousFunctionStyle CSharpStylePatternLocalOverAnonymousFunctionStyle { get; set; } =
+				new CSharpStylePatternLocalOverAnonymousFunctionStyle(new BooleanData());
 			public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; set; } =
 				new CSharpStyleVarForBuiltInTypesStyle(new BooleanData());
 			public CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; set; } =
