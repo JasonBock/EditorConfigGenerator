@@ -43,26 +43,12 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				var clauseCount = node.DescendantNodes().Count(_ => _ is QueryClauseSyntax);
+				var clauseCount = node.DescendantNodes().Count(_ => _ is QueryClauseSyntax || _ is SelectOrGroupClauseSyntax);
 				var eolCount = node.DescendantTrivia().Count(_ => _.IsKind(SyntaxKind.EndOfLineTrivia));
-
 				return new CSharpNewLineBetweenQueryExpressionClausesStyle(this.Data.Update(eolCount >= clauseCount - 1), this.Severity);
 			}
 
 			return new CSharpNewLineBetweenQueryExpressionClausesStyle(this.Data, this.Severity);
-		}
-
-		public void Foo()
-		{
-			var e = new[] { 1, 2, 3 };
-			// csharp_new_line_between_query_expression_clauses = true
-			var q = from a in e
-					  from b in e
-					  select a * b;
-
-			// csharp_new_line_between_query_expression_clauses = false
-			var q2 = from a in e from b in e
-						select a * b;
 		}
 	}
 }
