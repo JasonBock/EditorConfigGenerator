@@ -99,7 +99,7 @@ namespace EditorConfigGenerator.Core.Styles
 						new ModelNodeInformation<SyntaxNode>(node, this.model));
 				this.Set.CSharpStylePatternMatchingOverAsWithNullCheckStyle =
 					this.Set.CSharpStylePatternMatchingOverAsWithNullCheckStyle.Update(
-						new NodeInformation<SyntaxNode>(node));
+						new ModelNodeInformation<SyntaxNode>(node, this.model));
 				this.Set.DotnetStyleQualificationForEventStyle =
 					this.Set.DotnetStyleQualificationForEventStyle.Update(
 						new ModelNodeInformation<SyntaxNode>(node, this.model));
