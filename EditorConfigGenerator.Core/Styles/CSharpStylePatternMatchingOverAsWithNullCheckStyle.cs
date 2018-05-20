@@ -82,50 +82,21 @@ namespace EditorConfigGenerator.Core.Styles
 				var children = parent.ChildNodes().ToImmutableArray();
 				var nodeIndex = children.IndexOf(node);
 
-				// So, go to the parent of node, get its child nodes, find the index of node,
-				// and then go through those children in reverse from index - 1. Find the "last"
-				// identifier whose symbol is the same as 
 				for (var i = nodeIndex - 1; i >= 0; i--)
 				{
 					var childNode = children[i];
+					var childDescendants = childNode.DescendantNodes().ToImmutableArray();
 
-					if(childNode.DescendantNodes().Any(_ => _.IsKind(SyntaxKind.AsExpression)))
+					if(childDescendants.Any(_ => _.IsKind(SyntaxKind.AsExpression)) &&
+						childDescendants.FirstOrDefault(
+							c => model.GetDeclaredSymbol(c) == identifierSymbol) != null)
 					{
-						var childIdentifier = childNode.DescendantNodes().FirstOrDefault(
-							_ => _ is IdentifierNameSyntax && model.GetSymbolInfo(_).Symbol == identifierSymbol);
-
-						if (childIdentifier != null)
-						{
-							return true;
-						}
+						return true;
 					}
 				}
 			}
 
 			return false;
 		}
-
-		// Look for IsPatternExpression within an IfStatement, if it is, true
-		// The second....just do a IfStatement with a child
-		// EqualsExpression or NotEqualsExpression, and a child 
-		// NullLiteralExpression, then it's false
-		// Note, a WhileStatement does this too, but I don't think
-		// that's what this style is trying to represent.
-		public void Foo(string o)
-		{
-			// csharp_style_pattern_matching_over_as_with_null_check = true
-			if (o is string s) { }
-
-			// csharp_style_pattern_matching_over_as_with_null_check = false
-			var r = o as string;
-			int x = 22;
-			int y = x++;
-			if (r != null) { }
-
-			this.arr = o as string;
-			if (this.arr != null) { }
-		}
-
-		private string arr;
 	}
 }

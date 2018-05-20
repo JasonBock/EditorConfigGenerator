@@ -6,7 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
-using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 
 namespace EditorConfigGenerator.Core
 {
@@ -73,25 +72,5 @@ namespace EditorConfigGenerator.Core
 
 			return new CSharpStylePatternLocalOverAnonymousFunctionStyle(this.Data, this.Severity);
 		}
-
-		//// If you have a LocalFunctionStatement, then that's a "true" instance.
-		//// Otherwise, look for VariableDeclaration
-		//// It can either have an IdentifierName or GenericName
-		//// If it's an "Action" or "Func" of any "kind", false
-		//public void Foo()
-		//{
-		//	// csharp_style_pattern_local_over_anonymous_function = true
-		//	int fibonacci(int n)
-		//	{
-		//		return n <= 1 ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
-		//	}
-
-		//	Action a = null;
-		//	// csharp_style_pattern_local_over_anonymous_function = false
-		//	Func<int, int> f2 = (int n) =>
-		//	{
-		//		return n <= 1 ? 1 : fibonacci(n - 1) + fibonacci(n - 2);
-		//	};
-		//}
 	}
 }
