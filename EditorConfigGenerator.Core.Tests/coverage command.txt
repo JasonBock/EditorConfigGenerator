@@ -1,1 +1,1 @@
-dotnet test /p:CollectCoverage=true
+dotnet test /p:CollectCoverage=true /p:Exclude="[NUnit3.TestAdapter]*"
