@@ -68,9 +68,10 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		}
 
 		[Test]
-		public static void VisitForCSharpStyleVarForBuiltInTypes()
+		public static void VisitForCSharpStyleVarForBuiltInTypesStyle()
 		{
 			var aggregator = new StyleAggregator();
+			var style = aggregator.Set.CSharpStyleVarForBuiltInTypesStyle;
 			var compilationUnit = SyntaxFactory.ParseCompilationUnit(
 @"public static class Test
 {
@@ -78,19 +79,29 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var a = 1;
 	}
-
-	public static void TypeFoo()
-	{
-		int a = 1;
-	}
 }", options: Shared.ParseOptions);
 			aggregator = aggregator.Add(compilationUnit, StyleAggregatorTests.CreateModel(compilationUnit.SyntaxTree));
 
+			Assert.That(aggregator.Set.CSharpStyleVarForBuiltInTypesStyle, Is.Not.SameAs(style));
+		}
+
+		[Test]
+		public static void VisitForCSharpNewLineBeforeCatchStyle()
+		{
+			var aggregator = new StyleAggregator();
+			var style = aggregator.Set.CSharpNewLineBeforeCatchStyle;
+			var compilationUnit = SyntaxFactory.ParseCompilationUnit(
+@"public static class Test
+{
+	public static void VarFoo()
+	{
+		var a = 1;
+	}
+}", options: Shared.ParseOptions);
+			aggregator = aggregator.Add(compilationUnit, StyleAggregatorTests.CreateModel(compilationUnit.SyntaxTree));
 			var data = aggregator.Set.CSharpStyleVarForBuiltInTypesStyle.Data;
 
-			Assert.That(data.TotalOccurences, Is.EqualTo(2u), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(1u), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(1u), nameof(data.FalseOccurences));
+			Assert.That(aggregator.Set.CSharpStyleVarForBuiltInTypesStyle, Is.Not.SameAs(style));
 		}
 	}
 }

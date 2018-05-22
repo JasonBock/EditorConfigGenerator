@@ -72,5 +72,45 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			Assert.That(data.TrueOccurences, Is.EqualTo(1u), nameof(data.TrueOccurences));
 			Assert.That(data.FalseOccurences, Is.EqualTo(3u), nameof(data.FalseOccurences));
 		}
+
+		[Test]
+		public static void VerifyEquality()
+		{
+			var data1 = new BooleanData(3, 1, 2);
+			var data2 = new BooleanData(3, 2, 1);
+			var data3 = new BooleanData(3, 1, 2);
+
+			Assert.That(data1, Is.Not.EqualTo(data2));
+			Assert.That(data1, Is.EqualTo(data3));
+			Assert.That(data2, Is.Not.EqualTo(data3));
+
+#pragma warning disable CS1718 // Comparison made to same variable
+			Assert.That(data1 == data1, Is.True);
+#pragma warning restore CS1718 // Comparison made to same variable
+			Assert.That(data1 == data2, Is.False);
+			Assert.That(data1 == data3, Is.True);
+			Assert.That(data2 == data3, Is.False);
+			Assert.That((null as BooleanData) == data1, Is.False);
+			Assert.That(data1 == (null as BooleanData), Is.False);
+
+			Assert.That(data1 != data2, Is.True);
+			Assert.That(data1 != data3, Is.False);
+			Assert.That(data2 != data3, Is.True);
+		}
+
+		[Test]
+		public static void VerifyEqualityWithInvalidType() =>
+			Assert.That(new BooleanData().Equals(new object()), Is.False);
+
+		[Test]
+		public static void VerifyHashCodes()
+		{
+			var data1 = new BooleanData(3, 1, 2);
+			var data2 = new BooleanData(3, 2, 1);
+			var data3 = new BooleanData(3, 1, 2);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+		}
 	}
 }
