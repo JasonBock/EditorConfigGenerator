@@ -121,5 +121,45 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 
 			Assert.That(parent, Is.Null);
 		}
+
+		[Test]
+		public static void HasParenthesisSpacingWhenSpacingExistsForBothParentheses()
+		{
+			var statement = SyntaxFactory.ParseStatement("int x = ( int )100;", options: Shared.ParseOptions);
+			var cast = statement.DescendantNodes().OfType<CastExpressionSyntax>().Single();
+			Assert.That(cast.HasParenthesisSpacing(), Is.True);
+		}
+
+		[Test]
+		public static void HasParenthesisSpacingWhenSpacingExistsForOpenParenthesis()
+		{
+			var statement = SyntaxFactory.ParseStatement("int x = ( int)100;", options: Shared.ParseOptions);
+			var cast = statement.DescendantNodes().OfType<CastExpressionSyntax>().Single();
+			Assert.That(cast.HasParenthesisSpacing(), Is.False);
+		}
+
+		[Test]
+		public static void HasParenthesisSpacingWhenSpacingExistsForCloseParenthesis()
+		{
+			var statement = SyntaxFactory.ParseStatement("int x = (int )100;", options: Shared.ParseOptions);
+			var cast = statement.DescendantNodes().OfType<CastExpressionSyntax>().Single();
+			Assert.That(cast.HasParenthesisSpacing(), Is.False);
+		}
+
+		[Test]
+		public static void HasParenthesisSpacingWhenSpacingExistsForNeitherParenthesis()
+		{
+			var statement = SyntaxFactory.ParseStatement("int x = (int)100;", options: Shared.ParseOptions);
+			var cast = statement.DescendantNodes().OfType<CastExpressionSyntax>().Single();
+			Assert.That(cast.HasParenthesisSpacing(), Is.False);
+		}
+
+		[Test]
+		public static void HasParenthesisSpacingForNodeThatHasNoParentheses()
+		{
+			var statement = SyntaxFactory.ParseStatement("int x = 100;", options: Shared.ParseOptions);
+			var cast = statement.DescendantNodes().OfType<VariableDeclarationSyntax>().Single();
+			Assert.That(cast.HasParenthesisSpacing(), Is.False);
+		}
 	}
 }
