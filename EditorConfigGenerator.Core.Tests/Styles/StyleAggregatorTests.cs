@@ -67,41 +67,323 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			Assert.That(() => aggregator.Add(compilationUnit, null), Throws.TypeOf<ArgumentNullException>());
 		}
 
-		[Test]
-		public static void VisitForCSharpStyleVarForBuiltInTypesStyle()
+		private static void TestStyleVisitation(string code, string stylePropertyName)
 		{
 			var aggregator = new StyleAggregator();
-			var style = aggregator.Set.CSharpStyleVarForBuiltInTypesStyle;
-			var compilationUnit = SyntaxFactory.ParseCompilationUnit(
-@"public static class Test
-{
-	public static void VarFoo()
-	{
-		var a = 1;
-	}
-}", options: Shared.ParseOptions);
-			aggregator = aggregator.Add(compilationUnit, StyleAggregatorTests.CreateModel(compilationUnit.SyntaxTree));
+			var setProperty = aggregator.GetType().GetProperty(nameof(StyleAggregator.Set));
+			var styleProperty = setProperty.PropertyType.GetProperty(stylePropertyName);
+			var styleDataProperty = styleProperty.PropertyType.GetProperty("Data");
+			var data = styleDataProperty.GetValue(styleProperty.GetValue(setProperty.GetValue(aggregator)));
 
-			Assert.That(aggregator.Set.CSharpStyleVarForBuiltInTypesStyle, Is.Not.SameAs(style));
+			var compilationUnit = SyntaxFactory.ParseCompilationUnit(code, options: Shared.ParseOptions);
+
+			aggregator = aggregator.Add(compilationUnit, StyleAggregatorTests.CreateModel(compilationUnit.SyntaxTree));
+			var newData = styleDataProperty.GetValue(styleProperty.GetValue(setProperty.GetValue(aggregator)));
+
+			Assert.That(newData, Is.Not.EqualTo(data));
 		}
 
 		[Test]
-		public static void VisitForCSharpNewLineBeforeCatchStyle()
-		{
-			var aggregator = new StyleAggregator();
-			var style = aggregator.Set.CSharpNewLineBeforeCatchStyle;
-			var compilationUnit = SyntaxFactory.ParseCompilationUnit(
+		public static void VisitForCSharpNewLineBeforeCatchStyle() => 
+			StyleAggregatorTests.TestStyleVisitation(
 @"public static class Test
 {
-	public static void VarFoo()
+	public static void Foo()
+	{
+		try { }
+		catch { }
+	}
+}", nameof(IStyleSet.CSharpNewLineBeforeCatchStyle));
+
+		[Test]
+		public static void VisitForCSharpNewLineBeforeElseStyle() => 
+			StyleAggregatorTests.TestStyleVisitation(
+@"public static class Test
+{
+	public static void Foo()
+	{
+		if(true) { }
+		else { }
+	}
+}", nameof(IStyleSet.CSharpNewLineBeforeElseStyle));
+
+		[Test]
+		public static void VisitForCSharpNewLineBeforeFinallyStyle() => 
+			StyleAggregatorTests.TestStyleVisitation(
+@"public static class Test
+{
+	public static void Foo()
+	{
+		try { }
+		finally { }
+	}
+}", nameof(IStyleSet.CSharpNewLineBeforeFinallyStyle));
+
+		[Test]
+		public static void VisitForCSharpNewLineBeforeMembersInAnonymousTypesStyle() => 
+			StyleAggregatorTests.TestStyleVisitation(
+@"public static class Test
+{
+	public static void Foo()
+	{
+		var x = new { A = 1, B = 2 };
+	}
+}", nameof(IStyleSet.CSharpNewLineBeforeMembersInAnonymousTypesStyle));
+
+		[Test]
+		public static void VisitForCSharpNewLineBeforeMembersInObjectInitializersStyle() => 
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Data { public int A; public int B; }
+
+public class Foo
+{
+	public void Bar()
+	{
+		var x = new Data 
+		{ 
+			A = 1, 
+			B = 2
+		}
+	}
+}", nameof(IStyleSet.CSharpNewLineBeforeMembersInObjectInitializersStyle));
+
+		[Test]
+		public static void VisitForCSharpNewLineBetweenQueryExpressionClausesStyle() => 
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar()
+	{
+		var x = new int[] { 1, 2, 3 };
+		var q = from a in x
+				  from b in x
+				  select a * b;
+	}
+}", nameof(IStyleSet.CSharpNewLineBetweenQueryExpressionClausesStyle));
+
+		[Test]
+		public static void VisitForCSharpPreferBracesStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar()
+	{
+		if(true)
+			var x = 2;
+	}
+}", nameof(IStyleSet.CSharpPreferBracesStyle));
+
+		[Test]
+		public static void VisitForCSharpPreferredModifierOrderStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public static void Bar() { }
+}", nameof(IStyleSet.CSharpPreferredModifierOrderStyle));
+
+		[Test]
+		public static void VisitCSharpPreferSimpleDefaultExpressionStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar()
+	{
+		string x = default(string);
+	}
+}", nameof(IStyleSet.CSharpPreferSimpleDefaultExpressionStyle));
+
+		[Test]
+		public static void VisitCSharpPreserveSingleLineBlocksStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public int X { get; set; }
+}", nameof(IStyleSet.CSharpPreserveSingleLineBlocksStyle));
+
+		[Test]
+		public static void VisitCSharpSpaceAfterCastStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar(object x)
+	{
+		var y = (int) x;
+	}
+}", nameof(IStyleSet.CSharpSpaceAfterCastStyle));
+
+		[Test]
+		public static void VisitCSharpSpaceAfterKeywordsInControlFlowStatementsStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar(object x)
+	{
+		for (var i = 0; i < 10; i++) { }
+	}
+}", nameof(IStyleSet.CSharpSpaceAfterKeywordsInControlFlowStatementsStyle));
+
+		[Test]
+		public static void VisitCSharpSpaceBetweenMethodCallParameterListParenthesesStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar(int x) 
+	{
+		Bar( 3 );
+	}
+}", nameof(IStyleSet.CSharpSpaceBetweenMethodCallParameterListParenthesesStyle));
+
+		[Test]
+		public static void VisitCSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar( object x ) { }
+}", nameof(IStyleSet.CSharpSpaceBetweenMethodDeclarationParameterListParenthesesStyle));
+
+		[Test]
+		public static void VisitCSharpSpaceBetweenParenthesesStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar()
+	{
+		for(var i = 0; i < 10; i++) { }
+	}
+}", nameof(IStyleSet.CSharpSpaceBetweenParenthesesStyle));
+
+		[Test]
+		public static void VisitCSharpStyleExpressionBodiedAccessorsStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	private int age; 
+
+	public int Age 
+	{
+		get => age; 
+	} 
+}", nameof(IStyleSet.CSharpStyleExpressionBodiedAccessorsStyle));
+
+		[Test]
+		public static void VisitCSharpStyleExpressionBodiedConstructorsStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	private readonly int x; 
+	
+	public Foo() => this.x = 10 
+}", nameof(IStyleSet.CSharpStyleExpressionBodiedConstructorsStyle));
+
+		[Test]
+		public static void VisitCSharpStyleExpressionBodiedIndexersStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	private int[] ages; 
+
+	public int this[int i] => this.ages[i];
+}", nameof(IStyleSet.CSharpStyleExpressionBodiedIndexersStyle));
+
+		[Test]
+		public static void VisitCSharpStyleExpressionBodiedMethodsStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	public int Foo() 
+	{ 
+		return 10; 
+	} 
+}", nameof(IStyleSet.CSharpStyleExpressionBodiedMethodsStyle));
+
+		[Test]
+		public static void VisitCSharpStyleExpressionBodiedOperatorsStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	public static Foo operator +(Foo f1, Foo f2) 
+	{ 
+		var d1 = f1.Data; 
+		var d2 = f2.Data; 
+		return d1 + d2; 
+	} 
+
+	public int Data { get; } 
+}", nameof(IStyleSet.CSharpStyleExpressionBodiedOperatorsStyle));
+
+		[Test]
+		public static void VisitCSharpStyleExpressionBodiedPropertiesStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	private int age; 
+
+	public int Age => age;
+}", nameof(IStyleSet.CSharpStyleExpressionBodiedPropertiesStyle));
+
+		[Test]
+		public static void VisitCSharpStyleInlinedVariableDeclarationStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{
+	public void Foo(out a) { Foo(out int x); }
+}", nameof(IStyleSet.CSharpStyleInlinedVariableDeclarationStyle));
+
+		[Test]
+		public static void VisitCSharpStylePatternLocalOverAnonymousFunctionStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar()
+	{
+		int X() => 22;
+	}
+}", nameof(IStyleSet.CSharpStylePatternLocalOverAnonymousFunctionStyle));
+
+		[Test]
+		public static void VisitCSharpStylePatternMatchingOverAsWithNullCheckStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar(object o)
+	{
+		if(o is string s) { }
+	}
+}", nameof(IStyleSet.CSharpStylePatternMatchingOverAsWithNullCheckStyle));
+
+		[Test]
+		public static void VisitForCSharpStyleVarElsewhereStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public static class Test
+{
+	public static int Foo()
+	{
+		var x = Foo();
+	}
+}", nameof(IStyleSet.CSharpStyleVarElsewhereStyle));
+
+		[Test]
+		public static void VisitForCSharpStyleVarForBuiltInTypesStyle() => 
+			StyleAggregatorTests.TestStyleVisitation(
+@"public static class Test
+{
+	public static void Foo()
 	{
 		var a = 1;
 	}
-}", options: Shared.ParseOptions);
-			aggregator = aggregator.Add(compilationUnit, StyleAggregatorTests.CreateModel(compilationUnit.SyntaxTree));
-			var data = aggregator.Set.CSharpStyleVarForBuiltInTypesStyle.Data;
+}", nameof(IStyleSet.CSharpStyleVarForBuiltInTypesStyle));
 
-			Assert.That(aggregator.Set.CSharpStyleVarForBuiltInTypesStyle, Is.Not.SameAs(style));
-		}
+		[Test]
+		public static void VisitCSharpStyleVarWhenTypeIsApparentStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Customer { } 
+
+public static class Test
+{
+	public static void Foo()
+	{
+		var customer = new Customer();
+	}
+}", nameof(IStyleSet.CSharpStyleVarWhenTypeIsApparentStyle));
 	}
 }

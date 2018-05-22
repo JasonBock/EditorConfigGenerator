@@ -99,6 +99,10 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
+		public static void VerifyToString() =>
+			Assert.That(new BooleanData(3, 1, 2).ToString(), Is.EqualTo("3, 1, 2"));
+
+		[Test]
 		public static void VerifyEqualityWithInvalidType() =>
 			Assert.That(new BooleanData().Equals(new object()), Is.False);
 

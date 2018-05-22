@@ -52,6 +52,7 @@ namespace EditorConfigGenerator.Core.Styles
 			AppendSetting(this.Set.CSharpStyleInlinedVariableDeclarationStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStylePatternLocalOverAnonymousFunctionStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStylePatternMatchingOverAsWithNullCheckStyle.GetSetting(), builder);
+			AppendSetting(this.Set.CSharpStyleVarElsewhereStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleVarForBuiltInTypesStyle.GetSetting(), builder);
 			AppendSetting(this.Set.CSharpStyleVarWhenTypeIsApparentStyle.GetSetting(), builder);
 			AppendSetting(this.Set.DotnetSortSystemDirectivesFirstStyle.GetSetting(), builder);
@@ -270,6 +271,8 @@ namespace EditorConfigGenerator.Core.Styles
 
 			public override void VisitLocalDeclarationStatement(LocalDeclarationStatementSyntax node)
 			{
+				this.Set.CSharpStyleVarElsewhereStyle =
+					this.Set.CSharpStyleVarElsewhereStyle.Update(node);
 				this.Set.CSharpStyleVarForBuiltInTypesStyle =
 					this.Set.CSharpStyleVarForBuiltInTypesStyle.Update(node);
 				this.Set.CSharpStyleVarWhenTypeIsApparentStyle =
@@ -421,6 +424,8 @@ namespace EditorConfigGenerator.Core.Styles
 						this.CSharpStylePatternLocalOverAnonymousFunctionStyle.Add(set.CSharpStylePatternLocalOverAnonymousFunctionStyle),
 					CSharpStylePatternMatchingOverAsWithNullCheckStyle =
 						this.CSharpStylePatternMatchingOverAsWithNullCheckStyle.Add(set.CSharpStylePatternMatchingOverAsWithNullCheckStyle),
+					CSharpStyleVarElsewhereStyle = 
+						this.CSharpStyleVarElsewhereStyle.Add(set.CSharpStyleVarElsewhereStyle),
 					CSharpStyleVarForBuiltInTypesStyle =
 						this.CSharpStyleVarForBuiltInTypesStyle.Add(set.CSharpStyleVarForBuiltInTypesStyle),
 					CSharpStyleVarWhenTypeIsApparentStyle =
@@ -501,6 +506,8 @@ namespace EditorConfigGenerator.Core.Styles
 				new CSharpStylePatternLocalOverAnonymousFunctionStyle(new BooleanData());
 			public CSharpStylePatternMatchingOverAsWithNullCheckStyle CSharpStylePatternMatchingOverAsWithNullCheckStyle { get; set; } =
 				new CSharpStylePatternMatchingOverAsWithNullCheckStyle(new BooleanData());
+			public CSharpStyleVarElsewhereStyle CSharpStyleVarElsewhereStyle { get; set; } =
+				new CSharpStyleVarElsewhereStyle(new BooleanData());
 			public CSharpStyleVarForBuiltInTypesStyle CSharpStyleVarForBuiltInTypesStyle { get; set; } =
 				new CSharpStyleVarForBuiltInTypesStyle(new BooleanData());
 			public CSharpStyleVarWhenTypeIsApparentStyle CSharpStyleVarWhenTypeIsApparentStyle { get; set; } =
