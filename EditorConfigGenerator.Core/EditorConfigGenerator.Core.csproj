@@ -1,18 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <NoWarn>NU1608</NoWarn>
+    <DebugType>full</DebugType>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Statistics\ModifierData.cs~RF104ddce9.TMP" />
-    <None Remove="Styles\CSharpStylePatternMatchingOverAsWithNullCheckStyle.cs~RF163d802.TMP" />
-    <None Remove="Styles\IStyleSet.cs~RF12530e76.TMP" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Buildalyzer" Version="0.4.0" />

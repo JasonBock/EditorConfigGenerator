@@ -2,11 +2,11 @@
 
 namespace EditorConfigGenerator.Core.Tests.Extensions
 {
-	public enum TestDescription
+	public enum TestWithDescriptions
 	{
-		[SCM.Description("one")]
+		[SCM.Description("number one")]
 		One,
-		[SCM.Description("two")]
+		[SCM.Description("number two")]
 		Two,
 	}
 }

@@ -7,13 +7,9 @@ namespace EditorConfigGenerator.Core.Extensions
 	{
 		// Lifted from:
 		// https://stackoverflow.com/questions/4367723/get-enum-from-description-attribute
-		public static string GetDescription(this Enum value)
-		{
-			var field = value.GetType().GetField(value.ToString());
-			var attribute = Attribute.GetCustomAttribute(
-				field, typeof(DescriptionAttribute)) as DescriptionAttribute;
-
-			return attribute == null ? value.ToString() : attribute.Description;
-		}
+		public static string GetDescription(this Enum value) =>
+			!(Attribute.GetCustomAttribute(
+				value.GetType().GetField(value.ToString()), typeof(DescriptionAttribute)) is DescriptionAttribute attribute) ?
+				value.ToString() : attribute.Description;
 	}
 }

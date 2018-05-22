@@ -99,6 +99,13 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
+		public static void GetSettingWhenOnSingleLine()
+		{
+			var data = new ExpressionBodiedData(4u, 1u, 2u, 1u);
+			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = when_on_single_line:error"), nameof(data.GetSetting));
+		}
+
+		[Test]
 		public static void UpdateWithArrowSingleLine()
 		{
 			var data = new ExpressionBodiedData();

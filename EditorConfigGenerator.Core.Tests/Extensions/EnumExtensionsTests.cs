@@ -8,6 +8,10 @@ namespace EditorConfigGenerator.Core.Tests.Extensions
 	{
 		[Test]
 		public static void GetDescription() =>
-			Assert.That(TestDescription.Two.GetDescription(), Is.EqualTo("two"));
+			Assert.That(TestWithDescriptions.Two.GetDescription(), Is.EqualTo("number two"));
+
+		[Test]
+		public static void GetDescriptionWhenValueHasNoDescriptionAttribute() =>
+			Assert.That(TestWithoutDescriptions.Two.GetDescription(), Is.EqualTo("Two"));
 	}
 }

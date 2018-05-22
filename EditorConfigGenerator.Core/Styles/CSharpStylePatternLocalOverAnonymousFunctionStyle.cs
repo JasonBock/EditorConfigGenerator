@@ -1,5 +1,4 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
-using EditorConfigGenerator.Core.Styles;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -7,7 +6,7 @@ using System;
 using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
-namespace EditorConfigGenerator.Core
+namespace EditorConfigGenerator.Core.Styles
 {
 	public sealed class CSharpStylePatternLocalOverAnonymousFunctionStyle
 		: ModelSeverityNodeStyle<BooleanData, SyntaxNode, ModelNodeInformation<SyntaxNode>, CSharpStylePatternLocalOverAnonymousFunctionStyle>

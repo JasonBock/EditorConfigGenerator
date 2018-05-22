@@ -1,6 +1,7 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
@@ -28,6 +29,13 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			var pair = new KeyValuePair<string, (uint weight, uint frequency)>(keyword, (1u, 1u));
 			Shared.VerifyModifiers(newData.VisibilityModifiers, pair);
 			Shared.VerifyModifiers(newData.OtherModifiers, pair);
+		}
+
+		[Test]
+		public static void UpdateWithNull()
+		{
+			var data = new ModifierData();
+			Assert.That(() => data.Update(null), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -105,6 +113,13 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			Shared.VerifyModifiers(newData.OtherModifiers,
 				new KeyValuePair<string, (uint weight, uint frequency)>(
 					SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText, (1u, 1u)));
+		}
+
+		[Test]
+		public static void AddWithNull()
+		{
+			var data = new ModifierData();
+			Assert.That(() => data.Add(null), Throws.TypeOf<ArgumentNullException>());
 		}
 	}
 }
