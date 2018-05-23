@@ -109,6 +109,21 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		}
 
 		[Test]
+		public static void UpdateWithTypeDeclarationUsingGlobalNamespace()
+		{
+			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData(default, default, default));
+
+			var statement = SyntaxFactory.ParseStatement("global::System.String s = new string('c', 1);", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var newStyle = style.Update(statement);
+
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
+			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(1u), nameof(data.FalseOccurences));
+		}
+
+		[Test]
 		public static void UpdateWithDiagnostics()
 		{
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData(default, default, default));
