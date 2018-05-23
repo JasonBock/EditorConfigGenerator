@@ -7,7 +7,7 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Statistics
 {
 	public sealed class ModifierData
-		: Data<ModifierData>
+		: Data<ModifierData>, IEquatable<ModifierData>
 	{
 		public ModifierData()
 			: base(default) { }
@@ -75,6 +75,77 @@ namespace EditorConfigGenerator.Core.Statistics
 			return new ModifierData(currentVisibilityModifers.ToImmutableDictionary(),
 				currentOtherModifers.ToImmutableDictionary());
 		}
+
+		public bool Equals(ModifierData other)
+		{
+			var areEqual = false;
+
+			if (other != null)
+			{
+				areEqual = this.TotalOccurences == other.TotalOccurences;
+
+				if(areEqual)
+				{
+					foreach(var visibilityPair in this.VisibilityModifiers)
+					{
+						areEqual &= visibilityPair.Value == other.VisibilityModifiers[visibilityPair.Key];
+
+						if(!areEqual) { return areEqual; }
+					}
+
+					foreach (var otherPair in this.OtherModifiers)
+					{
+						areEqual &= otherPair.Value == other.OtherModifiers[otherPair.Key];
+
+						if (!areEqual) { return areEqual; }
+					}
+				}
+			}
+
+			return areEqual;
+		}
+
+		public override bool Equals(object obj) => this.Equals(obj as ModifierData);
+
+		public override int GetHashCode() => this.ToString().GetHashCode();
+
+		public override string ToString()
+		{
+			var visibilityModifiers = new List<string>();
+			var otherModifiers = new List<string>();
+
+			foreach (var visibilityPair in this.VisibilityModifiers.OrderBy(_ => _.Key))
+			{
+				visibilityModifiers.Add($"{visibilityPair.Key} = {visibilityPair.Value}");
+			}
+
+			foreach (var otherPair in this.OtherModifiers.OrderBy(_ => _.Key))
+			{
+				otherModifiers.Add($"{otherPair.Key} = {otherPair.Value}");
+			}
+
+			return $"{nameof(this.TotalOccurences)} = {this.TotalOccurences}, {nameof(this.VisibilityModifiers)} = {{{string.Join(", ", visibilityModifiers)}}}, {nameof(this.OtherModifiers)} = {{{string.Join(", ", otherModifiers)}}}";
+		}
+
+		public static bool operator ==(ModifierData a, ModifierData b)
+		{
+			var areEqual = false;
+
+			if (object.ReferenceEquals(a, b))
+			{
+				areEqual = true;
+			}
+
+			if ((object)a != null && (object)b != null)
+			{
+				areEqual = a.Equals(b);
+			}
+
+			return areEqual;
+		}
+
+		public static bool operator !=(ModifierData a, ModifierData b) =>
+			!(a == b);
 
 		public ImmutableDictionary<string, (uint weight, uint frequency)> VisibilityModifiers =
 			new Dictionary<string, (uint weight, uint frequency)>
