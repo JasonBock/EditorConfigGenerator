@@ -140,5 +140,49 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
 			Assert.That(data.BlockOccurences, Is.EqualTo(1u), nameof(data.BlockOccurences));
 		}
+
+		[Test]
+		public static void VerifyEquality()
+		{
+			var data1 = new ExpressionBodiedData(6, 1, 2, 3);
+			var data2 = new ExpressionBodiedData(6, 2, 1, 3);
+			var data3 = new ExpressionBodiedData(6, 1, 2, 3);
+
+			Assert.That(data1, Is.Not.EqualTo(data2));
+			Assert.That(data1, Is.EqualTo(data3));
+			Assert.That(data2, Is.Not.EqualTo(data3));
+
+#pragma warning disable CS1718 // Comparison made to same variable
+			Assert.That(data1 == data1, Is.True);
+#pragma warning restore CS1718 // Comparison made to same variable
+			Assert.That(data1 == data2, Is.False);
+			Assert.That(data1 == data3, Is.True);
+			Assert.That(data2 == data3, Is.False);
+			Assert.That((null as ExpressionBodiedData) == data1, Is.False);
+			Assert.That(data1 == (null as ExpressionBodiedData), Is.False);
+
+			Assert.That(data1 != data2, Is.True);
+			Assert.That(data1 != data3, Is.False);
+			Assert.That(data2 != data3, Is.True);
+		}
+
+		[Test]
+		public static void VerifyToString() =>
+			Assert.That(new ExpressionBodiedData(6, 1, 2, 3).ToString(), Is.EqualTo("6, 1, 2, 3"));
+
+		[Test]
+		public static void VerifyEqualityWithInvalidType() =>
+			Assert.That(new ExpressionBodiedData().Equals(new object()), Is.False);
+
+		[Test]
+		public static void VerifyHashCodes()
+		{
+			var data1 = new ExpressionBodiedData(6, 1, 2, 3);
+			var data2 = new ExpressionBodiedData(6, 2, 1, 3);
+			var data3 = new ExpressionBodiedData(6, 1, 2, 3);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+		}
 	}
 }

@@ -272,7 +272,7 @@ public class Foo
 { 
 	private readonly int x; 
 	
-	public Foo() => this.x = 10 
+	public Foo() => this.x = 10;
 }", nameof(IStyleSet.CSharpStyleExpressionBodiedConstructorsStyle));
 
 		[Test]
@@ -301,12 +301,8 @@ public class Foo
 			StyleAggregatorTests.TestStyleVisitation(
 @"public class Foo 
 { 
-	public static Foo operator +(Foo f1, Foo f2) 
-	{ 
-		var d1 = f1.Data; 
-		var d2 = f2.Data; 
-		return d1 + d2; 
-	} 
+	public static Foo operator +(Foo f1, Foo f2) => f1.Data + 
+		f2.Data;
 
 	public int Data { get; } 
 }", nameof(IStyleSet.CSharpStyleExpressionBodiedOperatorsStyle));
