@@ -84,7 +84,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		}
 
 		[Test]
-		public static void VisitForCSharpNewLineBeforeCatchStyle() => 
+		public static void VisitForCSharpNewLineBeforeCatchStyle() =>
 			StyleAggregatorTests.TestStyleVisitation(
 @"public static class Test
 {
@@ -96,7 +96,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 }", nameof(IStyleSet.CSharpNewLineBeforeCatchStyle));
 
 		[Test]
-		public static void VisitForCSharpNewLineBeforeElseStyle() => 
+		public static void VisitForCSharpNewLineBeforeElseStyle() =>
 			StyleAggregatorTests.TestStyleVisitation(
 @"public static class Test
 {
@@ -108,7 +108,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 }", nameof(IStyleSet.CSharpNewLineBeforeElseStyle));
 
 		[Test]
-		public static void VisitForCSharpNewLineBeforeFinallyStyle() => 
+		public static void VisitForCSharpNewLineBeforeFinallyStyle() =>
 			StyleAggregatorTests.TestStyleVisitation(
 @"public static class Test
 {
@@ -120,7 +120,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 }", nameof(IStyleSet.CSharpNewLineBeforeFinallyStyle));
 
 		[Test]
-		public static void VisitForCSharpNewLineBeforeMembersInAnonymousTypesStyle() => 
+		public static void VisitForCSharpNewLineBeforeMembersInAnonymousTypesStyle() =>
 			StyleAggregatorTests.TestStyleVisitation(
 @"public static class Test
 {
@@ -131,7 +131,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 }", nameof(IStyleSet.CSharpNewLineBeforeMembersInAnonymousTypesStyle));
 
 		[Test]
-		public static void VisitForCSharpNewLineBeforeMembersInObjectInitializersStyle() => 
+		public static void VisitForCSharpNewLineBeforeMembersInObjectInitializersStyle() =>
 			StyleAggregatorTests.TestStyleVisitation(
 @"public class Data { public int A; public int B; }
 
@@ -148,7 +148,7 @@ public class Foo
 }", nameof(IStyleSet.CSharpNewLineBeforeMembersInObjectInitializersStyle));
 
 		[Test]
-		public static void VisitForCSharpNewLineBetweenQueryExpressionClausesStyle() => 
+		public static void VisitForCSharpNewLineBetweenQueryExpressionClausesStyle() =>
 			StyleAggregatorTests.TestStyleVisitation(
 @"public class Foo
 {
@@ -363,7 +363,7 @@ public class Foo
 }", nameof(IStyleSet.CSharpStyleVarElsewhereStyle));
 
 		[Test]
-		public static void VisitForCSharpStyleVarForBuiltInTypesStyle() => 
+		public static void VisitForCSharpStyleVarForBuiltInTypesStyle() =>
 			StyleAggregatorTests.TestStyleVisitation(
 @"public static class Test
 {
@@ -385,5 +385,140 @@ public static class Test
 		var customer = new Customer();
 	}
 }", nameof(IStyleSet.CSharpStyleVarWhenTypeIsApparentStyle));
+
+		[Test]
+		public static void VisitDotnetSortSystemDirectivesFirstStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"using System;
+using System.String;
+public class Foo { }", nameof(IStyleSet.DotnetSortSystemDirectivesFirstStyle));
+
+		[Test]
+		public static void VisitDotnetStyleExplicitTupleNamesStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	private int id;
+
+	public void Bar()
+	{
+		(string name, int id) data = (""x"", 42);
+		var x = data.Item1;
+	}
+}", nameof(IStyleSet.DotnetStyleExplicitTupleNamesStyle));
+
+		[Test]
+		public static void VisitDotnetStyleObjectInitializerStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Data { public int Value { get; set; } } 
+
+public class Foo 
+{ 
+	public void Bar()
+	{
+		var x = new Data { Value = 22 };
+	}
+}", nameof(IStyleSet.DotnetStyleObjectInitializerStyle));
+
+		[Test]
+		public static void VisitDotnetStylePredefinedTypeForLocalsParametersMembersStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	public void Bar(int x) { }
+}", nameof(IStyleSet.DotnetStylePredefinedTypeForLocalsParametersMembersStyle));
+
+		[Test]
+		public static void VisitDotnetStylePredefinedTypeForMemberAccessStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	public int Bar() => int.MaxValue;
+}", nameof(IStyleSet.DotnetStylePredefinedTypeForMemberAccessStyle));
+
+		[Test]
+		public static void VisitDotnetStylePreferInferredAnonymousTypeMemberNamesStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar()
+	{
+		var age = 42;
+		var anon = new { age };
+	}
+}", nameof(IStyleSet.DotnetStylePreferInferredAnonymousTypeMemberNamesStyle));
+
+		[Test]
+		public static void VisitDotnetStylePreferInferredTupleNamesStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar()
+	{
+		var age = 42;
+		var name = ""Jane"";
+		var tuple = (age, name);
+	}
+}", nameof(IStyleSet.DotnetStylePreferInferredTupleNamesStyle));
+
+		[Test]
+		public static void VisitDotnetStyleQualificationForEventStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public event EventHandler DoIt;
+
+	public void Bar()
+	{
+		this.DoIt += (a, b) => { };
+	}
+}", nameof(IStyleSet.DotnetStyleQualificationForEventStyle));
+
+		[Test]
+		public static void VisitDotnetStyleQualificationForFieldStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	private int x;
+
+	public int Bar() => this.x;
+}", nameof(IStyleSet.DotnetStyleQualificationForFieldStyle));
+
+		[Test]
+		public static void VisitDotnetStyleQualificationForMethodStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	public void Bar()
+	{
+		this.Bar();
+	}
+}", nameof(IStyleSet.DotnetStyleQualificationForMethodStyle));
+
+		[Test]
+		public static void VisitDotnetStyleQualificationForPropertyStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public int X { get; set; }
+
+	public int Bar() => this.X;
+}", nameof(IStyleSet.DotnetStyleQualificationForPropertyStyle));
+
+		[Test]
+		public static void VisitDotnetStyleRequireAccessibilityModifiersStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"class Foo
+{
+	private void Bar() { }
+}", nameof(IStyleSet.DotnetStyleRequireAccessibilityModifiersStyle));
+
+		[Test]
+		public static void VisitIndentStyleStyle() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"class Foo
+{
+	private void Bar() { }
+}", nameof(IStyleSet.IndentStyleStyle));
 	}
 }
