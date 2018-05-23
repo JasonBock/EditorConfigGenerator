@@ -72,5 +72,49 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			Assert.That(data.TabOccurences, Is.EqualTo(1u), nameof(data.TabOccurences));
 			Assert.That(data.SpaceOccurences, Is.EqualTo(3u), nameof(data.SpaceOccurences));
 		}
+
+		[Test]
+		public static void VerifyEquality()
+		{
+			var data1 = new TabSpaceData(3, 1, 2);
+			var data2 = new TabSpaceData(3, 2, 1);
+			var data3 = new TabSpaceData(3, 1, 2);
+
+			Assert.That(data1, Is.Not.EqualTo(data2));
+			Assert.That(data1, Is.EqualTo(data3));
+			Assert.That(data2, Is.Not.EqualTo(data3));
+
+#pragma warning disable CS1718 // Comparison made to same variable
+			Assert.That(data1 == data1, Is.True);
+#pragma warning restore CS1718 // Comparison made to same variable
+			Assert.That(data1 == data2, Is.False);
+			Assert.That(data1 == data3, Is.True);
+			Assert.That(data2 == data3, Is.False);
+			Assert.That((null as TabSpaceData) == data1, Is.False);
+			Assert.That(data1 == (null as TabSpaceData), Is.False);
+
+			Assert.That(data1 != data2, Is.True);
+			Assert.That(data1 != data3, Is.False);
+			Assert.That(data2 != data3, Is.True);
+		}
+
+		[Test]
+		public static void VerifyToString() =>
+			Assert.That(new TabSpaceData(3, 1, 2).ToString(), Is.EqualTo("3, 1, 2"));
+
+		[Test]
+		public static void VerifyEqualityWithInvalidType() =>
+			Assert.That(new TabSpaceData().Equals(new object()), Is.False);
+
+		[Test]
+		public static void VerifyHashCodes()
+		{
+			var data1 = new TabSpaceData(3, 1, 2);
+			var data2 = new TabSpaceData(3, 2, 1);
+			var data3 = new TabSpaceData(3, 1, 2);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+		}
 	}
 }
