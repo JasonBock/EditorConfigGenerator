@@ -3,7 +3,7 @@
 namespace EditorConfigGenerator.Core.Statistics
 {
 	public sealed class ParenthesesSpaceData
-		: Data<ParenthesesSpaceData>
+		: Data<ParenthesesSpaceData>, IEquatable<ParenthesesSpaceData>
 	{
 		public ParenthesesSpaceData()
 			: base(default) { }
@@ -55,6 +55,58 @@ namespace EditorConfigGenerator.Core.Statistics
 				this.TypeCastsNoSpaceOccurences + data.TypeCastsNoSpaceOccurences,
 				this.TypeCastsSpaceOccurences + data.TypeCastsSpaceOccurences);
 		}
+
+		public bool Equals(ParenthesesSpaceData other)
+		{
+			var areEqual = false;
+
+			if (other != null)
+			{
+				areEqual = this.TotalOccurences == other.TotalOccurences &&
+					this.ControlFlowNoSpaceOccurences == other.ControlFlowNoSpaceOccurences &&
+					this.ControlFlowSpaceOccurences == other.ControlFlowSpaceOccurences &&
+					this.ExpressionsNoSpaceOccurences == other.ExpressionsNoSpaceOccurences &&
+					this.ExpressionsSpaceOccurences == other.ExpressionsSpaceOccurences &&
+					this.TypeCastsNoSpaceOccurences == other.TypeCastsNoSpaceOccurences &&
+					this.TypeCastsSpaceOccurences == other.TypeCastsSpaceOccurences;
+			}
+
+			return areEqual;
+		}
+
+		public override bool Equals(object obj) => this.Equals(obj as ParenthesesSpaceData);
+
+		public override int GetHashCode() =>
+			this.TotalOccurences.GetHashCode() ^
+			(this.ControlFlowNoSpaceOccurences.GetHashCode() << 1) ^
+			(this.ControlFlowSpaceOccurences.GetHashCode() << 2) ^
+			(this.ExpressionsNoSpaceOccurences.GetHashCode() << 3) ^
+			(this.ExpressionsSpaceOccurences.GetHashCode() << 4) ^
+			(this.TypeCastsNoSpaceOccurences.GetHashCode() << 5) ^
+			(this.TypeCastsSpaceOccurences.GetHashCode() << 6);
+
+		public override string ToString() => 
+			$"{this.TotalOccurences}, {this.ControlFlowNoSpaceOccurences}, {this.ControlFlowSpaceOccurences}, {this.ExpressionsNoSpaceOccurences}, {this.ExpressionsSpaceOccurences}, {this.TypeCastsNoSpaceOccurences}, {this.TypeCastsSpaceOccurences}";
+
+		public static bool operator ==(ParenthesesSpaceData a, ParenthesesSpaceData b)
+		{
+			var areEqual = false;
+
+			if (object.ReferenceEquals(a, b))
+			{
+				areEqual = true;
+			}
+
+			if ((object)a != null && (object)b != null)
+			{
+				areEqual = a.Equals(b);
+			}
+
+			return areEqual;
+		}
+
+		public static bool operator !=(ParenthesesSpaceData a, ParenthesesSpaceData b) =>
+			!(a == b);
 
 		public uint ControlFlowNoSpaceOccurences { get; }
 		public uint ControlFlowSpaceOccurences { get; }
