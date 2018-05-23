@@ -51,7 +51,8 @@ namespace EditorConfigGenerator.Core.Statistics
 			(this.TrueOccurences.GetHashCode() << 1) ^
 			(this.FalseOccurences.GetHashCode() << 2);
 
-		public override string ToString() => $"{this.TotalOccurences}, {this.TrueOccurences}, {this.FalseOccurences}";
+		public override string ToString() => 
+			$"{nameof(this.TotalOccurences)} = {this.TotalOccurences}, {nameof(this.TrueOccurences)} = {this.TrueOccurences}, {nameof(this.FalseOccurences)} = {this.FalseOccurences}";
 
 		public static bool operator ==(BooleanData a, BooleanData b)
 		{

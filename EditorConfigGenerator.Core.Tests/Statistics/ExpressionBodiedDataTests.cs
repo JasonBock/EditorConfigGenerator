@@ -168,7 +168,8 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 
 		[Test]
 		public static void VerifyToString() =>
-			Assert.That(new ExpressionBodiedData(6, 1, 2, 3).ToString(), Is.EqualTo("6, 1, 2, 3"));
+			Assert.That(new ExpressionBodiedData(6, 1, 2, 3).ToString(), 
+				Is.EqualTo("TotalOccurences = 6, ArrowSingleLineOccurences = 1, ArrowMultiLineOccurences = 2, BlockOccurences = 3"));
 
 		[Test]
 		public static void VerifyEqualityWithInvalidType() =>

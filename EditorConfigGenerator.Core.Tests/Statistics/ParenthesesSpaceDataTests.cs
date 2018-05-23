@@ -187,7 +187,7 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void VerifyToString() =>
 			Assert.That(new ParenthesesSpaceData(21, 1, 2, 3, 4, 5, 6).ToString(), 
-				Is.EqualTo("21, 1, 2, 3, 4, 5, 6"));
+				Is.EqualTo("TotalOccurences = 21, ControlFlowNoSpaceOccurences = 1, ControlFlowSpaceOccurences = 2, ExpressionsNoSpaceOccurences = 3, ExpressionsSpaceOccurences = 4, TypeCastsNoSpaceOccurences = 5, TypeCastsSpaceOccurences = 6"));
 
 		[Test]
 		public static void VerifyEqualityWithInvalidType() =>

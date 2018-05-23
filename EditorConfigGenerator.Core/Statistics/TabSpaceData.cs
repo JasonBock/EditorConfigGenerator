@@ -51,7 +51,7 @@ namespace EditorConfigGenerator.Core.Statistics
 			(this.TabOccurences.GetHashCode() << 1) ^
 			(this.SpaceOccurences.GetHashCode() << 2);
 
-		public override string ToString() => $"{this.TotalOccurences}, {this.TabOccurences}, {this.SpaceOccurences}";
+		public override string ToString() => $"{nameof(this.TotalOccurences)} = {this.TotalOccurences}, {nameof(this.TabOccurences)} = {this.TabOccurences}, {nameof(this.SpaceOccurences)} = {this.SpaceOccurences}";
 
 		public static bool operator ==(TabSpaceData a, TabSpaceData b)
 		{

@@ -100,7 +100,8 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 
 		[Test]
 		public static void VerifyToString() =>
-			Assert.That(new TabSpaceData(3, 1, 2).ToString(), Is.EqualTo("3, 1, 2"));
+			Assert.That(new TabSpaceData(3, 1, 2).ToString(), 
+				Is.EqualTo("TotalOccurences = 3, TabOccurences = 1, SpaceOccurences = 2"));
 
 		[Test]
 		public static void VerifyEqualityWithInvalidType() =>

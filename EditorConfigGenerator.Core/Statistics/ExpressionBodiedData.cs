@@ -96,7 +96,7 @@ namespace EditorConfigGenerator.Core.Statistics
 			(this.BlockOccurences.GetHashCode() << 3);
 
 		public override string ToString() => 
-			$"{this.TotalOccurences}, {this.ArrowSingleLineOccurences}, {this.ArrowMultiLineOccurences}, {this.BlockOccurences}";
+			$"{nameof(this.TotalOccurences)} = {this.TotalOccurences}, {nameof(this.ArrowSingleLineOccurences)} = {this.ArrowSingleLineOccurences}, {nameof(this.ArrowMultiLineOccurences)} = {this.ArrowMultiLineOccurences}, {nameof(this.BlockOccurences)} = {this.BlockOccurences}";
 
 		public static bool operator ==(ExpressionBodiedData a, ExpressionBodiedData b)
 		{

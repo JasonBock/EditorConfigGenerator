@@ -86,7 +86,7 @@ namespace EditorConfigGenerator.Core.Statistics
 			(this.TypeCastsSpaceOccurences.GetHashCode() << 6);
 
 		public override string ToString() => 
-			$"{this.TotalOccurences}, {this.ControlFlowNoSpaceOccurences}, {this.ControlFlowSpaceOccurences}, {this.ExpressionsNoSpaceOccurences}, {this.ExpressionsSpaceOccurences}, {this.TypeCastsNoSpaceOccurences}, {this.TypeCastsSpaceOccurences}";
+			$"{nameof(this.TotalOccurences)} = {this.TotalOccurences}, {nameof(this.ControlFlowNoSpaceOccurences)} = {this.ControlFlowNoSpaceOccurences}, {nameof(this.ControlFlowSpaceOccurences)} = {this.ControlFlowSpaceOccurences}, {nameof(this.ExpressionsNoSpaceOccurences)} = {this.ExpressionsNoSpaceOccurences}, {nameof(this.ExpressionsSpaceOccurences)} = {this.ExpressionsSpaceOccurences}, {nameof(this.TypeCastsNoSpaceOccurences)} = {this.TypeCastsNoSpaceOccurences}, {nameof(this.TypeCastsSpaceOccurences)} = {this.TypeCastsSpaceOccurences}";
 
 		public static bool operator ==(ParenthesesSpaceData a, ParenthesesSpaceData b)
 		{
