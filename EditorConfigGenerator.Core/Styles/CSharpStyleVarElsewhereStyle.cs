@@ -43,20 +43,14 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				if (node.DescendantNodes()
-					.Any(_ => _.Kind() != SyntaxKind.StringLiteralExpression &&
-						_.Kind() != SyntaxKind.NumericLiteralExpression &&
-						_.Kind() != SyntaxKind.ObjectCreationExpression))
-				{
-					var variableDeclaration = node.ChildNodes()
-						.Single(_ => _.Kind() == SyntaxKind.VariableDeclaration);
-					var identifierName = variableDeclaration.ChildNodes()
-						.SingleOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName);
+				var variableDeclaration = node.ChildNodes()
+					.Single(_ => _.Kind() == SyntaxKind.VariableDeclaration);
+				var identifierName = variableDeclaration.ChildNodes()
+					.SingleOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName);
 
-					return identifierName != null ?
-						new CSharpStyleVarElsewhereStyle(this.Data.Update((identifierName as IdentifierNameSyntax).IsVar), this.Severity) :
-						new CSharpStyleVarElsewhereStyle(this.Data.Update(false), this.Severity);
-				}
+				return identifierName != null ?
+					new CSharpStyleVarElsewhereStyle(this.Data.Update((identifierName as IdentifierNameSyntax).IsVar), this.Severity) :
+					new CSharpStyleVarElsewhereStyle(this.Data.Update(false), this.Severity);
 			}
 
 			return new CSharpStyleVarElsewhereStyle(this.Data, this.Severity);

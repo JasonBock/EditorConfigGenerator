@@ -182,13 +182,24 @@ public class Foo
 }", nameof(IStyleSet.CSharpPreferredModifierOrderStyle));
 
 		[Test]
-		public static void VisitCSharpPreferSimpleDefaultExpressionStyle() =>
+		public static void VisitCSharpPreferSimpleDefaultExpressionStyleAsDefault() =>
 			StyleAggregatorTests.TestStyleVisitation(
 @"public class Foo
 {
 	public void Bar()
 	{
 		string x = default(string);
+	}
+}", nameof(IStyleSet.CSharpPreferSimpleDefaultExpressionStyle));
+
+		[Test]
+		public static void VisitCSharpPreferSimpleDefaultExpressionStyleAsDefaultLiteral() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo
+{
+	public void Bar()
+	{
+		string x = default;
 	}
 }", nameof(IStyleSet.CSharpPreferSimpleDefaultExpressionStyle));
 
@@ -502,12 +513,62 @@ public class Foo
 }", nameof(IStyleSet.DotnetStyleQualificationForPropertyStyle));
 
 		[Test]
-		public static void VisitDotnetStyleRequireAccessibilityModifiersStyle() =>
+		public static void VisitDotnetStyleRequireAccessibilityModifiersStyleAsClass() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo { }", nameof(IStyleSet.DotnetStyleRequireAccessibilityModifiersStyle));
+
+		[Test]
+		public static void VisitDotnetStyleRequireAccessibilityModifiersStyleAsConstructor() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	public Foo() { }
+}", nameof(IStyleSet.DotnetStyleRequireAccessibilityModifiersStyle));
+
+		[Test]
+		public static void VisitDotnetStyleRequireAccessibilityModifiersStyleAsEvent() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	public event EventHandler Bar;
+}", nameof(IStyleSet.DotnetStyleRequireAccessibilityModifiersStyle));
+
+		[Test]
+		public static void VisitDotnetStyleRequireAccessibilityModifiersStyleAsField() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public class Foo 
+{ 
+	public int data;
+}", nameof(IStyleSet.DotnetStyleRequireAccessibilityModifiersStyle));
+
+		[Test]
+		public static void VisitDotnetStyleRequireAccessibilityModifiersStyleAsMethod() =>
 			StyleAggregatorTests.TestStyleVisitation(
 @"class Foo
 {
 	private void Bar() { }
 }", nameof(IStyleSet.DotnetStyleRequireAccessibilityModifiersStyle));
+
+		[Test]
+		public static void VisitDotnetStyleRequireAccessibilityModifiersStyleAsOperator() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"class Foo
+{
+	public static Foo operator +(Foo a, Foo b) { return default; }
+}", nameof(IStyleSet.DotnetStyleRequireAccessibilityModifiersStyle));
+
+		[Test]
+		public static void VisitDotnetStyleRequireAccessibilityModifiersStyleAsProperty() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"class Foo
+{
+	public int Data { get; set; }
+}", nameof(IStyleSet.DotnetStyleRequireAccessibilityModifiersStyle));
+
+		[Test]
+		public static void VisitDotnetStyleRequireAccessibilityModifiersStyleAsStruct() =>
+			StyleAggregatorTests.TestStyleVisitation(
+@"public struct Foo { }", nameof(IStyleSet.DotnetStyleRequireAccessibilityModifiersStyle));
 
 		[Test]
 		public static void VisitIndentStyleStyle() =>

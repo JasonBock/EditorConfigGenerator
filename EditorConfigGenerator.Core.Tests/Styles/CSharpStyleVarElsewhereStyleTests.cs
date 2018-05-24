@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework;
 using System;
+using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Tests.Styles

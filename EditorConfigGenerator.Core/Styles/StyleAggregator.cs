@@ -215,12 +215,12 @@ namespace EditorConfigGenerator.Core.Styles
 				base.VisitElseClause(node);
 			}
 
-			public override void VisitEventDeclaration(EventDeclarationSyntax node)
+			public override void VisitEventFieldDeclaration(EventFieldDeclarationSyntax node)
 			{
 				this.Set.DotnetStyleRequireAccessibilityModifiersStyle =
 					this.Set.DotnetStyleRequireAccessibilityModifiersStyle.Update(
 						new NodeInformation<MemberDeclarationSyntax>(node));
-				base.VisitEventDeclaration(node);
+				base.VisitEventFieldDeclaration(node);
 			}
 
 			public override void VisitFieldDeclaration(FieldDeclarationSyntax node)

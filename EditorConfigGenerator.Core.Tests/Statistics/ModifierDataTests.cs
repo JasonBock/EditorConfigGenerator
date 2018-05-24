@@ -128,10 +128,12 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			var data1 = new ModifierData().Update(new[] { SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText }.ToImmutableList());
 			var data2 = new ModifierData().Update(new[] { SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText }.ToImmutableList());
 			var data3 = new ModifierData().Update(new[] { SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText }.ToImmutableList());
+			var data4 = new ModifierData().Update(new[] { SyntaxFactory.Token(SyntaxKind.AbstractKeyword).ValueText }.ToImmutableList());
 
 			Assert.That(data1, Is.Not.EqualTo(data2));
 			Assert.That(data1, Is.EqualTo(data3));
 			Assert.That(data2, Is.Not.EqualTo(data3));
+			Assert.That(data2, Is.Not.EqualTo(data4));
 
 #pragma warning disable CS1718 // Comparison made to same variable
 			Assert.That(data1 == data1, Is.True);
