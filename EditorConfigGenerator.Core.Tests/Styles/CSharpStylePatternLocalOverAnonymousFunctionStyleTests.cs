@@ -117,6 +117,33 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		}
 
 		[Test]
+		public static void UpdateWithDelegateDeclaration()
+		{
+			var style = new CSharpStylePatternLocalOverAnonymousFunctionStyle(new BooleanData(default, default, default));
+
+			var unit = SyntaxFactory.ParseCompilationUnit(
+@"using System;
+
+public delegate void X();
+
+public class Foo
+{
+	public void Bar()
+	{
+		X x = Bar;
+	}
+}", options: Shared.ParseOptions);
+			var (node, model) = CSharpStylePatternLocalOverAnonymousFunctionStyleTests.GetInformation<VariableDeclarationSyntax>(unit);
+			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
+
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
+			Assert.That(data.TotalOccurences, Is.EqualTo(0u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(0u), nameof(data.FalseOccurences));
+		}
+
+		[Test]
 		public static void UpdateWithActionDeclaration()
 		{
 			var style = new CSharpStylePatternLocalOverAnonymousFunctionStyle(new BooleanData(default, default, default));

@@ -62,9 +62,13 @@ namespace EditorConfigGenerator.Core.Styles
 						namedVariableSymbol.TypeKind == TypeKind.Delegate)
 					{
 						var original = namedVariableSymbol.OriginalDefinition;
-						return new CSharpStylePatternLocalOverAnonymousFunctionStyle(
-							this.Data.Update(original.Name.StartsWith("System.Action") ||
-								original.Name.StartsWith("System.Func")), this.Severity);
+
+						if((original.Name.StartsWith("Action") || original.Name.StartsWith("Func")) &&
+							original.ContainingNamespace?.Name == "System")
+						{
+							return new CSharpStylePatternLocalOverAnonymousFunctionStyle(
+								this.Data.Update(false), this.Severity);
+						}
 					}
 				}
 			}

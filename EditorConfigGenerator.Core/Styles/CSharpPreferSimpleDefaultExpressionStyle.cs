@@ -40,8 +40,6 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				// default is a LiteralExpressionSyntax : ExpressionSyntax : CSharpSyntaxNode
-				// default(string) is a DefaultExpressionSyntax : ExpressionSyntax : CSharpSyntaxNode
 				if (node is LiteralExpressionSyntax)
 				{
 					return new CSharpPreferSimpleDefaultExpressionStyle(this.Data.Update(true), this.Severity);
