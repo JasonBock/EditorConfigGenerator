@@ -16,7 +16,6 @@ namespace EditorConfigGenerator.IntegrationTests
 		static async Task Main(string[] args)
 		{
 			var currentDirectory = @"M:\JasonBock\ECGCode";
-			//var currentDirectory = args?.Length == 1 ? args[0] : Directory.GetCurrentDirectory();
 			var codeDirectory = Path.Combine(currentDirectory, Program.CodeDirectory);
 
 			Console.Out.WriteLine($"Code directory: {codeDirectory}");
@@ -59,33 +58,45 @@ namespace EditorConfigGenerator.IntegrationTests
 					}
 				}
 
-				Console.Out.WriteLine($"Analyzing {projectDirectory}...");
-				Console.Out.WriteLine(await StyleGenerator.GenerateFromDirectoryAsync(projectDirectory, Console.Out));
-				Console.Out.WriteLine($"Analyzing {projectDirectory} complete.");
-				Console.Out.WriteLine();
+				// Directory approach
+				//await Program.ProcessViaDirectory(projectDirectory);
 
-				//async Task AnalyzeSolutionsAsync(string rootDirectory)
-				//{
-				//	foreach (var file in Directory.GetFiles(rootDirectory))
-				//	{
-				//		if (Path.GetExtension(file).ToLower() == ".sln")
-				//		{
-				//			Console.Out.WriteLine($"Analyzing {file}...");
-				//			Console.Out.WriteLine(await StyleGenerator.GenerateFromSolutionAsync(file, Console.Out));
-				//			Console.Out.WriteLine($"Analyzing {file} complete.");
-				//			Console.Out.WriteLine();
-				//		}
-				//	}
-
-				//	foreach (var directory in Directory.GetDirectories(rootDirectory))
-				//	{
-				//		await AnalyzeSolutionsAsync(directory);
-				//	}
-				//}
-
-				//await AnalyzeSolutionsAsync(projectDirectory);
+				// Buildalyzer approach
+				await Program.ProcessViaSolution(projectDirectory);
 			}
 
+			Console.Out.WriteLine();
+		}
+
+		private static async Task ProcessViaSolution(string projectDirectory)
+		{
+			async Task AnalyzeSolutionsAsync(string rootDirectory)
+			{
+				foreach (var file in Directory.GetFiles(rootDirectory))
+				{
+					if (Path.GetExtension(file).ToLower() == ".sln")
+					{
+						Console.Out.WriteLine($"Analyzing {file}...");
+						Console.Out.WriteLine(await StyleGenerator.GenerateFromSolutionAsync(file, Console.Out));
+						Console.Out.WriteLine($"Analyzing {file} complete.");
+						Console.Out.WriteLine();
+					}
+				}
+
+				foreach (var directory in Directory.GetDirectories(rootDirectory))
+				{
+					await AnalyzeSolutionsAsync(directory);
+				}
+			}
+
+			await AnalyzeSolutionsAsync(projectDirectory);
+		}
+
+		private static async Task ProcessViaDirectory(string projectDirectory)
+		{
+			Console.Out.WriteLine($"Analyzing {projectDirectory}...");
+			Console.Out.WriteLine(await StyleGenerator.GenerateFromDirectoryAsync(projectDirectory, Console.Out));
+			Console.Out.WriteLine($"Analyzing {projectDirectory} complete.");
 			Console.Out.WriteLine();
 		}
 
@@ -93,19 +104,19 @@ namespace EditorConfigGenerator.IntegrationTests
 		private static ImmutableList<ProjectInformation> GetProjects() =>
 			new List<ProjectInformation>
 			{
-				new ProjectInformation("AngleSharp", new Uri("https://github.com/AngleSharp/AngleSharp.git")),
+				//new ProjectInformation("AngleSharp", new Uri("https://github.com/AngleSharp/AngleSharp.git")),
 				new ProjectInformation("Autofac", new Uri("https://github.com/autofac/Autofac.git")),
-				new ProjectInformation("AutoMapper", new Uri("https://github.com/AutoMapper/AutoMapper.git")),
-				new ProjectInformation("CSLA", new Uri("https://github.com/MarimerLLC/csla.git")),
-				new ProjectInformation("ImageSharp", new Uri("https://github.com/SixLabors/ImageSharp.git")),
-				new ProjectInformation("Moq", new Uri("https://github.com/moq/moq.git")),
-				new ProjectInformation("Newtonsoft.Json", new Uri("https://github.com/JamesNK/Newtonsoft.Json.git")),
-				new ProjectInformation("NodaTime", new Uri("https://github.com/nodatime/nodatime.git")),
-				new ProjectInformation("Rocks", new Uri("https://github.com/JasonBock/Rocks.git")),
-				new ProjectInformation("Roslyn", new Uri("https://github.com/dotnet/roslyn.git")),
-				new ProjectInformation("Rx", new Uri("https://github.com/Reactive-Extensions/Rx.NET.git")),
-				new ProjectInformation("Serilog", new Uri("https://github.com/serilog/serilog.git")),
-				new ProjectInformation("ZeroLog", new Uri("https://github.com/Abc-Arbitrage/ZeroLog.git")),
+				//new ProjectInformation("AutoMapper", new Uri("https://github.com/AutoMapper/AutoMapper.git")),
+				//new ProjectInformation("CSLA", new Uri("https://github.com/MarimerLLC/csla.git")),
+				//new ProjectInformation("ImageSharp", new Uri("https://github.com/SixLabors/ImageSharp.git")),
+				//new ProjectInformation("Moq", new Uri("https://github.com/moq/moq.git")),
+				//new ProjectInformation("Newtonsoft.Json", new Uri("https://github.com/JamesNK/Newtonsoft.Json.git")),
+				//new ProjectInformation("NodaTime", new Uri("https://github.com/nodatime/nodatime.git")),
+				//new ProjectInformation("Rocks", new Uri("https://github.com/JasonBock/Rocks.git")),
+				//new ProjectInformation("Roslyn", new Uri("https://github.com/dotnet/roslyn.git")),
+				//new ProjectInformation("Rx", new Uri("https://github.com/Reactive-Extensions/Rx.NET.git")),
+				//new ProjectInformation("Serilog", new Uri("https://github.com/serilog/serilog.git")),
+				//new ProjectInformation("ZeroLog", new Uri("https://github.com/Abc-Arbitrage/ZeroLog.git")),
 			}.ToImmutableList();
 	}
 }
