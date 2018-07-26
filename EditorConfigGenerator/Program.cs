@@ -15,24 +15,32 @@ namespace EditorConfigGenerator
 			}
 			else
 			{
-				var file = args[0];
-				var extension = Path.GetExtension(file);
+				var arg = args[0];
 
-				if (extension == ".sln")
+				if(Directory.Exists(arg))
 				{
-					Console.Out.WriteLine(await StyleGenerator.GenerateFromSolutionAsync(file, Console.Out));
-				}
-				else if (extension == ".csproj")
-				{
-					Console.Out.WriteLine(await StyleGenerator.GenerateFromProjectAsync(file, Console.Out));
-				}
-				else if (extension == ".cs")
-				{
-					Console.Out.WriteLine(StyleGenerator.GenerateFromDocument(file, Console.Out));
+					Console.Out.WriteLine(await StyleGenerator.GenerateFromDirectoryAsync(arg, Console.Out));
 				}
 				else
 				{
-					Console.Out.WriteLine("Usage: {fileName}, where the extension is .sln, .csproj, or .cs");
+					var extension = Path.GetExtension(arg);
+
+					if (extension == ".sln")
+					{
+						Console.Out.WriteLine(await StyleGenerator.GenerateFromSolutionAsync(arg, Console.Out));
+					}
+					else if (extension == ".csproj")
+					{
+						Console.Out.WriteLine(await StyleGenerator.GenerateFromProjectAsync(arg, Console.Out));
+					}
+					else if (extension == ".cs")
+					{
+						Console.Out.WriteLine(StyleGenerator.GenerateFromDocument(arg, Console.Out));
+					}
+					else
+					{
+						Console.Out.WriteLine("Usage: {fileName}, where the extension is .sln, .csproj, or .cs");
+					}
 				}
 			}
 		}
