@@ -19,7 +19,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 			async Task AnalyzeFilesAsync(string rootDirectory)
 			{
-				foreach (var file in Directory.GetFiles(rootDirectory))
+				foreach (var file in Directory.EnumerateFiles(rootDirectory))
 				{
 					if (Path.GetExtension(file).ToLower() == ".cs")
 					{
@@ -34,7 +34,7 @@ namespace EditorConfigGenerator.Core.Styles
 					}
 				}
 
-				foreach (var subDirectory in Directory.GetDirectories(rootDirectory))
+				foreach (var subDirectory in Directory.EnumerateDirectories(rootDirectory))
 				{
 					await AnalyzeFilesAsync(subDirectory);
 				}

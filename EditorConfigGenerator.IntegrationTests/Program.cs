@@ -59,10 +59,10 @@ namespace EditorConfigGenerator.IntegrationTests
 				}
 
 				// Directory approach
-				//await Program.ProcessViaDirectory(projectDirectory);
+				await Program.ProcessViaDirectory(projectDirectory);
 
 				// Buildalyzer approach
-				await Program.ProcessViaSolution(projectDirectory);
+				//await Program.ProcessViaSolution(projectDirectory);
 			}
 
 			Console.Out.WriteLine();
@@ -72,7 +72,7 @@ namespace EditorConfigGenerator.IntegrationTests
 		{
 			async Task AnalyzeSolutionsAsync(string rootDirectory)
 			{
-				foreach (var file in Directory.GetFiles(rootDirectory))
+				foreach (var file in Directory.EnumerateFiles(rootDirectory))
 				{
 					if (Path.GetExtension(file).ToLower() == ".sln")
 					{
@@ -83,7 +83,7 @@ namespace EditorConfigGenerator.IntegrationTests
 					}
 				}
 
-				foreach (var directory in Directory.GetDirectories(rootDirectory))
+				foreach (var directory in Directory.EnumerateDirectories(rootDirectory))
 				{
 					await AnalyzeSolutionsAsync(directory);
 				}
