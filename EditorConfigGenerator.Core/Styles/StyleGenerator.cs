@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,13 +20,8 @@ namespace EditorConfigGenerator.Core.Styles
 				{
 					if (Path.GetExtension(file).ToLower() == ".cs")
 					{
-						Console.Out.WriteLine($"\tAnalyzing {file}...");
-						var unit = SyntaxFactory.ParseCompilationUnit(File.ReadAllText(file));
-						var tree = unit.SyntaxTree;
-						var compilation = CSharpCompilation.Create(Guid.NewGuid().ToString("N"),
-							new[] { tree },
-							new[] { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) });
-						var model = compilation.GetSemanticModel(tree);
+						writer.WriteLine($"Analyzing {Path.GetFileName(file)}...");
+						var (unit, model) = StyleGenerator.GetCompilationInformation(file);
 						aggregator = aggregator.Update(new StyleAggregator().Add(unit, model));
 					}
 				}
@@ -42,21 +38,26 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public static string GenerateFromDocument(string document, TextWriter writer)
 		{
-			writer.WriteLine($"Analyzing {Path.GetFileName(document)}...");
-
 			if (Path.GetExtension(document).ToLower() == ".cs")
 			{
-				var unit = SyntaxFactory.ParseCompilationUnit(File.ReadAllText(document));
-				var tree = unit.SyntaxTree;
-				var compilation = CSharpCompilation.Create(Guid.NewGuid().ToString("N"),
-					new[] { tree },
-					new[] { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) });
-				var model = compilation.GetSemanticModel(tree);
-
+				writer.WriteLine($"Analyzing {Path.GetFileName(document)}...");
+				var (unit, model) = StyleGenerator.GetCompilationInformation(document);
 				return new StyleAggregator().Add(unit, model).GenerateConfiguration();
 			}
 
 			return string.Empty;
+		}
+
+		private static (CompilationUnitSyntax unit, SemanticModel model) GetCompilationInformation(string document)
+		{
+			var unit = SyntaxFactory.ParseCompilationUnit(File.ReadAllText(document));
+			var tree = unit.SyntaxTree;
+			var compilation = CSharpCompilation.Create(Guid.NewGuid().ToString("N"),
+				new[] { tree },
+				new[] { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) });
+			var model = compilation.GetSemanticModel(tree);
+
+			return (unit, model);
 		}
 	}
 }
