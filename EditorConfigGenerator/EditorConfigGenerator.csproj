@@ -21,6 +21,10 @@
     <PackageProjectUrl>https://github.com/JasonBock/EditorConfigGenerator</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="*.nupkg" />
+  </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\EditorConfigGenerator.Core\EditorConfigGenerator.Core.csproj" />

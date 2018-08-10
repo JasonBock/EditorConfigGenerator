@@ -19,7 +19,7 @@ namespace EditorConfigGenerator
 
 				if(Directory.Exists(arg))
 				{
-					Console.Out.WriteLine(await StyleGenerator.GenerateFromDirectoryAsync(arg, Console.Out));
+					Console.Out.WriteLine(await StyleGenerator.Generate(arg, Console.Out));
 				}
 				else
 				{
