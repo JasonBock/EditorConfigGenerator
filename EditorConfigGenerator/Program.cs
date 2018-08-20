@@ -25,15 +25,7 @@ namespace EditorConfigGenerator
 				{
 					var extension = Path.GetExtension(arg);
 
-					if (extension == ".sln")
-					{
-						Console.Out.WriteLine(await StyleGenerator.GenerateFromSolutionAsync(arg, Console.Out));
-					}
-					else if (extension == ".csproj")
-					{
-						Console.Out.WriteLine(await StyleGenerator.GenerateFromProjectAsync(arg, Console.Out));
-					}
-					else if (extension == ".cs")
+					if (extension == ".cs")
 					{
 						Console.Out.WriteLine(StyleGenerator.GenerateFromDocument(arg, Console.Out));
 					}
