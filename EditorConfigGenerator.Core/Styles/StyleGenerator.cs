@@ -48,7 +48,7 @@ namespace EditorConfigGenerator.Core.Styles
 			return string.Empty;
 		}
 
-		private static (CompilationUnitSyntax unit, SemanticModel model) GetCompilationInformation(string document)
+		private static (CompilationUnitSyntax, SemanticModel) GetCompilationInformation(string document)
 		{
 			var unit = SyntaxFactory.ParseCompilationUnit(File.ReadAllText(document));
 			var tree = unit.SyntaxTree;
