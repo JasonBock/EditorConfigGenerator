@@ -42,7 +42,6 @@ namespace EditorConfigGenerator.IntegrationTests
 				}
 				else
 				{
-					// Fetch update it
 					using var repo = new Repository(projectDirectory);
 					var logMessage = string.Empty;
 

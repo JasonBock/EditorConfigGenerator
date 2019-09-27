@@ -9,13 +9,13 @@
     <PackageLicenseUrl>https://github.com/JasonBock/EditorConfigGenerator/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/JasonBock/EditorConfigGenerator</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <PackAsTool>true</PackAsTool>
     <RepositoryUrl>https://github.com/JasonBock/EditorConfigGenerator</RepositoryUrl>
     <StartupObject>EditorConfigGenerator.Program</StartupObject>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="*.nupkg" />

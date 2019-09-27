@@ -11,16 +11,17 @@ namespace EditorConfigGenerator.Core.Styles
 	{
 		public static async Task<string> Generate(string directory, TextWriter writer)
 		{
-			writer.WriteLine($"Analyzing {directory}...");
 			var aggregator = new StyleAggregator();
 
 			async Task AnalyzeFilesAsync(string rootDirectory)
 			{
+				writer.WriteLine($"Analyzing {rootDirectory}...");
+
 				foreach (var file in Directory.EnumerateFiles(rootDirectory))
 				{
 					if (Path.GetExtension(file).ToLower() == ".cs")
 					{
-						writer.WriteLine($"Analyzing {Path.GetFileName(file)}...");
+						writer.WriteLine($"\tAnalyzing {Path.GetFileName(file)}...");
 						var (unit, model) = StyleGenerator.GetCompilationInformation(file);
 						aggregator = aggregator.Update(new StyleAggregator().Add(unit, model));
 					}

@@ -42,7 +42,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				if(node.ChildNodes().Any(_ => _.IsKind(SyntaxKind.ObjectInitializerExpression)))
+				if (node.ChildNodes().Any(_ => _.IsKind(SyntaxKind.ObjectInitializerExpression)))
 				{
 					return new DotnetStyleObjectInitializerStyle(this.Data.Update(true), this.Severity);
 				}
@@ -56,7 +56,7 @@ namespace EditorConfigGenerator.Core.Styles
 					{
 						var assignmentSymbol = model.GetDeclaredSymbol(assignment);
 
-						if(assignmentSymbol is { })
+						if (assignmentSymbol is { })
 						{
 							var statement = assignment.FindParent<StatementSyntax>();
 
@@ -65,11 +65,11 @@ namespace EditorConfigGenerator.Core.Styles
 								var parentStatement = statement.Parent;
 								var siblings = parentStatement.ChildNodes().ToArray();
 
-								if(siblings.Length > 1)
+								if (siblings.Length > 1)
 								{
 									var statementIndex = Array.IndexOf(siblings, statement);
 
-									if(statementIndex < siblings.Length - 1)
+									if (statementIndex < siblings.Length - 1)
 									{
 										var nextNode = siblings[statementIndex + 1];
 
@@ -80,7 +80,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 											if (name is { })
 											{
-												var isSameSymbol = model.GetSymbolInfo(name).Symbol!.Equals(assignmentSymbol);
+												var isSameSymbol = model.GetSymbolInfo(name).Symbol?.Equals(assignmentSymbol) ?? false;
 
 												if (isSameSymbol)
 												{
