@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpNewLineBeforeMembersInAnonymousTypesStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpNewLineBeforeMembersInAnonymousTypesStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,7 +84,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpNewLineBeforeMembersInAnonymousTypesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AnonymousObjectCreationExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -95,7 +95,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			B = 2
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectCreationExpression) as AnonymousObjectCreationExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectCreationExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -110,7 +110,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpNewLineBeforeMembersInAnonymousTypesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AnonymousObjectCreationExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -120,7 +120,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			A = 1, B = 2
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectCreationExpression) as AnonymousObjectCreationExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectCreationExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -135,7 +135,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpNewLineBeforeMembersInAnonymousTypesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AnonymousObjectCreationExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -145,7 +145,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			A = 1
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectCreationExpression) as AnonymousObjectCreationExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectCreationExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -160,7 +160,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpNewLineBeforeMembersInAnonymousTypesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AnonymousObjectCreationExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -171,7 +171,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			B = 2
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectCreationExpression) as AnonymousObjectCreationExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectCreationExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

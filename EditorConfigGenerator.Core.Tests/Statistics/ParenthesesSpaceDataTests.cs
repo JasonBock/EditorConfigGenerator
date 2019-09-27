@@ -66,7 +66,7 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		public static void AddWithNull()
 		{
 			var data = new ParenthesesSpaceData();
-			Assert.That(() => data.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => data.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -176,8 +176,8 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			Assert.That(data1 == data2, Is.False);
 			Assert.That(data1 == data3, Is.True);
 			Assert.That(data2 == data3, Is.False);
-			Assert.That((null as ParenthesesSpaceData) == data1, Is.False);
-			Assert.That(data1 == (null as ParenthesesSpaceData), Is.False);
+			Assert.That((null as ParenthesesSpaceData)! == data1, Is.False);
+			Assert.That(data1 == (null as ParenthesesSpaceData)!, Is.False);
 
 			Assert.That(data1 != data2, Is.True);
 			Assert.That(data1 != data3, Is.False);

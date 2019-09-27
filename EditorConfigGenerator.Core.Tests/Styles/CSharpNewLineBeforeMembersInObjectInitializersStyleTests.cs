@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpNewLineBeforeMembersInObjectInitializersStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpNewLineBeforeMembersInObjectInitializersStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,7 +84,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpNewLineBeforeMembersInObjectInitializersStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (InitializerExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Data { public int A; public int B; }
 
 public class Foo
@@ -97,7 +97,7 @@ public class Foo
 			B = 2
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ObjectInitializerExpression) as InitializerExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ObjectInitializerExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -112,7 +112,7 @@ public class Foo
 		{
 			var style = new CSharpNewLineBeforeMembersInObjectInitializersStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (InitializerExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Data { public int A; public int B; }
 
 public class Foo
@@ -124,7 +124,7 @@ public class Foo
 			A = 1, B = 2
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ObjectInitializerExpression) as InitializerExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ObjectInitializerExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -139,7 +139,7 @@ public class Foo
 		{
 			var style = new CSharpNewLineBeforeMembersInObjectInitializersStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (InitializerExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Data { public int A; public int B; }
 
 public class Foo
@@ -151,7 +151,7 @@ public class Foo
 			A = 1
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ObjectInitializerExpression) as InitializerExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ObjectInitializerExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -166,7 +166,7 @@ public class Foo
 		{
 			var style = new CSharpNewLineBeforeMembersInObjectInitializersStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (InitializerExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Data { public int A; public int B; }
 
 public class Foo
@@ -179,7 +179,7 @@ public class Foo
 			B = 2
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ObjectInitializerExpression) as InitializerExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ObjectInitializerExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

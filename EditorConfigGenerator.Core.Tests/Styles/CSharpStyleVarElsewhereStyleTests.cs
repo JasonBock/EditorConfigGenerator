@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpStyleVarElsewhereStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpStyleVarElsewhereStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,7 +84,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarElsewhereStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("var x = DoSomething();", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("var x = DoSomething();", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -99,7 +99,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarElsewhereStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("int x = DoSomething();", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("int x = DoSomething();", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -114,7 +114,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarElsewhereStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("int x = DoSomething()", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("int x = DoSomething()", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

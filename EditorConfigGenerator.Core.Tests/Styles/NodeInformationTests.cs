@@ -19,7 +19,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 
 		[Test]
 		public static void CreateWithNull() =>
-			Assert.That(() => new NodeInformation<IdentifierNameSyntax>(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => new NodeInformation<IdentifierNameSyntax>(null!), Throws.TypeOf<ArgumentNullException>());
 
 		[Test]
 		public static void DoExplicitCast()

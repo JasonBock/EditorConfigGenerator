@@ -47,7 +47,7 @@ namespace EditorConfigGenerator.Core.Styles
 				}
 				else if(node is VariableDeclarationSyntax variable)
 				{
-					ISymbol variableSymbol = default;
+					ISymbol? variableSymbol = default;
 
 					if (node.ChildNodes().SingleOrDefault(_ => _ is GenericNameSyntax) is GenericNameSyntax genericVariable)
 					{

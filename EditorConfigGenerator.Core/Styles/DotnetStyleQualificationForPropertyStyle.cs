@@ -54,8 +54,8 @@ namespace EditorConfigGenerator.Core.Styles
 						{
 							var classNode = node.FindParent<ClassDeclarationSyntax>();
 
-							if (!propertySymbol.IsStatic && classNode != null &&
-								model.GetDeclaredSymbol(classNode) == propertySymbol.ContainingType)
+							if (!propertySymbol.IsStatic && classNode is { } &&
+								model.GetDeclaredSymbol(classNode).Equals(propertySymbol.ContainingType))
 							{
 								return new DotnetStyleQualificationForPropertyStyle(this.Data.Update(false), this.Severity);
 							}

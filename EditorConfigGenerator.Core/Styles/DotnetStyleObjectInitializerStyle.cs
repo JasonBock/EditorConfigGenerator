@@ -52,15 +52,15 @@ namespace EditorConfigGenerator.Core.Styles
 						node.FindParent<AssignmentExpressionSyntax>()?.ChildNodes()
 							.FirstOrDefault(_ => _.IsKind(SyntaxKind.SimpleMemberAccessExpression));
 
-					if (assignment != null)
+					if (assignment is { })
 					{
 						var assignmentSymbol = model.GetDeclaredSymbol(assignment);
 
-						if(assignmentSymbol != null)
+						if(assignmentSymbol is { })
 						{
 							var statement = assignment.FindParent<StatementSyntax>();
 
-							if (statement != null)
+							if (statement is { })
 							{
 								var parentStatement = statement.Parent;
 								var siblings = parentStatement.ChildNodes().ToArray();
@@ -78,9 +78,9 @@ namespace EditorConfigGenerator.Core.Styles
 										{
 											var name = nextNode.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName));
 
-											if (name != null)
+											if (name is { })
 											{
-												var isSameSymbol = model.GetSymbolInfo(name).Symbol == assignmentSymbol;
+												var isSameSymbol = model.GetSymbolInfo(name).Symbol!.Equals(assignmentSymbol);
 
 												if (isSameSymbol)
 												{

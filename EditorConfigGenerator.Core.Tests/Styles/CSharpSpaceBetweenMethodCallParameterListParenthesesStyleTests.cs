@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpSpaceBetweenMethodCallParameterListParenthesesStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpSpaceBetweenMethodCallParameterListParenthesesStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,14 +84,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpSpaceBetweenMethodCallParameterListParenthesesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ArgumentListSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(int x) 
 	{
 		Bar( 3 );
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ArgumentList) as ArgumentListSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ArgumentList);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -106,14 +106,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpSpaceBetweenMethodCallParameterListParenthesesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ArgumentListSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(int x) 
 	{
 		Bar(3);
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ArgumentList) as ArgumentListSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ArgumentList);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -128,15 +128,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpSpaceBetweenMethodCallParameterListParenthesesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ArgumentListSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(int x) 
 	{
 		Bar( 3=> );
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ArgumentList) as ArgumentListSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ArgumentList);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

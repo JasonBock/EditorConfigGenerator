@@ -7,7 +7,7 @@ using System.Linq;
 namespace EditorConfigGenerator.Core.Statistics
 {
 	public sealed class ModifierData
-		: Data<ModifierData>, IEquatable<ModifierData>
+		: Data<ModifierData>, IEquatable<ModifierData?>
 	{
 		public ModifierData()
 			: base(default) { }
@@ -23,7 +23,7 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public override ModifierData Add(ModifierData data)
 		{
-			if (data == null) { throw new ArgumentNullException(nameof(data)); }
+			if (data is null) { throw new ArgumentNullException(nameof(data)); }
 
 			var currentVisibilityModifers = this.VisibilityModifiers.ToBuilder();
 
@@ -76,11 +76,11 @@ namespace EditorConfigGenerator.Core.Statistics
 				currentOtherModifers.ToImmutableDictionary());
 		}
 
-		public bool Equals(ModifierData other)
+		public bool Equals(ModifierData? other)
 		{
 			var areEqual = false;
 
-			if (other != null)
+			if (other is { })
 			{
 				areEqual = this.TotalOccurences == other.TotalOccurences;
 
@@ -136,7 +136,7 @@ namespace EditorConfigGenerator.Core.Statistics
 				areEqual = true;
 			}
 
-			if ((object)a != null && (object)b != null)
+			if (a is { } && b is { })
 			{
 				areEqual = a.Equals(b);
 			}

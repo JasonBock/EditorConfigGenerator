@@ -48,8 +48,8 @@ namespace EditorConfigGenerator.Core.Styles
 				var identifierName = variableDeclaration.ChildNodes()
 					.SingleOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName);
 
-				return identifierName != null ?
-					new CSharpStyleVarElsewhereStyle(this.Data.Update((identifierName as IdentifierNameSyntax).IsVar), this.Severity) :
+				return identifierName is { } ?
+					new CSharpStyleVarElsewhereStyle(this.Data.Update(((IdentifierNameSyntax)identifierName).IsVar), this.Severity) :
 					new CSharpStyleVarElsewhereStyle(this.Data.Update(false), this.Severity);
 			}
 

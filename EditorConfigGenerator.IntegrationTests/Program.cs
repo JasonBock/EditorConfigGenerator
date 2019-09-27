@@ -13,7 +13,7 @@ namespace EditorConfigGenerator.IntegrationTests
 	{
 		private const string CodeDirectory = "Code";
 
-		static async Task Main(string[] args)
+		static async Task Main()
 		{
 			var currentDirectory = @"M:\JasonBock\ECGCode";
 			var codeDirectory = Path.Combine(currentDirectory, Program.CodeDirectory);
@@ -43,18 +43,16 @@ namespace EditorConfigGenerator.IntegrationTests
 				else
 				{
 					// Fetch update it
-					using (var repo = new Repository(projectDirectory))
-					{
-						var logMessage = string.Empty;
+					using var repo = new Repository(projectDirectory);
+					var logMessage = string.Empty;
 
-						foreach (var remote in repo.Network.Remotes)
-						{
-							var refSpecs = remote.FetchRefSpecs.Select(x => x.Specification);
-							Console.Out.WriteLine($"Fetching {project.Name}...");
-							Commands.Fetch(repo, remote.Name, refSpecs, null, logMessage);
-							Console.Out.WriteLine($"Fetching {project.Name} complete.");
-							Console.Out.WriteLine();
-						}
+					foreach (var remote in repo.Network.Remotes)
+					{
+						var refSpecs = remote.FetchRefSpecs.Select(x => x.Specification);
+						Console.Out.WriteLine($"Fetching {project.Name}...");
+						Commands.Fetch(repo, remote.Name, refSpecs, null, logMessage);
+						Console.Out.WriteLine($"Fetching {project.Name} complete.");
+						Console.Out.WriteLine();
 					}
 				}
 

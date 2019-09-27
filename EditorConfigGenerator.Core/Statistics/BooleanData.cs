@@ -3,7 +3,7 @@
 namespace EditorConfigGenerator.Core.Statistics
 {
 	public sealed class BooleanData
-		: Data<BooleanData>, IEquatable<BooleanData>
+		: Data<BooleanData>, IEquatable<BooleanData?>
 	{
 		public BooleanData() 
 			: base(default) { }
@@ -23,18 +23,18 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public override BooleanData Add(BooleanData data)
 		{
-			if(data == null) { throw new ArgumentNullException(nameof(data)); }
+			if(data is null) { throw new ArgumentNullException(nameof(data)); }
 			return new BooleanData(
 				this.TotalOccurences + data.TotalOccurences,
 				this.TrueOccurences + data.TrueOccurences,
 				this.FalseOccurences + data.FalseOccurences);
 		}
 
-		public bool Equals(BooleanData other)
+		public bool Equals(BooleanData? other)
 		{
 			var areEqual = false;
 
-			if (other != null)
+			if (other is { })
 			{
 				areEqual = this.TotalOccurences == other.TotalOccurences &&
 					this.TrueOccurences == other.TrueOccurences &&
@@ -63,7 +63,7 @@ namespace EditorConfigGenerator.Core.Statistics
 				areEqual = true;
 			}
 
-			if ((object)a != null && (object)b != null)
+			if (a is { } && b is { })
 			{
 				areEqual = a.Equals(b);
 			}

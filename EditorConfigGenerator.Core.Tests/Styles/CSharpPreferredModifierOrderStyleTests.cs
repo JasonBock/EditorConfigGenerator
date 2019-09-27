@@ -57,7 +57,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpPreferredModifierOrderStyle(new ModifierData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -66,7 +66,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ModifierData();
 			var style = new CSharpPreferredModifierOrderStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -74,11 +74,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferredModifierOrderStyle(new ModifierData());
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (MethodDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public static void Bar() { }
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -98,11 +98,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferredModifierOrderStyle(new ModifierData());
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (MethodDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public static void Bar()=> { }
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

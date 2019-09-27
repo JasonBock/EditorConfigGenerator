@@ -19,7 +19,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 
 		[Test]
 		public static void CreateWhenDataIsNull() =>
-			Assert.That(() => new TestStyle(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => new TestStyle(null!), Throws.TypeOf<ArgumentNullException>());
 
 		private sealed class TestStyle
 			: TokenStyle<BooleanData, TokenInformation, TestStyle>

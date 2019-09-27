@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new DotnetStylePreferInferredAnonymousTypeMemberNamesStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new DotnetStylePreferInferredAnonymousTypeMemberNamesStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,7 +84,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new DotnetStylePreferInferredAnonymousTypeMemberNamesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AnonymousObjectMemberDeclaratorSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -92,7 +92,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var age = 42;
 		var anon = new { age };
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator) as AnonymousObjectMemberDeclaratorSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -107,7 +107,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new DotnetStylePreferInferredAnonymousTypeMemberNamesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AnonymousObjectMemberDeclaratorSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -115,7 +115,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var age = 42;
 		var anon = new { myAge = age };
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator) as AnonymousObjectMemberDeclaratorSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -130,7 +130,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new DotnetStylePreferInferredAnonymousTypeMemberNamesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AnonymousObjectMemberDeclaratorSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -138,7 +138,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var age = 42;
 		var anon = new { myAge = age=> };
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator) as AnonymousObjectMemberDeclaratorSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AnonymousObjectMemberDeclarator);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

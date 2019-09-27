@@ -52,8 +52,8 @@ namespace EditorConfigGenerator.Core.Styles
 					{
 						var classNode = node.FindParent<ClassDeclarationSyntax>();
 
-						if (!methodSymbol.IsStatic && classNode != null &&
-							model.GetDeclaredSymbol(classNode) == methodSymbol.ContainingType &&
+						if (!methodSymbol.IsStatic && classNode is { } &&
+							model.GetDeclaredSymbol(classNode).Equals(methodSymbol.ContainingType) &&
 							!methodSymbol.IsExtensionMethod)
 						{
 							return new DotnetStyleQualificationForMethodStyle(this.Data.Update(false), this.Severity);

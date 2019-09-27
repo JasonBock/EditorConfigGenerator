@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new DotnetStylePreferInferredTupleNamesStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new DotnetStylePreferInferredTupleNamesStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,7 +84,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new DotnetStylePreferInferredTupleNamesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (TupleExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -93,7 +93,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var name = ""Jane"";
 		var tuple = (age, name);
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression) as TupleExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -108,7 +108,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new DotnetStylePreferInferredTupleNamesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (TupleExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -117,7 +117,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var name = ""Jane"";
 		var tuple = (myAge: age, myName: name);
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression) as TupleExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -132,7 +132,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new DotnetStylePreferInferredTupleNamesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (TupleExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -141,7 +141,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		var name = ""Jane"";
 		var tuple = (age, name=>);
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression) as TupleExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.TupleExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

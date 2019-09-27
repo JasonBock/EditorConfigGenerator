@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpSpaceAfterCastStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpSpaceAfterCastStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,14 +84,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpSpaceAfterCastStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (CastExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(object x)
 	{
 		var y = (int) x;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -106,14 +106,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpSpaceAfterCastStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (CastExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(object x)
 	{
 		var y = (int)x;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -128,14 +128,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpSpaceAfterCastStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (CastExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(object x)
 	{
 		var y = (int)=>x;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression) as CastExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.CastExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

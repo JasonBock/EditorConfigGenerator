@@ -12,8 +12,8 @@ namespace EditorConfigGenerator.Core.Extensions
 	{
 		internal static ExpressionBodiedData Examine(this SyntaxNode @this, ExpressionBodiedData current)
 		{
-			if (@this == null) { throw new ArgumentNullException(nameof(@this)); }
-			if (current == null) { throw new ArgumentNullException(nameof(current)); }
+			if (@this is null) { throw new ArgumentNullException(nameof(@this)); }
+			if (current is null) { throw new ArgumentNullException(nameof(current)); }
 
 			if (!@this.ContainsDiagnostics)
 			{
@@ -52,12 +52,12 @@ namespace EditorConfigGenerator.Core.Extensions
 		{
 			var parent = @this.Parent;
 
-			while (!(parent is T) && parent != null)
+			while (!(parent is T) && parent is { })
 			{
 				parent = parent.Parent;
 			}
 
-			return parent as T;
+			return (T)parent;
 		}
 
 		internal static bool HasParenthesisSpacing(this SyntaxNode @this)
@@ -66,10 +66,10 @@ namespace EditorConfigGenerator.Core.Extensions
 			var openParen = (SyntaxToken?)children.FirstOrDefault(_ => _.IsKind(SyntaxKind.OpenParenToken));
 			var closeParen = (SyntaxToken?)children.LastOrDefault(_ => _.IsKind(SyntaxKind.CloseParenToken));
 
-			var hasSpaceAfterOpenParen = openParen != null && openParen.Value.HasTrailingTrivia &&
+			var hasSpaceAfterOpenParen = openParen is { } && openParen.Value.HasTrailingTrivia &&
 				openParen.Value.TrailingTrivia.Any(_ => _.IsKind(SyntaxKind.WhitespaceTrivia));
 
-			if (hasSpaceAfterOpenParen && closeParen != null)
+			if (hasSpaceAfterOpenParen && closeParen is { })
 			{
 				var previousNodeIndex = Array.IndexOf(children, closeParen.Value) - 1;
 				var lastNodeOrToken = SyntaxNodeExtensions.GetLastNodeOrToken(children[previousNodeIndex]);
@@ -90,7 +90,7 @@ namespace EditorConfigGenerator.Core.Extensions
 
 			while (children.Length > 0)
 			{
-				last = children[children.Length - 1];
+				last = children[^1];
 				children = last.ChildNodesAndTokens().ToArray();
 			}
 

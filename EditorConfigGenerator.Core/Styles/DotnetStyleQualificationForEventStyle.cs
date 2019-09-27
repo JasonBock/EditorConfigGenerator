@@ -54,8 +54,8 @@ namespace EditorConfigGenerator.Core.Styles
 						{
 							var classNode = node.FindParent<ClassDeclarationSyntax>();
 
-							if (!eventSymbol.IsStatic && classNode != null &&
-								model.GetDeclaredSymbol(classNode) == eventSymbol.ContainingType)
+							if (!eventSymbol.IsStatic && classNode is { } &&
+								model.GetDeclaredSymbol(classNode).Equals(eventSymbol.ContainingType))
 							{
 								return new DotnetStyleQualificationForEventStyle(this.Data.Update(false), this.Severity);
 							}

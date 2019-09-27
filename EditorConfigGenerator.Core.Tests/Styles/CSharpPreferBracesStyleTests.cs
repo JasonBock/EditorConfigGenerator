@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpPreferBracesStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,8 +84,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
-@"public class Foo { }", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ClassDeclaration) as ClassDeclarationSyntax;
+			var statement = (ClassDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
+@"public class Foo { }", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ClassDeclaration);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -100,7 +100,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (IfStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -111,7 +111,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var y = x;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement) as IfStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -126,7 +126,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (IfStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -136,7 +136,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var x = 2;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement) as IfStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -151,7 +151,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (IfStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -159,7 +159,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		if(true)
 			var x = 2;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement) as IfStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -174,7 +174,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ElseClauseSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -186,7 +186,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var y = x;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ElseClause) as ElseClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ElseClause);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -201,7 +201,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ElseClauseSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -212,7 +212,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var x = 2;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ElseClause) as ElseClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ElseClause);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -227,7 +227,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ElseClauseSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -236,7 +236,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		else
 			var x = 2;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ElseClause) as ElseClauseSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ElseClause);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -251,7 +251,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ForStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -262,7 +262,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var y = x;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement) as ForStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -277,7 +277,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ForStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -287,7 +287,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var x = 2;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement) as ForStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -302,7 +302,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ForStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -310,7 +310,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		for (var i = 0; i < 10; i++)
 			var x = 2;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement) as ForStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -325,7 +325,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ForEachStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(string[] items)
@@ -336,7 +336,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var y = x;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement) as ForEachStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -351,7 +351,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ForEachStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(string[] items)
@@ -361,7 +361,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var x = 2;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement) as ForEachStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -376,7 +376,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ForEachStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(string[] items)
@@ -384,7 +384,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		foreach (var item in items)
 			var x = 2;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement) as ForEachStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ForEachStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -399,7 +399,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (WhileStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(string[] items)
@@ -410,7 +410,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var y = x;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement) as WhileStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -425,7 +425,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (WhileStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(string[] items)
@@ -435,7 +435,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var x = 2;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement) as WhileStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -450,7 +450,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (WhileStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar(string[] items)
@@ -458,7 +458,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		while (true)
 			var x = 2;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement) as WhileStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.WhileStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -473,7 +473,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferBracesStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (IfStatementSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
@@ -483,7 +483,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var x = 2;
 		}
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement) as IfStatementSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IfStatement);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

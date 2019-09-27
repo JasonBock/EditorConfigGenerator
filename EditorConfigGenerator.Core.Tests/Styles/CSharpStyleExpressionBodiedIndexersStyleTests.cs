@@ -58,7 +58,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(new ExpressionBodiedData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -67,20 +67,19 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ExpressionBodiedData(default, default, default, default);
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
 		public static void UpdateWithArrowSingleLine()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit(
+			var ctor = (IndexerDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	private int[] ages; 
 
 	public int this[int i] => this.ages[i];
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration);
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -95,15 +94,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowMultiLine()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit(
+			var ctor = (IndexerDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	private int[] ages; 
 
 	public int this[int i] => 42 + 
 		this.ages[i];
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration);
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -118,14 +116,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithBlock()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit(
+			var ctor = (IndexerDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	private int[] ages; 
 
 	public int this[int i] { get { return this.ages[i]; } }
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration);
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -140,14 +137,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithDiagonstics()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit(
+			var ctor = (IndexerDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	private int[] ages; 
 
 	public int this[int i] => this.ages[i]
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration) as IndexerDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.IndexerDeclaration);
 			var style = new CSharpStyleExpressionBodiedIndexersStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);

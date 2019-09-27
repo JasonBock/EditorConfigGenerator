@@ -50,7 +50,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 				if (!(previousNode is BlockSyntax block))
 				{
-					block = (previousNode as CatchClauseSyntax).ChildNodes().Last() as BlockSyntax;
+					block = (BlockSyntax)((CatchClauseSyntax)previousNode).ChildNodes().Last();
 				}
 
 				var closeToken = block.ChildTokens().Single(_ => _.RawKind == (int)SyntaxKind.CloseBraceToken);

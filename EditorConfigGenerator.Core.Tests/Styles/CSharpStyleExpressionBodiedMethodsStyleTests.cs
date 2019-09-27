@@ -58,7 +58,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(new ExpressionBodiedData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -67,15 +67,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ExpressionBodiedData(default, default, default, default);
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
 		public static void UpdateWithMultipleStatements()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { var x = 2; return x + 2; }", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-
+			var method = (MethodDeclarationSyntax)SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { var x = 2; return x + 2; }", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration);
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(method);
@@ -90,9 +89,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowSingleLine()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10; }", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-
+			var method = (MethodDeclarationSyntax)SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10; }", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration);
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(method);
@@ -107,9 +105,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowMultiLine()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit($"public class Foo {{ public int Foo() => 10 + {Environment.NewLine} 20; }}", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-
+			var method = (MethodDeclarationSyntax)SyntaxFactory.ParseCompilationUnit($"public class Foo {{ public int Foo() => 10 + {Environment.NewLine} 20; }}", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration);
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(method);
@@ -124,9 +121,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithBlock()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { return 10; } }", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-
+			var method = (MethodDeclarationSyntax)SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() { return 10; } }", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration);
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(method);
@@ -141,9 +137,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithDiagonstics()
 		{
-			var method = SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10 }", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration) as MethodDeclarationSyntax;
-
+			var method = (MethodDeclarationSyntax)SyntaxFactory.ParseCompilationUnit("public class Foo { public int Foo() => 10 }", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.MethodDeclaration);
 			var style = new CSharpStyleExpressionBodiedMethodsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(method);

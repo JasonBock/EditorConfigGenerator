@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpPreferSimpleDefaultExpressionStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,14 +84,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
 	{
 		string x = default;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.DefaultLiteralExpression) as ExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.DefaultLiteralExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -106,14 +106,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
 	{
 		string x = default(string);
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.DefaultExpression) as ExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.DefaultExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -128,8 +128,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("var x = \"s\" as object;", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AsExpression) as BinaryExpressionSyntax;
+			var statement = (BinaryExpressionSyntax)SyntaxFactory.ParseStatement("var x = \"s\" as object;", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AsExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -144,14 +144,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreferSimpleDefaultExpressionStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (ExpressionSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public void Bar()
 	{
 		string x = default=>;
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.DefaultLiteralExpression) as ExpressionSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.DefaultLiteralExpression);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

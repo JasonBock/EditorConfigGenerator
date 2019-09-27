@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,8 +84,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Foo(out int x)", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument) as ArgumentSyntax;
+			var statement = (ArgumentSyntax)SyntaxFactory.ParseStatement("Foo(out int x)", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -100,8 +100,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Foo(out x)", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument) as ArgumentSyntax;
+			var statement = (ArgumentSyntax)SyntaxFactory.ParseStatement("Foo(out x)", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -116,8 +116,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Foo(x)", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument) as ArgumentSyntax;
+			var statement = (ArgumentSyntax)SyntaxFactory.ParseStatement("Foo(x)", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -133,8 +133,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleInlinedVariableDeclarationStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Foo(*)", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument) as ArgumentSyntax;
+			var statement = (ArgumentSyntax)SyntaxFactory.ParseStatement("Foo(*)", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.Argument);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

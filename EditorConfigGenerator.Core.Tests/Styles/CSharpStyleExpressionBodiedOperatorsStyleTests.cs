@@ -58,7 +58,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(new ExpressionBodiedData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -67,13 +67,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ExpressionBodiedData(default, default, default, default);
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
 		public static void UpdateWithMultipleStatements()
 		{
-			var @operator = SyntaxFactory.ParseCompilationUnit(
+			var @operator = (OperatorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	public static Foo operator +(Foo f1, Foo f2) 
@@ -84,8 +84,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	} 
 
 	public int Data { get; } 
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration);
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);
@@ -100,14 +99,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowSingleLine()
 		{
-			var @operator = SyntaxFactory.ParseCompilationUnit(
+			var @operator = (OperatorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	public static Foo operator +(Foo f1, Foo f2) => f1.Data + f2.Data;
 
 	public int Data { get; } 
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration);
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);
@@ -122,15 +120,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowMultiLine()
 		{
-			var @operator = SyntaxFactory.ParseCompilationUnit(
+			var @operator = (OperatorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	public static Foo operator +(Foo f1, Foo f2) => f1.Data + 
 		f2.Data;
 
 	public int Data { get; } 
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration);
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);
@@ -145,14 +142,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithBlock()
 		{
-			var @operator = SyntaxFactory.ParseCompilationUnit(
+			var @operator = (OperatorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	public static Foo operator +(Foo f1, Foo f2) { return f1.Data + f2.Data; }
 
 	public int Data { get; } 
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration);
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);
@@ -167,14 +163,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithDiagonstics()
 		{
-			var @operator = SyntaxFactory.ParseCompilationUnit(
+			var @operator = (OperatorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	public static Foo operator +(Foo f1, Foo f2) => f1.Data + f2.Data
 
 	public int Data { get; } 
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration) as OperatorDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.OperatorDeclaration);
 			var style = new CSharpStyleExpressionBodiedOperatorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(@operator);

@@ -35,12 +35,12 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 				new[] { tree },
 				new[] { MetadataReference.CreateFromFile(typeof(object).Assembly.Location) });
 			var model = compilation.GetSemanticModel(tree);
-			Assert.That(() => new ModelNodeInformation<IdentifierNameSyntax>(null, model), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => new ModelNodeInformation<IdentifierNameSyntax>(null!, model), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
 		public static void CreateWithNullModel() =>
-			Assert.That(() => new ModelNodeInformation<CompilationUnitSyntax>(ModelNodeInformationTests.unit, null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => new ModelNodeInformation<CompilationUnitSyntax>(ModelNodeInformationTests.unit, null!), Throws.TypeOf<ArgumentNullException>());
 
 		[Test]
 		public static void DeconstructToTuple()

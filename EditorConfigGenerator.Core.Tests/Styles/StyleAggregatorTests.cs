@@ -56,7 +56,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var compilationUnit = SyntaxFactory.ParseCompilationUnit("public static class Test { }", options: Shared.ParseOptions);
 			var model = StyleAggregatorTests.CreateModel(compilationUnit.SyntaxTree);
 			var aggregator = new StyleAggregator();
-			Assert.That(() => aggregator.Add(null, model), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => aggregator.Add(null!, model), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -64,15 +64,15 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var compilationUnit = SyntaxFactory.ParseCompilationUnit("public static class Test { }", options: Shared.ParseOptions);
 			var aggregator = new StyleAggregator();
-			Assert.That(() => aggregator.Add(compilationUnit, null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => aggregator.Add(compilationUnit, null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		private static void TestStyleVisitation(string code, string stylePropertyName)
 		{
 			var aggregator = new StyleAggregator();
-			var setProperty = aggregator.GetType().GetProperty(nameof(StyleAggregator.Set));
-			var styleProperty = setProperty.PropertyType.GetProperty(stylePropertyName);
-			var styleDataProperty = styleProperty.PropertyType.GetProperty("Data");
+			var setProperty = aggregator.GetType().GetProperty(nameof(StyleAggregator.Set))!;
+			var styleProperty = setProperty.PropertyType.GetProperty(stylePropertyName)!;
+			var styleDataProperty = styleProperty.PropertyType.GetProperty("Data")!;
 			var data = styleDataProperty.GetValue(styleProperty.GetValue(setProperty.GetValue(aggregator)));
 
 			var compilationUnit = SyntaxFactory.ParseCompilationUnit(code, options: Shared.ParseOptions);

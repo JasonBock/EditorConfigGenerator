@@ -3,7 +3,7 @@
 namespace EditorConfigGenerator.Core.Statistics
 {
 	public sealed class ParenthesesSpaceData
-		: Data<ParenthesesSpaceData>, IEquatable<ParenthesesSpaceData>
+		: Data<ParenthesesSpaceData>, IEquatable<ParenthesesSpaceData?>
 	{
 		public ParenthesesSpaceData()
 			: base(default) { }
@@ -45,7 +45,7 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public override ParenthesesSpaceData Add(ParenthesesSpaceData data)
 		{
-			if (data == null) { throw new ArgumentNullException(nameof(data)); }
+			if (data is null) { throw new ArgumentNullException(nameof(data)); }
 			return new ParenthesesSpaceData(
 				this.TotalOccurences + data.TotalOccurences,
 				this.ControlFlowNoSpaceOccurences + data.ControlFlowNoSpaceOccurences,
@@ -56,11 +56,11 @@ namespace EditorConfigGenerator.Core.Statistics
 				this.TypeCastsSpaceOccurences + data.TypeCastsSpaceOccurences);
 		}
 
-		public bool Equals(ParenthesesSpaceData other)
+		public bool Equals(ParenthesesSpaceData? other)
 		{
 			var areEqual = false;
 
-			if (other != null)
+			if (other is { })
 			{
 				areEqual = this.TotalOccurences == other.TotalOccurences &&
 					this.ControlFlowNoSpaceOccurences == other.ControlFlowNoSpaceOccurences &&
@@ -97,7 +97,7 @@ namespace EditorConfigGenerator.Core.Statistics
 				areEqual = true;
 			}
 
-			if ((object)a != null && (object)b != null)
+			if (a is { } && b is { })
 			{
 				areEqual = a.Equals(b);
 			}

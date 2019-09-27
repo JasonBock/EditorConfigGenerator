@@ -4,7 +4,7 @@ using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 namespace EditorConfigGenerator.Core.Statistics
 {
 	public sealed class ExpressionBodiedData
-		: Data<ExpressionBodiedData>, IEquatable<ExpressionBodiedData>
+		: Data<ExpressionBodiedData>, IEquatable<ExpressionBodiedData?>
 	{
 		public ExpressionBodiedData()
 			: base(default) { }
@@ -23,10 +23,10 @@ namespace EditorConfigGenerator.Core.Statistics
 		{
 			if(this.TotalOccurences > 0)
 			{
-				var value = string.Empty;
 				var arrowCount = this.ArrowSingleLineOccurences + this.ArrowMultiLineOccurences;
 				var blockCount = this.BlockOccurences;
 
+				string value;
 				if (blockCount == 0)
 				{
 					value = "true";
@@ -64,7 +64,7 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public override ExpressionBodiedData Add(ExpressionBodiedData data)
 		{
-			if (data == null) { throw new ArgumentNullException(nameof(data)); }
+			if (data is null) { throw new ArgumentNullException(nameof(data)); }
 			return new ExpressionBodiedData(
 				this.TotalOccurences + data.TotalOccurences,
 				this.ArrowSingleLineOccurences + data.ArrowSingleLineOccurences,
@@ -72,11 +72,11 @@ namespace EditorConfigGenerator.Core.Statistics
 				this.BlockOccurences + data.BlockOccurences);
 		}
 
-		public bool Equals(ExpressionBodiedData other)
+		public bool Equals(ExpressionBodiedData? other)
 		{
 			var areEqual = false;
 
-			if (other != null)
+			if (other is { })
 			{
 				areEqual = this.TotalOccurences == other.TotalOccurences &&
 					this.ArrowSingleLineOccurences == other.ArrowSingleLineOccurences &&
@@ -107,7 +107,7 @@ namespace EditorConfigGenerator.Core.Statistics
 				areEqual = true;
 			}
 
-			if ((object)a != null && (object)b != null)
+			if (a is { } && b is { })
 			{
 				areEqual = a.Equals(b);
 			}

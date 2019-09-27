@@ -56,7 +56,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new IndentStyleStyle(new TabSpaceData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -65,7 +65,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new TabSpaceData(default, default, default);
 			var style = new IndentStyleStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -73,7 +73,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new IndentStyleStyle(new TabSpaceData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("	var x = 0;", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("	var x = 0;", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -88,7 +88,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new IndentStyleStyle(new TabSpaceData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("   var x = 0;", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("   var x = 0;", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -103,7 +103,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new IndentStyleStyle(new TabSpaceData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("var x = 0;", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("var x = 0;", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

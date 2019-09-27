@@ -44,7 +44,7 @@ namespace EditorConfigGenerator.Core.Styles
 				{
 					var correspondingTupleField = field.CorrespondingTupleField;
 
-					if (correspondingTupleField != null)
+					if (correspondingTupleField is { })
 					{
 						return new DotnetStyleExplicitTupleNamesStyle(this.Data.Update(
 							correspondingTupleField.Name != field.Name), this.Severity);

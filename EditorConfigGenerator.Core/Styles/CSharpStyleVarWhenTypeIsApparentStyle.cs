@@ -51,8 +51,8 @@ namespace EditorConfigGenerator.Core.Styles
 					var identifierName = variableDeclaration.ChildNodes()
 						.SingleOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName);
 
-					return identifierName != null ?
-						new CSharpStyleVarWhenTypeIsApparentStyle(this.Data.Update((identifierName as IdentifierNameSyntax).IsVar), this.Severity) :
+					return identifierName is { } ?
+						new CSharpStyleVarWhenTypeIsApparentStyle(this.Data.Update(((IdentifierNameSyntax)identifierName).IsVar), this.Severity) :
 						new CSharpStyleVarWhenTypeIsApparentStyle(this.Data.Update(false), this.Severity);
 				}
 			}

@@ -66,7 +66,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -75,7 +75,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -83,7 +83,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("var customer = new Customer();", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("var customer = new Customer();", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -98,7 +98,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("Customer customer = new Customer();", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("Customer customer = new Customer();", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -113,7 +113,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("global::System.String s = new string('c', 1);", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("global::System.String s = new string('c', 1);", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -128,7 +128,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpStyleVarWhenTypeIsApparentStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseStatement("var customer = new Customer()", options: Shared.ParseOptions) as LocalDeclarationStatementSyntax;
+			var statement = (LocalDeclarationStatementSyntax)SyntaxFactory.ParseStatement("var customer = new Customer()", options: Shared.ParseOptions);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

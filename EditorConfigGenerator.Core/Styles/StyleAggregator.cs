@@ -21,7 +21,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public string GenerateConfiguration()
 		{
-			void AppendSetting(string setting, StringBuilder appendBuilder)
+			static void AppendSetting(string setting, StringBuilder appendBuilder)
 			{
 				if (!string.IsNullOrWhiteSpace(setting)) { appendBuilder.AppendLine(setting); }
 			}

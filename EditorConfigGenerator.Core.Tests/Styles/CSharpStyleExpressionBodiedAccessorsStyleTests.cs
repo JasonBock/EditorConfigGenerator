@@ -58,7 +58,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -67,13 +67,13 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ExpressionBodiedData(default, default, default, default);
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
 		public static void UpdateWithArrowSingleLine()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit(
+			var ctor = (AccessorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	private int age; 
@@ -82,8 +82,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		get => age; 
 	} 
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration);
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -98,7 +97,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowMultiLine()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit(
+			var ctor = (AccessorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	private int age; 
@@ -108,8 +107,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		get => 42 + 
 			age; 
 	} 
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration);
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -124,7 +122,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithBlock()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit(
+			var ctor = (AccessorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	private int age; 
@@ -133,8 +131,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		get { return this.age; } 
 	} 
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration);
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -149,7 +146,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithDiagonstics()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit(
+			var ctor = (AccessorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo 
 { 
 	private int age; 
@@ -158,8 +155,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		get => age
 	} 
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) as AccessorDeclarationSyntax;
-
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration);
 			var style = new CSharpStyleExpressionBodiedAccessorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);

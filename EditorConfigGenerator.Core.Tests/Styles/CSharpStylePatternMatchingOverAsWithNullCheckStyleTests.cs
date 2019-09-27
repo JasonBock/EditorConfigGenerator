@@ -68,7 +68,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpStylePatternMatchingOverAsWithNullCheckStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -77,7 +77,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpStylePatternMatchingOverAsWithNullCheckStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		private static (T, SemanticModel) GetInformation<T>(CompilationUnitSyntax unit)
@@ -128,6 +128,30 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 	{
 		var s = o as string;
 		if(s != null) { }
+	}
+}", options: Shared.ParseOptions);
+			var (node, model) = CSharpStylePatternMatchingOverAsWithNullCheckStyleTests.GetInformation<IfStatementSyntax>(unit);
+			var newStyle = style.Update(new ModelNodeInformation<SyntaxNode>(node, model));
+
+			var data = newStyle.Data;
+			Assert.That(newStyle, Is.Not.SameAs(style), nameof(newStyle));
+			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(0u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(1u), nameof(data.FalseOccurences));
+		}
+
+		[Test]
+		public static void UpdateUsingIsObjectCheck()
+		{
+			var style = new CSharpStylePatternMatchingOverAsWithNullCheckStyle(new BooleanData(default, default, default));
+
+			var unit = SyntaxFactory.ParseCompilationUnit(
+@"public class Foo
+{
+	public void Bar(object o)
+	{
+		var s = o as string;
+		if(s is { }) { }
 	}
 }", options: Shared.ParseOptions);
 			var (node, model) = CSharpStylePatternMatchingOverAsWithNullCheckStyleTests.GetInformation<IfStatementSyntax>(unit);

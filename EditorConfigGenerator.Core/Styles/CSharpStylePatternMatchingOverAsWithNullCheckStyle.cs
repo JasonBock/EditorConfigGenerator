@@ -43,7 +43,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				if (node is IsPatternExpressionSyntax && node.FindParent<IfStatementSyntax>() != null)
+				if (node is IsPatternExpressionSyntax && node.FindParent<IfStatementSyntax>() is { })
 				{
 					return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Update(true), this.Severity);
 				}
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Styles
 		{
 			var identifierSymbol = model.GetSymbolInfo(identifier).Symbol;
 
-			if (identifierSymbol != null)
+			if (identifierSymbol is { })
 			{
 				var parent = node.Parent;
 				var children = parent.ChildNodes().ToImmutableArray();
@@ -89,7 +89,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 					if(childDescendants.Any(_ => _.IsKind(SyntaxKind.AsExpression)) &&
 						childDescendants.FirstOrDefault(
-							c => model.GetDeclaredSymbol(c) == identifierSymbol) != null)
+							c => model.GetDeclaredSymbol(c)?.Equals(identifierSymbol) ?? false) is { })
 					{
 						return true;
 					}

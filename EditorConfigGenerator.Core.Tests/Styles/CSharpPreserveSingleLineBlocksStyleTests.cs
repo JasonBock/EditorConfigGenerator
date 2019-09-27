@@ -67,7 +67,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpPreserveSingleLineBlocksStyle(new BooleanData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -76,7 +76,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new BooleanData(default, default, default);
 			var style = new CSharpPreserveSingleLineBlocksStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
@@ -84,11 +84,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreserveSingleLineBlocksStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AccessorListSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public int X { get; set; }
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AccessorList) as AccessorListSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AccessorList);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -103,11 +103,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreserveSingleLineBlocksStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AccessorListSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public int X {get; set; }
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AccessorList) as AccessorListSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AccessorList);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -122,14 +122,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreserveSingleLineBlocksStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AccessorListSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public int X 
 	{ 
 		get; set; 
 	}
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AccessorList) as AccessorListSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AccessorList);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;
@@ -144,11 +144,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		{
 			var style = new CSharpPreserveSingleLineBlocksStyle(new BooleanData(default, default, default));
 
-			var statement = SyntaxFactory.ParseCompilationUnit(
+			var statement = (AccessorListSyntax)SyntaxFactory.ParseCompilationUnit(
 @"public class Foo
 {
 	public int X {=> get; set; }
-}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AccessorList) as AccessorListSyntax;
+}", options: Shared.ParseOptions).DescendantNodes().Single(_ => _.Kind() == SyntaxKind.AccessorList);
 			var newStyle = style.Update(statement);
 
 			var data = newStyle.Data;

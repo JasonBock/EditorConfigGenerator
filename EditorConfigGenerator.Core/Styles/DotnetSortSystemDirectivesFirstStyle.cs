@@ -45,7 +45,7 @@ namespace EditorConfigGenerator.Core.Styles
 			if (!node.ContainsDiagnostics)
 			{
 				var usingNodes = node.DescendantNodes().Where(_ => _.IsKind(SyntaxKind.UsingDirective))
-					.Select(_ => _ as UsingDirectiveSyntax).ToImmutableArray();
+					.Select(_ => (UsingDirectiveSyntax)_).ToImmutableArray();
 
 				if(usingNodes.Length > 1)
 				{

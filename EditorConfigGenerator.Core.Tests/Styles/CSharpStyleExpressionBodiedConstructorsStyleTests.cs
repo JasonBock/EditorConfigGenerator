@@ -58,7 +58,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		public static void AddWithNull()
 		{
 			var style = new CSharpStyleExpressionBodiedConstructorsStyle(new ExpressionBodiedData());
-			Assert.That(() => style.Add(null), Throws.TypeOf<ArgumentNullException>());
+			Assert.That(() => style.Add(null!), Throws.TypeOf<ArgumentNullException>());
 		}
 
 		[Test]
@@ -67,15 +67,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			var data = new ExpressionBodiedData(default, default, default, default);
 			var style = new CSharpStyleExpressionBodiedConstructorsStyle(data);
 
-			Assert.That(() => style.Update(null), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
+			Assert.That(() => style.Update(null!), Throws.TypeOf<ArgumentNullException>(), nameof(style.Update));
 		}
 
 		[Test]
 		public static void UpdateWithMultipleStatements()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit("public class Foo { private readonly int x; public Foo() { var y = 22; this.x = 10 + y; } }", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration) as ConstructorDeclarationSyntax;
-
+			var ctor = (ConstructorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit("public class Foo { private readonly int x; public Foo() { var y = 22; this.x = 10 + y; } }", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration);
 			var style = new CSharpStyleExpressionBodiedConstructorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -90,9 +89,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowSingleLine()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit("public class Foo { private readonly int x; public Foo() => this.x = 10; }", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration) as ConstructorDeclarationSyntax;
-
+			var ctor = (ConstructorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit("public class Foo { private readonly int x; public Foo() => this.x = 10; }", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration);
 			var style = new CSharpStyleExpressionBodiedConstructorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -107,9 +105,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithArrowMultiLine()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit($"public class Foo {{ private readonly int x; public Foo() => this.x = {Environment.NewLine} 10; }}", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration) as ConstructorDeclarationSyntax;
-
+			var ctor = (ConstructorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit($"public class Foo {{ private readonly int x; public Foo() => this.x = {Environment.NewLine} 10; }}", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration);
 			var style = new CSharpStyleExpressionBodiedConstructorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -124,9 +121,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithBlock()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit("public class Foo { private readonly int x; public Foo() { this.x = 10; } }", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration) as ConstructorDeclarationSyntax;
-
+			var ctor = (ConstructorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit("public class Foo { private readonly int x; public Foo() { this.x = 10; } }", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration);
 			var style = new CSharpStyleExpressionBodiedConstructorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
@@ -141,9 +137,8 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void UpdateWithDiagonstics()
 		{
-			var ctor = SyntaxFactory.ParseCompilationUnit("public class Foo { private readonly int x; public Foo() => this.x = 10 }", options: Shared.ParseOptions)
-				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration) as ConstructorDeclarationSyntax;
-
+			var ctor = (ConstructorDeclarationSyntax)SyntaxFactory.ParseCompilationUnit("public class Foo { private readonly int x; public Foo() => this.x = 10 }", options: Shared.ParseOptions)
+				.DescendantNodes().Single(_ => _.Kind() == SyntaxKind.ConstructorDeclaration);
 			var style = new CSharpStyleExpressionBodiedConstructorsStyle(
 				new ExpressionBodiedData(default, default, default, default));
 			var newStyle = style.Update(ctor);
