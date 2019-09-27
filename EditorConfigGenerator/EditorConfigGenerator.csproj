@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Authors>Jason Bock</Authors>
-    <Copyright>Copyright © 2018</Copyright>
+    <Copyright>Copyright © 2019</Copyright>
     <Description>Generates a .editorconfig file based on existing C# code.</Description>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>

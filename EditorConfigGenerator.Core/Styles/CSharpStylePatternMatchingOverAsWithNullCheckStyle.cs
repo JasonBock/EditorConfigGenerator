@@ -66,6 +66,17 @@ namespace EditorConfigGenerator.Core.Styles
 							}
 						}
 					}
+
+					foreach(var recursive in node.DescendantNodes().Where(_ => _ is RecursivePatternSyntax))
+					{
+						foreach(var recursiveProperty in recursive.DescendantNodes().Where(_ => _ is PropertyPatternClauseSyntax))
+						{
+							if(recursiveProperty.DescendantNodes().Count() == 0)
+							{
+								return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Update(false), this.Severity);
+							}
+						}
+					}
 				}
 			}
 
