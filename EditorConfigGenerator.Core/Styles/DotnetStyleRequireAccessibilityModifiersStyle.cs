@@ -1,54 +1,26 @@
-﻿using EditorConfigGenerator.Core.Statistics;
+﻿using EditorConfigGenerator.Core.Extensions;
+using EditorConfigGenerator.Core.Statistics;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Styles
 {
-	public class A { }
-	class C 
-	{
-		void Foo() { }
-		private void Bar() { }
-	}
-	internal class B { }
-
-	/*
-
-	Case "Never" - If you don't put the modifier in, it means you prefer "never"
-	Case "AlwaysNotDefault" - If you put the modifier in and it is NOT the default, it means you like "omit_if_default" more.
-	Case "AlwaysDefault" - If you put the modifier in and it is the default, it means you like "omit_if_default" less.
-
-	3 Never => "never"
-	3 Never, 1 AlwaysNotDefault => "never"
-	3 Never, 3 AlwaysDefault => "always"
-
-	4 Never, 3 AlwaysDefault, 5 AlwaysNotDefault 
-
-	If AlwaysNotDefault is largest (winning ties)
-		If AlwaysDefault >= Never, "always"
-		Else "omit_if_default"
-	Else If AlwaysDefault >= Never
-		"always"
-	Else
-		10 Nevers, 9 AlwaysNotDefault, 8 AlwaysDefault
-		If Nevers >= (AlwaysNotDefault + AlwaysDefault)
-			"never"
-		Else
-			If AlwaysDefault >= AlwaysNotDefault
-				"always"
-			Else
-				"omit_if_default"
-	*/
-
 	public sealed class DotnetStyleRequireAccessibilityModifiersStyle
-		: SeverityNodeStyle<BooleanData, MemberDeclarationSyntax, NodeInformation<MemberDeclarationSyntax>, DotnetStyleRequireAccessibilityModifiersStyle>
+		: SeverityNodeStyle<AccessibilityModifierData, MemberDeclarationSyntax, NodeInformation<MemberDeclarationSyntax>, DotnetStyleRequireAccessibilityModifiersStyle>
 	{
+		private const string AccessibilityModifierInternal = "internal";
+		private const string AccessibilityModifierPrivate = "private";
+		private const string AccessibilityModifierProtected = "protected";
+		private const string AccessibilityModifierPublic = "public";
 		public const string Setting = "dotnet_style_require_accessibility_modifiers";
-		private static readonly string[] AccessibilityModifiers = new[] { "public", "protected", "internal", "private" };
 
-		public DotnetStyleRequireAccessibilityModifiersStyle(BooleanData data, Severity severity = Severity.Error)
+		private static readonly string[] AccessibilityModifiers = 
+			new[] { AccessibilityModifierPublic, AccessibilityModifierProtected, AccessibilityModifierInternal, AccessibilityModifierPrivate };
+
+		public DotnetStyleRequireAccessibilityModifiersStyle(AccessibilityModifierData data, Severity severity = Severity.Error)
 			: base(data, severity) { }
 
 		public override DotnetStyleRequireAccessibilityModifiersStyle Add(DotnetStyleRequireAccessibilityModifiersStyle style)
@@ -57,16 +29,42 @@ namespace EditorConfigGenerator.Core.Styles
 			return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
-		public override string GetSetting()
+		public override string GetSetting() =>
+			this.Data.GetSetting(DotnetStyleRequireAccessibilityModifiersStyle.Setting, this.Severity);
+
+		private static bool AreModifiersDefault(MemberDeclarationSyntax node, List<SyntaxToken> modifiers)
 		{
-			if (this.Data.TotalOccurences > 0)
+			var parent = node.FindParent<TypeDeclarationSyntax>();
+
+			if(modifiers.Count == 1)
 			{
-				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "always" : "never";
-				return $"{DotnetStyleRequireAccessibilityModifiersStyle.Setting} = {value}:{this.Severity.GetDescription()}";
+				if (node is ClassDeclarationSyntax || node is StructDeclarationSyntax || node is InterfaceDeclarationSyntax ||
+					node is DelegateDeclarationSyntax)
+				{
+					return parent is null ? modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate :
+						modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierInternal;
+				}
+				else if (node is EnumDeclarationSyntax)
+				{
+					return parent is null ? modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPublic :
+						modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierInternal;
+				}
+				else
+				{
+					if (node is ConstructorDeclarationSyntax || node is MethodDeclarationSyntax || node is PropertyDeclarationSyntax ||
+						node is EventDeclarationSyntax || node is FieldDeclarationSyntax)
+					{
+						return modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate;
+					}
+					else
+					{
+						return false;
+					}
+				}
 			}
 			else
 			{
-				return string.Empty;
+				return false;
 			}
 		}
 
@@ -78,9 +76,24 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				var hasAccessibility = node.ChildTokens().Any(
-					_ => DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifiers.Contains(_.Text));
-				return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Update(hasAccessibility), this.Severity);
+				var modifiers = node.ChildTokens().Where(
+					_ => DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifiers.Contains(_.Text)).ToList();
+
+				if(modifiers.Count == 0)
+				{
+					return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Update(AccessibilityModifierDataOccurence.NotProvided), this.Severity);
+				}
+				else
+				{
+					if(DotnetStyleRequireAccessibilityModifiersStyle.AreModifiersDefault(node, modifiers))
+					{
+						return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Update(AccessibilityModifierDataOccurence.ProvidedDefault), this.Severity);
+					}
+					else
+					{
+						return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Update(AccessibilityModifierDataOccurence.ProvidedNotDefault), this.Severity);
+					}
+				}
 			}
 
 			return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data, this.Severity);

@@ -535,7 +535,7 @@ namespace EditorConfigGenerator.Core.Styles
 			public DotnetStyleQualificationForPropertyStyle DotnetStyleQualificationForPropertyStyle { get; set; } =
 				new DotnetStyleQualificationForPropertyStyle(new BooleanData());
 			public DotnetStyleRequireAccessibilityModifiersStyle DotnetStyleRequireAccessibilityModifiersStyle { get; set; } =
-				new DotnetStyleRequireAccessibilityModifiersStyle(new BooleanData());
+				new DotnetStyleRequireAccessibilityModifiersStyle(new AccessibilityModifierData());
 			public IndentStyleStyle IndentStyleStyle { get; set; } =
 				new IndentStyleStyle(new TabSpaceData());
 		}

@@ -5,7 +5,6 @@ using System;
 
 namespace EditorConfigGenerator.Core.Tests.Statistics
 {
-	[TestFixture]
 	public static class ExpressionBodiedDataTests
 	{
 		[Test]
