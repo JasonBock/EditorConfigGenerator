@@ -80,7 +80,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 											if (name is { })
 											{
-												var isSameSymbol = model.GetSymbolInfo(name).Symbol?.Equals(assignmentSymbol) ?? false;
+												var isSameSymbol = object.ReferenceEquals(model.GetSymbolInfo(name).Symbol, assignmentSymbol);
 
 												if (isSameSymbol)
 												{

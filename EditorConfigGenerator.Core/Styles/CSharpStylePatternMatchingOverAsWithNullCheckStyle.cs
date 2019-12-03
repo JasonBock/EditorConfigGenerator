@@ -100,7 +100,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 					if(childDescendants.Any(_ => _.IsKind(SyntaxKind.AsExpression)) &&
 						childDescendants.FirstOrDefault(
-							c => model.GetDeclaredSymbol(c)?.Equals(identifierSymbol) ?? false) is { })
+							c => object.ReferenceEquals(model.GetDeclaredSymbol(c), identifierSymbol)) is { })
 					{
 						return true;
 					}

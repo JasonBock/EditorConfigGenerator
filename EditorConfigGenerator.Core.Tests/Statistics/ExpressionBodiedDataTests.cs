@@ -104,40 +104,19 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = when_on_single_line:error"), nameof(data.GetSetting));
 		}
 
-		[Test]
-		public static void UpdateWithArrowSingleLine()
+		[TestCase(ExpressionBodiedDataOccurence.ArrowSingleLine, 1u, 0u, 0u)]
+		[TestCase(ExpressionBodiedDataOccurence.ArrowMultiLine, 0u, 1u, 0u)]
+		[TestCase(ExpressionBodiedDataOccurence.Block, 0u, 0u, 1u)]
+		public static void Update(ExpressionBodiedDataOccurence occurrence, uint expectedArrowSingleLineOccurences,
+			uint expectedArrowMultiLineOccurences, uint expectedBlockOccurences)
 		{
 			var data = new ExpressionBodiedData();
-			data = data.Update(ExpressionBodiedDataOccurence.ArrowSingleLine);
+			data = data.Update(occurrence);
 
 			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
-			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(1u), nameof(data.ArrowSingleLineOccurences));
-			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockOccurences, Is.EqualTo(0u), nameof(data.BlockOccurences));
-		}
-
-		[Test]
-		public static void UpdateWithArrowMultiLine()
-		{
-			var data = new ExpressionBodiedData();
-			data = data.Update(ExpressionBodiedDataOccurence.ArrowMultiLine);
-
-			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
-			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
-			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(1u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockOccurences, Is.EqualTo(0u), nameof(data.BlockOccurences));
-		}
-
-		[Test]
-		public static void UpdateWithBlock()
-		{
-			var data = new ExpressionBodiedData();
-			data = data.Update(ExpressionBodiedDataOccurence.Block);
-
-			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
-			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(0u), nameof(data.ArrowSingleLineOccurences));
-			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(0u), nameof(data.ArrowMultiLineOccurences));
-			Assert.That(data.BlockOccurences, Is.EqualTo(1u), nameof(data.BlockOccurences));
+			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(expectedArrowSingleLineOccurences), nameof(data.ArrowSingleLineOccurences));
+			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(expectedArrowMultiLineOccurences), nameof(data.ArrowMultiLineOccurences));
+			Assert.That(data.BlockOccurences, Is.EqualTo(expectedBlockOccurences), nameof(data.BlockOccurences));
 		}
 
 		[Test]
