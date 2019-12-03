@@ -41,18 +41,17 @@ namespace EditorConfigGenerator.Core.Styles
 				if (node is ClassDeclarationSyntax || node is StructDeclarationSyntax || node is InterfaceDeclarationSyntax ||
 					node is DelegateDeclarationSyntax)
 				{
-					return parent is null ? modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate :
-						modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierInternal;
+					return parent is null ? modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierInternal :
+						modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate;
 				}
 				else if (node is EnumDeclarationSyntax)
 				{
-					return parent is null ? modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPublic :
-						modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierInternal;
+					return modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPublic;
 				}
 				else
 				{
 					if (node is ConstructorDeclarationSyntax || node is MethodDeclarationSyntax || node is PropertyDeclarationSyntax ||
-						node is EventDeclarationSyntax || node is FieldDeclarationSyntax)
+						node is EventFieldDeclarationSyntax || node is FieldDeclarationSyntax)
 					{
 						return modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate;
 					}

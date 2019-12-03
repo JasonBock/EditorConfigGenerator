@@ -64,10 +64,105 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
-		public static void GetSettingWithProviderNotDefaultOverProviderDefaultOverNotProvided()
+		public static void GetSettingWithProvidedNotDefaultOverProvidedDefaultOverNotProvided()
 		{
 			var data = new AccessibilityModifierData(6u, 1u, 2u, 3u);
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = always:error"), nameof(data.GetSetting));
+		}
+
+		[Test]
+		public static void GetSettingWithProvidedNotDefaultOverNotProvidedOverProvidedDefault()
+		{
+			var data = new AccessibilityModifierData(6u, 2u, 1u, 3u);
+			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = omit_if_default:error"), nameof(data.GetSetting));
+		}
+
+		[Test]
+		public static void GetSettingWithProvidedDefaultOverNotProvidedOverProvidedNotDefault()
+		{
+			var data = new AccessibilityModifierData(6u, 2u, 3u, 1u);
+			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = always:error"), nameof(data.GetSetting));
+		}
+
+		[Test]
+		public static void GetSettingWithNotProvidedOverSumOfProvided()
+		{
+			var data = new AccessibilityModifierData(6u, 4u, 1u, 1u);
+			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = never:error"), nameof(data.GetSetting));
+		}
+
+		[Test]
+		public static void GetSettingWithNotProvidedNotOverSumOfProvidedAndProvidedDefaultOverProvidedNotDefault()
+		{
+			var data = new AccessibilityModifierData(9u, 4u, 3u, 2u);
+			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = always:error"), nameof(data.GetSetting));
+		}
+
+		[Test]
+		public static void GetSettingWithNotProvidedNotOverSumOfProvidedAndProvidedNotDefaultOverProvidedDefault()
+		{
+			var data = new AccessibilityModifierData(9u, 4u, 2u, 3u);
+			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = omit_if_default:error"), nameof(data.GetSetting));
+		}
+
+		[TestCase(AccessibilityModifierDataOccurence.NotProvided, 1u, 0u, 0u)]
+		[TestCase(AccessibilityModifierDataOccurence.ProvidedDefault, 0u, 1u, 0u)]
+		[TestCase(AccessibilityModifierDataOccurence.ProvidedNotDefault, 0u, 0u, 1u)]
+		public static void Update(AccessibilityModifierDataOccurence occurence, uint expectedNotProvidedOccurences,
+			uint expectedProvidedDefaultOccurences, uint expectedProvidedNotDefaultOccurences)
+		{
+			var data = new AccessibilityModifierData();
+			data = data.Update(occurence);
+
+			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
+			Assert.That(data.NotProvidedOccurences, Is.EqualTo(expectedNotProvidedOccurences), nameof(data.NotProvidedOccurences));
+			Assert.That(data.ProvidedDefaultOccurences, Is.EqualTo(expectedProvidedDefaultOccurences), nameof(data.ProvidedDefaultOccurences));
+			Assert.That(data.ProvidedNotDefaultOccurences, Is.EqualTo(expectedProvidedNotDefaultOccurences), nameof(data.ProvidedNotDefaultOccurences));
+		}
+
+		[Test]
+		public static void VerifyEquality()
+		{
+			var data1 = new AccessibilityModifierData(6, 1, 2, 3);
+			var data2 = new AccessibilityModifierData(6, 2, 1, 3);
+			var data3 = new AccessibilityModifierData(6, 1, 2, 3);
+
+			Assert.That(data1, Is.Not.EqualTo(data2));
+			Assert.That(data1, Is.EqualTo(data3));
+			Assert.That(data2, Is.Not.EqualTo(data3));
+
+#pragma warning disable CS1718 // Comparison made to same variable
+			Assert.That(data1 == data1, Is.True);
+#pragma warning restore CS1718 // Comparison made to same variable
+			Assert.That(data1 == data2, Is.False);
+			Assert.That(data1 == data3, Is.True);
+			Assert.That(data2 == data3, Is.False);
+			Assert.That((null as AccessibilityModifierData)! == data1, Is.False);
+			Assert.That(data1 == (null as AccessibilityModifierData)!, Is.False);
+
+			Assert.That(data1 != data2, Is.True);
+			Assert.That(data1 != data3, Is.False);
+			Assert.That(data2 != data3, Is.True);
+		}
+
+		[Test]
+		public static void VerifyToString() =>
+			Assert.That(new AccessibilityModifierData(6, 1, 2, 3).ToString(),
+				Is.EqualTo("TotalOccurences = 6, NotProvidedOccurences = 1, ProvidedDefaultOccurences = 2, ProvidedNotDefaultOccurences = 3"));
+
+		[Test]
+		public static void VerifyEqualityWithInvalidType() =>
+			Assert.That(new AccessibilityModifierData().Equals(new object()), Is.False);
+
+		[Test]
+		public static void VerifyHashCodes()
+		{
+			var data1 = new AccessibilityModifierData(6, 1, 2, 3);
+			var data2 = new AccessibilityModifierData(6, 2, 1, 3);
+			var data3 = new AccessibilityModifierData(6, 1, 2, 3);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
 		}
 	}
 }
