@@ -77,6 +77,7 @@ namespace EditorConfigGenerator.IntegrationTests
 				new ProjectInformation("Autofac", new Uri("https://github.com/autofac/Autofac.git")),
 				new ProjectInformation("AutoMapper", new Uri("https://github.com/AutoMapper/AutoMapper.git")),
 				new ProjectInformation("CSLA", new Uri("https://github.com/MarimerLLC/csla.git")),
+				new ProjectInformation("CsvHelper", new Uri("https://github.com/JoshClose/CsvHelper.git")),
 				new ProjectInformation("ImageSharp", new Uri("https://github.com/SixLabors/ImageSharp.git")),
 				new ProjectInformation("Moq", new Uri("https://github.com/moq/moq.git")),
 				new ProjectInformation("Newtonsoft.Json", new Uri("https://github.com/JamesNK/Newtonsoft.Json.git")),
