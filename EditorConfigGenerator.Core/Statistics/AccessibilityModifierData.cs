@@ -7,6 +7,7 @@ namespace EditorConfigGenerator.Core.Statistics
 		: Data<AccessibilityModifierData>, IEquatable<AccessibilityModifierData?>
 	{
 		private const string ValueAlways = "always";
+		private const string ValueForNonInterfaceMembers = "for_non_interface_members";
 		private const string ValueNever = "never";
 		private const string ValueOmitIfDefault = "omit_if_default";
 
@@ -14,46 +15,29 @@ namespace EditorConfigGenerator.Core.Statistics
 			: base(default) { }
 
 		public AccessibilityModifierData(uint totalOccurences,
-			uint notProvidedOccurences, uint providedDefaultOccurences, uint providedNotDefaultOccurences)
+			uint notProvidedOccurences, uint providedDefaultOccurences, uint providedNotDefaultOccurences,
+			uint notProvidedForPublicInterfaceMembersOccurences, uint providedForPublicInterfaceMembersOccurences)
 			: base(totalOccurences) =>
-			(this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences) =
-				(notProvidedOccurences, providedDefaultOccurences, providedNotDefaultOccurences);
+			(this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences, this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences) =
+				(notProvidedOccurences, providedDefaultOccurences, providedNotDefaultOccurences, notProvidedForPublicInterfaceMembersOccurences, providedForPublicInterfaceMembersOccurences);
 
-		public AccessibilityModifierData Update(AccessibilityModifierDataOccurence occurence) =>
-			new AccessibilityModifierData(this.TotalOccurences + 1,
+		public AccessibilityModifierData Update(AccessibilityModifierDataOccurence occurence, bool isFromPublicInterfaceMember)
+		{
+			var notProvidedForPublicInterfaceMembersOccurences = isFromPublicInterfaceMember && occurence == AccessibilityModifierDataOccurence.NotProvided ?
+				this.NotProvidedForPublicInterfaceMembersOccurences + 1 : this.NotProvidedForPublicInterfaceMembersOccurences;
+			var providedForPublicInterfaceMembersOccurences = isFromPublicInterfaceMember && 
+				(occurence == AccessibilityModifierDataOccurence.ProvidedNotDefault || occurence == AccessibilityModifierDataOccurence.ProvidedDefault) ?
+				this.ProvidedForPublicInterfaceMembersOccurences + 1 : this.ProvidedForPublicInterfaceMembersOccurences;
+
+			return new AccessibilityModifierData(this.TotalOccurences + 1,
 				occurence == AccessibilityModifierDataOccurence.NotProvided ? this.NotProvidedOccurences + 1 : this.NotProvidedOccurences,
 				occurence == AccessibilityModifierDataOccurence.ProvidedDefault ? this.ProvidedDefaultOccurences + 1 : this.ProvidedDefaultOccurences,
-				occurence == AccessibilityModifierDataOccurence.ProvidedNotDefault ? this.ProvidedNotDefaultOccurences + 1 : this.ProvidedNotDefaultOccurences);
+				occurence == AccessibilityModifierDataOccurence.ProvidedNotDefault ? this.ProvidedNotDefaultOccurences + 1 : this.ProvidedNotDefaultOccurences,
+				notProvidedForPublicInterfaceMembersOccurences, providedForPublicInterfaceMembersOccurences);
+		}
 
 		public string GetSetting(string name, Severity severity)
 		{
-			/*
-			Case "NotProvided" - If you don't put the modifier in, it means you prefer "never"
-			Case "ProvidedNotDefault" - If you put the modifier in and it is NOT the default, it means you like "omit_if_default" more.
-			Case "ProvidedDefault" - If you put the modifier in and it is the default, it means you like "omit_if_default" less.
-
-			3 NotProvided => "never"
-			3 NotProvided, 1 ProvidedNotDefault => "never"
-			3 NotProvided, 3 ProvidedDefault => "always"
-
-			4 NotProvided, 3 ProvidedDefault, 5 ProvidedNotDefault 
-
-			If ProvidedNotDefault is largest (winning ties)
-				If ProvidedDefault >= NotProvided, "always"
-				Else "omit_if_default"
-			Else If ProvidedDefault >= NotProvided
-				"always"
-			Else
-				// 10 NotProvideds, 9 ProvidedNotDefault, 8 ProvidedDefault
-				If NotProvided >= (ProvidedNotDefault + ProvidedDefault)
-					"never"
-				Else
-					If ProvidedDefault >= ProvidedNotDefault
-						"always"
-					Else
-						"omit_if_default"
-			*/
-
 			if (this.TotalOccurences > 0)
 			{
 				string value;
@@ -61,7 +45,8 @@ namespace EditorConfigGenerator.Core.Statistics
 				if (this.ProvidedNotDefaultOccurences >= this.ProvidedDefaultOccurences &&
 					this.ProvidedNotDefaultOccurences >= this.NotProvidedOccurences)
 				{
-					value = this.ProvidedDefaultOccurences >= this.NotProvidedOccurences ?
+					value = this.ProvidedNotDefaultOccurences >= (this.ProvidedDefaultOccurences + this.NotProvidedOccurences) ||
+						this.ProvidedDefaultOccurences >= this.NotProvidedOccurences ?
 						AccessibilityModifierData.ValueAlways :
 						AccessibilityModifierData.ValueOmitIfDefault;
 				}
@@ -83,6 +68,14 @@ namespace EditorConfigGenerator.Core.Statistics
 					}
 				}
 
+				if(value == AccessibilityModifierData.ValueAlways)
+				{
+					if(this.NotProvidedForPublicInterfaceMembersOccurences >= this.ProvidedForPublicInterfaceMembersOccurences)
+					{
+						value = AccessibilityModifierData.ValueForNonInterfaceMembers;
+					}
+				}
+
 				return $"{name} = {value}:{severity.GetDescription()}";
 			}
 			else
@@ -98,7 +91,9 @@ namespace EditorConfigGenerator.Core.Statistics
 				this.TotalOccurences + data.TotalOccurences,
 				this.NotProvidedOccurences + data.NotProvidedOccurences,
 				this.ProvidedDefaultOccurences + data.ProvidedDefaultOccurences,
-				this.ProvidedNotDefaultOccurences + data.ProvidedNotDefaultOccurences);
+				this.ProvidedNotDefaultOccurences + data.ProvidedNotDefaultOccurences,
+				this.NotProvidedForPublicInterfaceMembersOccurences + data.NotProvidedForPublicInterfaceMembersOccurences,
+				this.ProvidedForPublicInterfaceMembersOccurences + data.ProvidedForPublicInterfaceMembersOccurences);
 		}
 
 		public bool Equals(AccessibilityModifierData? other)
@@ -110,7 +105,9 @@ namespace EditorConfigGenerator.Core.Statistics
 				areEqual = this.TotalOccurences == other.TotalOccurences &&
 					this.NotProvidedOccurences == other.NotProvidedOccurences &&
 					this.ProvidedDefaultOccurences == other.ProvidedDefaultOccurences &&
-					this.ProvidedNotDefaultOccurences == other.ProvidedNotDefaultOccurences;
+					this.ProvidedNotDefaultOccurences == other.ProvidedNotDefaultOccurences &&
+					this.NotProvidedForPublicInterfaceMembersOccurences == other.NotProvidedForPublicInterfaceMembersOccurences &&
+					this.ProvidedForPublicInterfaceMembersOccurences == other.ProvidedForPublicInterfaceMembersOccurences;
 			}
 
 			return areEqual;
@@ -119,10 +116,11 @@ namespace EditorConfigGenerator.Core.Statistics
 		public override bool Equals(object obj) => this.Equals(obj as AccessibilityModifierData);
 
 		public override int GetHashCode() =>
-			HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences);
+			HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
+				this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences);
 
 		public override string ToString() =>
-			$"{nameof(this.TotalOccurences)} = {this.TotalOccurences}, {nameof(this.NotProvidedOccurences)} = {this.NotProvidedOccurences}, {nameof(this.ProvidedDefaultOccurences)} = {this.ProvidedDefaultOccurences}, {nameof(this.ProvidedNotDefaultOccurences)} = {this.ProvidedNotDefaultOccurences}";
+			$"{nameof(this.TotalOccurences)} = {this.TotalOccurences}, {nameof(this.NotProvidedOccurences)} = {this.NotProvidedOccurences}, {nameof(this.ProvidedDefaultOccurences)} = {this.ProvidedDefaultOccurences}, {nameof(this.ProvidedNotDefaultOccurences)} = {this.ProvidedNotDefaultOccurences}, {nameof(this.NotProvidedForPublicInterfaceMembersOccurences)} = {this.NotProvidedForPublicInterfaceMembersOccurences}, {nameof(this.ProvidedForPublicInterfaceMembersOccurences)} = {this.ProvidedForPublicInterfaceMembersOccurences}";
 
 		public static bool operator ==(AccessibilityModifierData a, AccessibilityModifierData b)
 		{
@@ -144,7 +142,9 @@ namespace EditorConfigGenerator.Core.Statistics
 		public static bool operator !=(AccessibilityModifierData a, AccessibilityModifierData b) =>
 			!(a == b);
 
+		public uint NotProvidedForPublicInterfaceMembersOccurences { get; }
 		public uint NotProvidedOccurences { get; }
+		public uint ProvidedForPublicInterfaceMembersOccurences { get; }
 		public uint ProvidedDefaultOccurences { get; }
 		public uint ProvidedNotDefaultOccurences { get; }
 	}

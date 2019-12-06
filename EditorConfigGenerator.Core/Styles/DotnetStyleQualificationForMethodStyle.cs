@@ -19,7 +19,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override DotnetStyleQualificationForMethodStyle Add(DotnetStyleQualificationForMethodStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new DotnetStyleQualificationForMethodStyle(this.Data.Add(style.Data), this.Severity);
 		}
 

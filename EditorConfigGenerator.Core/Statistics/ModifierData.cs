@@ -49,7 +49,7 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public ModifierData Update(ImmutableList<string> modifiers)
 		{
-			if (modifiers == null) { throw new ArgumentNullException(nameof(modifiers)); }
+			if (modifiers is null) { throw new ArgumentNullException(nameof(modifiers)); }
 
 			var currentVisibilityModifers = this.VisibilityModifiers.ToBuilder();
 			var currentOtherModifers = this.OtherModifiers.ToBuilder();

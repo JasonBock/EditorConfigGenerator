@@ -25,51 +25,64 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override DotnetStyleRequireAccessibilityModifiersStyle Add(DotnetStyleRequireAccessibilityModifiersStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
 		public override string GetSetting() =>
 			this.Data.GetSetting(DotnetStyleRequireAccessibilityModifiersStyle.Setting, this.Severity);
 
-		private static bool AreModifiersDefault(MemberDeclarationSyntax node, List<SyntaxToken> modifiers)
+		private static (AccessibilityModifierDataOccurence, bool) GetOccurence(MemberDeclarationSyntax node, List<SyntaxToken> modifiers)
 		{
 			var parent = node.FindParent<TypeDeclarationSyntax>();
+			var isFromPublicInterfaceMember = false;
 
-			if(modifiers.Count == 1)
+			if (modifiers.Count == 0)
 			{
+				isFromPublicInterfaceMember = parent is InterfaceDeclarationSyntax parentInterface &&
+					parentInterface.ChildTokens().Any(
+						_ => DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifiers.Contains(
+							DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPublic));
+				return (AccessibilityModifierDataOccurence.NotProvided, isFromPublicInterfaceMember);
+			}
+			else if(modifiers.Count == 1)
+			{
+				var isDefault = false;
+
 				if (node is ClassDeclarationSyntax || node is StructDeclarationSyntax || node is InterfaceDeclarationSyntax ||
 					node is DelegateDeclarationSyntax)
 				{
-					return parent is null ? modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierInternal :
+					isDefault = parent is null ? modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierInternal :
 						modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate;
 				}
 				else if (node is EnumDeclarationSyntax)
 				{
-					return modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPublic;
+					isDefault = modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPublic;
 				}
 				else
 				{
 					if (node is ConstructorDeclarationSyntax || node is MethodDeclarationSyntax || node is PropertyDeclarationSyntax ||
 						node is EventFieldDeclarationSyntax || node is FieldDeclarationSyntax)
 					{
-						return modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate;
-					}
-					else
-					{
-						return false;
+						isDefault = modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate;
+						isFromPublicInterfaceMember = parent is InterfaceDeclarationSyntax parentInterface &&
+							parentInterface.ChildTokens().Any(
+								_ => DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifiers.Contains(
+									DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPublic));
 					}
 				}
+
+				return (isDefault ? AccessibilityModifierDataOccurence.ProvidedDefault : AccessibilityModifierDataOccurence.ProvidedNotDefault, isFromPublicInterfaceMember);
 			}
 			else
 			{
-				return false;
+				return (AccessibilityModifierDataOccurence.ProvidedNotDefault, isFromPublicInterfaceMember);
 			}
 		}
 
 		public override DotnetStyleRequireAccessibilityModifiersStyle Update(NodeInformation<MemberDeclarationSyntax> information)
 		{
-			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+			if (information is null) { throw new ArgumentNullException(nameof(information)); }
 
 			var node = information.Node;
 
@@ -77,22 +90,8 @@ namespace EditorConfigGenerator.Core.Styles
 			{
 				var modifiers = node.ChildTokens().Where(
 					_ => DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifiers.Contains(_.Text)).ToList();
-
-				if(modifiers.Count == 0)
-				{
-					return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Update(AccessibilityModifierDataOccurence.NotProvided), this.Severity);
-				}
-				else
-				{
-					if(DotnetStyleRequireAccessibilityModifiersStyle.AreModifiersDefault(node, modifiers))
-					{
-						return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Update(AccessibilityModifierDataOccurence.ProvidedDefault), this.Severity);
-					}
-					else
-					{
-						return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Update(AccessibilityModifierDataOccurence.ProvidedNotDefault), this.Severity);
-					}
-				}
+				var (occurence, isFromPublicInterfaceMember) = DotnetStyleRequireAccessibilityModifiersStyle.GetOccurence(node, modifiers);
+				return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data.Update(occurence, isFromPublicInterfaceMember), this.Severity);
 			}
 
 			return new DotnetStyleRequireAccessibilityModifiersStyle(this.Data, this.Severity);

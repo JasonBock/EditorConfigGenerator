@@ -17,7 +17,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override DotnetStylePreferInferredTupleNamesStyle Add(DotnetStylePreferInferredTupleNamesStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new DotnetStylePreferInferredTupleNamesStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
@@ -36,7 +36,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override DotnetStylePreferInferredTupleNamesStyle Update(NodeInformation<TupleExpressionSyntax> information)
 		{
-			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+			if (information is null) { throw new ArgumentNullException(nameof(information)); }
 
 			var node = information.Node;
 

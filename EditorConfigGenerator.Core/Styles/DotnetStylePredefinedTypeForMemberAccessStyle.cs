@@ -19,7 +19,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override DotnetStylePredefinedTypeForMemberAccessStyle Add(DotnetStylePredefinedTypeForMemberAccessStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new DotnetStylePredefinedTypeForMemberAccessStyle(this.Data.Add(style.Data), this.Severity);
 		}
 

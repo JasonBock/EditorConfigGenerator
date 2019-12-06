@@ -17,7 +17,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpNewLineBeforeMembersInObjectInitializersStyle Add(CSharpNewLineBeforeMembersInObjectInitializersStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpNewLineBeforeMembersInObjectInitializersStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
@@ -36,7 +36,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpNewLineBeforeMembersInObjectInitializersStyle Update(NodeInformation<InitializerExpressionSyntax> information)
 		{
-			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+			if (information is null) { throw new ArgumentNullException(nameof(information)); }
 
 			var node = information.Node;
 

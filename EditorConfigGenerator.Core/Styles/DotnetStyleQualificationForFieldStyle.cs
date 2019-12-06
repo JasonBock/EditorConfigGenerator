@@ -19,7 +19,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override DotnetStyleQualificationForFieldStyle Add(DotnetStyleQualificationForFieldStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new DotnetStyleQualificationForFieldStyle(this.Data.Add(style.Data), this.Severity);
 		}
 

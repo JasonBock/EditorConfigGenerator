@@ -15,7 +15,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpStyleExpressionBodiedOperatorsStyle Add(CSharpStyleExpressionBodiedOperatorsStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpStyleExpressionBodiedOperatorsStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
@@ -24,7 +24,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpStyleExpressionBodiedOperatorsStyle Update(NodeInformation<OperatorDeclarationSyntax> information)
 		{
-			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+			if (information is null) { throw new ArgumentNullException(nameof(information)); }
 			return new CSharpStyleExpressionBodiedOperatorsStyle(information.Node.Examine(this.Data), this.Severity);
 		}
 	}

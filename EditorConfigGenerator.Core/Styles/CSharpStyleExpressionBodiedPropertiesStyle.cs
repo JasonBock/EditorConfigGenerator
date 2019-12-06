@@ -17,7 +17,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpStyleExpressionBodiedPropertiesStyle Add(CSharpStyleExpressionBodiedPropertiesStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpStyleExpressionBodiedPropertiesStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
@@ -26,7 +26,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpStyleExpressionBodiedPropertiesStyle Update(NodeInformation<PropertyDeclarationSyntax> information)
 		{
-			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+			if (information is null) { throw new ArgumentNullException(nameof(information)); }
 
 			if (information.Node.DescendantNodes()
 				.SingleOrDefault(_ => _.Kind() == SyntaxKind.GetAccessorDeclaration) is AccessorDeclarationSyntax getAccessor)

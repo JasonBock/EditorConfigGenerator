@@ -20,7 +20,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpStylePatternMatchingOverAsWithNullCheckStyle Add(CSharpStylePatternMatchingOverAsWithNullCheckStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Add(style.Data), this.Severity);
 		}
 

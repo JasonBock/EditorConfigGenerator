@@ -15,7 +15,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpPreferSimpleDefaultExpressionStyle Add(CSharpPreferSimpleDefaultExpressionStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpPreferSimpleDefaultExpressionStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
@@ -34,7 +34,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpPreferSimpleDefaultExpressionStyle Update(NodeInformation<ExpressionSyntax> information)
 		{
-			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+			if (information is null) { throw new ArgumentNullException(nameof(information)); }
 
 			var node = information.Node;
 

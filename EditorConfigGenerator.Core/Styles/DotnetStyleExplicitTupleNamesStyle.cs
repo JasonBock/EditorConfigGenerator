@@ -17,7 +17,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override DotnetStyleExplicitTupleNamesStyle Add(DotnetStyleExplicitTupleNamesStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new DotnetStyleExplicitTupleNamesStyle(this.Data.Add(style.Data), this.Severity);
 		}
 

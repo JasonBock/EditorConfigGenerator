@@ -18,7 +18,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpStyleVarForBuiltInTypesStyle Add(CSharpStyleVarForBuiltInTypesStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpStyleVarForBuiltInTypesStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
@@ -37,7 +37,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpStyleVarForBuiltInTypesStyle Update(NodeInformation<LocalDeclarationStatementSyntax> information)
 		{
-			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+			if (information is null) { throw new ArgumentNullException(nameof(information)); }
 
 			var node = information.Node;
 

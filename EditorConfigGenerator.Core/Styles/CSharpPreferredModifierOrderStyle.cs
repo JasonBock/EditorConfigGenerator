@@ -17,7 +17,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpPreferredModifierOrderStyle Add(CSharpPreferredModifierOrderStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpPreferredModifierOrderStyle(this.Data.Add(style.Data));
 		}
 
@@ -51,7 +51,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpPreferredModifierOrderStyle Update(NodeInformation<MemberDeclarationSyntax> information)
 		{
-			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+			if (information is null) { throw new ArgumentNullException(nameof(information)); }
 
 			var node = information.Node;
 

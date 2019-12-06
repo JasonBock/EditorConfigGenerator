@@ -15,14 +15,18 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			var notProvidedOccurences = generator.Generate<uint>();
 			var providedDefaultOccurences = generator.Generate<uint>();
 			var providedNotDefaultOccurences = generator.Generate<uint>();
+			var notProvidedForPublicInterfaceMembersOccurences = generator.Generate<uint>();
+			var providedForPublicInterfaceMembersOccurences = generator.Generate<uint>();
 
 			var data = new AccessibilityModifierData(totalOccurences, notProvidedOccurences, providedDefaultOccurences,
-				providedNotDefaultOccurences);
+				providedNotDefaultOccurences, notProvidedForPublicInterfaceMembersOccurences, providedForPublicInterfaceMembersOccurences);
 
 			Assert.That(data.TotalOccurences, Is.EqualTo(totalOccurences), nameof(data.TotalOccurences));
 			Assert.That(data.NotProvidedOccurences, Is.EqualTo(notProvidedOccurences), nameof(data.NotProvidedOccurences));
 			Assert.That(data.ProvidedDefaultOccurences, Is.EqualTo(providedDefaultOccurences), nameof(data.ProvidedDefaultOccurences));
 			Assert.That(data.ProvidedNotDefaultOccurences, Is.EqualTo(providedNotDefaultOccurences), nameof(data.ProvidedNotDefaultOccurences));
+			Assert.That(data.NotProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(notProvidedForPublicInterfaceMembersOccurences), nameof(data.NotProvidedForPublicInterfaceMembersOccurences));
+			Assert.That(data.ProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(providedForPublicInterfaceMembersOccurences), nameof(data.ProvidedForPublicInterfaceMembersOccurences));
 		}
 
 		[Test]
@@ -34,19 +38,23 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 			Assert.That(data.NotProvidedOccurences, Is.EqualTo(default(uint)), nameof(data.NotProvidedOccurences));
 			Assert.That(data.ProvidedDefaultOccurences, Is.EqualTo(default(uint)), nameof(data.ProvidedDefaultOccurences));
 			Assert.That(data.ProvidedNotDefaultOccurences, Is.EqualTo(default(uint)), nameof(data.ProvidedNotDefaultOccurences));
+			Assert.That(data.NotProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(default(uint)), nameof(data.NotProvidedForPublicInterfaceMembersOccurences));
+			Assert.That(data.ProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(default(uint)), nameof(data.ProvidedForPublicInterfaceMembersOccurences));
 		}
 
 		[Test]
 		public static void Add()
 		{
-			var data1 = new AccessibilityModifierData(10u, 1u, 2u, 3u);
-			var data2 = new AccessibilityModifierData(100u, 10u, 20u, 30u);
+			var data1 = new AccessibilityModifierData(10u, 1u, 2u, 3u, 4u, 5u);
+			var data2 = new AccessibilityModifierData(100u, 10u, 20u, 30u, 40u, 50u);
 			var data3 = data1.Add(data2);
 
 			Assert.That(data3.TotalOccurences, Is.EqualTo(110u), nameof(data3.TotalOccurences));
 			Assert.That(data3.NotProvidedOccurences, Is.EqualTo(11u), nameof(data3.NotProvidedOccurences));
 			Assert.That(data3.ProvidedDefaultOccurences, Is.EqualTo(22u), nameof(data3.ProvidedDefaultOccurences));
 			Assert.That(data3.ProvidedNotDefaultOccurences, Is.EqualTo(33u), nameof(data3.ProvidedNotDefaultOccurences));
+			Assert.That(data3.NotProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(44u), nameof(data3.NotProvidedForPublicInterfaceMembersOccurences));
+			Assert.That(data3.ProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(55u), nameof(data3.ProvidedForPublicInterfaceMembersOccurences));
 		}
 
 		[Test]
@@ -59,73 +67,100 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void GetSettingWithNoOccurrences()
 		{
-			var data = new AccessibilityModifierData(0u, 0u, 0u, 0u);
+			var data = new AccessibilityModifierData(0u, 0u, 0u, 0u, 0u, 0u);
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo(string.Empty), nameof(data.GetSetting));
 		}
 
 		[Test]
-		public static void GetSettingWithProvidedNotDefaultOverProvidedDefaultOverNotProvided()
+		public static void GetSettingWithProvidedNotDefaultOverProvidedDefaultOverNotProvidedAndInterfaceMembersAreProvided()
 		{
-			var data = new AccessibilityModifierData(6u, 1u, 2u, 3u);
+			var data = new AccessibilityModifierData(6u, 1u, 2u, 3u, 1u, 2u);
+			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = always:error"), nameof(data.GetSetting));
+		}
+
+		[Test]
+		public static void GetSettingWithProvidedNotDefaultOverProvidedDefaultOverNotProvidedAndInterfaceMembersAreNotProvided()
+		{
+			var data = new AccessibilityModifierData(6u, 1u, 2u, 3u, 2u, 1u);
+			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = for_non_interface_members:error"), nameof(data.GetSetting));
+		}
+
+		[Test]
+		public static void GetSettingWithProvidedNotDefaultOverNotProvidedPlusProvidedDefault()
+		{
+			var data = new AccessibilityModifierData(7u, 2u, 1u, 4u, 1u, 2u);
+			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = always:error"), nameof(data.GetSetting));
+		}
+
+		[Test]
+		public static void GetSettingWithProvidedNotDefaultNotOverSummationOverProvidedDefaultOverNotProvided()
+		{
+			var data = new AccessibilityModifierData(9u, 2u, 3u, 4u, 1u, 2u);
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = always:error"), nameof(data.GetSetting));
 		}
 
 		[Test]
 		public static void GetSettingWithProvidedNotDefaultOverNotProvidedOverProvidedDefault()
 		{
-			var data = new AccessibilityModifierData(6u, 2u, 1u, 3u);
+			var data = new AccessibilityModifierData(9u, 3u, 2u, 4u, 0u, 0u);
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = omit_if_default:error"), nameof(data.GetSetting));
 		}
 
 		[Test]
 		public static void GetSettingWithProvidedDefaultOverNotProvidedOverProvidedNotDefault()
 		{
-			var data = new AccessibilityModifierData(6u, 2u, 3u, 1u);
+			var data = new AccessibilityModifierData(6u, 2u, 3u, 1u, 0u, 1u);
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = always:error"), nameof(data.GetSetting));
 		}
 
 		[Test]
 		public static void GetSettingWithNotProvidedOverSumOfProvided()
 		{
-			var data = new AccessibilityModifierData(6u, 4u, 1u, 1u);
+			var data = new AccessibilityModifierData(6u, 4u, 1u, 1u, 0u, 0u);
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = never:error"), nameof(data.GetSetting));
 		}
 
 		[Test]
 		public static void GetSettingWithNotProvidedNotOverSumOfProvidedAndProvidedDefaultOverProvidedNotDefault()
 		{
-			var data = new AccessibilityModifierData(9u, 4u, 3u, 2u);
+			var data = new AccessibilityModifierData(9u, 4u, 3u, 2u, 0u, 1u);
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = always:error"), nameof(data.GetSetting));
 		}
 
 		[Test]
 		public static void GetSettingWithNotProvidedNotOverSumOfProvidedAndProvidedNotDefaultOverProvidedDefault()
 		{
-			var data = new AccessibilityModifierData(9u, 4u, 2u, 3u);
+			var data = new AccessibilityModifierData(9u, 4u, 2u, 3u, 0u, 0u);
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = omit_if_default:error"), nameof(data.GetSetting));
 		}
 
-		[TestCase(AccessibilityModifierDataOccurence.NotProvided, 1u, 0u, 0u)]
-		[TestCase(AccessibilityModifierDataOccurence.ProvidedDefault, 0u, 1u, 0u)]
-		[TestCase(AccessibilityModifierDataOccurence.ProvidedNotDefault, 0u, 0u, 1u)]
-		public static void Update(AccessibilityModifierDataOccurence occurence, uint expectedNotProvidedOccurences,
-			uint expectedProvidedDefaultOccurences, uint expectedProvidedNotDefaultOccurences)
+		[TestCase(AccessibilityModifierDataOccurence.NotProvided, false, 1u, 0u, 0u, 0u, 0u)]
+		[TestCase(AccessibilityModifierDataOccurence.ProvidedDefault, false, 0u, 1u, 0u, 0u, 0u)]
+		[TestCase(AccessibilityModifierDataOccurence.ProvidedNotDefault, false, 0u, 0u, 1u, 0u, 0u)]
+		[TestCase(AccessibilityModifierDataOccurence.NotProvided, true, 1u, 0u, 0u, 1u, 0u)]
+		[TestCase(AccessibilityModifierDataOccurence.ProvidedDefault, true, 0u, 1u, 0u, 0u, 1u)]
+		[TestCase(AccessibilityModifierDataOccurence.ProvidedNotDefault, true, 0u, 0u, 1u, 0u, 1u)]
+		public static void Update(AccessibilityModifierDataOccurence occurence, bool isFromPublicInterface, uint expectedNotProvidedOccurences,
+			uint expectedProvidedDefaultOccurences, uint expectedProvidedNotDefaultOccurences, 
+			uint expectedNotProvidedForPublicInterfaceMembersOccurences, uint expectedProvidedForPublicInterfaceMembersOccurences)
 		{
 			var data = new AccessibilityModifierData();
-			data = data.Update(occurence);
+			data = data.Update(occurence, isFromPublicInterface);
 
 			Assert.That(data.TotalOccurences, Is.EqualTo(1u), nameof(data.TotalOccurences));
 			Assert.That(data.NotProvidedOccurences, Is.EqualTo(expectedNotProvidedOccurences), nameof(data.NotProvidedOccurences));
 			Assert.That(data.ProvidedDefaultOccurences, Is.EqualTo(expectedProvidedDefaultOccurences), nameof(data.ProvidedDefaultOccurences));
 			Assert.That(data.ProvidedNotDefaultOccurences, Is.EqualTo(expectedProvidedNotDefaultOccurences), nameof(data.ProvidedNotDefaultOccurences));
+			Assert.That(data.NotProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(expectedNotProvidedForPublicInterfaceMembersOccurences), nameof(data.NotProvidedForPublicInterfaceMembersOccurences));
+			Assert.That(data.ProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(expectedProvidedForPublicInterfaceMembersOccurences), nameof(data.ProvidedForPublicInterfaceMembersOccurences));
 		}
 
 		[Test]
 		public static void VerifyEquality()
 		{
-			var data1 = new AccessibilityModifierData(6, 1, 2, 3);
-			var data2 = new AccessibilityModifierData(6, 2, 1, 3);
-			var data3 = new AccessibilityModifierData(6, 1, 2, 3);
+			var data1 = new AccessibilityModifierData(6, 1, 2, 3, 1, 2);
+			var data2 = new AccessibilityModifierData(6, 2, 1, 3, 1, 2);
+			var data3 = new AccessibilityModifierData(6, 1, 2, 3, 1, 2);
 
 			Assert.That(data1, Is.Not.EqualTo(data2));
 			Assert.That(data1, Is.EqualTo(data3));
@@ -147,8 +182,8 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 
 		[Test]
 		public static void VerifyToString() =>
-			Assert.That(new AccessibilityModifierData(6, 1, 2, 3).ToString(),
-				Is.EqualTo("TotalOccurences = 6, NotProvidedOccurences = 1, ProvidedDefaultOccurences = 2, ProvidedNotDefaultOccurences = 3"));
+			Assert.That(new AccessibilityModifierData(6, 1, 2, 3, 4, 5).ToString(),
+				Is.EqualTo("TotalOccurences = 6, NotProvidedOccurences = 1, ProvidedDefaultOccurences = 2, ProvidedNotDefaultOccurences = 3, NotProvidedForPublicInterfaceMembersOccurences = 4, ProvidedForPublicInterfaceMembersOccurences = 5"));
 
 		[Test]
 		public static void VerifyEqualityWithInvalidType() =>
@@ -157,9 +192,9 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void VerifyHashCodes()
 		{
-			var data1 = new AccessibilityModifierData(6, 1, 2, 3);
-			var data2 = new AccessibilityModifierData(6, 2, 1, 3);
-			var data3 = new AccessibilityModifierData(6, 1, 2, 3);
+			var data1 = new AccessibilityModifierData(6, 1, 2, 3, 1, 2);
+			var data2 = new AccessibilityModifierData(6, 2, 1, 3, 1, 2);
+			var data3 = new AccessibilityModifierData(6, 1, 2, 3, 1, 2);
 
 			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
 			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));

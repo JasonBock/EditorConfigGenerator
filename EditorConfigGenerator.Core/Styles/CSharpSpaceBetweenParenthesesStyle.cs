@@ -20,7 +20,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpSpaceBetweenParenthesesStyle Add(CSharpSpaceBetweenParenthesesStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpSpaceBetweenParenthesesStyle(this.Data.Add(style.Data));
 		}
 
@@ -56,7 +56,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpSpaceBetweenParenthesesStyle Update(NodeInformation<SyntaxNode> information)
 		{
-			if (information == null) { throw new ArgumentNullException(nameof(information)); }
+			if (information is null) { throw new ArgumentNullException(nameof(information)); }
 
 			var node = information.Node;
 

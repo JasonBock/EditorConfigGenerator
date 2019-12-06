@@ -18,7 +18,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 		public override CSharpStylePatternLocalOverAnonymousFunctionStyle Add(CSharpStylePatternLocalOverAnonymousFunctionStyle style)
 		{
-			if (style == null) { throw new ArgumentNullException(nameof(style)); }
+			if (style is null) { throw new ArgumentNullException(nameof(style)); }
 			return new CSharpStylePatternLocalOverAnonymousFunctionStyle(this.Data.Add(style.Data), this.Severity);
 		}
 
