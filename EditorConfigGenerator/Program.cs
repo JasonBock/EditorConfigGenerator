@@ -7,32 +7,21 @@ namespace EditorConfigGenerator
 {
 	class Program
 	{
-		static async Task Main(string[] args)
+		static async Task Main(DirectoryInfo? directory, FileInfo? file, bool generateStatistics = false)
 		{
-			if (args?.Length != 1)
+			if(directory is { })
 			{
-				Console.Out.WriteLine("Usage: {fileName}, where the extension is .sln, .csproj, or .cs");
+				Console.Out.WriteLine(await StyleGenerator.Generate(directory, Console.Out, generateStatistics));
 			}
 			else
 			{
-				var arg = args[0];
-
-				if(Directory.Exists(arg))
+				if (file is { } && file.Extension == ".cs")
 				{
-					Console.Out.WriteLine(await StyleGenerator.Generate(arg, Console.Out));
+					Console.Out.WriteLine(StyleGenerator.GenerateFromDocument(file, Console.Out, generateStatistics));
 				}
 				else
 				{
-					var extension = Path.GetExtension(arg);
-
-					if (extension == ".cs")
-					{
-						Console.Out.WriteLine(StyleGenerator.GenerateFromDocument(arg, Console.Out));
-					}
-					else
-					{
-						Console.Out.WriteLine("Usage: {fileName}, where the extension is .sln, .csproj, or .cs");
-					}
+					Console.Out.WriteLine("Usage: {fileName}, where the extension is .sln, .csproj, or .cs");
 				}
 			}
 		}

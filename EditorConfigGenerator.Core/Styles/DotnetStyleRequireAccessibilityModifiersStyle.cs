@@ -1,6 +1,7 @@
 ﻿using EditorConfigGenerator.Core.Extensions;
 using EditorConfigGenerator.Core.Statistics;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
@@ -49,8 +50,8 @@ namespace EditorConfigGenerator.Core.Styles
 			{
 				var isDefault = false;
 
-				if (node is ClassDeclarationSyntax || node is StructDeclarationSyntax || node is InterfaceDeclarationSyntax ||
-					node is DelegateDeclarationSyntax)
+				if (node.RawKind == (int)SyntaxKind.ClassDeclaration || node.RawKind == (int)SyntaxKind.StructDeclaration || 
+					node.RawKind == (int)SyntaxKind.InterfaceDeclaration || node.RawKind == (int)SyntaxKind.DelegateDeclaration)
 				{
 					isDefault = parent is null ? modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierInternal :
 						modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate;
@@ -61,8 +62,9 @@ namespace EditorConfigGenerator.Core.Styles
 				}
 				else
 				{
-					if (node is ConstructorDeclarationSyntax || node is MethodDeclarationSyntax || node is PropertyDeclarationSyntax ||
-						node is EventFieldDeclarationSyntax || node is FieldDeclarationSyntax)
+					if (node.RawKind == (int)SyntaxKind.ConstructorDeclaration || node.RawKind == (int)SyntaxKind.MethodDeclaration || 
+						node.RawKind == (int)SyntaxKind.PropertyDeclaration || node.RawKind == (int)SyntaxKind.EventFieldDeclaration || 
+						node.RawKind == (int)SyntaxKind.FieldDeclaration)
 					{
 						isDefault = modifiers[0].Text == DotnetStyleRequireAccessibilityModifiersStyle.AccessibilityModifierPrivate;
 						isFromPublicInterfaceMember = parent is InterfaceDeclarationSyntax parentInterface &&

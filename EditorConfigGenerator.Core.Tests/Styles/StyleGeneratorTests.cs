@@ -11,11 +11,11 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void GenerateFromFile()
 		{
-			var sourceFile = $"{Guid.NewGuid().ToString("N")}.cs";
+			var sourceFile = new FileInfo($"{Guid.NewGuid().ToString("N")}.cs");
 
 			try
 			{
-				File.WriteAllText(sourceFile,
+				File.WriteAllText(sourceFile.FullName,
 	@"public static class Test
 {
 	public static void VarFoo()
@@ -28,7 +28,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			}
 			finally
 			{
-				File.Delete(sourceFile);
+				File.Delete(sourceFile.FullName);
 			}
 		}
 	}
