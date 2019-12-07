@@ -33,6 +33,10 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
+		public static void EvaluateConsistency() => 
+			Assert.That(new BooleanData(100u, 75u, 25u).Consistency, Is.EqualTo(0.5f));
+
+		[Test]
 		public static void Add()
 		{
 			var data1 = new BooleanData(3u, 1u, 2u);

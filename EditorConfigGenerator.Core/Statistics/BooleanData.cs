@@ -14,6 +14,7 @@ namespace EditorConfigGenerator.Core.Statistics
 		{
 			this.TrueOccurences = trueOccurences;
 			this.FalseOccurences = falseOccurences;
+			this.Consistency = (float)Math.Abs(trueOccurences - falseOccurences) / totalOccurences;
 		}
 
 		public BooleanData Update(bool isTrue) =>

@@ -7,6 +7,9 @@
     <Version>1.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Statistics\Data.cs~RF5375a633.TMP" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis" Version="3.4.0-beta4-final" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.4.0-beta4-final" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.4.0-beta4-final" />

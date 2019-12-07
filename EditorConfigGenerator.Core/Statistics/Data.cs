@@ -9,5 +9,7 @@
 		public abstract TData Add(TData data);
 
 		public uint TotalOccurences { get; }
+
+		public float Consistency { get; protected set; }
 	}
 }
