@@ -33,6 +33,10 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
+		public static void EvaluateConsistency() =>
+			Assert.That(new TabSpaceData(100u, 99u, 1u).Consistency, Is.EqualTo(0.980000019f));
+
+		[Test]
 		public static void Add()
 		{
 			var data1 = new TabSpaceData(3u, 1u, 2u);

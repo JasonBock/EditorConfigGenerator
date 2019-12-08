@@ -43,6 +43,10 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
+		public static void EvaluateConsistency() =>
+			Assert.That(new AccessibilityModifierData(100u, 10u, 70u, 20u, 5u, 50u).Consistency, Is.EqualTo(0.550000012f));
+
+		[Test]
 		public static void Add()
 		{
 			var data1 = new AccessibilityModifierData(10u, 1u, 2u, 3u, 4u, 5u);

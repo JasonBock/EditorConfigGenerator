@@ -36,6 +36,10 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
+		public static void ExpressionBodiedData() =>
+			Assert.That(new ExpressionBodiedData(100u, 70u, 20u, 10u).Consistency, Is.EqualTo(0.800000012f));
+
+		[Test]
 		public static void Add()
 		{
 			var data1 = new ExpressionBodiedData(10u, 1u, 2u, 3u);

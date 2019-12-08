@@ -47,6 +47,10 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
+		public static void EvaluateConsistency() =>
+			Assert.That(new ParenthesesSpaceData(100u, 20u, 5u, 40u, 10u, 20u, 5u).Consistency, Is.EqualTo(0.600000024f));
+
+		[Test]
 		public static void Add()
 		{
 			var data1 = new ParenthesesSpaceData(21u, 1u, 2u, 3u, 4u, 5u, 6u);

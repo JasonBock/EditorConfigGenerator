@@ -123,6 +123,18 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		}
 
 		[Test]
+		public static void ExpressionBodiedData()
+		{
+			var data = new ModifierData();
+			data = data.Update(new[] { SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText }.ToImmutableList());
+			data = data.Update(new[] { SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText }.ToImmutableList());
+			data = data.Update(new[] { SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText }.ToImmutableList());
+			data = data.Update(new[] { SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText }.ToImmutableList());
+			data = data.Update(new[] { SyntaxFactory.Token(SyntaxKind.AsyncKeyword).ValueText }.ToImmutableList());
+			Assert.That(data.Consistency, Is.EqualTo(0.200000003f));
+		}
+
+		[Test]
 		public static void VerifyEquality()
 		{
 			var data1 = new ModifierData().Update(new[] { SyntaxFactory.Token(SyntaxKind.PublicKeyword).ValueText }.ToImmutableList());
