@@ -53,14 +53,14 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void Add()
 		{
-			var style1 = new CSharpPreserveSingleLineBlocksStyle(new BooleanData(1u, 2u, 3u));
-			var style2 = new CSharpPreserveSingleLineBlocksStyle(new BooleanData(10u, 20u, 30u));
+			var style1 = new CSharpPreserveSingleLineBlocksStyle(new BooleanData(3u, 1u, 2u));
+			var style2 = new CSharpPreserveSingleLineBlocksStyle(new BooleanData(30u, 10u, 20u));
 			var style3 = style1.Add(style2);
 
 			var data = style3.Data;
-			Assert.That(data.TotalOccurences, Is.EqualTo(11u), nameof(data.TotalOccurences));
-			Assert.That(data.TrueOccurences, Is.EqualTo(22u), nameof(data.TrueOccurences));
-			Assert.That(data.FalseOccurences, Is.EqualTo(33u), nameof(data.FalseOccurences));
+			Assert.That(data.TotalOccurences, Is.EqualTo(33u), nameof(data.TotalOccurences));
+			Assert.That(data.TrueOccurences, Is.EqualTo(11u), nameof(data.TrueOccurences));
+			Assert.That(data.FalseOccurences, Is.EqualTo(22u), nameof(data.FalseOccurences));
 		}
 
 		[Test]

@@ -1,6 +1,5 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using NUnit.Framework;
-using Spackle;
 using System;
 
 namespace EditorConfigGenerator.Core.Tests.Statistics
@@ -11,10 +10,9 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void Create()
 		{
-			var generator = new RandomObjectGenerator();
-			var totalOccurences = generator.Generate<uint>();
-			var trueOccurences = generator.Generate<uint>();
-			var falseOccurences = generator.Generate<uint>();
+			var totalOccurences = 3u;
+			var trueOccurences = 1u;
+			var falseOccurences = 2u;
 
 			var data = new BooleanData(totalOccurences, trueOccurences, falseOccurences);
 

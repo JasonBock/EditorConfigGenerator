@@ -14,6 +14,12 @@ namespace EditorConfigGenerator.Core.Statistics
 			uint trueOccurences, uint falseOccurences)
 			: base(totalOccurences, new List<uint> { trueOccurences, falseOccurences }.GetConsistency(totalOccurences))
 		{
+			if(trueOccurences + falseOccurences != totalOccurences)
+			{
+				throw new InvalidOccurenceValuesException(
+					$"{trueOccurences} ({nameof(trueOccurences)}) + {falseOccurences} ({nameof(falseOccurences)}) != {totalOccurences} ({nameof(totalOccurences)})");
+			}
+
 			this.TrueOccurences = trueOccurences;
 			this.FalseOccurences = falseOccurences;
 		}
