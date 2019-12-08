@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using static EditorConfigGenerator.Core.Extensions.ListOfUintsExtensions;
 
 namespace EditorConfigGenerator.Core.Statistics
 {
@@ -6,11 +8,11 @@ namespace EditorConfigGenerator.Core.Statistics
 		: Data<TabSpaceData>, IEquatable<TabSpaceData?>
 	{
 		public TabSpaceData() 
-			: base(default) { }
+			: base(default, default) { }
 
 		public TabSpaceData(uint totalOccurences,
 			uint tabOccurences, uint spaceOccurences)
-			: base(totalOccurences)
+			: base(totalOccurences, new List<uint> { tabOccurences, spaceOccurences }.GetConsistency(totalOccurences))
 		{
 			this.TabOccurences = tabOccurences;
 			this.SpaceOccurences = spaceOccurences;

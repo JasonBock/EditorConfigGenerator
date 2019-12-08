@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using static EditorConfigGenerator.Core.Extensions.ListOfUintsExtensions;
 
 namespace EditorConfigGenerator.Core.Statistics
 {
@@ -6,15 +8,14 @@ namespace EditorConfigGenerator.Core.Statistics
 		: Data<BooleanData>, IEquatable<BooleanData?>
 	{
 		public BooleanData() 
-			: base(default) { }
+			: base(default, default) { }
 
 		public BooleanData(uint totalOccurences,
 			uint trueOccurences, uint falseOccurences)
-			: base(totalOccurences)
+			: base(totalOccurences, new List<uint> { trueOccurences, falseOccurences }.GetConsistency(totalOccurences))
 		{
 			this.TrueOccurences = trueOccurences;
 			this.FalseOccurences = falseOccurences;
-			this.Consistency = (float)Math.Abs(trueOccurences - falseOccurences) / totalOccurences;
 		}
 
 		public BooleanData Update(bool isTrue) =>

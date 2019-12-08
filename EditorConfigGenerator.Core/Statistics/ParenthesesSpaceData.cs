@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using static EditorConfigGenerator.Core.Extensions.ListOfUintsExtensions;
 
 namespace EditorConfigGenerator.Core.Statistics
 {
@@ -6,13 +8,14 @@ namespace EditorConfigGenerator.Core.Statistics
 		: Data<ParenthesesSpaceData>, IEquatable<ParenthesesSpaceData?>
 	{
 		public ParenthesesSpaceData()
-			: base(default) { }
+			: base(default, default) { }
 
 		public ParenthesesSpaceData(uint totalOccurences,
 			uint controlFlowNoSpaceOccurences, uint controlFlowSpaceOccurences,
 			uint expressionsNoSpaceOccurences, uint expressionsSpaceOccurences,
 			uint typeCastsNoSpaceOccurences, uint typeCastsSpaceOccurences)
-			: base(totalOccurences)
+			: base(totalOccurences, new List<uint> { controlFlowNoSpaceOccurences + expressionsNoSpaceOccurences + typeCastsNoSpaceOccurences,
+				controlFlowSpaceOccurences + expressionsSpaceOccurences + typeCastsSpaceOccurences }.GetConsistency(totalOccurences))
 		{
 			this.ControlFlowNoSpaceOccurences = controlFlowNoSpaceOccurences;
 			this.ControlFlowSpaceOccurences = controlFlowSpaceOccurences;

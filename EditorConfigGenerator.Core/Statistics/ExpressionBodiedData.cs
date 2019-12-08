@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
+using static EditorConfigGenerator.Core.Extensions.ListOfUintsExtensions;
 
 namespace EditorConfigGenerator.Core.Statistics
 {
@@ -7,12 +9,12 @@ namespace EditorConfigGenerator.Core.Statistics
 		: Data<ExpressionBodiedData>, IEquatable<ExpressionBodiedData?>
 	{
 		public ExpressionBodiedData()
-			: base(default) { }
+			: base(default, default) { }
 
 		public ExpressionBodiedData(uint totalOccurences,
 			uint arrowSingleLineOccurences, uint arrowMultiLineOccurences,
 			uint blockOccurences)
-			: base(totalOccurences)
+			: base(totalOccurences, new List<uint> { arrowSingleLineOccurences + arrowMultiLineOccurences, blockOccurences }.GetConsistency(totalOccurences))
 		{
 			this.ArrowSingleLineOccurences = arrowSingleLineOccurences;
 			this.ArrowMultiLineOccurences = arrowMultiLineOccurences;

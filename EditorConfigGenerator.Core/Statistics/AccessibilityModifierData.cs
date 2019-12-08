@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
+using static EditorConfigGenerator.Core.Extensions.ListOfUintsExtensions;
 
 namespace EditorConfigGenerator.Core.Statistics
 {
@@ -12,14 +14,14 @@ namespace EditorConfigGenerator.Core.Statistics
 		private const string ValueOmitIfDefault = "omit_if_default";
 
 		public AccessibilityModifierData()
-			: base(default) { }
+			: base(default, default) { }
 
 		public AccessibilityModifierData(uint totalOccurences,
 			uint notProvidedOccurences, uint providedDefaultOccurences, uint providedNotDefaultOccurences,
 			uint notProvidedForPublicInterfaceMembersOccurences, uint providedForPublicInterfaceMembersOccurences)
-			: base(totalOccurences) =>
-			(this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences, this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences) =
-				(notProvidedOccurences, providedDefaultOccurences, providedNotDefaultOccurences, notProvidedForPublicInterfaceMembersOccurences, providedForPublicInterfaceMembersOccurences);
+			: base(totalOccurences, new List<uint> { notProvidedOccurences, providedDefaultOccurences, providedNotDefaultOccurences }.GetConsistency(totalOccurences)) => 
+				(this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences, this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences) =
+					(notProvidedOccurences, providedDefaultOccurences, providedNotDefaultOccurences, notProvidedForPublicInterfaceMembersOccurences, providedForPublicInterfaceMembersOccurences);
 
 		public AccessibilityModifierData Update(AccessibilityModifierDataOccurence occurence, bool isFromPublicInterfaceMember)
 		{

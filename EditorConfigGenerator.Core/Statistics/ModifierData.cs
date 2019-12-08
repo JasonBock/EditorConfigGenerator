@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using static EditorConfigGenerator.Core.Extensions.ListOfUintsExtensions;
 
 namespace EditorConfigGenerator.Core.Statistics
 {
@@ -10,16 +11,19 @@ namespace EditorConfigGenerator.Core.Statistics
 		: Data<ModifierData>, IEquatable<ModifierData?>
 	{
 		public ModifierData()
-			: base(default) { }
+			: base(default, default) { }
 
 		private ModifierData(ImmutableDictionary<string, (uint weight, uint frequency)> visibilityModifiers,
 			ImmutableDictionary<string, (uint weight, uint frequency)> otherModifiers)
-			: base((uint)visibilityModifiers.Values.Sum(_ => _.frequency) +
+			: this((uint)visibilityModifiers.Values.Sum(_ => _.frequency),
 				(uint)otherModifiers.Values.Sum(_ => _.frequency))
 		{
 			this.VisibilityModifiers = visibilityModifiers;
 			this.OtherModifiers = otherModifiers;
 		}
+
+		private ModifierData(uint visibilityModifiers, uint otherModifiers)
+			: base(visibilityModifiers + otherModifiers, new List<uint> { visibilityModifiers, otherModifiers }.GetConsistency(visibilityModifiers + otherModifiers)) { }
 
 		public override ModifierData Add(ModifierData data)
 		{
