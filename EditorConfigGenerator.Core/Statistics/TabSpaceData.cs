@@ -14,6 +14,12 @@ namespace EditorConfigGenerator.Core.Statistics
 			uint tabOccurences, uint spaceOccurences)
 			: base(totalOccurences, new List<uint> { tabOccurences, spaceOccurences }.GetConsistency(totalOccurences))
 		{
+			if (tabOccurences + spaceOccurences != totalOccurences)
+			{
+				throw new InvalidOccurenceValuesException(
+					$"{tabOccurences} ({nameof(tabOccurences)}) + {spaceOccurences} ({nameof(spaceOccurences)}) != {totalOccurences} ({nameof(totalOccurences)})");
+			}
+
 			this.TabOccurences = tabOccurences;
 			this.SpaceOccurences = spaceOccurences;
 		}

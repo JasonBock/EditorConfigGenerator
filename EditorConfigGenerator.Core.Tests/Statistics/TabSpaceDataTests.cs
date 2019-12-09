@@ -1,6 +1,5 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using NUnit.Framework;
-using Spackle;
 using System;
 
 namespace EditorConfigGenerator.Core.Tests.Statistics
@@ -11,10 +10,9 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void Create()
 		{
-			var generator = new RandomObjectGenerator();
-			var totalOccurences = generator.Generate<uint>();
-			var tabOccurences = generator.Generate<uint>();
-			var spaceOccurences = generator.Generate<uint>();
+			var totalOccurences = 3u;
+			var tabOccurences = 2u;
+			var spaceOccurences = 1u;
 
 			var data = new TabSpaceData(totalOccurences, tabOccurences, spaceOccurences);
 
