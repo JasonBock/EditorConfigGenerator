@@ -19,9 +19,20 @@ namespace EditorConfigGenerator.Core.Statistics
 		public AccessibilityModifierData(uint totalOccurences,
 			uint notProvidedOccurences, uint providedDefaultOccurences, uint providedNotDefaultOccurences,
 			uint notProvidedForPublicInterfaceMembersOccurences, uint providedForPublicInterfaceMembersOccurences)
-			: base(totalOccurences, new List<uint> { notProvidedOccurences, providedDefaultOccurences, providedNotDefaultOccurences }.GetConsistency(totalOccurences)) => 
-				(this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences, this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences) =
-					(notProvidedOccurences, providedDefaultOccurences, providedNotDefaultOccurences, notProvidedForPublicInterfaceMembersOccurences, providedForPublicInterfaceMembersOccurences);
+			: base(totalOccurences, new List<uint> { notProvidedOccurences, providedDefaultOccurences, providedNotDefaultOccurences }.GetConsistency(totalOccurences))
+		{
+			if(notProvidedOccurences + providedDefaultOccurences + providedNotDefaultOccurences != totalOccurences)
+			{
+				throw new InvalidOccurenceValuesException(
+					$"{notProvidedOccurences} ({nameof(notProvidedOccurences)}) + {providedDefaultOccurences} ({nameof(providedDefaultOccurences)}) + {providedNotDefaultOccurences} ({nameof(providedNotDefaultOccurences)}) != {totalOccurences} ({nameof(totalOccurences)})");
+			}
+
+			this.NotProvidedOccurences = notProvidedOccurences;
+			this.ProvidedDefaultOccurences = providedDefaultOccurences;
+			this.ProvidedNotDefaultOccurences = providedNotDefaultOccurences;
+			this.NotProvidedForPublicInterfaceMembersOccurences = notProvidedForPublicInterfaceMembersOccurences;
+			this.ProvidedForPublicInterfaceMembersOccurences = providedForPublicInterfaceMembersOccurences;
+		}
 
 		public AccessibilityModifierData Update(AccessibilityModifierDataOccurence occurence, bool isFromPublicInterfaceMember)
 		{

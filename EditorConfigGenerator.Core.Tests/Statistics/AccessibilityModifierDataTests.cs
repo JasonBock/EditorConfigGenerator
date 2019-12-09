@@ -1,6 +1,5 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using NUnit.Framework;
-using Spackle;
 using System;
 
 namespace EditorConfigGenerator.Core.Tests.Statistics
@@ -10,13 +9,12 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void Create()
 		{
-			var generator = new RandomObjectGenerator();
-			var totalOccurences = generator.Generate<uint>();
-			var notProvidedOccurences = generator.Generate<uint>();
-			var providedDefaultOccurences = generator.Generate<uint>();
-			var providedNotDefaultOccurences = generator.Generate<uint>();
-			var notProvidedForPublicInterfaceMembersOccurences = generator.Generate<uint>();
-			var providedForPublicInterfaceMembersOccurences = generator.Generate<uint>();
+			var totalOccurences = 10u;
+			var notProvidedOccurences = 2u;
+			var providedDefaultOccurences = 5u;
+			var providedNotDefaultOccurences = 3u;
+			var notProvidedForPublicInterfaceMembersOccurences = 1u;
+			var providedForPublicInterfaceMembersOccurences = 5u;
 
 			var data = new AccessibilityModifierData(totalOccurences, notProvidedOccurences, providedDefaultOccurences,
 				providedNotDefaultOccurences, notProvidedForPublicInterfaceMembersOccurences, providedForPublicInterfaceMembersOccurences);
@@ -49,15 +47,15 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void Add()
 		{
-			var data1 = new AccessibilityModifierData(10u, 1u, 2u, 3u, 4u, 5u);
-			var data2 = new AccessibilityModifierData(100u, 10u, 20u, 30u, 40u, 50u);
+			var data1 = new AccessibilityModifierData(10u, 2u, 5u, 3u, 1u, 5u);
+			var data2 = new AccessibilityModifierData(100u, 20u, 50u, 30u, 10u, 50u);
 			var data3 = data1.Add(data2);
 
 			Assert.That(data3.TotalOccurences, Is.EqualTo(110u), nameof(data3.TotalOccurences));
-			Assert.That(data3.NotProvidedOccurences, Is.EqualTo(11u), nameof(data3.NotProvidedOccurences));
-			Assert.That(data3.ProvidedDefaultOccurences, Is.EqualTo(22u), nameof(data3.ProvidedDefaultOccurences));
+			Assert.That(data3.NotProvidedOccurences, Is.EqualTo(22u), nameof(data3.NotProvidedOccurences));
+			Assert.That(data3.ProvidedDefaultOccurences, Is.EqualTo(55u), nameof(data3.ProvidedDefaultOccurences));
 			Assert.That(data3.ProvidedNotDefaultOccurences, Is.EqualTo(33u), nameof(data3.ProvidedNotDefaultOccurences));
-			Assert.That(data3.NotProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(44u), nameof(data3.NotProvidedForPublicInterfaceMembersOccurences));
+			Assert.That(data3.NotProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(11u), nameof(data3.NotProvidedForPublicInterfaceMembersOccurences));
 			Assert.That(data3.ProvidedForPublicInterfaceMembersOccurences, Is.EqualTo(55u), nameof(data3.ProvidedForPublicInterfaceMembersOccurences));
 		}
 
