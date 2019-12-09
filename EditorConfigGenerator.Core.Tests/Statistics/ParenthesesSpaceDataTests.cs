@@ -1,6 +1,5 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using NUnit.Framework;
-using Spackle;
 using System;
 
 namespace EditorConfigGenerator.Core.Tests.Statistics
@@ -11,14 +10,13 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void Create()
 		{
-			var generator = new RandomObjectGenerator();
-			var totalOccurences = generator.Generate<uint>();
-			var controlFlowNoSpaceOccurences = generator.Generate<uint>();
-			var controlFlowSpaceOccurences = generator.Generate<uint>();
-			var expressionsNoSpaceOccurences = generator.Generate<uint>();
-			var expressionsSpaceOccurences = generator.Generate<uint>();
-			var typeCastsNoSpaceOccurences = generator.Generate<uint>();
-			var typeCastsSpaceOccurences = generator.Generate<uint>();
+			var totalOccurences = 21u;
+			var controlFlowNoSpaceOccurences = 1u;
+			var controlFlowSpaceOccurences = 2u;
+			var expressionsNoSpaceOccurences = 3u;
+			var expressionsSpaceOccurences = 4u;
+			var typeCastsNoSpaceOccurences = 5u;
+			var typeCastsSpaceOccurences = 6u;
 
 			var data = new ParenthesesSpaceData(totalOccurences, controlFlowNoSpaceOccurences, controlFlowSpaceOccurences,
 				expressionsNoSpaceOccurences, expressionsSpaceOccurences,

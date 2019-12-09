@@ -17,6 +17,13 @@ namespace EditorConfigGenerator.Core.Statistics
 			: base(totalOccurences, new List<uint> { controlFlowNoSpaceOccurences + expressionsNoSpaceOccurences + typeCastsNoSpaceOccurences,
 				controlFlowSpaceOccurences + expressionsSpaceOccurences + typeCastsSpaceOccurences }.GetConsistency(totalOccurences))
 		{
+			if(controlFlowNoSpaceOccurences + controlFlowSpaceOccurences + expressionsNoSpaceOccurences + expressionsSpaceOccurences +
+				typeCastsNoSpaceOccurences + typeCastsSpaceOccurences != totalOccurences)
+			{
+				throw new InvalidOccurenceValuesException(
+					$"{controlFlowNoSpaceOccurences} ({nameof(controlFlowNoSpaceOccurences)}) + {controlFlowSpaceOccurences} ({nameof(controlFlowSpaceOccurences)}) + {expressionsNoSpaceOccurences} ({nameof(expressionsNoSpaceOccurences)}) + {expressionsSpaceOccurences} ({nameof(expressionsSpaceOccurences)}) + {typeCastsNoSpaceOccurences} ({nameof(typeCastsNoSpaceOccurences)}) + {typeCastsSpaceOccurences} ({nameof(typeCastsSpaceOccurences)}) != {totalOccurences} ({nameof(totalOccurences)})");
+			}
+
 			this.ControlFlowNoSpaceOccurences = controlFlowNoSpaceOccurences;
 			this.ControlFlowSpaceOccurences = controlFlowSpaceOccurences;
 			this.ExpressionsNoSpaceOccurences = expressionsNoSpaceOccurences;
