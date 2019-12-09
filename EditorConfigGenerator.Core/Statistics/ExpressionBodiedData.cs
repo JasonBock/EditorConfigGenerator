@@ -16,6 +16,12 @@ namespace EditorConfigGenerator.Core.Statistics
 			uint blockOccurences)
 			: base(totalOccurences, new List<uint> { arrowSingleLineOccurences + arrowMultiLineOccurences, blockOccurences }.GetConsistency(totalOccurences))
 		{
+			if(arrowSingleLineOccurences + arrowMultiLineOccurences + blockOccurences != totalOccurences)
+			{
+				throw new InvalidOccurenceValuesException(
+					$"{arrowSingleLineOccurences} ({nameof(arrowSingleLineOccurences)}) + {arrowMultiLineOccurences} ({nameof(blockOccurences)}) + {blockOccurences} ({nameof(blockOccurences)}) != {totalOccurences} ({nameof(totalOccurences)})");
+			}
+
 			this.ArrowSingleLineOccurences = arrowSingleLineOccurences;
 			this.ArrowMultiLineOccurences = arrowMultiLineOccurences;
 			this.BlockOccurences = blockOccurences;

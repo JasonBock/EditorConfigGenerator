@@ -43,12 +43,12 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 		[Test]
 		public static void Add()
 		{
-			var style1 = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData(1u, 2u, 3u, 4u));
-			var style2 = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData(10u, 20u, 30u, 40u));
+			var style1 = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData(9u, 2u, 3u, 4u));
+			var style2 = new CSharpStyleExpressionBodiedAccessorsStyle(new ExpressionBodiedData(90u, 20u, 30u, 40u));
 			var style3 = style1.Add(style2);
 
 			var data = style3.Data;
-			Assert.That(data.TotalOccurences, Is.EqualTo(11u), nameof(data.TotalOccurences));
+			Assert.That(data.TotalOccurences, Is.EqualTo(99u), nameof(data.TotalOccurences));
 			Assert.That(data.ArrowSingleLineOccurences, Is.EqualTo(22u), nameof(data.ArrowSingleLineOccurences));
 			Assert.That(data.ArrowMultiLineOccurences, Is.EqualTo(33u), nameof(data.ArrowMultiLineOccurences));
 			Assert.That(data.BlockOccurences, Is.EqualTo(44u), nameof(data.BlockOccurences));

@@ -1,6 +1,5 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using NUnit.Framework;
-using Spackle;
 using System;
 
 namespace EditorConfigGenerator.Core.Tests.Statistics
@@ -10,11 +9,10 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void Create()
 		{
-			var generator = new RandomObjectGenerator();
-			var totalOccurences = generator.Generate<uint>();
-			var arrowSingleLineOccurences = generator.Generate<uint>();
-			var arrowMultiLineOccurences = generator.Generate<uint>();
-			var blockOccurences = generator.Generate<uint>();
+			var totalOccurences = 10u;
+			var arrowSingleLineOccurences = 5u;
+			var arrowMultiLineOccurences = 3u;
+			var blockOccurences = 2u;
 
 			var data = new ExpressionBodiedData(totalOccurences, arrowSingleLineOccurences, arrowMultiLineOccurences,
 				blockOccurences);
@@ -42,14 +40,14 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void Add()
 		{
-			var data1 = new ExpressionBodiedData(10u, 1u, 2u, 3u);
-			var data2 = new ExpressionBodiedData(100u, 10u, 20u, 30u);
+			var data1 = new ExpressionBodiedData(10u, 5u, 3u, 2u);
+			var data2 = new ExpressionBodiedData(100u, 50u, 30u, 20u);
 			var data3 = data1.Add(data2);
 
 			Assert.That(data3.TotalOccurences, Is.EqualTo(110u), nameof(data3.TotalOccurences));
-			Assert.That(data3.ArrowSingleLineOccurences, Is.EqualTo(11u), nameof(data3.ArrowSingleLineOccurences));
-			Assert.That(data3.ArrowMultiLineOccurences, Is.EqualTo(22u), nameof(data3.ArrowMultiLineOccurences));
-			Assert.That(data3.BlockOccurences, Is.EqualTo(33u), nameof(data3.BlockOccurences));
+			Assert.That(data3.ArrowSingleLineOccurences, Is.EqualTo(55u), nameof(data3.ArrowSingleLineOccurences));
+			Assert.That(data3.ArrowMultiLineOccurences, Is.EqualTo(33u), nameof(data3.ArrowMultiLineOccurences));
+			Assert.That(data3.BlockOccurences, Is.EqualTo(22u), nameof(data3.BlockOccurences));
 		}
 
 		[Test]
@@ -90,7 +88,7 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 		[Test]
 		public static void GetSettingWithFavoritingArrows()
 		{
-			var data = new ExpressionBodiedData(4u, 3u, 1u, 1u);
+			var data = new ExpressionBodiedData(5u, 3u, 1u, 1u);
 			Assert.That(data.GetSetting("x", Severity.Error), Is.EqualTo("x = true:error"), nameof(data.GetSetting));
 		}
 
