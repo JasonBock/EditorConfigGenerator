@@ -7,13 +7,19 @@
     <Version>1.0.0</Version>
     <OutputPath>../bin</OutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\$(TargetFramework)\</IntermediateOutputPath>
-    <NuspecFile>$(MSBuildThisFileDirectory)$(MSBuildProjectName).nuspec</NuspecFile>
+    <NuspecFile>../EditorConfigGenerator.Core.nuspec</NuspecFile>
     <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
   </PropertyGroup>
+  <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
+    <PropertyGroup>
+      <NuspecProperties>$(NuspecProperties);version=$(PackageVersion)</NuspecProperties>
+    </PropertyGroup>
+    <Message Importance="high" Text="NuspecProperties: $(NuspecProperties)" />
+  </Target>
   <ItemGroup>
     <None Remove="key.snk" />
     <None Remove="Statistics\Data.cs~RF5375a633.TMP" />
@@ -25,13 +31,9 @@
     <PackageReference Include="Microsoft.CodeAnalysis" Version="3.4.0-beta4-final" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.4.0-beta4-final" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.4.0-beta4-final" />
-    <PackageReference Include="Nerdbank.GitVersioning" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="Nerdbank.GitVersioning" Version="3.1.71">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Update="Nerdbank.GitVersioning" Version="2.2.13" />
   </ItemGroup>
 </Project>
