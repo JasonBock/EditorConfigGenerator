@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
-  <metadata>
-    <id>EditorConfigGenerator.Core</id>
-    <version>$version$</version>
-    <authors>JasonBock</authors>
-    <description>Create an .editorconfig file based on styles that already exist in your code</description>
-  </metadata>
-</package>

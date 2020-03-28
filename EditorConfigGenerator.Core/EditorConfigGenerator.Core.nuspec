@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>EditorConfigGenerator.Core</id>
+    <version>$version$</version>
+    <authors>JasonBock</authors>
+    <description>Create an .editorconfig file based on styles that already exist in your code</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+      <group targetFramework=".NETFramework4.7.2" />
+    </dependencies>
+    <contentFiles>
+      <!-- this sets "CopyIfNewer" on all files in the project that references this package -->
+      <files include="**/*" buildAction="None" copyToOutput="true"/>
+    </contentFiles>
+  </metadata>
+  <files>
+    <!--The minimal set of dependencies required to run.-->
+    <file src="..\bin\netstandard2.1\*.dll" target="lib"/>
+    <file src="..\bin\netstandard2.1\*.pdb" target="lib"/>
+  </files>
+</package>
