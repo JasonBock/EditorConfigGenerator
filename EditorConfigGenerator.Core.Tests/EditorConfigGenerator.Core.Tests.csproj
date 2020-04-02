@@ -4,6 +4,8 @@
     <Nullable>enable</Nullable>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Styles\DotnetStyleRequireAccessibilityModifiersStyleTests.cs~RF3aefa3e9.TMP" />

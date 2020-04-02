@@ -94,7 +94,7 @@ namespace EditorConfigGenerator.Core.Extensions
 
 			while (children.Length > 0)
 			{
-				last = children[^1];
+				last = children[children.Length - 1];
 				children = last.ChildNodesAndTokens().ToArray();
 			}
 

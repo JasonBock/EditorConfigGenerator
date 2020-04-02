@@ -16,7 +16,9 @@
   </metadata>
   <files>
     <!--The minimal set of dependencies required to run.-->
-    <file src="bin\netstandard2.1\*.dll" target="lib"/>
-    <file src="bin\netstandard2.1\*.pdb" target="lib"/>
+    <file src="bin\net472\*.dll" target="lib\net472"/>
+    <file src="bin\net472\*.pdb" target="lib\net472"/>
+    <file src="bin\netstandard2.1\*.dll" target="lib\netstandard2.1"/>
+    <file src="bin\netstandard2.1\*.pdb" target="lib\netstandard2.1"/>
   </files>
 </package>
