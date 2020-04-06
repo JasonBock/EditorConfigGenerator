@@ -259,14 +259,14 @@ namespace EditorConfigGenerator.Core.Statistics
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static uint Round(uint hash, uint input) => ((hash + input * Prime2) << 13) * Prime1;
+		private static uint Round(uint hash, uint input) => RotateLeft(hash + input * Prime2, 13) * Prime1;
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static uint QueueRound(uint hash, uint queuedValue) => ((hash + queuedValue * Prime3) << 17) * Prime4;
+		private static uint QueueRound(uint hash, uint queuedValue) => RotateLeft(hash + queuedValue * Prime3, 17) * Prime4;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static uint MixState(uint v1, uint v2, uint v3, uint v4) => (v1 << 1) + (v2 << 7) + (v3 << 12) + (v4 << 18);
+		private static uint MixState(uint v1, uint v2, uint v3, uint v4) => RotateLeft(v1, 1) + RotateLeft(v2, 7) + RotateLeft(v3, 12) + RotateLeft(v4, 18);
 
 		private static uint MixEmptyState() => s_seed + Prime5;
 
@@ -285,6 +285,7 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public void Add<T>(T value, IEqualityComparer<T>? comparer) => this.Add(comparer != null ? comparer.GetHashCode(value) : (value?.GetHashCode() ?? 0));
 
+		private static uint RotateLeft(uint num, int offset) => (num << offset) | (num >> (32 - offset));
 		private void Add(int value)
 		{
 			// The original xxHash works as follows:

@@ -130,11 +130,11 @@ namespace EditorConfigGenerator.Core.Statistics
 		public override bool Equals(object obj) => this.Equals(obj as AccessibilityModifierData);
 
 		public override int GetHashCode() =>
-#if NETSTANDARD2_0
-			HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
+#if NETSTANDARD2_1
+			System.HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
 				this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences);
 #else
-			EditorConfigGenerator.Core.Statistics.HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
+			HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
 				this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences);
 #endif
 
