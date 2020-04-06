@@ -55,10 +55,10 @@ namespace EditorConfigGenerator.Core.Statistics
 		public override bool Equals(object obj) => this.Equals(obj as BooleanData);
 
 		public override int GetHashCode() =>
-#if NETSTANDARD2_0
-		HashCode.Combine(this.TotalOccurences, this.TrueOccurences, this.FalseOccurences);
+#if NETSTANDARD2_1
+		System.HashCode.Combine(this.TotalOccurences, this.TrueOccurences, this.FalseOccurences);
 #else
-		EditorConfigGenerator.Core.Statistics.HashCode.Combine(this.TotalOccurences, this.TrueOccurences, this.FalseOccurences);
+		HashCode.Combine(this.TotalOccurences, this.TrueOccurences, this.FalseOccurences);
 #endif
 
 

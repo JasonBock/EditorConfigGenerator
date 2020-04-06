@@ -221,6 +221,13 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 
 			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
 			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+
+			data1 = new AccessibilityModifierData(uint.MaxValue, uint.MaxValue - 10, 3, 7, uint.MaxValue, uint.MaxValue);
+			data2 = new AccessibilityModifierData(uint.MaxValue, uint.MaxValue - 10, 7, 3, uint.MaxValue, uint.MaxValue);
+			data3 = new AccessibilityModifierData(uint.MaxValue, uint.MaxValue - 10, 3, 7, uint.MaxValue, uint.MaxValue);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
 		}
 	}
 }
