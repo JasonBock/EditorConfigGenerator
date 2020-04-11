@@ -129,14 +129,8 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public override bool Equals(object obj) => this.Equals(obj as AccessibilityModifierData);
 
-		public override int GetHashCode() =>
-#if NETSTANDARD2_1
-			System.HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
+		public override int GetHashCode() => HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
 				this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences);
-#else
-			HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
-				this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences);
-#endif
 
 		public override string ToString() =>
 			$"{nameof(this.TotalOccurences)} = {this.TotalOccurences}, {nameof(this.NotProvidedOccurences)} = {this.NotProvidedOccurences}, {nameof(this.ProvidedDefaultOccurences)} = {this.ProvidedDefaultOccurences}, {nameof(this.ProvidedNotDefaultOccurences)} = {this.ProvidedNotDefaultOccurences}, {nameof(this.NotProvidedForPublicInterfaceMembersOccurences)} = {this.NotProvidedForPublicInterfaceMembersOccurences}, {nameof(this.ProvidedForPublicInterfaceMembersOccurences)} = {this.ProvidedForPublicInterfaceMembersOccurences}";
