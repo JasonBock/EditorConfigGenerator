@@ -5,7 +5,7 @@
     <TargetFrameworks>net472;netcoreapp3.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>../EditorConfigGenerator.Core/key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Styles\DotnetStyleRequireAccessibilityModifiersStyleTests.cs~RF3aefa3e9.TMP" />
