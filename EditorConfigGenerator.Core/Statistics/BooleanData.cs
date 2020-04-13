@@ -57,7 +57,6 @@ namespace EditorConfigGenerator.Core.Statistics
 		public override int GetHashCode() => 
 			HashCode.Combine(this.TotalOccurences, this.TrueOccurences, this.FalseOccurences);
 
-
 		public override string ToString() => 
 			$"{nameof(this.TotalOccurences)} = {this.TotalOccurences}, {nameof(this.TrueOccurences)} = {this.TrueOccurences}, {nameof(this.FalseOccurences)} = {this.FalseOccurences}";
 
