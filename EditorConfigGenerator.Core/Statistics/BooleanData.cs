@@ -54,7 +54,8 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public override bool Equals(object obj) => this.Equals(obj as BooleanData);
 
-		public override int GetHashCode() => HashCode.Combine(this.TotalOccurences, this.TrueOccurences, this.FalseOccurences);
+		public override int GetHashCode() => 
+			HashCode.Combine(this.TotalOccurences, this.TrueOccurences, this.FalseOccurences);
 
 
 		public override string ToString() => 

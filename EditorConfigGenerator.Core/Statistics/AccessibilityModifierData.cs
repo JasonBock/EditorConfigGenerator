@@ -1,5 +1,4 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 using static EditorConfigGenerator.Core.Extensions.ListOfUintsExtensions;
@@ -129,7 +128,8 @@ namespace EditorConfigGenerator.Core.Statistics
 
 		public override bool Equals(object obj) => this.Equals(obj as AccessibilityModifierData);
 
-		public override int GetHashCode() => HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
+		public override int GetHashCode() => 
+			HashCode.Combine(this.TotalOccurences, this.NotProvidedOccurences, this.ProvidedDefaultOccurences, this.ProvidedNotDefaultOccurences,
 				this.NotProvidedForPublicInterfaceMembersOccurences, this.ProvidedForPublicInterfaceMembersOccurences);
 
 		public override string ToString() =>
