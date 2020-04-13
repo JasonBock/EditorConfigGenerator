@@ -1,8 +1,8 @@
-﻿/*
+﻿#if NET472
+/*
  * This implementation of Interop.GetRandomBytes was copied from https://github.com/mono/mono/blob/256a6c45ec75874c3f634cadb92091b4c30dfb3c/mcs/class/corlib/corefx/Interop.GetRandomBytes.Mono.cs.
  * Its associated license (https://github.com/mono/mono/blob/master/LICENSE) has been added to this repository's third party notices file.
  */
-#if NET472
 using System;
 using System.Diagnostics;
 using System.Security.Cryptography;
