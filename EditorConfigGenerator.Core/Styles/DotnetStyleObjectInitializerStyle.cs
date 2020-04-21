@@ -63,7 +63,9 @@ namespace EditorConfigGenerator.Core.Styles
 							if (statement is { })
 							{
 								var parentStatement = statement.Parent;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
 								var siblings = parentStatement.ChildNodes().ToArray();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
 								if (siblings.Length > 1)
 								{

@@ -90,7 +90,9 @@ namespace EditorConfigGenerator.Core.Styles
 			if (identifierSymbol is { })
 			{
 				var parent = node.Parent;
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
 				var children = parent.ChildNodes().ToImmutableArray();
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 				var nodeIndex = children.IndexOf(node);
 
 				for (var i = nodeIndex - 1; i >= 0; i--)

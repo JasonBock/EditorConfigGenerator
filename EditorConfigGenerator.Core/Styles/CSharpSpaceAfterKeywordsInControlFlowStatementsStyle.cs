@@ -39,7 +39,9 @@ namespace EditorConfigGenerator.Core.Styles
 
 			var token = information.Token;
 
-			if(!token.Parent.ContainsDiagnostics)
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+			if (!token.Parent.ContainsDiagnostics)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 			{
 				var kind = (SyntaxKind)token.RawKind;
 
