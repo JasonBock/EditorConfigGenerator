@@ -63,30 +63,32 @@ namespace EditorConfigGenerator.Core.Styles
 							if (statement is { })
 							{
 								var parentStatement = statement.Parent;
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-								var siblings = parentStatement.ChildNodes().ToArray();
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
-								if (siblings.Length > 1)
+								if (parentStatement is { })
 								{
-									var statementIndex = Array.IndexOf(siblings, statement);
+									var siblings = parentStatement.ChildNodes().ToArray();
 
-									if (statementIndex < siblings.Length - 1)
+									if (siblings.Length > 1)
 									{
-										var nextNode = siblings[statementIndex + 1];
+										var statementIndex = Array.IndexOf(siblings, statement);
 
-										if (nextNode is ExpressionStatementSyntax &&
-											nextNode.ChildNodes().Any(_ => _.IsKind(SyntaxKind.SimpleAssignmentExpression)))
+										if (statementIndex < siblings.Length - 1)
 										{
-											var name = nextNode.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName));
+											var nextNode = siblings[statementIndex + 1];
 
-											if (name is { })
+											if (nextNode is ExpressionStatementSyntax &&
+												nextNode.ChildNodes().Any(_ => _.IsKind(SyntaxKind.SimpleAssignmentExpression)))
 											{
-												var isSameSymbol = object.ReferenceEquals(model.GetSymbolInfo(name).Symbol, assignmentSymbol);
+												var name = nextNode.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName));
 
-												if (isSameSymbol)
+												if (name is { })
 												{
-													return new DotnetStyleObjectInitializerStyle(this.Data.Update(false), this.Severity);
+													var isSameSymbol = object.ReferenceEquals(model.GetSymbolInfo(name).Symbol, assignmentSymbol);
+
+													if (isSameSymbol)
+													{
+														return new DotnetStyleObjectInitializerStyle(this.Data.Update(false), this.Severity);
+													}
 												}
 											}
 										}
