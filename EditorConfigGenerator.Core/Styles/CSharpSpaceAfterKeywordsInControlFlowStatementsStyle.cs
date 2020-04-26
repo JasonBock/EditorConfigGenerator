@@ -39,7 +39,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 			var token = information.Token;
 
-			if(!token.Parent.ContainsDiagnostics)
+			if (!token.Parent?.ContainsDiagnostics ?? false)
 			{
 				var kind = (SyntaxKind)token.RawKind;
 

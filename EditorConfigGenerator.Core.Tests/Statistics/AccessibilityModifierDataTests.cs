@@ -200,6 +200,34 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 
 			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
 			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+
+			data1 = new AccessibilityModifierData(32, 4, 7, 21, 34, 9);
+			data2 = new AccessibilityModifierData(31, 4, 7, 20, 34, 9);
+			data3 = new AccessibilityModifierData(32, 4, 7, 21, 34, 9);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+
+			data1 = new AccessibilityModifierData(4, 1, 1, 2, 9, 100);
+			data2 = new AccessibilityModifierData(4, 1, 1, 2, 9, 101);
+			data3 = new AccessibilityModifierData(4, 1, 1, 2, 9, 100);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+
+			data1 = new AccessibilityModifierData(11, 4, 3, 4, 15, 21);
+			data2 = new AccessibilityModifierData(11, 4, 3, 4, 14, 21);
+			data3 = new AccessibilityModifierData(11, 4, 3, 4, 15, 21);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+
+			data1 = new AccessibilityModifierData(uint.MaxValue, uint.MaxValue - 10, 3, 7, uint.MaxValue, uint.MaxValue);
+			data2 = new AccessibilityModifierData(uint.MaxValue, uint.MaxValue - 10, 7, 3, uint.MaxValue, uint.MaxValue);
+			data3 = new AccessibilityModifierData(uint.MaxValue, uint.MaxValue - 10, 3, 7, uint.MaxValue, uint.MaxValue);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
 		}
 	}
 }

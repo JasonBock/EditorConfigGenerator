@@ -90,19 +90,23 @@ namespace EditorConfigGenerator.Core.Styles
 			if (identifierSymbol is { })
 			{
 				var parent = node.Parent;
-				var children = parent.ChildNodes().ToImmutableArray();
-				var nodeIndex = children.IndexOf(node);
 
-				for (var i = nodeIndex - 1; i >= 0; i--)
+				if(parent is { })
 				{
-					var childNode = children[i];
-					var childDescendants = childNode.DescendantNodes().ToImmutableArray();
+					var children = parent.ChildNodes().ToImmutableArray();
+					var nodeIndex = children.IndexOf(node);
 
-					if(childDescendants.Any(_ => _.IsKind(SyntaxKind.AsExpression)) &&
-						childDescendants.FirstOrDefault(
-							c => object.ReferenceEquals(model.GetDeclaredSymbol(c), identifierSymbol)) is { })
+					for (var i = nodeIndex - 1; i >= 0; i--)
 					{
-						return true;
+						var childNode = children[i];
+						var childDescendants = childNode.DescendantNodes().ToImmutableArray();
+
+						if (childDescendants.Any(_ => _.IsKind(SyntaxKind.AsExpression)) &&
+							childDescendants.FirstOrDefault(
+								c => object.ReferenceEquals(model.GetDeclaredSymbol(c), identifierSymbol)) is { })
+						{
+							return true;
+						}
 					}
 				}
 			}

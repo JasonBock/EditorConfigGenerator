@@ -118,6 +118,20 @@ namespace EditorConfigGenerator.Core.Tests.Statistics
 
 			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
 			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+
+			data1 = new BooleanData(43, 20, 23);
+			data2 = new BooleanData(43, 23, 20);
+			data3 = new BooleanData(43, 20, 23);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
+
+			data1 = new BooleanData(112, 111, 1);
+			data2 = new BooleanData(111, 110, 1);
+			data3 = new BooleanData(112, 111, 1);
+
+			Assert.That(data1.GetHashCode(), Is.Not.EqualTo(data2.GetHashCode()));
+			Assert.That(data1.GetHashCode(), Is.EqualTo(data3.GetHashCode()));
 		}
 	}
 }
