@@ -1,4 +1,5 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
@@ -40,7 +41,7 @@ namespace EditorConfigGenerator.Core.Styles
 
 			if (!node.ContainsDiagnostics)
 			{
-				if (node is LiteralExpressionSyntax)
+				if (node is LiteralExpressionSyntax && node.Kind() == SyntaxKind.DefaultLiteralExpression)
 				{
 					return new CSharpPreferSimpleDefaultExpressionStyle(this.Data.Update(true), this.Severity);
 				}
