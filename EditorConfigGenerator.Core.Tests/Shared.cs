@@ -1,6 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 
 [assembly: Parallelizable(ParallelScope.Fixtures)]
@@ -15,7 +14,7 @@ namespace EditorConfigGenerator.Core.Tests
 		internal static void VerifyModifiers(ImmutableDictionary<string, (uint weight, uint frequency)> modifiers,
 			params KeyValuePair<string, (uint weight, uint frequency)>[] pairs)
 		{
-			foreach(var pair in pairs)
+			foreach (var pair in pairs)
 			{
 				foreach (var modifier in modifiers)
 				{

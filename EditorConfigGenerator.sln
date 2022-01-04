@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditorConfigGenerator.Core", "EditorConfigGenerator.Core\EditorConfigGenerator.Core.csproj", "{94AD9AEF-395F-4FEE-A4FA-17320CD029A5}"
 EndProject
@@ -9,7 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditorConfigGenerator.Core.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditorConfigGenerator", "EditorConfigGenerator\EditorConfigGenerator.csproj", "{761F1864-2895-4FC5-BC40-1AE944EFE1A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorConfigGenerator.IntegrationTests", "EditorConfigGenerator.IntegrationTests\EditorConfigGenerator.IntegrationTests.csproj", "{FCAD25A7-B43B-46BB-A94B-97646C8793A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditorConfigGenerator.IntegrationTests", "EditorConfigGenerator.IntegrationTests\EditorConfigGenerator.IntegrationTests.csproj", "{FCAD25A7-B43B-46BB-A94B-97646C8793A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E367DAF4-BA1B-4D38-9EB2-482C388F2FA3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

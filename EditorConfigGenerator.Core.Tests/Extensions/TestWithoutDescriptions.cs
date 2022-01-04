@@ -1,8 +1,7 @@
-﻿namespace EditorConfigGenerator.Core.Tests.Extensions
+﻿namespace EditorConfigGenerator.Core.Tests.Extensions;
+
+public enum TestWithoutDescriptions
 {
-	public enum TestWithoutDescriptions
-	{
-		One,
-		Two,
-	}
+	One,
+	Two,
 }

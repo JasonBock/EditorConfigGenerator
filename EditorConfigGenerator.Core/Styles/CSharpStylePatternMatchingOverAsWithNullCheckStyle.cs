@@ -2,116 +2,113 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
 using System.Collections.Immutable;
-using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 
-namespace EditorConfigGenerator.Core.Styles
+namespace EditorConfigGenerator.Core.Styles;
+
+public sealed class CSharpStylePatternMatchingOverAsWithNullCheckStyle
+	: SeverityNodeStyle<BooleanData, SyntaxNode, ModelNodeInformation<SyntaxNode>, CSharpStylePatternMatchingOverAsWithNullCheckStyle>
 {
-	public sealed class CSharpStylePatternMatchingOverAsWithNullCheckStyle
-		: SeverityNodeStyle<BooleanData, SyntaxNode, ModelNodeInformation<SyntaxNode>, CSharpStylePatternMatchingOverAsWithNullCheckStyle>
+	public const string Setting = "csharp_style_pattern_matching_over_as_with_null_check";
+
+	public CSharpStylePatternMatchingOverAsWithNullCheckStyle(BooleanData data, Severity severity = Severity.Error)
+		: base(data, severity) { }
+
+	public override CSharpStylePatternMatchingOverAsWithNullCheckStyle Add(CSharpStylePatternMatchingOverAsWithNullCheckStyle style)
 	{
-		public const string Setting = "csharp_style_pattern_matching_over_as_with_null_check";
+		if (style is null) { throw new ArgumentNullException(nameof(style)); }
+		return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Add(style.Data), this.Severity);
+	}
 
-		public CSharpStylePatternMatchingOverAsWithNullCheckStyle(BooleanData data, Severity severity = Severity.Error)
-			: base(data, severity) { }
-
-		public override CSharpStylePatternMatchingOverAsWithNullCheckStyle Add(CSharpStylePatternMatchingOverAsWithNullCheckStyle style)
+	public override string GetSetting()
+	{
+		if (this.Data.TotalOccurences > 0)
 		{
-			if (style is null) { throw new ArgumentNullException(nameof(style)); }
-			return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Add(style.Data), this.Severity);
+			var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
+			return $"{CSharpStylePatternMatchingOverAsWithNullCheckStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 		}
-
-		public override string GetSetting()
+		else
 		{
-			if (this.Data.TotalOccurences > 0)
-			{
-				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"{CSharpStylePatternMatchingOverAsWithNullCheckStyle.Setting} = {value}:{this.Severity.GetDescription()}";
-			}
-			else
-			{
-				return string.Empty;
-			}
+			return string.Empty;
 		}
+	}
 
-		public override CSharpStylePatternMatchingOverAsWithNullCheckStyle Update(ModelNodeInformation<SyntaxNode> information)
+	public override CSharpStylePatternMatchingOverAsWithNullCheckStyle Update(ModelNodeInformation<SyntaxNode> information)
+	{
+		var (node, model) = information ?? throw new ArgumentNullException(nameof(information));
+
+		if (!node.ContainsDiagnostics)
 		{
-			var (node, model) = information ?? throw new ArgumentNullException(nameof(information));
-
-			if (!node.ContainsDiagnostics)
+			if (node is IsPatternExpressionSyntax && node.FindParent<IfStatementSyntax>() is not null)
 			{
-				if (node is IsPatternExpressionSyntax && node.FindParent<IfStatementSyntax>() is { })
+				return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Update(true), this.Severity);
+			}
+			else if (node is IfStatementSyntax)
+			{
+				foreach (var binary in node.ChildNodes().Where(_ => _ is BinaryExpressionSyntax))
 				{
-					return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Update(true), this.Severity);
-				}
-				else if (node is IfStatementSyntax)
-				{
-					foreach (var binary in node.ChildNodes().Where(_ => _ is BinaryExpressionSyntax))
+					if (binary.ChildNodes().Any(_ => _.IsKind(SyntaxKind.NullLiteralExpression)))
 					{
-						if (binary.ChildNodes().Any(_ => _.IsKind(SyntaxKind.NullLiteralExpression)))
+						// harder than this thought. The "thing" being compared to null 
+						// has to have an IdentifierName that resolves to a symbol, and
+						// it had to have some kind of assignment via an AsExpression before the IfStatement.
+						if (binary.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName)) is IdentifierNameSyntax identifier)
 						{
-							// harder than this thought. The "thing" being compared to null 
-							// has to have an IdentifierName that resolves to a symbol, and
-							// it had to have some kind of assignment via an AsExpression before the IfStatement.
-							if (binary.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName)) is IdentifierNameSyntax identifier)
-							{
-								if (CSharpStylePatternMatchingOverAsWithNullCheckStyle.IsIdentifierUsedWithAsExpression(
-									identifier, node, model))
-								{
-									return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Update(false), this.Severity);
-								}
-							}
-						}
-					}
-
-					foreach(var recursive in node.DescendantNodes().Where(_ => _ is RecursivePatternSyntax))
-					{
-						foreach(var recursiveProperty in recursive.DescendantNodes().Where(_ => _ is PropertyPatternClauseSyntax))
-						{
-							if(recursiveProperty.DescendantNodes().Count() == 0)
+							if (CSharpStylePatternMatchingOverAsWithNullCheckStyle.IsIdentifierUsedWithAsExpression(
+								identifier, node, model))
 							{
 								return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Update(false), this.Severity);
 							}
 						}
 					}
 				}
-			}
 
-			return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data, this.Severity);
-		}
-
-		private static bool IsIdentifierUsedWithAsExpression(IdentifierNameSyntax identifier, SyntaxNode node, SemanticModel model)
-		{
-			var identifierSymbol = model.GetSymbolInfo(identifier).Symbol;
-
-			if (identifierSymbol is { })
-			{
-				var parent = node.Parent;
-
-				if(parent is { })
+				foreach (var recursive in node.DescendantNodes().Where(_ => _ is RecursivePatternSyntax))
 				{
-					var children = parent.ChildNodes().ToImmutableArray();
-					var nodeIndex = children.IndexOf(node);
-
-					for (var i = nodeIndex - 1; i >= 0; i--)
+					foreach (var recursiveProperty in recursive.DescendantNodes().Where(_ => _ is PropertyPatternClauseSyntax))
 					{
-						var childNode = children[i];
-						var childDescendants = childNode.DescendantNodes().ToImmutableArray();
-
-						if (childDescendants.Any(_ => _.IsKind(SyntaxKind.AsExpression)) &&
-							childDescendants.FirstOrDefault(
-								c => object.ReferenceEquals(model.GetDeclaredSymbol(c), identifierSymbol)) is { })
+						if (!recursiveProperty.DescendantNodes().Any())
 						{
-							return true;
+							return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data.Update(false), this.Severity);
 						}
 					}
 				}
 			}
-
-			return false;
 		}
+
+		return new CSharpStylePatternMatchingOverAsWithNullCheckStyle(this.Data, this.Severity);
+	}
+
+	private static bool IsIdentifierUsedWithAsExpression(IdentifierNameSyntax identifier, SyntaxNode node, SemanticModel model)
+	{
+		var identifierSymbol = model.GetSymbolInfo(identifier).Symbol;
+
+		if (identifierSymbol is not null)
+		{
+			var parent = node.Parent;
+
+			if (parent is not null)
+			{
+				var children = parent.ChildNodes().ToImmutableArray();
+				var nodeIndex = children.IndexOf(node);
+
+				for (var i = nodeIndex - 1; i >= 0; i--)
+				{
+					var childNode = children[i];
+					var childDescendants = childNode.DescendantNodes().ToImmutableArray();
+
+					if (childDescendants.Any(_ => _.IsKind(SyntaxKind.AsExpression)) &&
+						childDescendants.FirstOrDefault(
+							c => object.ReferenceEquals(model.GetDeclaredSymbol(c), identifierSymbol)) is not null)
+					{
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 }

@@ -3,13 +3,11 @@ using EditorConfigGenerator.Core.Styles;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
-using System;
-using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
-	[TestFixture]
+   [TestFixture]
 	public static class CSharpSpaceAfterKeywordsInControlFlowStatementsStyleTests
 	{
 		[Test]

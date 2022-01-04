@@ -3,14 +3,11 @@ using EditorConfigGenerator.Core.Styles;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
-	[TestFixture]
+   [TestFixture]
 	public static class CSharpPreferredModifierOrderStyleTests
 	{
 		[Test]

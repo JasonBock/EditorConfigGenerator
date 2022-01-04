@@ -1,9 +1,8 @@
-﻿namespace EditorConfigGenerator.Core.Statistics
+﻿namespace EditorConfigGenerator.Core.Statistics;
+
+public enum ExpressionBodiedDataOccurence
 {
-	public enum ExpressionBodiedDataOccurence
-	{
-		ArrowSingleLine,
-		ArrowMultiLine,
-		Block
-	}
+	ArrowSingleLine,
+	ArrowMultiLine,
+	Block
 }

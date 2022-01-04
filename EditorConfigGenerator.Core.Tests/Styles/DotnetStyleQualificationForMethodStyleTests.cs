@@ -4,13 +4,11 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework;
-using System;
-using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
-	[TestFixture]
+   [TestFixture]
 	public static class DotnetStyleQualificationForMethodStyleTests
 	{
 		[Test]
@@ -84,7 +82,7 @@ namespace EditorConfigGenerator.Core.Tests.Styles
 			CompilationUnitSyntax unit, string methodName)
 		{
 			var invocation = unit.DescendantNodes().OfType<InvocationExpressionSyntax>()
-				.First(_ => _.ToString().Contains(methodName));
+				.First(_ => _.ToString().Contains(methodName, StringComparison.InvariantCulture));
 			var tree = unit.SyntaxTree;
 			var compilation = CSharpCompilation.Create(Guid.NewGuid().ToString("N"),
 				new[] { tree },

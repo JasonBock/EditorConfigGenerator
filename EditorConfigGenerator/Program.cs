@@ -1,27 +1,24 @@
 ﻿using EditorConfigGenerator.Core.Styles;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace EditorConfigGenerator
 {
-	class Program
+	public static class Program
 	{
-		static async Task Main(DirectoryInfo? directory, FileInfo? file, bool generateStatistics = false)
+		public static async Task Main(DirectoryInfo? directory, FileInfo? file, bool generateStatistics = false)
 		{
-			if(directory is { })
+			if (directory is not null)
 			{
-				Console.Out.WriteLine(await StyleGenerator.Generate(directory, Console.Out, generateStatistics));
+				await Console.Out.WriteLineAsync(await StyleGenerator.Generate(directory, Console.Out, generateStatistics).ConfigureAwait(false)).ConfigureAwait(false);
 			}
 			else
 			{
-				if (file is { } && file.Extension == ".cs")
+				if (file is not null && file.Extension == ".cs")
 				{
-					Console.Out.WriteLine(StyleGenerator.GenerateFromDocument(file, Console.Out, generateStatistics));
+					await Console.Out.WriteLineAsync(StyleGenerator.GenerateFromDocument(file, Console.Out, generateStatistics)).ConfigureAwait(false);
 				}
 				else
 				{
-					Console.Out.WriteLine("Usage: {fileName}, where the extension is .sln, .csproj, or .cs");
+					await Console.Out.WriteLineAsync("Usage: {fileName}, where the extension is .sln, .csproj, or .cs").ConfigureAwait(false);
 				}
 			}
 		}

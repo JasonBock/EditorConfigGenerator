@@ -1,7 +1,6 @@
-﻿namespace EditorConfigGenerator.Core.Statistics
+﻿namespace EditorConfigGenerator.Core.Statistics;
+
+public enum AccessibilityModifierDataOccurence
 {
-	public enum AccessibilityModifierDataOccurence
-	{
-		NotProvided, ProvidedDefault, ProvidedNotDefault
-	}
+	NotProvided, ProvidedDefault, ProvidedNotDefault
 }

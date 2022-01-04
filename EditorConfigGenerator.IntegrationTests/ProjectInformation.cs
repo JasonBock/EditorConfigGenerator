@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EditorConfigGenerator.IntegrationTests
+﻿namespace EditorConfigGenerator.IntegrationTests
 {
 	internal sealed class ProjectInformation
 	{

@@ -3,11 +3,10 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using NUnit.Framework;
-using System;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
-	[TestFixture]
+   [TestFixture]
 	public static class ModelNodeInformationTests
 	{
 		private static readonly CompilationUnitSyntax unit = SyntaxFactory.ParseCompilationUnit("public class F { }", options: Shared.ParseOptions);

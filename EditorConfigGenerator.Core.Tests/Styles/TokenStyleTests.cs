@@ -1,12 +1,10 @@
 ﻿using EditorConfigGenerator.Core.Statistics;
 using EditorConfigGenerator.Core.Styles;
-using Microsoft.CodeAnalysis;
 using NUnit.Framework;
-using System;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
-	[TestFixture]
+   [TestFixture]
 	public static class TokenStyleTests
 	{
 		[Test]

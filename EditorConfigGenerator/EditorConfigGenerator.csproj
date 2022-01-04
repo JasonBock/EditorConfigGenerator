@@ -1,29 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Authors>Jason Bock</Authors>
-    <Copyright>Copyright © 2019</Copyright>
-    <Description>Generates a .editorconfig file based on existing C# code.</Description>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <OutputType>Exe</OutputType>
-    <PackageLicenseUrl>https://github.com/JasonBock/EditorConfigGenerator/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/JasonBock/EditorConfigGenerator</PackageProjectUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageVersion>1.0.1</PackageVersion>
-    <PackAsTool>true</PackAsTool>
-    <RepositoryUrl>https://github.com/JasonBock/EditorConfigGenerator</RepositoryUrl>
-    <StartupObject>EditorConfigGenerator.Program</StartupObject>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Version>1.0.1</Version>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Remove="*.nupkg" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.CommandLine.DragonFruit" Version="0.3.0-alpha.19577.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EditorConfigGenerator.Core\EditorConfigGenerator.Core.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<Description>Generates a .editorconfig file based on existing C# code.</Description>
+		<OutputType>Exe</OutputType>
+		<PackageLicenseUrl>https://github.com/JasonBock/EditorConfigGenerator/blob/master/LICENSE</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/JasonBock/EditorConfigGenerator</PackageProjectUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageVersion>2.0.0</PackageVersion>
+		<PackAsTool>true</PackAsTool>
+		<RepositoryUrl>https://github.com/JasonBock/EditorConfigGenerator</RepositoryUrl>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="*.nupkg" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.CommandLine.DragonFruit" Version="0.3.0-alpha.19577.1" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\EditorConfigGenerator.Core\EditorConfigGenerator.Core.csproj" />
+	</ItemGroup>
 </Project>

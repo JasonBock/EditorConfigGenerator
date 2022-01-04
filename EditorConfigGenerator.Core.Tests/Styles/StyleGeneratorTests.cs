@@ -1,11 +1,9 @@
 ﻿using EditorConfigGenerator.Core.Styles;
 using NUnit.Framework;
-using System;
-using System.IO;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
-	[TestFixture]
+   [TestFixture]
 	public static class StyleGeneratorTests
 	{
 		[Test]

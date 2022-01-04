@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel;
 
-namespace EditorConfigGenerator.Core
+namespace EditorConfigGenerator.Core;
+
+public enum Severity
 {
-	public enum Severity
-	{
-		[Description("none")]
-		None,
-		[Description("suggestion")]
-		Suggestion,
-		[Description("warning")]
-		Warning,
-		[Description("error")]
-		Error
-	}
+	[Description("none")]
+	None,
+	[Description("suggestion")]
+	Suggestion,
+	[Description("warning")]
+	Warning,
+	[Description("error")]
+	Error
 }

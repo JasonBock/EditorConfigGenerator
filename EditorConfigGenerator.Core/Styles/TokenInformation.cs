@@ -1,15 +1,22 @@
 ﻿using Microsoft.CodeAnalysis;
 
-namespace EditorConfigGenerator.Core.Styles
+namespace EditorConfigGenerator.Core.Styles;
+
+public class TokenInformation
 {
-	public class TokenInformation
+	public TokenInformation(SyntaxToken token) => this.Token = token;
+
+	public static implicit operator TokenInformation(SyntaxToken token) => new TokenInformation(token);
+
+	public static explicit operator SyntaxToken(TokenInformation information)
 	{
-		public TokenInformation(SyntaxToken token) => this.Token = token;
+		if (information is null)
+		{
+			throw new ArgumentNullException(nameof(information));
+		}
 
-		public static implicit operator TokenInformation(SyntaxToken token) => new TokenInformation(token);
-
-		public static explicit operator SyntaxToken(TokenInformation information) => information.Token;
-
-		public SyntaxToken Token { get; }
+		return information.Token;
 	}
+
+	public SyntaxToken Token { get; }
 }

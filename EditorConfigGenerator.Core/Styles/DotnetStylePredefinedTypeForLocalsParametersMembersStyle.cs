@@ -2,70 +2,67 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 using static EditorConfigGenerator.Core.Extensions.SpecialNameExtensions;
 
-namespace EditorConfigGenerator.Core.Styles
+namespace EditorConfigGenerator.Core.Styles;
+
+public sealed class DotnetStylePredefinedTypeForLocalsParametersMembersStyle
+	: ModelSeverityNodeStyle<BooleanData, SyntaxNode, ModelNodeInformation<SyntaxNode>, DotnetStylePredefinedTypeForLocalsParametersMembersStyle>
 {
-	public sealed class DotnetStylePredefinedTypeForLocalsParametersMembersStyle
-		: ModelSeverityNodeStyle<BooleanData, SyntaxNode, ModelNodeInformation<SyntaxNode>, DotnetStylePredefinedTypeForLocalsParametersMembersStyle>
+	public const string Setting = "dotnet_style_predefined_type_for_locals_parameters_members";
+
+	public DotnetStylePredefinedTypeForLocalsParametersMembersStyle(BooleanData data, Severity severity = Severity.Error)
+		: base(data, severity) { }
+
+	public override DotnetStylePredefinedTypeForLocalsParametersMembersStyle Add(DotnetStylePredefinedTypeForLocalsParametersMembersStyle style)
 	{
-		public const string Setting = "dotnet_style_predefined_type_for_locals_parameters_members";
+		if (style is null) { throw new ArgumentNullException(nameof(style)); }
+		return new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(this.Data.Add(style.Data), this.Severity);
+	}
 
-		public DotnetStylePredefinedTypeForLocalsParametersMembersStyle(BooleanData data, Severity severity = Severity.Error)
-			: base(data, severity) { }
-
-		public override DotnetStylePredefinedTypeForLocalsParametersMembersStyle Add(DotnetStylePredefinedTypeForLocalsParametersMembersStyle style)
+	public override string GetSetting()
+	{
+		if (this.Data.TotalOccurences > 0)
 		{
-			if (style is null) { throw new ArgumentNullException(nameof(style)); }
-			return new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(this.Data.Add(style.Data), this.Severity);
+			var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
+			return $"{DotnetStylePredefinedTypeForLocalsParametersMembersStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 		}
-
-		public override string GetSetting()
+		else
 		{
-			if (this.Data.TotalOccurences > 0)
-			{
-				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"{DotnetStylePredefinedTypeForLocalsParametersMembersStyle.Setting} = {value}:{this.Severity.GetDescription()}";
-			}
-			else
-			{
-				return string.Empty;
-			}
+			return string.Empty;
 		}
+	}
 
-		public override DotnetStylePredefinedTypeForLocalsParametersMembersStyle Update(ModelNodeInformation<SyntaxNode> information)
+	public override DotnetStylePredefinedTypeForLocalsParametersMembersStyle Update(ModelNodeInformation<SyntaxNode> information)
+	{
+		var (node, model) = information ?? throw new ArgumentNullException(nameof(information));
+
+		if (!node.ContainsDiagnostics)
 		{
-			var (node, model) = information ?? throw new ArgumentNullException(nameof(information));
-
-			if (!node.ContainsDiagnostics)
+			if (node is ParameterSyntax || node is LocalDeclarationStatementSyntax ||
+				node is FieldDeclarationSyntax || node is PropertyDeclarationSyntax)
 			{
-				if (node is ParameterSyntax || node is LocalDeclarationStatementSyntax ||
-					node is FieldDeclarationSyntax || node is PropertyDeclarationSyntax)
+				if (node.DescendantNodes().Any(_ => _.Kind() == SyntaxKind.PredefinedType))
 				{
-					if (node.DescendantNodes().Any(_ => _.Kind() == SyntaxKind.PredefinedType))
+					return new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(
+						this.Data.Update(true), this.Severity);
+				}
+				else
+				{
+					if (node.DescendantNodes().FirstOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName) is IdentifierNameSyntax identifierNode)
 					{
-						return new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(
-							this.Data.Update(true), this.Severity);
-					}
-					else
-					{
-						if (node.DescendantNodes().FirstOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName) is IdentifierNameSyntax identifierNode)
+						if (model.GetSymbolInfo(identifierNode).Symbol is ITypeSymbol identifierType &&
+							identifierType.SpecialType.IsPredefinedType())
 						{
-							if (model.GetSymbolInfo(identifierNode).Symbol is ITypeSymbol identifierType && 
-								identifierType.SpecialType.IsPredefinedType())
-							{
-								return new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(
-									this.Data.Update(false), this.Severity);
-							}
+							return new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(
+								this.Data.Update(false), this.Severity);
 						}
 					}
 				}
 			}
-
-			return new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(this.Data, this.Severity);
 		}
+
+		return new DotnetStylePredefinedTypeForLocalsParametersMembersStyle(this.Data, this.Severity);
 	}
 }

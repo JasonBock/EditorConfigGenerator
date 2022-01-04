@@ -2,66 +2,63 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 using static EditorConfigGenerator.Core.Extensions.SpecialNameExtensions;
 
-namespace EditorConfigGenerator.Core.Styles
+namespace EditorConfigGenerator.Core.Styles;
+
+public sealed class DotnetStylePredefinedTypeForMemberAccessStyle
+	: ModelSeverityNodeStyle<BooleanData, MemberAccessExpressionSyntax, ModelNodeInformation<MemberAccessExpressionSyntax>, DotnetStylePredefinedTypeForMemberAccessStyle>
 {
-	public sealed class DotnetStylePredefinedTypeForMemberAccessStyle
-		: ModelSeverityNodeStyle<BooleanData, MemberAccessExpressionSyntax, ModelNodeInformation<MemberAccessExpressionSyntax>, DotnetStylePredefinedTypeForMemberAccessStyle>
+	public const string Setting = "dotnet_style_predefined_type_for_member_access";
+
+	public DotnetStylePredefinedTypeForMemberAccessStyle(BooleanData data, Severity severity = Severity.Error)
+		: base(data, severity) { }
+
+	public override DotnetStylePredefinedTypeForMemberAccessStyle Add(DotnetStylePredefinedTypeForMemberAccessStyle style)
 	{
-		public const string Setting = "dotnet_style_predefined_type_for_member_access";
+		if (style is null) { throw new ArgumentNullException(nameof(style)); }
+		return new DotnetStylePredefinedTypeForMemberAccessStyle(this.Data.Add(style.Data), this.Severity);
+	}
 
-		public DotnetStylePredefinedTypeForMemberAccessStyle(BooleanData data, Severity severity = Severity.Error)
-			: base(data, severity) { }
-
-		public override DotnetStylePredefinedTypeForMemberAccessStyle Add(DotnetStylePredefinedTypeForMemberAccessStyle style)
+	public override string GetSetting()
+	{
+		if (this.Data.TotalOccurences > 0)
 		{
-			if (style is null) { throw new ArgumentNullException(nameof(style)); }
-			return new DotnetStylePredefinedTypeForMemberAccessStyle(this.Data.Add(style.Data), this.Severity);
+			var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
+			return $"{DotnetStylePredefinedTypeForMemberAccessStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 		}
-
-		public override string GetSetting()
+		else
 		{
-			if (this.Data.TotalOccurences > 0)
+			return string.Empty;
+		}
+	}
+
+	public override DotnetStylePredefinedTypeForMemberAccessStyle Update(ModelNodeInformation<MemberAccessExpressionSyntax> information)
+	{
+		var (node, model) = information ?? throw new ArgumentNullException(nameof(information));
+
+		if (!node.ContainsDiagnostics)
+		{
+			if (node.DescendantNodes().Any(_ => _.Kind() == SyntaxKind.PredefinedType))
 			{
-				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"{DotnetStylePredefinedTypeForMemberAccessStyle.Setting} = {value}:{this.Severity.GetDescription()}";
+				return new DotnetStylePredefinedTypeForMemberAccessStyle(
+					this.Data.Update(true), this.Severity);
 			}
 			else
 			{
-				return string.Empty;
-			}
-		}
-
-		public override DotnetStylePredefinedTypeForMemberAccessStyle Update(ModelNodeInformation<MemberAccessExpressionSyntax> information)
-		{
-			var (node, model) = information ?? throw new ArgumentNullException(nameof(information));
-
-			if (!node.ContainsDiagnostics)
-			{
-				if (node.DescendantNodes().Any(_ => _.Kind() == SyntaxKind.PredefinedType))
+				if (node.DescendantNodes().FirstOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName) is IdentifierNameSyntax identifierNode)
 				{
-					return new DotnetStylePredefinedTypeForMemberAccessStyle(
-						this.Data.Update(true), this.Severity);
-				}
-				else
-				{
-					if (node.DescendantNodes().FirstOrDefault(_ => _.Kind() == SyntaxKind.IdentifierName) is IdentifierNameSyntax identifierNode)
+					if (model.GetSymbolInfo(identifierNode).Symbol is ITypeSymbol identifierType &&
+						identifierType.SpecialType.IsPredefinedType())
 					{
-						if (model.GetSymbolInfo(identifierNode).Symbol is ITypeSymbol identifierType &&
-							identifierType.SpecialType.IsPredefinedType())
-						{
-							return new DotnetStylePredefinedTypeForMemberAccessStyle(
-								this.Data.Update(false), this.Severity);
-						}
+						return new DotnetStylePredefinedTypeForMemberAccessStyle(
+							this.Data.Update(false), this.Severity);
 					}
 				}
 			}
-
-			return new DotnetStylePredefinedTypeForMemberAccessStyle(this.Data, this.Severity);
 		}
+
+		return new DotnetStylePredefinedTypeForMemberAccessStyle(this.Data, this.Severity);
 	}
 }

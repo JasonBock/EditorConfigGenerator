@@ -2,12 +2,11 @@
 using EditorConfigGenerator.Core.Styles;
 using Microsoft.CodeAnalysis.CSharp;
 using NUnit.Framework;
-using System;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 
 namespace EditorConfigGenerator.Core.Tests.Styles
 {
-	[TestFixture]
+   [TestFixture]
 	public static class DotnetSortSystemDirectivesFirstStyleTests
 	{
 		[Test]

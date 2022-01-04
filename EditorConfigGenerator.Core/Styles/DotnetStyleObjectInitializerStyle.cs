@@ -2,93 +2,90 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Linq;
 using static EditorConfigGenerator.Core.Extensions.EnumExtensions;
 using static EditorConfigGenerator.Core.Extensions.SyntaxNodeExtensions;
 
-namespace EditorConfigGenerator.Core.Styles
+namespace EditorConfigGenerator.Core.Styles;
+
+public sealed class DotnetStyleObjectInitializerStyle
+	: ModelSeverityNodeStyle<BooleanData, ObjectCreationExpressionSyntax, ModelNodeInformation<ObjectCreationExpressionSyntax>, DotnetStyleObjectInitializerStyle>
 {
-	public sealed class DotnetStyleObjectInitializerStyle
-		: ModelSeverityNodeStyle<BooleanData, ObjectCreationExpressionSyntax, ModelNodeInformation<ObjectCreationExpressionSyntax>, DotnetStyleObjectInitializerStyle>
+	public const string Setting = "dotnet_style_object_initializer";
+
+	public DotnetStyleObjectInitializerStyle(BooleanData data, Severity severity = Severity.Error)
+		: base(data, severity) { }
+
+	public override DotnetStyleObjectInitializerStyle Add(DotnetStyleObjectInitializerStyle style)
 	{
-		public const string Setting = "dotnet_style_object_initializer";
+		if (style is null) { throw new ArgumentNullException(nameof(style)); }
+		return new DotnetStyleObjectInitializerStyle(this.Data.Add(style.Data), this.Severity);
+	}
 
-		public DotnetStyleObjectInitializerStyle(BooleanData data, Severity severity = Severity.Error)
-			: base(data, severity) { }
-
-		public override DotnetStyleObjectInitializerStyle Add(DotnetStyleObjectInitializerStyle style)
+	public override string GetSetting()
+	{
+		if (this.Data.TotalOccurences > 0)
 		{
-			if (style is null) { throw new ArgumentNullException(nameof(style)); }
-			return new DotnetStyleObjectInitializerStyle(this.Data.Add(style.Data), this.Severity);
+			var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
+			return $"{DotnetStyleObjectInitializerStyle.Setting} = {value}:{this.Severity.GetDescription()}";
 		}
-
-		public override string GetSetting()
+		else
 		{
-			if (this.Data.TotalOccurences > 0)
+			return string.Empty;
+		}
+	}
+
+	public override DotnetStyleObjectInitializerStyle Update(ModelNodeInformation<ObjectCreationExpressionSyntax> information)
+	{
+		var (node, model) = information ?? throw new ArgumentNullException(nameof(information));
+
+		if (!node.ContainsDiagnostics)
+		{
+			if (node.ChildNodes().Any(_ => _.IsKind(SyntaxKind.ObjectInitializerExpression)))
 			{
-				var value = this.Data.TrueOccurences >= this.Data.FalseOccurences ? "true" : "false";
-				return $"{DotnetStyleObjectInitializerStyle.Setting} = {value}:{this.Severity.GetDescription()}";
+				return new DotnetStyleObjectInitializerStyle(this.Data.Update(true), this.Severity);
 			}
 			else
 			{
-				return string.Empty;
-			}
-		}
+				var assignment = node.FindParent<VariableDeclaratorSyntax>() ??
+					node.FindParent<AssignmentExpressionSyntax>()?.ChildNodes()
+						.FirstOrDefault(_ => _.IsKind(SyntaxKind.SimpleMemberAccessExpression));
 
-		public override DotnetStyleObjectInitializerStyle Update(ModelNodeInformation<ObjectCreationExpressionSyntax> information)
-		{
-			var (node, model) = information ?? throw new ArgumentNullException(nameof(information));
-
-			if (!node.ContainsDiagnostics)
-			{
-				if (node.ChildNodes().Any(_ => _.IsKind(SyntaxKind.ObjectInitializerExpression)))
+				if (assignment is not null)
 				{
-					return new DotnetStyleObjectInitializerStyle(this.Data.Update(true), this.Severity);
-				}
-				else
-				{
-					var assignment = node.FindParent<VariableDeclaratorSyntax>() ??
-						node.FindParent<AssignmentExpressionSyntax>()?.ChildNodes()
-							.FirstOrDefault(_ => _.IsKind(SyntaxKind.SimpleMemberAccessExpression));
+					var assignmentSymbol = model.GetDeclaredSymbol(assignment);
 
-					if (assignment is { })
+					if (assignmentSymbol is not null)
 					{
-						var assignmentSymbol = model.GetDeclaredSymbol(assignment);
+						var statement = assignment.FindParent<StatementSyntax>();
 
-						if (assignmentSymbol is { })
+						if (statement is not null)
 						{
-							var statement = assignment.FindParent<StatementSyntax>();
+							var parentStatement = statement.Parent;
 
-							if (statement is { })
+							if (parentStatement is not null)
 							{
-								var parentStatement = statement.Parent;
+								var siblings = parentStatement.ChildNodes().ToArray();
 
-								if (parentStatement is { })
+								if (siblings.Length > 1)
 								{
-									var siblings = parentStatement.ChildNodes().ToArray();
+									var statementIndex = Array.IndexOf(siblings, statement);
 
-									if (siblings.Length > 1)
+									if (statementIndex < siblings.Length - 1)
 									{
-										var statementIndex = Array.IndexOf(siblings, statement);
+										var nextNode = siblings[statementIndex + 1];
 
-										if (statementIndex < siblings.Length - 1)
+										if (nextNode is ExpressionStatementSyntax &&
+											nextNode.ChildNodes().Any(_ => _.IsKind(SyntaxKind.SimpleAssignmentExpression)))
 										{
-											var nextNode = siblings[statementIndex + 1];
+											var name = nextNode.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName));
 
-											if (nextNode is ExpressionStatementSyntax &&
-												nextNode.ChildNodes().Any(_ => _.IsKind(SyntaxKind.SimpleAssignmentExpression)))
+											if (name is not null)
 											{
-												var name = nextNode.DescendantNodes().FirstOrDefault(_ => _.IsKind(SyntaxKind.IdentifierName));
+												var isSameSymbol = object.ReferenceEquals(model.GetSymbolInfo(name).Symbol, assignmentSymbol);
 
-												if (name is { })
+												if (isSameSymbol)
 												{
-													var isSameSymbol = object.ReferenceEquals(model.GetSymbolInfo(name).Symbol, assignmentSymbol);
-
-													if (isSameSymbol)
-													{
-														return new DotnetStyleObjectInitializerStyle(this.Data.Update(false), this.Severity);
-													}
+													return new DotnetStyleObjectInitializerStyle(this.Data.Update(false), this.Severity);
 												}
 											}
 										}
@@ -98,11 +95,11 @@ namespace EditorConfigGenerator.Core.Styles
 						}
 					}
 				}
-
-				return new DotnetStyleObjectInitializerStyle(this.Data, this.Severity);
 			}
 
 			return new DotnetStyleObjectInitializerStyle(this.Data, this.Severity);
 		}
+
+		return new DotnetStyleObjectInitializerStyle(this.Data, this.Severity);
 	}
 }
