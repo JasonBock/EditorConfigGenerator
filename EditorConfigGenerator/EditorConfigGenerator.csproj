@@ -8,13 +8,12 @@
 		<PackageVersion>2.0.0</PackageVersion>
 		<PackAsTool>true</PackAsTool>
 		<RepositoryUrl>https://github.com/JasonBock/EditorConfigGenerator</RepositoryUrl>
-		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="*.nupkg" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="System.CommandLine.DragonFruit" Version="0.3.0-alpha.19577.1" />
+		<PackageReference Include="System.CommandLine.DragonFruit" Version="0.4.0-alpha.21617.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\EditorConfigGenerator.Core\EditorConfigGenerator.Core.csproj" />
