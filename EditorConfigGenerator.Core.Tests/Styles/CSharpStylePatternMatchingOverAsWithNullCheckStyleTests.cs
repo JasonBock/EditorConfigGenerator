@@ -163,10 +163,6 @@ public static class CSharpStylePatternMatchingOverAsWithNullCheckStyleTests
 	}
 
 	[Test]
-	[Ignore("See comment")]
-	// TODO: The compiler used to have a diagnostic associated with the syntax node,
-	// and it would find the node type. Now it doesn't work. I have to find a new way
-	// to have the node type parse correctly AND have a diagnostic associated with it.
 	public static void UpdateWithDiagnostics()
 	{
 		var style = new CSharpStylePatternMatchingOverAsWithNullCheckStyle(new BooleanData(default, default, default));
@@ -176,7 +172,7 @@ public static class CSharpStylePatternMatchingOverAsWithNullCheckStyleTests
 {
 	public void Bar(object o)
 	{
-		if (o is =>string s) { }
+		if (o is is string s) { }
 	}
 }", options: Shared.ParseOptions);
 		var (node, model) = CSharpStylePatternMatchingOverAsWithNullCheckStyleTests.GetInformation<IsPatternExpressionSyntax>(unit);

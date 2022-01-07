@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<Description>Generates a .editorconfig file based on existing C# code.</Description>
 		<OutputType>Exe</OutputType>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageLicenseUrl>https://github.com/JasonBock/EditorConfigGenerator/blob/master/LICENSE</PackageLicenseUrl>
 		<PackageProjectUrl>https://github.com/JasonBock/EditorConfigGenerator</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -11,6 +12,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="*.nupkg" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\LICENSE" Pack="true" PackagePath="" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="System.CommandLine.DragonFruit" Version="0.4.0-alpha.21617.1" />
